@@ -1,0 +1,152 @@
+.app-container {
+  padding: 24px 32px 64px;
+  text-align: left;
+}
+
+.app-header h1 {
+  font-size: 32px;
+  margin: 0 0 8px;
+}
+
+.app-subtitle {
+  color: var(--text);
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+
+.controls-panel {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.controls-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.controls-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--text);
+  width: 100%;
+}
+
+.pace-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pace-btn {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-h);
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.pace-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.seed-input {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 14px;
+  width: 240px;
+  max-width: 100%;
+  background: var(--bg);
+  color: var(--text-h);
+}
+
+.run-btn {
+  border: none;
+  background: var(--accent);
+  color: white;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.run-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.elapsed-text {
+  font-size: 14px;
+  color: var(--text);
+}
+
+.empty-hint {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.results-table th,
+.results-table td {
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.results-table th:nth-child(2),
+.results-table td:nth-child(2) {
+  text-align: left;
+}
+
+.results-table thead th {
+  background: var(--code-bg);
+  color: var(--text-h);
+  text-align: center;
+}
+
+.sortable-header {
+  cursor: pointer;
+  user-select: none;
+}
+
+.odds-input {
+  width: 70px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 6px;
+  text-align: right;
+  background: var(--bg);
+  color: var(--text-h);
+}
+
+.ev-positive {
+  background: var(--accent-bg);
+}
+
+.ev-cell {
+  font-weight: 600;
+}
