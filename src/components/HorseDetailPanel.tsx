@@ -4,6 +4,24 @@ import { formatRaceTimeSeconds } from "../ability/raceTimeScore";
 
 const RACE_LABELS = ["前走", "2走前", "3走前", "4走前", "5走前"];
 
+/**
+ * このレースのraceScoreに、fallback／仮baseline由来の暫定値が
+ * 1項目でも含まれているかどうか。完全実データと誤認しないための表示用フラグ。
+ */
+function hasProvisionalScore(race: {
+  memberLevelBreakdown: unknown;
+  raceTimeBreakdown: unknown;
+  final3FBreakdown: { courseBaselineSeconds: number | null };
+  weightBreakdown: { isReliable: boolean };
+}): boolean {
+  return (
+    race.memberLevelBreakdown === null ||
+    race.raceTimeBreakdown === null ||
+    race.final3FBreakdown.courseBaselineSeconds === null ||
+    !race.weightBreakdown.isReliable
+  );
+}
+
 interface Props {
   horseId: string | null;
   onClose: () => void;
@@ -48,17 +66,27 @@ export function HorseDetailPanel({ horseId, onClose }: Props) {
                     onClick={() => setExpandedIndex(isOpen ? null : idx)}
                   >
                     <span className="race-label">{RACE_LABELS[idx] ?? `${idx + 1}走前`}</span>
-                    <span className="race-name">{race.raceName}</span>
+                    <span className="race-name">
+                      {race.raceName}
+                      {hasProvisionalScore(race) && (
+                        <span className="provisional-badge" title="内訳の一部にfallback／仮baseline由来の暫定値を含む">
+                          暫定含む
+                        </span>
+                      )}
+                    </span>
                     <span className="race-score">{race.raceScore.toFixed(1)}</span>
                     <span className="expand-caret">{isOpen ? "▲" : "▼"}</span>
                   </button>
                   {isOpen && (
                     <div className="race-breakdown">
                       <div className="breakdown-row">
-                        <span>実質メンバーレベル</span>
+                        <span>
+                          実質メンバーレベル
+                          {!race.memberLevelBreakdown && <span className="provisional-tag">【暫定】</span>}
+                        </span>
                         <span>{race.memberLevelScoreAtRace.toFixed(1)}</span>
                       </div>
-                      {race.memberLevelBreakdown && (
+                      {race.memberLevelBreakdown ? (
                         <div className="member-level-sub-breakdown">
                           <div className="breakdown-row sub-row">
                             <span>上位3頭平均</span>
@@ -77,16 +105,29 @@ export function HorseDetailPanel({ horseId, onClose }: Props) {
                             <span>{race.memberLevelBreakdown.depthScore.toFixed(1)}</span>
                           </div>
                         </div>
+                      ) : (
+                        <div className="member-level-sub-breakdown">
+                          <div className="breakdown-row sub-row">
+                            <span>
+                              【暫定】参照可能な出走馬のabilityBeforeRace（過去走データ）が無いため、
+                              中立値にフォールバック
+                            </span>
+                            <span></span>
+                          </div>
+                        </div>
                       )}
                       <div className="breakdown-row">
                         <span>タイム差</span>
                         <span>{race.timeGapScore.toFixed(1)}</span>
                       </div>
                       <div className="breakdown-row">
-                        <span>走破タイム</span>
+                        <span>
+                          走破タイム
+                          {!race.raceTimeBreakdown && <span className="provisional-tag">【暫定】</span>}
+                        </span>
                         <span>{race.raceTimeScore.toFixed(1)}</span>
                       </div>
-                      {race.raceTimeBreakdown && (
+                      {race.raceTimeBreakdown ? (
                         <div className="member-level-sub-breakdown">
                           <div className="breakdown-row sub-row">
                             <span>5年基準タイム</span>
@@ -121,9 +162,21 @@ export function HorseDetailPanel({ horseId, onClose }: Props) {
                             </span>
                           </div>
                         </div>
+                      ) : (
+                        <div className="member-level-sub-breakdown">
+                          <div className="breakdown-row sub-row">
+                            <span>【暫定】この条件（競馬場×surface×距離×馬場状態）の5年基準タイムが無いため、中立値(70点)にフォールバック</span>
+                            <span></span>
+                          </div>
+                        </div>
                       )}
                       <div className="breakdown-row">
-                        <span>上がり3F</span>
+                        <span>
+                          上がり3F
+                          {race.final3FBreakdown.courseBaselineSeconds === null && (
+                            <span className="provisional-tag">【暫定】</span>
+                          )}
+                        </span>
                         <span>{race.final3FScore.toFixed(1)}</span>
                       </div>
                       <div className="member-level-sub-breakdown">
@@ -170,13 +223,16 @@ export function HorseDetailPanel({ horseId, onClose }: Props) {
                           </>
                         ) : (
                           <div className="breakdown-row sub-row">
-                            <span>5年基準データなし（レース内相対評価100%で算出）</span>
+                            <span>【暫定】5年基準データなし（レース内相対評価100%で算出）</span>
                             <span></span>
                           </div>
                         )}
                       </div>
                       <div className="breakdown-row">
-                        <span>斤量補正</span>
+                        <span>
+                          斤量補正
+                          {!race.weightBreakdown.isReliable && <span className="provisional-tag">【暫定】</span>}
+                        </span>
                         <span>{race.weightScore.toFixed(1)}</span>
                       </div>
                       <div className="member-level-sub-breakdown">

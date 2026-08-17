@@ -7,10 +7,10 @@
     "surface": "turf",
     "distance": 2200,
     "going": "重",
-    "finishPosition": 14,
-    "timeGap": 2.8,
-    "raceTime": 134.9,
-    "final3F": 36.9,
+    "finishPosition": 13,
+    "timeGap": 2.7,
+    "raceTime": 134.8,
+    "final3F": 36.3,
     "carriedWeight": 58
   }
 ]

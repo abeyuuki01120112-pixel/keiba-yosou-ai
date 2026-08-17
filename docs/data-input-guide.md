@@ -171,6 +171,15 @@ npm test
 `import:csv` は対象horseIdのファイルを**まるごと置き換える**（自動マージはしない）。
 既存の過去走を残したまま追加したい場合は、CSVに既存分の行も含めてから実行すること。
 
+### horseIdの差し替え（外部IDと内部ロスターの接続）
+
+JRA公式IDなど、実データのCSVは既存ロスター（`sapporoKinen.json`）の内部horseId
+（例: `"shakeyourheart"`）とは異なるIDを使っていることが多い。`npm run import:csv`は
+`src/simulation/data/sapporoKinen.json`の馬名リストを自動的に読み込み、CSV行の
+`horseName`が一致すればロスター側の内部horseIdへ差し替えてから書き込む
+（`buildImportResult()`の`horseIdAliasesByName`オプション。予想ロジックには影響しない）。
+一致しない馬（ロスター外の馬）はCSVのhorseIdをそのまま使う。
+
 ### アプリ上での確認
 
 開発サーバー（`npm run dev`）の画面下部に「データ取り込み状況（サンプルCSV）」という

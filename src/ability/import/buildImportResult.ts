@@ -6,6 +6,11 @@
  * 欠損項目（finishPosition/carriedWeightKg/actualRaceTimeSeconds/final3FSeconds/
  * timeGapSecondsのいずれかがnull）がある行は、能力計算対象から安全に除外する
  * （0など勝手な値で埋めない）。
+ *
+ * 実データのCSVはJRA公式ID等、既存ロスターの内部horseId（例: "shakeyourheart"）とは
+ * 異なるIDを使っていることがある。horseIdAliasesByName を渡すと、馬名が一致した行だけ
+ * その内部horseIdへ差し替えてグルーピングする（予想ロジックには一切影響しない、
+ * 「どのファイルに書き込むか」だけを決める差し替え）。
  */
 
 import { parseCsv } from "./csvParser";
@@ -59,7 +64,12 @@ export function toRaceHistoryRawInput(input: RacePerformanceInput): RaceHistoryR
   };
 }
 
-export function buildImportResult(csvText: string): ImportResult {
+export interface BuildImportResultOptions {
+  /** 馬名 -> 内部horseId のマップ。一致した行はこのhorseIdでグルーピングする */
+  horseIdAliasesByName?: Record<string, string>;
+}
+
+export function buildImportResult(csvText: string, options: BuildImportResultOptions = {}): ImportResult {
   const rows = parseCsv(csvText);
 
   const errors: ImportError[] = [];
@@ -74,16 +84,19 @@ export function buildImportResult(csvText: string): ImportResult {
       return;
     }
 
-    const engineInput = toRaceHistoryRawInput(result.data);
+    const alias = options.horseIdAliasesByName?.[result.data.horseName];
+    const data = alias && alias !== result.data.horseId ? { ...result.data, horseId: alias } : result.data;
+
+    const engineInput = toRaceHistoryRawInput(data);
     if (engineInput === null) {
-      excluded.push(result.data);
+      excluded.push(data);
       return;
     }
 
-    usable.push(result.data);
-    const list = byHorseId[result.data.horseId] ?? [];
+    usable.push(data);
+    const list = byHorseId[data.horseId] ?? [];
     list.push(engineInput);
-    byHorseId[result.data.horseId] = list;
+    byHorseId[data.horseId] = list;
   });
 
   return {
