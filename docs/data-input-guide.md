@@ -116,7 +116,69 @@ npm run validate:data
 （`raceName`や`going`は短い日本語テキストである前提）。Excel等でカンマを含む
 レース名を扱う必要が出てきたら、その時に専用のCSVパーサ導入を検討してください。
 
-## 5. 将来のスクレイピング拡張への接続点
+## 5. 複数馬・複数レースをまとめて取り込む（推奨: normalize層経由）
+
+4章のCSVスクリプトは「1頭ぶん」「1つの基準テーブル」を個別に変換するものでした。
+実際のレース結果は「1レースに複数頭が出走する」形で得られることが多いため、
+**1つのCSVに複数レース・複数馬の行をまとめて**取り込める仕組みを別途用意しています。
+
+```
+src/ability/data/import/race-performances.csv   … 生データ（複数レース・複数馬をまとめて置ける）
+        │
+        ▼  parseCsv()
+raw row（すべて文字列）
+        │
+        ▼  normalizeRacePerformance()  ※ src/ability/import/normalize.ts
+検証済み RacePerformanceInput（raceId・horseIdで識別。欠損はnullを許容）
+        │
+        ▼  buildImportResult()  ※ src/ability/import/buildImportResult.ts
+horseIdごとにグルーピング。欠損（finishPosition等がnull）の行は
+能力計算対象から除外し、残りだけを RaceHistoryRawInput に変換
+        │
+        ▼
+raceHistoryPipeline.buildRaceHistory()（変更なし。既存のロジックをそのまま使う）
+```
+
+**必須列**: `raceId, horseId, horseName, raceDate, racecourse, raceName, surface, distance, going`
+（1つでも欠けている・形式が不正だとその行はエラー扱いになり、取り込まれない）。
+
+**任意列（欠損可）**: `finishPosition, carriedWeightKg, actualRaceTimeSeconds, final3FSeconds, timeGapSeconds`
+（競走中止・タイム不明などで空欄にしてよい。**空欄はnullとして扱われ、0として計算されることはない**。
+これらのうち1つでもnullだと、その行は能力計算の対象から安全に除外される）。
+
+**参考列（保持のみ、計算には使わない）**: `raceNumber, gate, horseNumber, fieldSize`
+
+サンプルとして、実際に使われている1レース分（東京特別戦、5頭）を
+`src/ability/data/import/race-performances.csv` に置いています。
+
+### 使い方
+
+```bash
+# 変換内容を確認するだけ（ファイルには書き込まない）
+npm run import:csv -- --dry-run
+
+# 別のCSVファイルを指定する場合
+npm run import:csv -- path/to/your.csv --dry-run
+
+# 実際に src/ability/data/horses/<horseId>.json へ書き込む
+npm run import:csv
+
+# 書き込み後は必ず確認する
+npm run validate:data
+npm test
+```
+
+`import:csv` は対象horseIdのファイルを**まるごと置き換える**（自動マージはしない）。
+既存の過去走を残したまま追加したい場合は、CSVに既存分の行も含めてから実行すること。
+
+### アプリ上での確認
+
+開発サーバー（`npm run dev`）の画面下部に「データ取り込み状況（サンプルCSV）」という
+折りたたみパネルがある。これは`src/ability/data/import/race-performances.csv`を
+同じnormalize層で処理した結果（読み込み件数・正常データ件数・除外データ件数・エラー件数）を
+その場で確認できる、V0としての最小限のフィードバックUIです（巨大な管理画面ではない）。
+
+## 6. 将来のスクレイピング拡張への接続点
 
 今回スクレイピング自体は実装していませんが、拡張しやすいように
 「CSVを共通の中間フォーマット」として設計しています。
@@ -130,16 +192,27 @@ npm run validate:data
   `RaceHistoryRawInput`（`src/ability/raceHistoryPipeline.ts`)の形の
   オブジェクト配列を作れるなら、`JSON.stringify`してそのまま
   `data/horses/<horseId>.json`に書き込んでも構わない。
+- 5章のnormalize層（`src/ability/import/`）は将来的にAPI経由やDB経由のデータ取得に
+  差し替わっても、「行データ（オブジェクト）を`normalizeRacePerformance()`に渡す」
+  というインターフェースだけ守れば流用できるように作ってある。
 
-## 6. 実装ファイル一覧
+## 7. 実装ファイル一覧
 
 | ファイル | 役割 |
 |---|---|
 | `scripts/validateAbilityData.mjs` | データ構造の検証（`npm run validate:data`） |
-| `scripts/csvToHorseRaces.mjs` | レース実績CSV → 馬別JSON |
+| `scripts/csvToHorseRaces.mjs` | 1頭ぶんのレース実績CSV → 馬別JSON |
 | `scripts/csvToBaselines.mjs` | 基準タイム／上がり3F CSV → JSON |
-| `scripts/lib/csv.mjs` | 簡易CSVパーサ（共通） |
-| `templates/*.csv` | 各CSVのひな形 |
-| `src/ability/data/horses/*.json` | 馬別のレース実績生データ |
+| `scripts/lib/csv.mjs` | 簡易CSVパーサ（CLIスクリプト用） |
+| `scripts/importRacePerformancesCsv.ts` | 複数馬・複数レースまとめてCSV → 馬別JSON（`npm run import:csv`） |
+| `templates/*.csv` | 4章のCSVスクリプト用ひな形 |
+| `src/ability/import/types.ts` | `RacePerformanceInput`・`ImportError`等の型定義 |
+| `src/ability/import/csvParser.ts` | 簡易CSVパーサ（アプリ本体・テスト用） |
+| `src/ability/import/normalize.ts` | raw row → 検証済みデータへの正規化（`normalizeRacePerformance()`） |
+| `src/ability/import/buildImportResult.ts` | CSV全体の取り込み・集計・ability計算用データへの変換 |
+| `src/ability/import/recentRaces.ts` | horseIdごとに直近N走を未来情報リーク無しで取得するユーティリティ |
+| `src/components/ImportStatusPanel.tsx` | 取り込み状況の確認パネル（アプリ画面下部） |
+| `src/ability/data/import/race-performances.csv` | 複数馬・複数レースまとめ取り込みのサンプル／雛形 |
+| `src/ability/data/horses/*.json` | 馬別のレース実績生データ（正規化後の内部形式） |
 | `src/ability/data/courseTimeBaselines.json` | 5年基準タイム |
 | `src/ability/data/courseFinal3FBaselines.json` | 5年上がり3F基準 |

@@ -319,3 +319,52 @@
   font-size: 12px;
   color: var(--text);
 }
+
+.import-status-panel {
+  margin-top: 24px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px 16px;
+}
+
+.import-status-toggle {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+  color: var(--text);
+  font-size: 13px;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.import-status-body {
+  padding-bottom: 14px;
+}
+
+.import-status-counts {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--text-h);
+  margin-bottom: 8px;
+}
+
+.import-status-error-count {
+  color: #c0392b;
+  font-weight: 600;
+}
+
+.import-status-error-list {
+  font-size: 12px;
+  color: var(--text);
+  margin: 0 0 8px;
+  padding-left: 18px;
+}
+
+.import-status-hint {
+  font-size: 12px;
+  color: var(--text);
+  margin: 0;
+}

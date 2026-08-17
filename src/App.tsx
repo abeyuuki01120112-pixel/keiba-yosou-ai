@@ -6,6 +6,7 @@ import type { Pace, SimulationHorseStats, SimulationTrialCount } from "./simulat
 import { ControlsPanel } from "./components/ControlsPanel";
 import { ResultsTable } from "./components/ResultsTable";
 import { HorseDetailPanel } from "./components/HorseDetailPanel";
+import { ImportStatusPanel } from "./components/ImportStatusPanel";
 
 const horses = loadDefaultHorses();
 
@@ -86,6 +87,8 @@ function App() {
         onOddsChange={handleOddsChange}
         onSelectHorse={setSelectedHorseId}
       />
+
+      <ImportStatusPanel />
     </div>
   );
 }

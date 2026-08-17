@@ -30,4 +30,5 @@ npm run build          # 型チェック + ビルド
 npm test                # テスト
 npm run lint            # oxlint
 npm run validate:data   # 能力スコア用データの構造チェック
+npm run import:csv      # CSV実データを src/ability/data/horses/ へ取り込む（--dry-run で確認のみ）
 ```
