@@ -35,6 +35,20 @@
       "raceMedianWeightKg": 58.0,
       "raceMedianFinal3FSeconds": 35.4,
       "source": "JRA公式 batch8_2026_osaka_hai_fullfield_verified.csv (n=15。2026大阪杯)"
+    },
+    {
+      "raceId": "JRA-20260328-NAKAYAMA-11",
+      "fieldCount": 15,
+      "raceMedianWeightKg": 57.0,
+      "raceMedianFinal3FSeconds": 36.7,
+      "source": "JRA公式 nikkei_sho_2026_full_field_verified.csv (n=15。2026日経賞)"
+    },
+    {
+      "raceId": "JRA-20251228-NAKAYAMA-11",
+      "fieldCount": 16,
+      "raceMedianWeightKg": 58.0,
+      "raceMedianFinal3FSeconds": 35.6,
+      "source": "JRA公式 arima_kinen_2025_full_field_verified.csv (n=16。2025有馬記念)"
     }
   ]
 }

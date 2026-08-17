@@ -12,5 +12,33 @@
     "raceTime": 132.6,
     "final3F": 36.1,
     "carriedWeight": 58
+  },
+  {
+    "raceId": "JRA-20260328-NAKAYAMA-11",
+    "raceName": "日経賞",
+    "raceDate": "2026-03-28",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 2500,
+    "going": "良",
+    "finishPosition": 7,
+    "timeGap": 1,
+    "raceTime": 151.7,
+    "final3F": 36.7,
+    "carriedWeight": 57
+  },
+  {
+    "raceId": "JRA-20251228-NAKAYAMA-11",
+    "raceName": "有馬記念",
+    "raceDate": "2025-12-28",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 2500,
+    "going": "良",
+    "finishPosition": 2,
+    "timeGap": 0.1,
+    "raceTime": 151.6,
+    "final3F": 35.5,
+    "carriedWeight": 58
   }
 ]
