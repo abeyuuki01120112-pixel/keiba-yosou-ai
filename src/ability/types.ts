@@ -13,6 +13,26 @@
 
 export type Surface = "turf" | "dirt";
 
+/**
+ * memberLevelScoreAtRace の算出内訳（V0: 上位3頭40% / 上位5頭30% / 全体20% / 層の厚さ10%）。
+ * レース単位の値であり、そのレースに出走した全馬で共通。
+ */
+export interface MemberLevelBreakdown {
+  top3Average: number;
+  top5Average: number;
+  fieldAverage: number;
+  depthScore: number;
+  /** 能力値が参照できた出走馬の頭数（未参照の馬は集計から除外） */
+  participantCount: number;
+}
+
+/**
+ * TODO（将来実装・今回のスコープ外）:
+ * レース格（G1/G2/G3/L/OPなど）。表示用の付随情報として保持してよいが、
+ * memberLevelScoreAtRace の計算には絶対に使わない（レース名や格による固定加点は禁止）。
+ */
+export type RaceGrade = "G1" | "G2" | "G3" | "L" | "OP" | "unknown";
+
 /** 1走分の実績データとスコア内訳 */
 export interface RacePerformance {
   raceId: string;
@@ -42,12 +62,24 @@ export interface RacePerformance {
   carriedWeight: number;
 
   /**
-   * 実質メンバーレベル（0〜100）。
-   * レース格（G1/G2/G3など）で固定しない。
-   * 将来的には出走馬全体の能力・上位馬の能力・高能力馬の頭数・
-   * その後の好走実績などから算出する。V0では仮入力値を保持するのみ。
+   * 実質メンバーレベル・当時評価（0〜100）。
+   * レース格（G1/G2/G3など）は一切使わず、そのレースに実際に出走していた
+   * 各馬の abilityBeforeRace（そのレースより前の過去走だけで計算した能力値）から
+   * calculateMemberLevel() で算出する。raceScoreの計算にはこの値を使う。
    */
-  memberLevelScore: number;
+  memberLevelScoreAtRace: number;
+  /**
+   * 実質メンバーレベル・事後再評価値（0〜100）。
+   * TODO（将来実装・今回のスコープ外）: レース後の出走馬の活躍
+   * （2着馬がG1勝利、5着馬が重賞好走 など）を踏まえて「実はハイレベル戦だった」と
+   * 再評価する機能。V0では常にnull・未使用。
+   */
+  retrospectiveMemberLevelScore: number | null;
+  /**
+   * memberLevelScoreAtRace の算出根拠（上位3頭平均・上位5頭平均・全体平均・層の厚さ）。
+   * 参照可能な能力値を持つ出走馬が1頭も無く算出不能だった場合はnull。
+   */
+  memberLevelBreakdown: MemberLevelBreakdown | null;
   /** タイム差スコア（0〜100）。calculateTimeGapScore() で距離補正込みに計算する */
   timeGapScore: number;
   /**

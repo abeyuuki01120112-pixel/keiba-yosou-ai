@@ -17,7 +17,7 @@ function makeRace(overrides: Partial<RacePerformanceInput> = {}): ReturnType<typ
     raceTime: 120,
     final3F: 34,
     carriedWeight: 56,
-    memberLevelScore: 80,
+    memberLevelScoreAtRace: 80,
     raceTimeScore: 80,
     final3FScore: 80,
     weightScore: 80,
@@ -32,7 +32,7 @@ describe("calculateBaseAbility", () => {
 
     // 前走(index 0)のみraceScoreが+10点になるよう変更
     const frontBoosted = [
-      makeRace({ memberLevelScore: 80 + 10 / 0.3 }),
+      makeRace({ memberLevelScoreAtRace: 80 + 10 / 0.3 }),
       makeRace(),
       makeRace(),
       makeRace(),
@@ -46,7 +46,7 @@ describe("calculateBaseAbility", () => {
       makeRace(),
       makeRace(),
       makeRace(),
-      makeRace({ memberLevelScore: 80 + 10 / 0.3 }),
+      makeRace({ memberLevelScoreAtRace: 80 + 10 / 0.3 }),
     ];
     const backBoostedAbility = calculateBaseAbility(backBoosted);
 
@@ -60,11 +60,11 @@ describe("calculateBaseAbility", () => {
 
   it("5走の平均とbaseAbilityが一致する", () => {
     const races = [
-      makeRace({ memberLevelScore: 90 }),
-      makeRace({ memberLevelScore: 85 }),
-      makeRace({ memberLevelScore: 70 }),
-      makeRace({ memberLevelScore: 60 }),
-      makeRace({ memberLevelScore: 75 }),
+      makeRace({ memberLevelScoreAtRace: 90 }),
+      makeRace({ memberLevelScoreAtRace: 85 }),
+      makeRace({ memberLevelScoreAtRace: 70 }),
+      makeRace({ memberLevelScoreAtRace: 60 }),
+      makeRace({ memberLevelScoreAtRace: 75 }),
     ];
     const expectedAverage = races.reduce((sum, r) => sum + r.raceScore, 0) / 5;
     expect(calculateBaseAbility(races)).toBeCloseTo(expectedAverage, 5);

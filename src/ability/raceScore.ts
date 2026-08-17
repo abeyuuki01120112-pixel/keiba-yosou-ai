@@ -20,17 +20,17 @@ export function roundToOneDecimal(value: number): number {
 }
 
 /**
- * 5項目のスコア（memberLevelScore, timeGapScore, raceTimeScore, final3FScore, weightScore）
+ * 5項目のスコア（memberLevelScoreAtRace, timeGapScore, raceTimeScore, final3FScore, weightScore）
  * から1走スコアを算出する。0〜100にclampし、小数第1位に丸める。
  */
 export function calculateRaceScore(
   performance: Pick<
     RacePerformance,
-    "memberLevelScore" | "timeGapScore" | "raceTimeScore" | "final3FScore" | "weightScore"
+    "memberLevelScoreAtRace" | "timeGapScore" | "raceTimeScore" | "final3FScore" | "weightScore"
   >,
 ): number {
   const raw =
-    performance.memberLevelScore * RACE_SCORE_WEIGHTS.memberLevel +
+    performance.memberLevelScoreAtRace * RACE_SCORE_WEIGHTS.memberLevel +
     performance.timeGapScore * RACE_SCORE_WEIGHTS.timeGap +
     performance.raceTimeScore * RACE_SCORE_WEIGHTS.raceTime +
     performance.final3FScore * RACE_SCORE_WEIGHTS.final3F +

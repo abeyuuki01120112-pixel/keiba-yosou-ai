@@ -22,7 +22,7 @@ describe("RACE_SCORE_WEIGHTS", () => {
 describe("calculateRaceScore", () => {
   it("5項目の加重平均で計算される", () => {
     const performance = {
-      memberLevelScore: 80,
+      memberLevelScoreAtRace: 80,
       timeGapScore: 70,
       raceTimeScore: 60,
       final3FScore: 90,
@@ -36,7 +36,7 @@ describe("calculateRaceScore", () => {
   it("全項目満点なら100になる", () => {
     expect(
       calculateRaceScore({
-        memberLevelScore: 100,
+        memberLevelScoreAtRace: 100,
         timeGapScore: 100,
         raceTimeScore: 100,
         final3FScore: 100,
@@ -48,7 +48,7 @@ describe("calculateRaceScore", () => {
   it("0〜100にclampされる", () => {
     expect(
       calculateRaceScore({
-        memberLevelScore: 200,
+        memberLevelScoreAtRace: 200,
         timeGapScore: 200,
         raceTimeScore: 200,
         final3FScore: 200,
@@ -57,7 +57,7 @@ describe("calculateRaceScore", () => {
     ).toBe(100);
     expect(
       calculateRaceScore({
-        memberLevelScore: -50,
+        memberLevelScoreAtRace: -50,
         timeGapScore: -50,
         raceTimeScore: -50,
         final3FScore: -50,
@@ -68,7 +68,7 @@ describe("calculateRaceScore", () => {
 
   it("小数第1位に丸められる", () => {
     const score = calculateRaceScore({
-      memberLevelScore: 81.234,
+      memberLevelScoreAtRace: 81.234,
       timeGapScore: 77.777,
       raceTimeScore: 63.001,
       final3FScore: 90.9,

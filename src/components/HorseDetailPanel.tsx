@@ -55,8 +55,28 @@ export function HorseDetailPanel({ horseId, onClose }: Props) {
                     <div className="race-breakdown">
                       <div className="breakdown-row">
                         <span>実質メンバーレベル</span>
-                        <span>{race.memberLevelScore.toFixed(1)}</span>
+                        <span>{race.memberLevelScoreAtRace.toFixed(1)}</span>
                       </div>
+                      {race.memberLevelBreakdown && (
+                        <div className="member-level-sub-breakdown">
+                          <div className="breakdown-row sub-row">
+                            <span>上位3頭平均</span>
+                            <span>{race.memberLevelBreakdown.top3Average.toFixed(1)}</span>
+                          </div>
+                          <div className="breakdown-row sub-row">
+                            <span>上位5頭平均</span>
+                            <span>{race.memberLevelBreakdown.top5Average.toFixed(1)}</span>
+                          </div>
+                          <div className="breakdown-row sub-row">
+                            <span>全体平均</span>
+                            <span>{race.memberLevelBreakdown.fieldAverage.toFixed(1)}</span>
+                          </div>
+                          <div className="breakdown-row sub-row">
+                            <span>層の厚さ</span>
+                            <span>{race.memberLevelBreakdown.depthScore.toFixed(1)}</span>
+                          </div>
+                        </div>
+                      )}
                       <div className="breakdown-row">
                         <span>タイム差</span>
                         <span>{race.timeGapScore.toFixed(1)}</span>

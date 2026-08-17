@@ -19,7 +19,7 @@ describe("loadHorseAbilityProfile", () => {
   it("各過去走の内訳（5項目＋1走スコア）を確認できる", () => {
     const profile = loadHorseAbilityProfile("roshampark");
     for (const race of profile!.recentRaces) {
-      expect(race.memberLevelScore).toBeGreaterThanOrEqual(0);
+      expect(race.memberLevelScoreAtRace).toBeGreaterThanOrEqual(0);
       expect(race.timeGapScore).toBeGreaterThanOrEqual(0);
       expect(race.raceTimeScore).toBeGreaterThanOrEqual(0);
       expect(race.final3FScore).toBeGreaterThanOrEqual(0);
