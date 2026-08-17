@@ -12,5 +12,61 @@
     "raceTime": 134.9,
     "final3F": 36.9,
     "carriedWeight": 58
+  },
+  {
+    "raceId": "JRA-20260315-CHUKYO-11",
+    "raceName": "金鯱賞",
+    "raceDate": "2026-03-15",
+    "racecourse": "中京",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "finishPosition": 1,
+    "timeGap": 0,
+    "raceTime": 118.1,
+    "final3F": 33.5,
+    "carriedWeight": 57
+  },
+  {
+    "raceId": "JRA-20260215-KYOTO-11",
+    "raceName": "京都記念",
+    "raceDate": "2026-02-15",
+    "racecourse": "京都",
+    "surface": "turf",
+    "distance": 2200,
+    "going": "良",
+    "finishPosition": 4,
+    "timeGap": 0.4,
+    "raceTime": 133.1,
+    "final3F": 33.7,
+    "carriedWeight": 57
+  },
+  {
+    "raceId": "JRA-20251213-CHUKYO-11",
+    "raceName": "中日新聞杯",
+    "raceDate": "2025-12-13",
+    "racecourse": "中京",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "finishPosition": 1,
+    "timeGap": 0,
+    "raceTime": 117.6,
+    "final3F": 33.2,
+    "carriedWeight": 56.5
+  },
+  {
+    "raceId": "JRA-20251115-KYOTO-10",
+    "raceName": "アンドロメダステークス",
+    "raceDate": "2025-11-15",
+    "racecourse": "京都",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "finishPosition": 2,
+    "timeGap": 0.1,
+    "raceTime": 119,
+    "final3F": 34.6,
+    "carriedWeight": 58
   }
 ]

@@ -245,11 +245,21 @@
       "racecourse": "阪神",
       "surface": "turf",
       "distance": 2200,
-      "going": "重",
+      "going": "稍重",
       "sampleYears": 1,
       "sampleCount": 1,
-      "source": "JRA確認済みサンプル(n=1;対象年:2022) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate",
-      "medianTimeSeconds": 133
+      "source": "JRA確認済みサンプル(n=1;対象年:2022) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [wet_confirmed_samplesより追加。2025-06-15宝塚記念稍重131.1は誤日付データと判明済みのため除外継続]",
+      "medianTimeSeconds": 135.7
+    },
+    {
+      "racecourse": "阪神",
+      "surface": "turf",
+      "distance": 2200,
+      "going": "重",
+      "sampleYears": 1,
+      "sampleCount": 2,
+      "source": "JRA確認済みサンプル(n=2;対象年:2022) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [wet_confirmed_samplesより3歳上2勝クラス135.0を追加。中央値133.0から134.0へ更新]",
+      "medianTimeSeconds": 134
     }
   ]
 }
