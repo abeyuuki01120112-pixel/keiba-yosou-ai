@@ -13,7 +13,6 @@
       "raceTime": 128.4,
       "final3F": 36.1,
       "carriedWeight": 55,
-      "final3FScore": 71,
       "weightScore": 63
     },
     {
@@ -29,7 +28,6 @@
       "raceTime": 125.9,
       "final3F": 35.2,
       "carriedWeight": 58,
-      "final3FScore": 82,
       "weightScore": 74
     },
     {
@@ -45,7 +43,6 @@
       "raceTime": 132.1,
       "final3F": 36.1,
       "carriedWeight": 55,
-      "final3FScore": 67,
       "weightScore": 72
     },
     {
@@ -61,7 +58,6 @@
       "raceTime": 127.4,
       "final3F": 33,
       "carriedWeight": 58,
-      "final3FScore": 81,
       "weightScore": 77
     },
     {
@@ -77,7 +73,6 @@
       "raceTime": 134.5,
       "final3F": 34.8,
       "carriedWeight": 57,
-      "final3FScore": 72,
       "weightScore": 67
     }
   ],
@@ -95,7 +90,6 @@
       "raceTime": 127.7,
       "final3F": 34.6,
       "carriedWeight": 56,
-      "final3FScore": 76,
       "weightScore": 72
     },
     {
@@ -111,7 +105,6 @@
       "raceTime": 128.7,
       "final3F": 33.1,
       "carriedWeight": 57,
-      "final3FScore": 78,
       "weightScore": 73
     },
     {
@@ -127,7 +120,6 @@
       "raceTime": 115.1,
       "final3F": 36,
       "carriedWeight": 58,
-      "final3FScore": 81,
       "weightScore": 67
     },
     {
@@ -143,7 +135,6 @@
       "raceTime": 110.1,
       "final3F": 36.3,
       "carriedWeight": 55,
-      "final3FScore": 74,
       "weightScore": 70
     },
     {
@@ -159,7 +150,6 @@
       "raceTime": 116.1,
       "final3F": 34.4,
       "carriedWeight": 58,
-      "final3FScore": 66,
       "weightScore": 80
     }
   ],
@@ -177,7 +167,6 @@
       "raceTime": 126.6,
       "final3F": 35,
       "carriedWeight": 57,
-      "final3FScore": 83,
       "weightScore": 70
     },
     {
@@ -193,7 +182,6 @@
       "raceTime": 116.5,
       "final3F": 35.7,
       "carriedWeight": 56,
-      "final3FScore": 80,
       "weightScore": 76
     },
     {
@@ -209,7 +197,6 @@
       "raceTime": 121.3,
       "final3F": 35.9,
       "carriedWeight": 57,
-      "final3FScore": 65,
       "weightScore": 60
     },
     {
@@ -225,7 +212,6 @@
       "raceTime": 108.6,
       "final3F": 35.6,
       "carriedWeight": 56,
-      "final3FScore": 71,
       "weightScore": 69
     },
     {
@@ -241,7 +227,6 @@
       "raceTime": 114.9,
       "final3F": 34.1,
       "carriedWeight": 56,
-      "final3FScore": 69,
       "weightScore": 79
     }
   ],
@@ -259,7 +244,6 @@
       "raceTime": 126.4,
       "final3F": 34.8,
       "carriedWeight": 56,
-      "final3FScore": 88,
       "weightScore": 62
     },
     {
@@ -275,7 +259,6 @@
       "raceTime": 117,
       "final3F": 34.6,
       "carriedWeight": 57,
-      "final3FScore": 86,
       "weightScore": 85
     },
     {
@@ -291,7 +274,6 @@
       "raceTime": 134.3,
       "final3F": 35.2,
       "carriedWeight": 56,
-      "final3FScore": 86,
       "weightScore": 82
     },
     {
@@ -307,7 +289,6 @@
       "raceTime": 114,
       "final3F": 33.9,
       "carriedWeight": 57,
-      "final3FScore": 76,
       "weightScore": 77
     },
     {
@@ -323,7 +304,6 @@
       "raceTime": 121.5,
       "final3F": 34.4,
       "carriedWeight": 57,
-      "final3FScore": 73,
       "weightScore": 71
     }
   ],
@@ -341,7 +321,6 @@
       "raceTime": 127.4,
       "final3F": 33.9,
       "carriedWeight": 56,
-      "final3FScore": 64,
       "weightScore": 73
     },
     {
@@ -357,7 +336,6 @@
       "raceTime": 115.2,
       "final3F": 35.9,
       "carriedWeight": 57,
-      "final3FScore": 64,
       "weightScore": 60
     },
     {
@@ -373,7 +351,6 @@
       "raceTime": 114.7,
       "final3F": 35.6,
       "carriedWeight": 56,
-      "final3FScore": 70,
       "weightScore": 69
     },
     {
@@ -389,7 +366,6 @@
       "raceTime": 129.2,
       "final3F": 35.5,
       "carriedWeight": 57,
-      "final3FScore": 73,
       "weightScore": 73
     },
     {
@@ -405,7 +381,6 @@
       "raceTime": 115.1,
       "final3F": 36.5,
       "carriedWeight": 55,
-      "final3FScore": 70,
       "weightScore": 62
     }
   ],
@@ -423,7 +398,6 @@
       "raceTime": 116.9,
       "final3F": 36.3,
       "carriedWeight": 56,
-      "final3FScore": 94,
       "weightScore": 71
     },
     {
@@ -439,7 +413,6 @@
       "raceTime": 126.2,
       "final3F": 36.2,
       "carriedWeight": 55,
-      "final3FScore": 79,
       "weightScore": 61
     },
     {
@@ -455,7 +428,6 @@
       "raceTime": 115.9,
       "final3F": 33.2,
       "carriedWeight": 58,
-      "final3FScore": 81,
       "weightScore": 78
     },
     {
@@ -471,7 +443,6 @@
       "raceTime": 114.9,
       "final3F": 34.5,
       "carriedWeight": 56,
-      "final3FScore": 86,
       "weightScore": 85
     },
     {
@@ -487,7 +458,6 @@
       "raceTime": 115.5,
       "final3F": 35.3,
       "carriedWeight": 56,
-      "final3FScore": 81,
       "weightScore": 63
     }
   ],
@@ -505,7 +475,6 @@
       "raceTime": 114.8,
       "final3F": 35.1,
       "carriedWeight": 56,
-      "final3FScore": 79,
       "weightScore": 84
     },
     {
@@ -521,7 +490,6 @@
       "raceTime": 125.9,
       "final3F": 33.4,
       "carriedWeight": 55,
-      "final3FScore": 83,
       "weightScore": 76
     },
     {
@@ -537,7 +505,6 @@
       "raceTime": 116.9,
       "final3F": 35.5,
       "carriedWeight": 57,
-      "final3FScore": 71,
       "weightScore": 73
     },
     {
@@ -553,7 +520,6 @@
       "raceTime": 109.1,
       "final3F": 36.5,
       "carriedWeight": 55,
-      "final3FScore": 68,
       "weightScore": 62
     },
     {
@@ -569,7 +535,6 @@
       "raceTime": 133.7,
       "final3F": 33.7,
       "carriedWeight": 55,
-      "final3FScore": 77,
       "weightScore": 73
     }
   ],
@@ -587,7 +552,6 @@
       "raceTime": 114.2,
       "final3F": 36.2,
       "carriedWeight": 55,
-      "final3FScore": 68,
       "weightScore": 61
     },
     {
@@ -603,7 +567,6 @@
       "raceTime": 115.9,
       "final3F": 33.2,
       "carriedWeight": 58,
-      "final3FScore": 70,
       "weightScore": 78
     },
     {
@@ -619,7 +582,6 @@
       "raceTime": 122.4,
       "final3F": 33.7,
       "carriedWeight": 57,
-      "final3FScore": 81,
       "weightScore": 76
     },
     {
@@ -635,7 +597,6 @@
       "raceTime": 110,
       "final3F": 34.2,
       "carriedWeight": 58,
-      "final3FScore": 74,
       "weightScore": 66
     },
     {
@@ -651,7 +612,6 @@
       "raceTime": 123.4,
       "final3F": 33.9,
       "carriedWeight": 57,
-      "final3FScore": 73,
       "weightScore": 64
     }
   ],
@@ -669,7 +629,6 @@
       "raceTime": 115.5,
       "final3F": 36.4,
       "carriedWeight": 55,
-      "final3FScore": 81,
       "weightScore": 80
     },
     {
@@ -685,7 +644,6 @@
       "raceTime": 116,
       "final3F": 36.3,
       "carriedWeight": 57,
-      "final3FScore": 80,
       "weightScore": 84
     },
     {
@@ -701,7 +659,6 @@
       "raceTime": 115.1,
       "final3F": 36.5,
       "carriedWeight": 55,
-      "final3FScore": 67,
       "weightScore": 62
     },
     {
@@ -717,7 +674,6 @@
       "raceTime": 109.4,
       "final3F": 33.7,
       "carriedWeight": 55,
-      "final3FScore": 76,
       "weightScore": 73
     },
     {
@@ -733,7 +689,6 @@
       "raceTime": 132.8,
       "final3F": 33,
       "carriedWeight": 56,
-      "final3FScore": 70,
       "weightScore": 75
     }
   ],
@@ -751,7 +706,6 @@
       "raceTime": 115.6,
       "final3F": 35.2,
       "carriedWeight": 57,
-      "final3FScore": 91,
       "weightScore": 62
     },
     {
@@ -767,7 +721,6 @@
       "raceTime": 116.3,
       "final3F": 33.7,
       "carriedWeight": 57,
-      "final3FScore": 86,
       "weightScore": 76
     },
     {
@@ -783,7 +736,6 @@
       "raceTime": 116.1,
       "final3F": 35.1,
       "carriedWeight": 55,
-      "final3FScore": 74,
       "weightScore": 73
     },
     {
@@ -799,7 +751,6 @@
       "raceTime": 126.2,
       "final3F": 33.1,
       "carriedWeight": 55,
-      "final3FScore": 80,
       "weightScore": 80
     },
     {
@@ -815,7 +766,6 @@
       "raceTime": 114.1,
       "final3F": 35.9,
       "carriedWeight": 58,
-      "final3FScore": 89,
       "weightScore": 72
     }
   ],
@@ -833,7 +783,6 @@
       "raceTime": 129.3,
       "final3F": 35.4,
       "carriedWeight": 57,
-      "final3FScore": 73,
       "weightScore": 65
     },
     {
@@ -849,7 +798,6 @@
       "raceTime": 127.3,
       "final3F": 35.6,
       "carriedWeight": 55,
-      "final3FScore": 80,
       "weightScore": 79
     },
     {
@@ -865,7 +813,6 @@
       "raceTime": 116.1,
       "final3F": 35.6,
       "carriedWeight": 56,
-      "final3FScore": 67,
       "weightScore": 78
     },
     {
@@ -881,7 +828,6 @@
       "raceTime": 115.2,
       "final3F": 34.1,
       "carriedWeight": 58,
-      "final3FScore": 77,
       "weightScore": 76
     },
     {
@@ -897,7 +843,6 @@
       "raceTime": 116.9,
       "final3F": 34.1,
       "carriedWeight": 56,
-      "final3FScore": 80,
       "weightScore": 72
     }
   ],
@@ -915,7 +860,6 @@
       "raceTime": 128.1,
       "final3F": 33.6,
       "carriedWeight": 57,
-      "final3FScore": 70,
       "weightScore": 85
     },
     {
@@ -931,7 +875,6 @@
       "raceTime": 128.2,
       "final3F": 33.5,
       "carriedWeight": 56,
-      "final3FScore": 78,
       "weightScore": 66
     },
     {
@@ -947,7 +890,6 @@
       "raceTime": 121.3,
       "final3F": 34.3,
       "carriedWeight": 57,
-      "final3FScore": 62,
       "weightScore": 85
     },
     {
@@ -963,7 +905,6 @@
       "raceTime": 108.2,
       "final3F": 34.5,
       "carriedWeight": 58,
-      "final3FScore": 66,
       "weightScore": 83
     },
     {
@@ -979,7 +920,6 @@
       "raceTime": 120.2,
       "final3F": 34,
       "carriedWeight": 57,
-      "final3FScore": 66,
       "weightScore": 61
     }
   ],
@@ -997,7 +937,6 @@
       "raceTime": 129.2,
       "final3F": 35.4,
       "carriedWeight": 57,
-      "final3FScore": 73,
       "weightScore": 69
     },
     {
@@ -1013,7 +952,6 @@
       "raceTime": 116.1,
       "final3F": 35.6,
       "carriedWeight": 56,
-      "final3FScore": 70,
       "weightScore": 78
     },
     {
@@ -1029,7 +967,6 @@
       "raceTime": 114.1,
       "final3F": 35.4,
       "carriedWeight": 55,
-      "final3FScore": 72,
       "weightScore": 78
     },
     {
@@ -1045,7 +982,6 @@
       "raceTime": 126.7,
       "final3F": 35.3,
       "carriedWeight": 58,
-      "final3FScore": 62,
       "weightScore": 79
     },
     {
@@ -1061,7 +997,6 @@
       "raceTime": 122.3,
       "final3F": 33.8,
       "carriedWeight": 55,
-      "final3FScore": 70,
       "weightScore": 72
     }
   ],
@@ -1079,7 +1014,6 @@
       "raceTime": 110,
       "final3F": 35.1,
       "carriedWeight": 55,
-      "final3FScore": 65,
       "weightScore": 73
     },
     {
@@ -1095,7 +1029,6 @@
       "raceTime": 114.2,
       "final3F": 33.1,
       "carriedWeight": 55,
-      "final3FScore": 71,
       "weightScore": 80
     },
     {
@@ -1111,7 +1044,6 @@
       "raceTime": 116.7,
       "final3F": 36,
       "carriedWeight": 57,
-      "final3FScore": 79,
       "weightScore": 61
     },
     {
@@ -1127,7 +1059,6 @@
       "raceTime": 110.2,
       "final3F": 34.7,
       "carriedWeight": 56,
-      "final3FScore": 63,
       "weightScore": 83
     },
     {
@@ -1143,7 +1074,6 @@
       "raceTime": 116.2,
       "final3F": 36.2,
       "carriedWeight": 56,
-      "final3FScore": 61,
       "weightScore": 80
     }
   ],
@@ -1161,7 +1091,6 @@
       "raceTime": 110,
       "final3F": 35.6,
       "carriedWeight": 56,
-      "final3FScore": 72,
       "weightScore": 78
     },
     {
@@ -1177,7 +1106,6 @@
       "raceTime": 127.3,
       "final3F": 34,
       "carriedWeight": 56,
-      "final3FScore": 78,
       "weightScore": 62
     },
     {
@@ -1193,7 +1121,6 @@
       "raceTime": 123.4,
       "final3F": 33.1,
       "carriedWeight": 57,
-      "final3FScore": 69,
       "weightScore": 75
     },
     {
@@ -1209,7 +1136,6 @@
       "raceTime": 114.4,
       "final3F": 34.8,
       "carriedWeight": 57,
-      "final3FScore": 66,
       "weightScore": 66
     },
     {
@@ -1225,7 +1151,6 @@
       "raceTime": 134.9,
       "final3F": 33.5,
       "carriedWeight": 56,
-      "final3FScore": 79,
       "weightScore": 66
     }
   ],
@@ -1243,7 +1168,6 @@
       "raceTime": 108.2,
       "final3F": 33.1,
       "carriedWeight": 55,
-      "final3FScore": 77,
       "weightScore": 80
     },
     {
@@ -1259,7 +1183,6 @@
       "raceTime": 127.1,
       "final3F": 35,
       "carriedWeight": 56,
-      "final3FScore": 71,
       "weightScore": 80
     },
     {
@@ -1275,7 +1198,6 @@
       "raceTime": 116.3,
       "final3F": 34.7,
       "carriedWeight": 56,
-      "final3FScore": 69,
       "weightScore": 83
     },
     {
@@ -1291,7 +1213,6 @@
       "raceTime": 109.8,
       "final3F": 34.6,
       "carriedWeight": 57,
-      "final3FScore": 64,
       "weightScore": 61
     },
     {
@@ -1307,7 +1228,6 @@
       "raceTime": 115.8,
       "final3F": 36.4,
       "carriedWeight": 55,
-      "final3FScore": 74,
       "weightScore": 83
     }
   ]

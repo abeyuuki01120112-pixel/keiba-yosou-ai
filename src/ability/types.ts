@@ -76,6 +76,44 @@ export interface RaceTimeBreakdown {
   trackAdjustedDiffSeconds: number;
 }
 
+/**
+ * 競馬場×芝/ダート×距離×馬場状態ごとの過去5年上がり3F基準。
+ * 平均ではなく中央値を使う。V0では仮データを保持するのみ。
+ */
+export interface CourseFinal3FBaseline {
+  racecourse: string;
+  surface: Surface;
+  /** メートル */
+  distance: number;
+  going: string;
+
+  sampleYears: number;
+  sampleCount: number;
+  medianFinal3FSeconds: number;
+}
+
+/**
+ * final3FScore の算出根拠。上がり3Fは馬ごとに異なる個別値のため、
+ * memberLevelScoreAtRace・raceTimeScoreとは異なり、同じレースでも出走馬ごとに値が違う。
+ *
+ * レース内相対評価（raceFinal3FMedianSecondsとの差）は常に算出できる。
+ * 5年基準タイムが見つからない条件だった場合、絶対評価（courseBaselineSeconds以下）はnullとなり、
+ * final3FScoreはレース内相対評価100%にフォールバックする。
+ */
+export interface Final3FBreakdown {
+  horseFinal3FSeconds: number;
+  /** 完走馬の上がり3F中央値（平均ではなく中央値） */
+  raceFinal3FMedianSeconds: number;
+  /** raceFinal3FMedianSeconds - horseFinal3FSeconds（正の値＝レースの標準より速い上がり） */
+  relativeDiffSeconds: number;
+  /** 5年基準タイム。見つからない場合はnull */
+  courseBaselineSeconds: number | null;
+  /** 当日上がり補正。courseBaselineSecondsがnullの場合はnull */
+  trackAdjustment: TrackBiasTimeAdjustment | null;
+  /** (courseBaselineSeconds - horseFinal3FSeconds) + trackAdjustment.adjustmentSeconds。courseBaselineSecondsがnullの場合はnull */
+  absoluteDiffSeconds: number | null;
+}
+
 /** 1走分の実績データとスコア内訳 */
 export interface RacePerformance {
   raceId: string;
@@ -137,10 +175,13 @@ export interface RacePerformance {
   raceTimeBreakdown: RaceTimeBreakdown | null;
   /**
    * 上がり3Fスコア（0〜100）。
-   * 将来的にはレース全体の上がり水準・過去5年の同条件基準・当日の上がり馬場補正を使う。
-   * V0では仮入力値を保持するのみ。
+   * レース内相対評価（レース上がり中央値との差）60% ＋
+   * 絶対評価（5年基準＋当日上がり補正との差）40% から calculateFinal3FScore() で算出する。
+   * 上がり順位は直接評価に使わない。馬ごとに異なる個別値（レース単位で共通ではない）。
    */
   final3FScore: number;
+  /** final3FScore の算出根拠 */
+  final3FBreakdown: Final3FBreakdown;
   /**
    * 斤量補正スコア（0〜100）。
    * 将来的には距離に応じた秒換算（2000mで1kg差 ≒ 約0.2秒が目安）で算出する。

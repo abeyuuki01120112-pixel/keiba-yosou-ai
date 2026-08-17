@@ -5,7 +5,8 @@ import { buildHorseAbilityProfile } from "../buildHorseAbilityProfile";
 import { calculateBaseAbility } from "../baseAbility";
 import { FALLBACK_MEMBER_LEVEL_SCORE } from "../memberLevel";
 import { RACE_TIME_SCORE_CENTER } from "../raceTimeScore";
-import type { CourseTimeBaseline } from "../types";
+import { FINAL3F_SCORE_CENTER } from "../final3FScore";
+import type { CourseFinal3FBaseline, CourseTimeBaseline } from "../types";
 
 function race(overrides: Partial<RaceHistoryRawInput> & Pick<RaceHistoryRawInput, "raceId" | "raceDate">): RaceHistoryRawInput {
   return {
@@ -19,7 +20,6 @@ function race(overrides: Partial<RaceHistoryRawInput> & Pick<RaceHistoryRawInput
     raceTime: 120,
     final3F: 34,
     carriedWeight: 56,
-    final3FScore: 80,
     weightScore: 80,
     ...overrides,
   };
@@ -270,5 +270,138 @@ describe("buildRaceHistory の raceTimeScore（走破タイムスコア）", () 
     const result = buildRaceHistory(raw, [baseline]);
     expect(result.A[0].raceTimeScore).toBeGreaterThanOrEqual(0);
     expect(result.A[0].raceTimeScore).toBeLessThanOrEqual(100);
+  });
+});
+
+describe("buildRaceHistory の final3FScore（上がり3Fスコア）", () => {
+  const timeBaseline: CourseTimeBaseline = {
+    racecourse: "札幌",
+    surface: "turf",
+    distance: 2000,
+    going: "良",
+    sampleYears: 5,
+    sampleCount: 40,
+    medianTimeSeconds: 119.8,
+  };
+  const final3FBaseline: CourseFinal3FBaseline = {
+    racecourse: "札幌",
+    surface: "turf",
+    distance: 2000,
+    going: "良",
+    sampleYears: 5,
+    sampleCount: 40,
+    medianFinal3FSeconds: 35.0,
+  };
+
+  it("レース内上がり中央値が正しく計算される", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 1, final3F: 34.0 })],
+      B: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 2, final3F: 35.0 })],
+      C: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 3, final3F: 36.0 })],
+    };
+    const result = buildRaceHistory(raw, [], []);
+    // 中央値は35.0（[34,35,36]の中央）
+    expect(result.A[0].final3FBreakdown.raceFinal3FMedianSeconds).toBe(35.0);
+    expect(result.B[0].final3FBreakdown.raceFinal3FMedianSeconds).toBe(35.0);
+    expect(result.C[0].final3FBreakdown.raceFinal3FMedianSeconds).toBe(35.0);
+  });
+
+  it("上がり順位を直接評価していない（同じ実タイムなら着順が違っても同じfinal3FScore）", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 1, final3F: 34.5 })],
+      B: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 5, final3F: 34.5 })],
+      C: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 3, final3F: 36.0 })],
+    };
+    const result = buildRaceHistory(raw, [], []);
+    // Aは1着・Bは5着だが上がりタイムが同じ34.5なのでfinal3FScoreも同じはず
+    expect(result.A[0].final3FScore).toBe(result.B[0].final3FScore);
+  });
+
+  it("出走馬ごとに異なるfinal3FScoreになる（レース単位の共通値ではない）", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 1, final3F: 33.5 })],
+      B: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 2, final3F: 36.5 })],
+    };
+    const result = buildRaceHistory(raw, [], []);
+    expect(result.A[0].final3FScore).not.toBe(result.B[0].final3FScore);
+    expect(result.A[0].final3FScore).toBeGreaterThan(result.B[0].final3FScore);
+  });
+
+  it("対象レース自身を当日上がり補正の計算から除外できる（自己参照回避）", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "target", raceDate: "2026-01-01", final3F: 33.0 })], // 極端に速い上がり
+      B: [race({ raceId: "pool1", raceDate: "2026-01-01", final3F: 35.1 })],
+      C: [race({ raceId: "pool2", raceDate: "2026-01-01", final3F: 34.9 })],
+    };
+    const result = buildRaceHistory(raw, [], [final3FBaseline]);
+    // targetの極端な33.0秒が当日上がり補正に混入していないこと
+    expect(result.A[0].final3FBreakdown.trackAdjustment!.adjustmentSeconds).toBeCloseTo(35.0 - 35.0, 5);
+  });
+
+  it("trackAdjustedFinal3FDiffの符号が正しい（高速馬場で速い上がりを出した場合）", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "target", raceDate: "2026-01-01", final3F: 34.2 })],
+      B: [race({ raceId: "pool1", raceDate: "2026-01-01", final3F: 34.5 })], // diff -0.5
+      C: [race({ raceId: "pool2", raceDate: "2026-01-01", final3F: 34.3 })], // diff -0.7
+    };
+    const result = buildRaceHistory(raw, [], [final3FBaseline]);
+    const breakdown = result.A[0].final3FBreakdown;
+    // courseBaselineDiff = 35.0 - 34.2 = +0.8
+    // trackAdjustment = median(-0.5, -0.7) = -0.6
+    // absoluteDiff = 0.8 + (-0.6) = +0.2
+    expect(breakdown.absoluteDiffSeconds).toBeCloseTo(0.2, 5);
+  });
+
+  it("raceScoreへ15%で反映される", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "target", raceDate: "2026-01-01", raceTime: 118.0, final3F: 34.5 })],
+    };
+    const result = buildRaceHistory(raw, [timeBaseline], [final3FBaseline]);
+    const target = result.A[0];
+    const expectedRaceScore =
+      target.memberLevelScoreAtRace * 0.3 +
+      target.timeGapScore * 0.25 +
+      target.raceTimeScore * 0.25 +
+      target.final3FScore * 0.15 +
+      target.weightScore * 0.05;
+    expect(target.raceScore).toBeCloseTo(Math.round(expectedRaceScore * 10) / 10, 1);
+  });
+
+  it("baseAbilityが新final3FScore込みで再計算される", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [
+        race({ raceId: "a1", raceDate: "2026-01-01", final3F: 34.0 }),
+        race({ raceId: "a2", raceDate: "2026-02-01", final3F: 35.5 }),
+      ],
+    };
+    const result = buildRaceHistory(raw, [], [final3FBaseline]);
+    const profile = buildHorseAbilityProfile("A", "馬A", result.A);
+    expect(profile.baseAbility).toBeCloseTo(calculateBaseAbility(result.A), 5);
+  });
+
+  it("5年上がり基準が無い場合はサンプル不足として壊れず、レース内相対評価100%にフォールバックする", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 1, final3F: 34.0 })],
+      B: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 2, final3F: 36.0 })],
+    };
+    expect(() => buildRaceHistory(raw, [], [])).not.toThrow();
+    const result = buildRaceHistory(raw, [], []);
+    expect(result.A[0].final3FBreakdown.courseBaselineSeconds).toBeNull();
+    expect(result.A[0].final3FBreakdown.trackAdjustment).toBeNull();
+    // 相対評価100%: final3FValue = relativeDiff = 35.0 - 34.0 = +1.0
+    expect(result.A[0].final3FBreakdown.relativeDiffSeconds).toBeCloseTo(1.0, 5);
+  });
+
+  it("final3FScoreが0〜100にclampされる", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "extreme", raceDate: "2026-01-01", final3F: 10 })], // 極端に速い
+    };
+    const result = buildRaceHistory(raw, [], [final3FBaseline]);
+    expect(result.A[0].final3FScore).toBeGreaterThanOrEqual(0);
+    expect(result.A[0].final3FScore).toBeLessThanOrEqual(100);
+  });
+
+  it("final3FScoreのCENTER定数と一致する基準を持つ", () => {
+    expect(FINAL3F_SCORE_CENTER).toBe(70);
   });
 });

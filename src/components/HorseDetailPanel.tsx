@@ -126,6 +126,55 @@ export function HorseDetailPanel({ horseId, onClose }: Props) {
                         <span>上がり3F</span>
                         <span>{race.final3FScore.toFixed(1)}</span>
                       </div>
+                      <div className="member-level-sub-breakdown">
+                        <div className="breakdown-row sub-row">
+                          <span>実上がり</span>
+                          <span>{race.final3FBreakdown.horseFinal3FSeconds.toFixed(1)}</span>
+                        </div>
+                        <div className="breakdown-row sub-row">
+                          <span>レース上がり中央値</span>
+                          <span>{race.final3FBreakdown.raceFinal3FMedianSeconds.toFixed(1)}</span>
+                        </div>
+                        <div className="breakdown-row sub-row">
+                          <span>レース平均との差</span>
+                          <span>
+                            {race.final3FBreakdown.relativeDiffSeconds >= 0 ? "+" : ""}
+                            {race.final3FBreakdown.relativeDiffSeconds.toFixed(1)}秒
+                          </span>
+                        </div>
+                        {race.final3FBreakdown.courseBaselineSeconds !== null ? (
+                          <>
+                            <div className="breakdown-row sub-row">
+                              <span>5年同条件上がり基準</span>
+                              <span>{race.final3FBreakdown.courseBaselineSeconds.toFixed(1)}</span>
+                            </div>
+                            <div className="breakdown-row sub-row">
+                              <span>
+                                当日上がり補正
+                                {race.final3FBreakdown.trackAdjustment &&
+                                  !race.final3FBreakdown.trackAdjustment.isReliable &&
+                                  "（サンプル不足）"}
+                              </span>
+                              <span>
+                                {(race.final3FBreakdown.trackAdjustment?.adjustmentSeconds ?? 0) >= 0 ? "+" : ""}
+                                {(race.final3FBreakdown.trackAdjustment?.adjustmentSeconds ?? 0).toFixed(1)}秒
+                              </span>
+                            </div>
+                            <div className="breakdown-row sub-row">
+                              <span>補正後上がり価値</span>
+                              <span>
+                                {(race.final3FBreakdown.absoluteDiffSeconds ?? 0) >= 0 ? "+" : ""}
+                                {(race.final3FBreakdown.absoluteDiffSeconds ?? 0).toFixed(1)}秒
+                              </span>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="breakdown-row sub-row">
+                            <span>5年基準データなし（レース内相対評価100%で算出）</span>
+                            <span></span>
+                          </div>
+                        )}
+                      </div>
                       <div className="breakdown-row">
                         <span>斤量補正</span>
                         <span>{race.weightScore.toFixed(1)}</span>

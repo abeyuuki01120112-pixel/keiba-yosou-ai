@@ -1,0 +1,140 @@
+{
+  "note": "V0テスト用の仮上がり3F基準。実データ確定後に差し替えること。",
+  "baselines": [
+    {
+      "racecourse": "阪神",
+      "surface": "turf",
+      "distance": 1800,
+      "going": "良",
+      "sampleYears": 5,
+      "sampleCount": 50,
+      "medianFinal3FSeconds": 35.2
+    },
+    {
+      "racecourse": "阪神",
+      "surface": "turf",
+      "distance": 2000,
+      "going": "重",
+      "sampleYears": 5,
+      "sampleCount": 30,
+      "medianFinal3FSeconds": 34
+    },
+    {
+      "racecourse": "札幌",
+      "surface": "turf",
+      "distance": 1900,
+      "going": "良",
+      "sampleYears": 5,
+      "sampleCount": 60,
+      "medianFinal3FSeconds": 35.1
+    },
+    {
+      "racecourse": "札幌",
+      "surface": "turf",
+      "distance": 2100,
+      "going": "重",
+      "sampleYears": 5,
+      "sampleCount": 40,
+      "medianFinal3FSeconds": 35.4
+    },
+    {
+      "racecourse": "小倉",
+      "surface": "turf",
+      "distance": 1800,
+      "going": "良",
+      "sampleYears": 5,
+      "sampleCount": 50,
+      "medianFinal3FSeconds": 34.6
+    },
+    {
+      "racecourse": "小倉",
+      "surface": "turf",
+      "distance": 1900,
+      "going": "良",
+      "sampleYears": 5,
+      "sampleCount": 60,
+      "medianFinal3FSeconds": 35.6
+    },
+    {
+      "racecourse": "小倉",
+      "surface": "turf",
+      "distance": 1900,
+      "going": "稍重",
+      "sampleYears": 5,
+      "sampleCount": 60,
+      "medianFinal3FSeconds": 35.5
+    },
+    {
+      "racecourse": "小倉",
+      "surface": "turf",
+      "distance": 2100,
+      "going": "良",
+      "sampleYears": 5,
+      "sampleCount": 40,
+      "medianFinal3FSeconds": 34.2
+    },
+    {
+      "racecourse": "中山",
+      "surface": "turf",
+      "distance": 1900,
+      "going": "良",
+      "sampleYears": 5,
+      "sampleCount": 60,
+      "medianFinal3FSeconds": 34.5
+    },
+    {
+      "racecourse": "中山",
+      "surface": "turf",
+      "distance": 2100,
+      "going": "稍重",
+      "sampleYears": 5,
+      "sampleCount": 40,
+      "medianFinal3FSeconds": 34.8
+    },
+    {
+      "racecourse": "中山",
+      "surface": "turf",
+      "distance": 2100,
+      "going": "良",
+      "sampleYears": 5,
+      "sampleCount": 40,
+      "medianFinal3FSeconds": 33.6
+    },
+    {
+      "racecourse": "東京",
+      "surface": "turf",
+      "distance": 1900,
+      "going": "良",
+      "sampleYears": 5,
+      "sampleCount": 60,
+      "medianFinal3FSeconds": 36.2
+    },
+    {
+      "racecourse": "東京",
+      "surface": "turf",
+      "distance": 2000,
+      "going": "良",
+      "sampleYears": 5,
+      "sampleCount": 30,
+      "medianFinal3FSeconds": 34
+    },
+    {
+      "racecourse": "函館",
+      "surface": "turf",
+      "distance": 1900,
+      "going": "良",
+      "sampleYears": 5,
+      "sampleCount": 60,
+      "medianFinal3FSeconds": 35.6
+    },
+    {
+      "racecourse": "函館",
+      "surface": "turf",
+      "distance": 2200,
+      "going": "良",
+      "sampleYears": 5,
+      "sampleCount": 50,
+      "medianFinal3FSeconds": 34.3
+    }
+  ]
+}

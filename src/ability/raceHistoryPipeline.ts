@@ -1,5 +1,5 @@
 /**
- * 全馬の過去走データから、実質メンバーレベル・走破タイムスコア込みの
+ * 全馬の過去走データから、実質メンバーレベル・走破タイムスコア・上がり3Fスコア込みの
  * RacePerformance[] を組み立てるパイプライン。
  *
  * 未来情報リーク・循環参照を防ぐ方法（memberLevelScoreAtRace）：
@@ -11,28 +11,40 @@
  *     馬AのraceScore → memberLevelScore → 同じレースの馬BのraceScore → ...
  *   のような循環は構造的に発生しない（常に「過去 → 現在」の一方向参照のみ）。
  *
- * raceTimeScoreAtRace（今回追加）：
+ * raceTimeScoreAtRace・final3FScore（今回追加）：
  *   レース条件（競馬場・surface・距離・馬場状態）と当日馬場補正は、対象レースが
  *   属する「開催日」の時点で確定している客観的事実であり、他馬の能力評価とは
- *   独立している（未来のレース結果には依存しない）。そのため、当日馬場補正の
+ *   独立している（未来のレース結果には依存しない）。そのため、当日補正の
  *   プールは日付の前後を問わず全レースから対象レース自身を除いて求めてよい。
- *   memberLevelScoreAtRaceと同じく、レース単位で1回だけ計算し、そのレースの
- *   出走馬全員に共通の値として適用する。
+ *
+ *   memberLevelScoreAtRace・raceTimeScoreはレース単位で1回だけ計算し出走馬全員で共通の値を使うが、
+ *   final3FScoreは上がり3Fが馬ごとに異なる個別記録のため、レース内相対評価・絶対評価とも
+ *   出走馬ごとに個別計算する（当日上がり補正のみレース単位で共通）。
  */
 
 import { calculateAbilityBeforeRace, MAX_PRIOR_RACES_FOR_ABILITY } from "./abilityBeforeRace";
 import { findCourseTimeBaseline } from "./courseTimeBaseline";
+import { findCourseFinal3FBaseline } from "./courseFinal3FBaseline";
 import { calculateMemberLevel } from "./memberLevel";
 import { calculateRaceScore } from "./raceScore";
 import { calculateRaceTimeScore, RACE_TIME_SCORE_CENTER } from "./raceTimeScore";
+import { calculateFinal3FScore, combineFinal3FValue } from "./final3FScore";
 import { calculateTimeGapScore } from "./timeGapScore";
 import { calculateTrackAdjustment, type DayRaceRecord } from "./trackAdjustment";
+import { calculateFinal3FTrackAdjustment, type DayFinal3FRecord } from "./final3FTrackAdjustment";
+import { median } from "../simulation/probability";
 import { roundToOneDecimal } from "./raceScore";
-import type { CourseTimeBaseline, RacePerformance, RaceTimeBreakdown } from "./types";
+import type {
+  CourseFinal3FBaseline,
+  CourseTimeBaseline,
+  Final3FBreakdown,
+  RacePerformance,
+  RaceTimeBreakdown,
+} from "./types";
 
 /**
  * データ層が保持する生の実績値＋仮サブスコア。
- * memberLevelScore・raceTimeScore・timeGapScore・raceScoreは含まない（すべて自動算出のため）。
+ * memberLevelScore・raceTimeScore・final3FScore・timeGapScore・raceScoreは含まない（すべて自動算出のため）。
  */
 export type RaceHistoryRawInput = Omit<
   RacePerformance,
@@ -42,6 +54,8 @@ export type RaceHistoryRawInput = Omit<
   | "timeGapScore"
   | "raceTimeScore"
   | "raceTimeBreakdown"
+  | "final3FScore"
+  | "final3FBreakdown"
   | "raceScore"
 >;
 
@@ -77,6 +91,55 @@ function buildRaceTimeEvaluation(
   };
 }
 
+function buildFinal3FEvaluation(
+  horseFinal3FSeconds: number,
+  raceFinal3FMedianSeconds: number,
+  final3FMeta: DayFinal3FRecord,
+  allFinal3FMetas: DayFinal3FRecord[],
+  baselines: CourseFinal3FBaseline[],
+): { final3FScore: number; breakdown: Final3FBreakdown } {
+  const relativeDiffSeconds = raceFinal3FMedianSeconds - horseFinal3FSeconds;
+
+  const baseline = findCourseFinal3FBaseline(
+    baselines,
+    final3FMeta.racecourse,
+    final3FMeta.surface,
+    final3FMeta.distance,
+    final3FMeta.going,
+  );
+
+  if (!baseline) {
+    // 5年基準が無い条件では、レース内相対評価100%にフォールバックする
+    return {
+      final3FScore: calculateFinal3FScore(combineFinal3FValue(relativeDiffSeconds, null)),
+      breakdown: {
+        horseFinal3FSeconds,
+        raceFinal3FMedianSeconds,
+        relativeDiffSeconds: roundToOneDecimal(relativeDiffSeconds),
+        courseBaselineSeconds: null,
+        trackAdjustment: null,
+        absoluteDiffSeconds: null,
+      },
+    };
+  }
+
+  const trackAdjustment = calculateFinal3FTrackAdjustment(final3FMeta, allFinal3FMetas, baselines);
+  const courseBaselineDiffSeconds = baseline.medianFinal3FSeconds - horseFinal3FSeconds;
+  const absoluteDiffSeconds = courseBaselineDiffSeconds + trackAdjustment.adjustmentSeconds;
+
+  return {
+    final3FScore: calculateFinal3FScore(combineFinal3FValue(relativeDiffSeconds, absoluteDiffSeconds)),
+    breakdown: {
+      horseFinal3FSeconds,
+      raceFinal3FMedianSeconds,
+      relativeDiffSeconds: roundToOneDecimal(relativeDiffSeconds),
+      courseBaselineSeconds: baseline.medianFinal3FSeconds,
+      trackAdjustment,
+      absoluteDiffSeconds: roundToOneDecimal(absoluteDiffSeconds),
+    },
+  };
+}
+
 /**
  * horseId -> その馬の生レース実績（何走分でもよい）のマップから、
  * horseId -> 確定済みRacePerformance[]（新しい順）のマップを構築する。
@@ -84,6 +147,7 @@ function buildRaceTimeEvaluation(
 export function buildRaceHistory(
   rawByHorseId: Record<string, RaceHistoryRawInput[]>,
   courseTimeBaselines: CourseTimeBaseline[] = [],
+  courseFinal3FBaselines: CourseFinal3FBaseline[] = [],
 ): Record<string, RacePerformance[]> {
   const entries: FlatEntry[] = [];
   for (const [horseId, races] of Object.entries(rawByHorseId)) {
@@ -120,6 +184,21 @@ export function buildRaceHistory(
   });
   const metaByRaceId = new Map(allRaceMetas.map((m) => [m.raceId, m]));
 
+  // 当日上がり補正用：全レースの上がり3F中央値一覧（同じく事実データ）
+  const allFinal3FMetas: DayFinal3FRecord[] = raceGroups.map((group) => {
+    const representative = group[0].raw;
+    return {
+      raceId: representative.raceId,
+      raceDate: representative.raceDate,
+      racecourse: representative.racecourse,
+      surface: representative.surface,
+      distance: representative.distance,
+      going: representative.going,
+      raceFinal3FMedianSeconds: median(group.map((e) => e.raw.final3F)),
+    };
+  });
+  const final3FMetaByRaceId = new Map(allFinal3FMetas.map((m) => [m.raceId, m]));
+
   // horseId -> 確定済みRacePerformance（日付昇順で蓄積。まだ並べ替えない）
   const finalizedByHorseId = new Map<string, RacePerformance[]>();
 
@@ -143,13 +222,22 @@ export function buildRaceHistory(
       courseTimeBaselines,
     );
 
+    const final3FMeta = final3FMetaByRaceId.get(group[0].raw.raceId)!;
+
     for (const entry of group) {
       const timeGapScore = calculateTimeGapScore(entry.raw.timeGap, entry.raw.distance);
+      const { final3FScore, breakdown: final3FBreakdown } = buildFinal3FEvaluation(
+        entry.raw.final3F,
+        final3FMeta.raceFinal3FMedianSeconds,
+        final3FMeta,
+        allFinal3FMetas,
+        courseFinal3FBaselines,
+      );
       const raceScore = calculateRaceScore({
         memberLevelScoreAtRace: memberLevelScore,
         timeGapScore,
         raceTimeScore,
-        final3FScore: entry.raw.final3FScore,
+        final3FScore,
         weightScore: entry.raw.weightScore,
       });
 
@@ -161,6 +249,8 @@ export function buildRaceHistory(
         timeGapScore,
         raceTimeScore,
         raceTimeBreakdown,
+        final3FScore,
+        final3FBreakdown,
         raceScore,
       };
 
