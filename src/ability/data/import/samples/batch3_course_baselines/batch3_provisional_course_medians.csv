@@ -1,0 +1,11 @@
+﻿racecourse,surface,distance,going,sampleCount,medianWinnerTimeSeconds,medianWinnerFinal3FSeconds,status
+中京,turf,2000,ALL,5,119.8,34.6,low_reliability_verified_sample_pool
+中京,turf,2000,良,3,117.6,34.3,low_reliability_verified_sample_pool
+中京,turf,2000,重,2,121.55,36.55,low_reliability_verified_sample_pool
+京都,turf,2000,ALL,5,118.6,34.3,low_reliability_verified_sample_pool
+京都,turf,2000,稍重,1,121.1,33.6,low_reliability_verified_sample_pool
+京都,turf,2000,良,4,118.44999999999999,34.75,low_reliability_verified_sample_pool
+京都,turf,2200,ALL,6,132.05,34.2,low_reliability_verified_sample_pool
+京都,turf,2200,稍重,1,135.7,34.2,low_reliability_verified_sample_pool
+京都,turf,2200,良,4,131.6,34.3,low_reliability_verified_sample_pool
+京都,turf,2200,重,1,132.0,34.0,low_reliability_verified_sample_pool

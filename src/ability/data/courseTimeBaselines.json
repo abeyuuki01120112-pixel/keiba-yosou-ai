@@ -260,6 +260,76 @@
       "sampleCount": 2,
       "source": "JRA確認済みサンプル(n=2;対象年:2022) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [wet_confirmed_samplesより3歳上2勝クラス135.0を追加。中央値133.0から134.0へ更新]",
       "medianTimeSeconds": 134
+    },
+    {
+      "racecourse": "中京",
+      "surface": "turf",
+      "distance": 2000,
+      "going": "良",
+      "sampleYears": 3,
+      "sampleCount": 3,
+      "source": "JRA確認済みサンプル(n=3;対象年:2022;2023;2024) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。金鯱賞2021-2025の5件から良のみ抽出]",
+      "medianTimeSeconds": 117.6
+    },
+    {
+      "racecourse": "中京",
+      "surface": "turf",
+      "distance": 2000,
+      "going": "重",
+      "sampleYears": 2,
+      "sampleCount": 2,
+      "source": "JRA確認済みサンプル(n=2;対象年:2021;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。金鯱賞2021-2025の5件から重のみ抽出]",
+      "medianTimeSeconds": 121.55
+    },
+    {
+      "racecourse": "京都",
+      "surface": "turf",
+      "distance": 2000,
+      "going": "良",
+      "sampleYears": 2,
+      "sampleCount": 4,
+      "source": "JRA確認済みサンプル(n=4;対象年:2024;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。秋華賞2023-2025+アンドロメダS2024-2025から良のみ抽出]",
+      "medianTimeSeconds": 118.45
+    },
+    {
+      "racecourse": "京都",
+      "surface": "turf",
+      "distance": 2000,
+      "going": "稍重",
+      "sampleYears": 1,
+      "sampleCount": 1,
+      "source": "JRA確認済みサンプル(n=1;対象年:2023) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。秋華賞2023年分]",
+      "medianTimeSeconds": 121.1
+    },
+    {
+      "racecourse": "京都",
+      "surface": "turf",
+      "distance": 2200,
+      "going": "良",
+      "sampleYears": 3,
+      "sampleCount": 4,
+      "source": "JRA確認済みサンプル(n=4;対象年:2023;2024;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。エリザベス女王杯2023-2025+京都記念2024から良のみ抽出。2023京都記念は阪神開催のため対象外]",
+      "medianTimeSeconds": 131.6
+    },
+    {
+      "racecourse": "京都",
+      "surface": "turf",
+      "distance": 2200,
+      "going": "稍重",
+      "sampleYears": 1,
+      "sampleCount": 1,
+      "source": "JRA確認済みサンプル(n=1;対象年:2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。京都記念2025年分]",
+      "medianTimeSeconds": 135.7
+    },
+    {
+      "racecourse": "京都",
+      "surface": "turf",
+      "distance": 2200,
+      "going": "重",
+      "sampleYears": 1,
+      "sampleCount": 1,
+      "source": "JRA確認済みサンプル(n=1;対象年:2024) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。宝塚記念2024年分（京都開催年）]",
+      "medianTimeSeconds": 132
     }
   ]
 }
