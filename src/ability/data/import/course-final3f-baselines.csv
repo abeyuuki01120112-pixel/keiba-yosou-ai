@@ -19,3 +19,4 @@ racecourse,surface,distance,going,sampleYears,sampleCount,medianFinal3FSeconds,s
 京都,turf,2000,良,2,2,35.4,JRA確認済みサンプル(n=2レース;対象年:2024;2025) verified_full_finisher_final3f 各レース全完走馬final3F中央値のレース間等重み中央値(median-of-race-medians) 暫定candidate [batch5]
 京都,turf,2200,良,1,1,35.3,JRA確認済みサンプル(n=1レース;対象年:2024) verified_full_finisher_final3f 各レース全完走馬final3F中央値のレース間等重み中央値(median-of-race-medians) 暫定candidate [batch5。添付のsampleYears=2は収集対象期間の年数と解釈し1に補正（このgoingに寄与したのは2024年の1レースのみ）]
 京都,turf,2200,稍重,1,1,34.75,JRA確認済みサンプル(n=1レース;対象年:2025) verified_full_finisher_final3f 各レース全完走馬final3F中央値のレース間等重み中央値(median-of-race-medians) 暫定candidate [batch5。添付のsampleYears=2は収集対象期間の年数と解釈し1に補正（このgoingに寄与したのは2025年の1レースのみ）]
+阪神,turf,2200,重,1,1,36.85,JRA確認済みサンプル(n=1レース;対象年:2022) verified_full_finisher_final3f 全18完走馬final3F中央値(median-of-race-medians、単一レースのため実質そのレースの中央値) 暫定candidate [batch7。2022-11-13エリザベス女王杯]
