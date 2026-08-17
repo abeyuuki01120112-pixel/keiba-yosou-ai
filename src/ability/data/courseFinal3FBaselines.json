@@ -170,6 +170,36 @@
       "sampleCount": 1,
       "source": "JRA確認済みサンプル(n=1レース;対象年:2025) verified_full_finisher_final3f 各レース全完走馬final3F中央値のレース間等重み中央値(median-of-race-medians) 暫定candidate [batch4]",
       "medianFinal3FSeconds": 36.95
+    },
+    {
+      "racecourse": "京都",
+      "surface": "turf",
+      "distance": 2000,
+      "going": "良",
+      "sampleYears": 2,
+      "sampleCount": 2,
+      "source": "JRA確認済みサンプル(n=2レース;対象年:2024;2025) verified_full_finisher_final3f 各レース全完走馬final3F中央値のレース間等重み中央値(median-of-race-medians) 暫定candidate [batch5]",
+      "medianFinal3FSeconds": 35.4
+    },
+    {
+      "racecourse": "京都",
+      "surface": "turf",
+      "distance": 2200,
+      "going": "良",
+      "sampleYears": 1,
+      "sampleCount": 1,
+      "source": "JRA確認済みサンプル(n=1レース;対象年:2024) verified_full_finisher_final3f 各レース全完走馬final3F中央値のレース間等重み中央値(median-of-race-medians) 暫定candidate [batch5。添付のsampleYears=2は収集対象期間の年数と解釈し1に補正（このgoingに寄与したのは2024年の1レースのみ）]",
+      "medianFinal3FSeconds": 35.3
+    },
+    {
+      "racecourse": "京都",
+      "surface": "turf",
+      "distance": 2200,
+      "going": "稍重",
+      "sampleYears": 1,
+      "sampleCount": 1,
+      "source": "JRA確認済みサンプル(n=1レース;対象年:2025) verified_full_finisher_final3f 各レース全完走馬final3F中央値のレース間等重み中央値(median-of-race-medians) 暫定candidate [batch5。添付のsampleYears=2は収集対象期間の年数と解釈し1に補正（このgoingに寄与したのは2025年の1レースのみ）]",
+      "medianFinal3FSeconds": 34.75
     }
   ]
 }
