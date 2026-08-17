@@ -6,6 +6,7 @@ interface Props {
   stats: SimulationHorseStats[];
   oddsByHorseId: Record<string, number | undefined>;
   onOddsChange: (horseId: string, value: number | undefined) => void;
+  onSelectHorse: (horseId: string) => void;
 }
 
 type SortKey =
@@ -23,7 +24,7 @@ interface Row extends SimulationHorseStats {
   expectedValueValue: number | undefined;
 }
 
-export function ResultsTable({ stats, oddsByHorseId, onOddsChange }: Props) {
+export function ResultsTable({ stats, oddsByHorseId, onOddsChange, onSelectHorse }: Props) {
   const [sortKey, setSortKey] = useState<SortKey>("expectedValue");
   const [sortDesc, setSortDesc] = useState(true);
 
@@ -95,7 +96,15 @@ export function ResultsTable({ stats, oddsByHorseId, onOddsChange }: Props) {
               }
             >
               <td>{row.number}</td>
-              <td>{row.horseName}</td>
+              <td>
+                <button
+                  type="button"
+                  className="horse-name-btn"
+                  onClick={() => onSelectHorse(row.horseId)}
+                >
+                  {row.horseName}
+                </button>
+              </td>
               <td>{row.winRate.toFixed(2)}%</td>
               <td>{row.top2Rate.toFixed(2)}%</td>
               <td>{row.top3Rate.toFixed(2)}%</td>

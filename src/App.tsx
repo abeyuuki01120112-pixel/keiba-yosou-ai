@@ -5,6 +5,7 @@ import { runSimulation } from "./simulation/simulationRunner";
 import type { Pace, SimulationHorseStats, SimulationTrialCount } from "./simulation/types";
 import { ControlsPanel } from "./components/ControlsPanel";
 import { ResultsTable } from "./components/ResultsTable";
+import { HorseDetailPanel } from "./components/HorseDetailPanel";
 
 const horses = loadDefaultHorses();
 
@@ -22,6 +23,7 @@ function App() {
   const [stats, setStats] = useState<SimulationHorseStats[]>([]);
   const [lastElapsedMs, setLastElapsedMs] = useState<number | null>(null);
   const [oddsByHorseId, setOddsByHorseId] = useState<Record<string, number | undefined>>({});
+  const [selectedHorseId, setSelectedHorseId] = useState<string | null>(null);
 
   const handleRun = () => {
     setIsRunning(true);
@@ -51,6 +53,21 @@ function App() {
         </p>
       </header>
 
+      <div className="horse-quick-list">
+        {horses.map((h) => (
+          <button
+            key={h.horseId}
+            type="button"
+            className="horse-quick-btn"
+            onClick={() => setSelectedHorseId(h.horseId)}
+          >
+            {h.number}. {h.horseName}
+          </button>
+        ))}
+      </div>
+
+      <HorseDetailPanel horseId={selectedHorseId} onClose={() => setSelectedHorseId(null)} />
+
       <ControlsPanel
         pace={pace}
         onPaceChange={setPace}
@@ -63,7 +80,12 @@ function App() {
         lastElapsedMs={lastElapsedMs}
       />
 
-      <ResultsTable stats={stats} oddsByHorseId={oddsByHorseId} onOddsChange={handleOddsChange} />
+      <ResultsTable
+        stats={stats}
+        oddsByHorseId={oddsByHorseId}
+        onOddsChange={handleOddsChange}
+        onSelectHorse={setSelectedHorseId}
+      />
     </div>
   );
 }
