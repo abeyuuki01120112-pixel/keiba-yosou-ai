@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { MIN_RELIABLE_SAMPLE_COUNT, resolveBaselineLookup } from "../baselineLookup";
+import { isPlaceholderSource, MIN_RELIABLE_SAMPLE_COUNT, resolveBaselineLookup } from "../baselineLookup";
 
 interface Dummy {
   sampleCount: number;
@@ -58,5 +58,52 @@ describe("resolveBaselineLookup", () => {
     const exact = record(20, "exact");
     const { meta } = resolveBaselineLookup<Dummy>(exact, undefined);
     expect(meta.dataSource).toBe("出典:exact");
+  });
+
+  it("sourceがV0仮データ由来の場合、sampleCountがMIN_RELIABLE_SAMPLE_COUNT以上でもisReliable=false", () => {
+    const placeholder: Dummy = {
+      sampleCount: 30,
+      source: "V0テスト用仮データ（実データ未投入）",
+      label: "placeholder",
+    };
+    const { meta } = resolveBaselineLookup<Dummy>(placeholder, undefined);
+    expect(meta.sampleCount).toBe(30);
+    expect(meta.isReliable).toBe(false);
+  });
+
+  it("sourceが仮データ由来でもdistanceFallback経由で一致した場合はisReliable=false", () => {
+    const placeholder: Dummy = {
+      sampleCount: 100,
+      source: "V0テスト用仮データ（実データ未投入）",
+      label: "placeholder",
+    };
+    const { meta } = resolveBaselineLookup<Dummy>(undefined, placeholder);
+    expect(meta.baselineSource).toBe("distanceFallback");
+    expect(meta.isReliable).toBe(false);
+  });
+
+  it("sourceが実データ(JRA確認済みサンプル等)であれば、sampleCountがMIN_RELIABLE_SAMPLE_COUNT以上のときisReliable=true", () => {
+    const real = record(MIN_RELIABLE_SAMPLE_COUNT, "JRA確認済みサンプル(n=15;対象年:2021-2025) verified");
+    const { meta } = resolveBaselineLookup<Dummy>(real, undefined);
+    expect(meta.isReliable).toBe(true);
+  });
+});
+
+describe("isPlaceholderSource", () => {
+  it("V0仮データの文言を仮データ由来と判定する", () => {
+    expect(isPlaceholderSource("V0テスト用仮データ（実データ未投入）")).toBe(true);
+  });
+
+  it("placeholder/syntheticの英語表記も仮データ由来と判定する", () => {
+    expect(isPlaceholderSource("placeholder data, not yet verified")).toBe(true);
+    expect(isPlaceholderSource("synthetic sample for testing")).toBe(true);
+  });
+
+  it("実データバッチのsource文言は仮データ由来と判定しない", () => {
+    expect(
+      isPlaceholderSource(
+        "JRA確認済みサンプル(n=15;対象年:2021;2022;2023;2024;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate",
+      ),
+    ).toBe(false);
   });
 });
