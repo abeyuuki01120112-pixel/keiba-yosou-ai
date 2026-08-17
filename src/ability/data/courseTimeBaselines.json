@@ -146,10 +146,10 @@
       "surface": "turf",
       "distance": 1200,
       "going": "稍重",
-      "sampleYears": 3,
-      "sampleCount": 3,
-      "source": "JRA確認済みサンプル(n=3;対象年:2022;2023;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate",
-      "medianTimeSeconds": 68.7
+      "sampleYears": 2,
+      "sampleCount": 2,
+      "source": "JRA確認済みサンプル(n=2;対象年:2022;2023) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [2026-06-14当日データを誤って別年サンプルとして混入していたため除外]",
+      "medianTimeSeconds": 68.6
     },
     {
       "racecourse": "阪神",
@@ -157,9 +157,9 @@
       "distance": 1600,
       "going": "良",
       "sampleYears": 5,
-      "sampleCount": 9,
-      "source": "JRA確認済みサンプル(n=9;対象年:2021;2022;2023;2024;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate",
-      "medianTimeSeconds": 92.6
+      "sampleCount": 8,
+      "source": "JRA確認済みサンプル(n=8;対象年:2021;2022;2023;2024;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [2026-06-14当日データを誤って別年サンプルとして混入していたため除外]",
+      "medianTimeSeconds": 92.75
     },
     {
       "racecourse": "阪神",
@@ -186,10 +186,10 @@
       "surface": "turf",
       "distance": 1800,
       "going": "稍重",
-      "sampleYears": 2,
-      "sampleCount": 2,
-      "source": "JRA確認済みサンプル(n=2;対象年:2022;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate",
-      "medianTimeSeconds": 108.4
+      "sampleYears": 1,
+      "sampleCount": 1,
+      "source": "JRA確認済みサンプル(n=1;対象年:2022) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [2026-06-14当日データを誤って別年サンプルとして混入していたため除外]",
+      "medianTimeSeconds": 107.5
     },
     {
       "racecourse": "阪神",
@@ -239,16 +239,6 @@
       "sampleYears": 4,
       "sampleCount": 6,
       "source": "JRA確認済みサンプル(n=6;対象年:2021;2022;2023;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate",
-      "medianTimeSeconds": 131.1
-    },
-    {
-      "racecourse": "阪神",
-      "surface": "turf",
-      "distance": 2200,
-      "going": "稍重",
-      "sampleYears": 1,
-      "sampleCount": 1,
-      "source": "JRA確認済みサンプル(n=1;対象年:2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate",
       "medianTimeSeconds": 131.1
     },
     {
