@@ -20,7 +20,6 @@ function race(overrides: Partial<RaceHistoryRawInput> & Pick<RaceHistoryRawInput
     raceTime: 120,
     final3F: 34,
     carriedWeight: 56,
-    weightScore: 80,
     ...overrides,
   };
 }
@@ -403,5 +402,66 @@ describe("buildRaceHistory の final3FScore（上がり3Fスコア）", () => {
 
   it("final3FScoreのCENTER定数と一致する基準を持つ", () => {
     expect(FINAL3F_SCORE_CENTER).toBe(70);
+  });
+});
+
+describe("buildRaceHistory の weightScore（斤量補正スコア）", () => {
+  it("出走馬ごとに異なるweightScoreになる（重斤量ほど高評価）", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 1, carriedWeight: 59 })],
+      B: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 2, carriedWeight: 55 })],
+    };
+    const result = buildRaceHistory(raw);
+    expect(result.A[0].weightScore).toBeGreaterThan(result.B[0].weightScore);
+  });
+
+  it("raceScoreへ5%で反映される", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "target", raceDate: "2026-01-01", carriedWeight: 58 })],
+      B: [race({ raceId: "target", raceDate: "2026-01-01", finishPosition: 2, carriedWeight: 55 })],
+    };
+    const result = buildRaceHistory(raw);
+    const target = result.A[0];
+    const expectedRaceScore =
+      target.memberLevelScoreAtRace * 0.3 +
+      target.timeGapScore * 0.25 +
+      target.raceTimeScore * 0.25 +
+      target.final3FScore * 0.15 +
+      target.weightScore * 0.05;
+    expect(target.raceScore).toBeCloseTo(Math.round(expectedRaceScore * 10) / 10, 1);
+  });
+
+  it("baseAbilityが新weightScore込みで再計算される", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [
+        race({ raceId: "a1", raceDate: "2026-01-01", carriedWeight: 58 }),
+        race({ raceId: "a2", raceDate: "2026-02-01", carriedWeight: 54 }),
+      ],
+    };
+    const result = buildRaceHistory(raw);
+    const profile = buildHorseAbilityProfile("A", "馬A", result.A);
+    expect(profile.baseAbility).toBeCloseTo(calculateBaseAbility(result.A), 5);
+  });
+
+  it("欠損時（不正な斤量データ）でも壊れず、中立値にフォールバックする", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "broken", raceDate: "2026-01-01", carriedWeight: -1 })],
+    };
+    expect(() => buildRaceHistory(raw)).not.toThrow();
+    const result = buildRaceHistory(raw);
+    expect(result.A[0].weightScore).toBe(70);
+    expect(result.A[0].weightBreakdown.isReliable).toBe(false);
+  });
+
+  it("weightScoreが0〜100にclampされる", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "target", raceDate: "2026-01-01", carriedWeight: 90, distance: 3200 })],
+      B: [race({ raceId: "target", raceDate: "2026-01-01", finishPosition: 2, carriedWeight: 40, distance: 3200 })],
+    };
+    const result = buildRaceHistory(raw);
+    expect(result.A[0].weightScore).toBeGreaterThanOrEqual(0);
+    expect(result.A[0].weightScore).toBeLessThanOrEqual(100);
+    expect(result.B[0].weightScore).toBeGreaterThanOrEqual(0);
+    expect(result.B[0].weightScore).toBeLessThanOrEqual(100);
   });
 });

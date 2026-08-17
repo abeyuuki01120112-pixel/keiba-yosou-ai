@@ -12,8 +12,7 @@
       "timeGap": 0.5,
       "raceTime": 128.4,
       "final3F": 36.1,
-      "carriedWeight": 55,
-      "weightScore": 63
+      "carriedWeight": 55
     },
     {
       "raceId": "r1-g0",
@@ -27,8 +26,7 @@
       "timeGap": 0.9,
       "raceTime": 125.9,
       "final3F": 35.2,
-      "carriedWeight": 58,
-      "weightScore": 74
+      "carriedWeight": 58
     },
     {
       "raceId": "r2-g0",
@@ -42,8 +40,7 @@
       "timeGap": 0.5,
       "raceTime": 132.1,
       "final3F": 36.1,
-      "carriedWeight": 55,
-      "weightScore": 72
+      "carriedWeight": 55
     },
     {
       "raceId": "r3-g0",
@@ -57,8 +54,7 @@
       "timeGap": 0.3,
       "raceTime": 127.4,
       "final3F": 33,
-      "carriedWeight": 58,
-      "weightScore": 77
+      "carriedWeight": 58
     },
     {
       "raceId": "r4-g0",
@@ -72,8 +68,7 @@
       "timeGap": -0.3,
       "raceTime": 134.5,
       "final3F": 34.8,
-      "carriedWeight": 57,
-      "weightScore": 67
+      "carriedWeight": 57
     }
   ],
   "igacchi": [
@@ -89,8 +84,7 @@
       "timeGap": 0.5,
       "raceTime": 127.7,
       "final3F": 34.6,
-      "carriedWeight": 56,
-      "weightScore": 72
+      "carriedWeight": 56
     },
     {
       "raceId": "r1-g1",
@@ -104,8 +98,7 @@
       "timeGap": 0.4,
       "raceTime": 128.7,
       "final3F": 33.1,
-      "carriedWeight": 57,
-      "weightScore": 73
+      "carriedWeight": 57
     },
     {
       "raceId": "r2-g1",
@@ -119,8 +112,7 @@
       "timeGap": 1,
       "raceTime": 115.1,
       "final3F": 36,
-      "carriedWeight": 58,
-      "weightScore": 67
+      "carriedWeight": 58
     },
     {
       "raceId": "r3-g1",
@@ -134,8 +126,7 @@
       "timeGap": 0.8,
       "raceTime": 110.1,
       "final3F": 36.3,
-      "carriedWeight": 55,
-      "weightScore": 70
+      "carriedWeight": 55
     },
     {
       "raceId": "r4-g1",
@@ -149,8 +140,7 @@
       "timeGap": 0.8,
       "raceTime": 116.1,
       "final3F": 34.4,
-      "carriedWeight": 58,
-      "weightScore": 80
+      "carriedWeight": 58
     }
   ],
   "pinkgin": [
@@ -166,8 +156,7 @@
       "timeGap": -0.6,
       "raceTime": 126.6,
       "final3F": 35,
-      "carriedWeight": 57,
-      "weightScore": 70
+      "carriedWeight": 57
     },
     {
       "raceId": "r1-g2",
@@ -181,8 +170,7 @@
       "timeGap": 0.5,
       "raceTime": 116.5,
       "final3F": 35.7,
-      "carriedWeight": 56,
-      "weightScore": 76
+      "carriedWeight": 56
     },
     {
       "raceId": "r2-g2",
@@ -196,8 +184,7 @@
       "timeGap": -0.6,
       "raceTime": 121.3,
       "final3F": 35.9,
-      "carriedWeight": 57,
-      "weightScore": 60
+      "carriedWeight": 57
     },
     {
       "raceId": "r3-g2",
@@ -211,8 +198,7 @@
       "timeGap": 0.4,
       "raceTime": 108.6,
       "final3F": 35.6,
-      "carriedWeight": 56,
-      "weightScore": 69
+      "carriedWeight": 56
     },
     {
       "raceId": "r4-g2",
@@ -226,8 +212,7 @@
       "timeGap": 0.3,
       "raceTime": 114.9,
       "final3F": 34.1,
-      "carriedWeight": 56,
-      "weightScore": 79
+      "carriedWeight": 56
     }
   ],
   "magicsands": [
@@ -243,8 +228,7 @@
       "timeGap": 0.7,
       "raceTime": 126.4,
       "final3F": 34.8,
-      "carriedWeight": 56,
-      "weightScore": 62
+      "carriedWeight": 56
     },
     {
       "raceId": "r1-g3",
@@ -258,8 +242,7 @@
       "timeGap": 0.7,
       "raceTime": 117,
       "final3F": 34.6,
-      "carriedWeight": 57,
-      "weightScore": 85
+      "carriedWeight": 57
     },
     {
       "raceId": "r2-g0",
@@ -273,8 +256,7 @@
       "timeGap": -0.4,
       "raceTime": 134.3,
       "final3F": 35.2,
-      "carriedWeight": 56,
-      "weightScore": 82
+      "carriedWeight": 56
     },
     {
       "raceId": "r3-g3",
@@ -288,8 +270,7 @@
       "timeGap": 0.6,
       "raceTime": 114,
       "final3F": 33.9,
-      "carriedWeight": 57,
-      "weightScore": 77
+      "carriedWeight": 57
     },
     {
       "raceId": "r4-g3",
@@ -303,8 +284,7 @@
       "timeGap": 0.3,
       "raceTime": 121.5,
       "final3F": 34.4,
-      "carriedWeight": 57,
-      "weightScore": 71
+      "carriedWeight": 57
     }
   ],
   "ecolowaltz": [
@@ -320,8 +300,7 @@
       "timeGap": 1,
       "raceTime": 127.4,
       "final3F": 33.9,
-      "carriedWeight": 56,
-      "weightScore": 73
+      "carriedWeight": 56
     },
     {
       "raceId": "r1-g3",
@@ -335,8 +314,7 @@
       "timeGap": -0.6,
       "raceTime": 115.2,
       "final3F": 35.9,
-      "carriedWeight": 57,
-      "weightScore": 60
+      "carriedWeight": 57
     },
     {
       "raceId": "r2-g3",
@@ -350,8 +328,7 @@
       "timeGap": 0.4,
       "raceTime": 114.7,
       "final3F": 35.6,
-      "carriedWeight": 56,
-      "weightScore": 69
+      "carriedWeight": 56
     },
     {
       "raceId": "r3-g0",
@@ -365,8 +342,7 @@
       "timeGap": -0.1,
       "raceTime": 129.2,
       "final3F": 35.5,
-      "carriedWeight": 57,
-      "weightScore": 73
+      "carriedWeight": 57
     },
     {
       "raceId": "r4-g1",
@@ -380,8 +356,7 @@
       "timeGap": 0.4,
       "raceTime": 115.1,
       "final3F": 36.5,
-      "carriedWeight": 55,
-      "weightScore": 62
+      "carriedWeight": 55
     }
   ],
   "roshampark": [
@@ -397,8 +372,7 @@
       "timeGap": 0.6,
       "raceTime": 116.9,
       "final3F": 36.3,
-      "carriedWeight": 56,
-      "weightScore": 71
+      "carriedWeight": 56
     },
     {
       "raceId": "r1-g0",
@@ -412,8 +386,7 @@
       "timeGap": -0.3,
       "raceTime": 126.2,
       "final3F": 36.2,
-      "carriedWeight": 55,
-      "weightScore": 61
+      "carriedWeight": 55
     },
     {
       "raceId": "r2-g1",
@@ -427,8 +400,7 @@
       "timeGap": 0.4,
       "raceTime": 115.9,
       "final3F": 33.2,
-      "carriedWeight": 58,
-      "weightScore": 78
+      "carriedWeight": 58
     },
     {
       "raceId": "r3-g3",
@@ -442,8 +414,7 @@
       "timeGap": -0.1,
       "raceTime": 114.9,
       "final3F": 34.5,
-      "carriedWeight": 56,
-      "weightScore": 85
+      "carriedWeight": 56
     },
     {
       "raceId": "r4-g2",
@@ -457,8 +428,7 @@
       "timeGap": -0.2,
       "raceTime": 115.5,
       "final3F": 35.3,
-      "carriedWeight": 56,
-      "weightScore": 63
+      "carriedWeight": 56
     }
   ],
   "shohei": [
@@ -474,8 +444,7 @@
       "timeGap": 0.5,
       "raceTime": 114.8,
       "final3F": 35.1,
-      "carriedWeight": 56,
-      "weightScore": 84
+      "carriedWeight": 56
     },
     {
       "raceId": "r1-g1",
@@ -489,8 +458,7 @@
       "timeGap": 0.8,
       "raceTime": 125.9,
       "final3F": 33.4,
-      "carriedWeight": 55,
-      "weightScore": 76
+      "carriedWeight": 55
     },
     {
       "raceId": "r2-g1",
@@ -504,8 +472,7 @@
       "timeGap": 0.6,
       "raceTime": 116.9,
       "final3F": 35.5,
-      "carriedWeight": 57,
-      "weightScore": 73
+      "carriedWeight": 57
     },
     {
       "raceId": "r3-g2",
@@ -519,8 +486,7 @@
       "timeGap": 0.4,
       "raceTime": 109.1,
       "final3F": 36.5,
-      "carriedWeight": 55,
-      "weightScore": 62
+      "carriedWeight": 55
     },
     {
       "raceId": "r4-g0",
@@ -534,8 +500,7 @@
       "timeGap": 0.6,
       "raceTime": 133.7,
       "final3F": 33.7,
-      "carriedWeight": 55,
-      "weightScore": 73
+      "carriedWeight": 55
     }
   ],
   "sakurafarrell": [
@@ -551,8 +516,7 @@
       "timeGap": 0.7,
       "raceTime": 114.2,
       "final3F": 36.2,
-      "carriedWeight": 55,
-      "weightScore": 61
+      "carriedWeight": 55
     },
     {
       "raceId": "r1-g2",
@@ -566,8 +530,7 @@
       "timeGap": 0.6,
       "raceTime": 115.9,
       "final3F": 33.2,
-      "carriedWeight": 58,
-      "weightScore": 78
+      "carriedWeight": 58
     },
     {
       "raceId": "r2-g2",
@@ -581,8 +544,7 @@
       "timeGap": 0.5,
       "raceTime": 122.4,
       "final3F": 33.7,
-      "carriedWeight": 57,
-      "weightScore": 76
+      "carriedWeight": 57
     },
     {
       "raceId": "r3-g1",
@@ -596,8 +558,7 @@
       "timeGap": 0.5,
       "raceTime": 110,
       "final3F": 34.2,
-      "carriedWeight": 58,
-      "weightScore": 66
+      "carriedWeight": 58
     },
     {
       "raceId": "r4-g3",
@@ -611,8 +572,7 @@
       "timeGap": -0.3,
       "raceTime": 123.4,
       "final3F": 33.9,
-      "carriedWeight": 57,
-      "weightScore": 64
+      "carriedWeight": 57
     }
   ],
   "meinermount": [
@@ -628,8 +588,7 @@
       "timeGap": 0.8,
       "raceTime": 115.5,
       "final3F": 36.4,
-      "carriedWeight": 55,
-      "weightScore": 80
+      "carriedWeight": 55
     },
     {
       "raceId": "r1-g3",
@@ -643,8 +602,7 @@
       "timeGap": 0.8,
       "raceTime": 116,
       "final3F": 36.3,
-      "carriedWeight": 57,
-      "weightScore": 84
+      "carriedWeight": 57
     },
     {
       "raceId": "r2-g3",
@@ -658,8 +616,7 @@
       "timeGap": 0.4,
       "raceTime": 115.1,
       "final3F": 36.5,
-      "carriedWeight": 55,
-      "weightScore": 62
+      "carriedWeight": 55
     },
     {
       "raceId": "r3-g1",
@@ -673,8 +630,7 @@
       "timeGap": 0.6,
       "raceTime": 109.4,
       "final3F": 33.7,
-      "carriedWeight": 55,
-      "weightScore": 73
+      "carriedWeight": 55
     },
     {
       "raceId": "r4-g0",
@@ -688,8 +644,7 @@
       "timeGap": 0.6,
       "raceTime": 132.8,
       "final3F": 33,
-      "carriedWeight": 56,
-      "weightScore": 75
+      "carriedWeight": 56
     }
   ],
   "admireterra": [
@@ -705,8 +660,7 @@
       "timeGap": -0.2,
       "raceTime": 115.6,
       "final3F": 35.2,
-      "carriedWeight": 57,
-      "weightScore": 62
+      "carriedWeight": 57
     },
     {
       "raceId": "r1-g3",
@@ -720,8 +674,7 @@
       "timeGap": 0.5,
       "raceTime": 116.3,
       "final3F": 33.7,
-      "carriedWeight": 57,
-      "weightScore": 76
+      "carriedWeight": 57
     },
     {
       "raceId": "r2-g1",
@@ -735,8 +688,7 @@
       "timeGap": -0.6,
       "raceTime": 116.1,
       "final3F": 35.1,
-      "carriedWeight": 55,
-      "weightScore": 73
+      "carriedWeight": 55
     },
     {
       "raceId": "r3-g0",
@@ -750,8 +702,7 @@
       "timeGap": 0.4,
       "raceTime": 126.2,
       "final3F": 33.1,
-      "carriedWeight": 55,
-      "weightScore": 80
+      "carriedWeight": 55
     },
     {
       "raceId": "r4-g2",
@@ -765,8 +716,7 @@
       "timeGap": 0.5,
       "raceTime": 114.1,
       "final3F": 35.9,
-      "carriedWeight": 58,
-      "weightScore": 72
+      "carriedWeight": 58
     }
   ],
   "arata": [
@@ -782,8 +732,7 @@
       "timeGap": 0.6,
       "raceTime": 129.3,
       "final3F": 35.4,
-      "carriedWeight": 57,
-      "weightScore": 65
+      "carriedWeight": 57
     },
     {
       "raceId": "r1-g0",
@@ -797,8 +746,7 @@
       "timeGap": 0.3,
       "raceTime": 127.3,
       "final3F": 35.6,
-      "carriedWeight": 55,
-      "weightScore": 79
+      "carriedWeight": 55
     },
     {
       "raceId": "r2-g1",
@@ -812,8 +760,7 @@
       "timeGap": 0.8,
       "raceTime": 116.1,
       "final3F": 35.6,
-      "carriedWeight": 56,
-      "weightScore": 78
+      "carriedWeight": 56
     },
     {
       "raceId": "r3-g3",
@@ -827,8 +774,7 @@
       "timeGap": 0.6,
       "raceTime": 115.2,
       "final3F": 34.1,
-      "carriedWeight": 58,
-      "weightScore": 76
+      "carriedWeight": 58
     },
     {
       "raceId": "r4-g1",
@@ -842,8 +788,7 @@
       "timeGap": -0.4,
       "raceTime": 116.9,
       "final3F": 34.1,
-      "carriedWeight": 56,
-      "weightScore": 72
+      "carriedWeight": 56
     }
   ],
   "zendanhayabusa": [
@@ -859,8 +804,7 @@
       "timeGap": 0.5,
       "raceTime": 128.1,
       "final3F": 33.6,
-      "carriedWeight": 57,
-      "weightScore": 85
+      "carriedWeight": 57
     },
     {
       "raceId": "r1-g1",
@@ -874,8 +818,7 @@
       "timeGap": 0.2,
       "raceTime": 128.2,
       "final3F": 33.5,
-      "carriedWeight": 56,
-      "weightScore": 66
+      "carriedWeight": 56
     },
     {
       "raceId": "r2-g2",
@@ -889,8 +832,7 @@
       "timeGap": 0.9,
       "raceTime": 121.3,
       "final3F": 34.3,
-      "carriedWeight": 57,
-      "weightScore": 85
+      "carriedWeight": 57
     },
     {
       "raceId": "r3-g2",
@@ -904,8 +846,7 @@
       "timeGap": 0.6,
       "raceTime": 108.2,
       "final3F": 34.5,
-      "carriedWeight": 58,
-      "weightScore": 83
+      "carriedWeight": 58
     },
     {
       "raceId": "r4-g3",
@@ -919,8 +860,7 @@
       "timeGap": 0.6,
       "raceTime": 120.2,
       "final3F": 34,
-      "carriedWeight": 57,
-      "weightScore": 61
+      "carriedWeight": 57
     }
   ],
   "grandia": [
@@ -936,8 +876,7 @@
       "timeGap": -0.5,
       "raceTime": 129.2,
       "final3F": 35.4,
-      "carriedWeight": 57,
-      "weightScore": 69
+      "carriedWeight": 57
     },
     {
       "raceId": "r1-g2",
@@ -951,8 +890,7 @@
       "timeGap": -0.2,
       "raceTime": 116.1,
       "final3F": 35.6,
-      "carriedWeight": 56,
-      "weightScore": 78
+      "carriedWeight": 56
     },
     {
       "raceId": "r2-g3",
@@ -966,8 +904,7 @@
       "timeGap": 0.6,
       "raceTime": 114.1,
       "final3F": 35.4,
-      "carriedWeight": 55,
-      "weightScore": 78
+      "carriedWeight": 55
     },
     {
       "raceId": "r3-g0",
@@ -981,8 +918,7 @@
       "timeGap": 0.5,
       "raceTime": 126.7,
       "final3F": 35.3,
-      "carriedWeight": 58,
-      "weightScore": 79
+      "carriedWeight": 58
     },
     {
       "raceId": "r4-g3",
@@ -996,8 +932,7 @@
       "timeGap": 0.5,
       "raceTime": 122.3,
       "final3F": 33.8,
-      "carriedWeight": 55,
-      "weightScore": 72
+      "carriedWeight": 55
     }
   ],
   "readiness": [
@@ -1013,8 +948,7 @@
       "timeGap": 0.7,
       "raceTime": 110,
       "final3F": 35.1,
-      "carriedWeight": 55,
-      "weightScore": 73
+      "carriedWeight": 55
     },
     {
       "raceId": "r1-g2",
@@ -1028,8 +962,7 @@
       "timeGap": 0.6,
       "raceTime": 114.2,
       "final3F": 33.1,
-      "carriedWeight": 55,
-      "weightScore": 80
+      "carriedWeight": 55
     },
     {
       "raceId": "r2-g1",
@@ -1043,8 +976,7 @@
       "timeGap": 0.6,
       "raceTime": 116.7,
       "final3F": 36,
-      "carriedWeight": 57,
-      "weightScore": 61
+      "carriedWeight": 57
     },
     {
       "raceId": "r3-g2",
@@ -1058,8 +990,7 @@
       "timeGap": -0.3,
       "raceTime": 110.2,
       "final3F": 34.7,
-      "carriedWeight": 56,
-      "weightScore": 83
+      "carriedWeight": 56
     },
     {
       "raceId": "r4-g1",
@@ -1073,8 +1004,7 @@
       "timeGap": 0.6,
       "raceTime": 116.2,
       "final3F": 36.2,
-      "carriedWeight": 56,
-      "weightScore": 80
+      "carriedWeight": 56
     }
   ],
   "shakeyourheart": [
@@ -1090,8 +1020,7 @@
       "timeGap": -0.2,
       "raceTime": 110,
       "final3F": 35.6,
-      "carriedWeight": 56,
-      "weightScore": 78
+      "carriedWeight": 56
     },
     {
       "raceId": "r1-g1",
@@ -1105,8 +1034,7 @@
       "timeGap": -0.3,
       "raceTime": 127.3,
       "final3F": 34,
-      "carriedWeight": 56,
-      "weightScore": 62
+      "carriedWeight": 56
     },
     {
       "raceId": "r2-g2",
@@ -1120,8 +1048,7 @@
       "timeGap": 0.7,
       "raceTime": 123.4,
       "final3F": 33.1,
-      "carriedWeight": 57,
-      "weightScore": 75
+      "carriedWeight": 57
     },
     {
       "raceId": "r3-g3",
@@ -1135,8 +1062,7 @@
       "timeGap": 0.5,
       "raceTime": 114.4,
       "final3F": 34.8,
-      "carriedWeight": 57,
-      "weightScore": 66
+      "carriedWeight": 57
     },
     {
       "raceId": "r4-g0",
@@ -1150,8 +1076,7 @@
       "timeGap": 0.2,
       "raceTime": 134.9,
       "final3F": 33.5,
-      "carriedWeight": 56,
-      "weightScore": 66
+      "carriedWeight": 56
     }
   ],
   "houohbiscuits": [
@@ -1167,8 +1092,7 @@
       "timeGap": 0.3,
       "raceTime": 108.2,
       "final3F": 33.1,
-      "carriedWeight": 55,
-      "weightScore": 80
+      "carriedWeight": 55
     },
     {
       "raceId": "r1-g0",
@@ -1182,8 +1106,7 @@
       "timeGap": 0.6,
       "raceTime": 127.1,
       "final3F": 35,
-      "carriedWeight": 56,
-      "weightScore": 80
+      "carriedWeight": 56
     },
     {
       "raceId": "r2-g3",
@@ -1197,8 +1120,7 @@
       "timeGap": -0.3,
       "raceTime": 116.3,
       "final3F": 34.7,
-      "carriedWeight": 56,
-      "weightScore": 83
+      "carriedWeight": 56
     },
     {
       "raceId": "r3-g1",
@@ -1212,8 +1134,7 @@
       "timeGap": -0.5,
       "raceTime": 109.8,
       "final3F": 34.6,
-      "carriedWeight": 57,
-      "weightScore": 61
+      "carriedWeight": 57
     },
     {
       "raceId": "r4-g2",
@@ -1227,8 +1148,7 @@
       "timeGap": 0.6,
       "raceTime": 115.8,
       "final3F": 36.4,
-      "carriedWeight": 55,
-      "weightScore": 83
+      "carriedWeight": 55
     }
   ]
 }

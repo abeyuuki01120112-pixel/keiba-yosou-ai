@@ -179,6 +179,41 @@ export function HorseDetailPanel({ horseId, onClose }: Props) {
                         <span>斤量補正</span>
                         <span>{race.weightScore.toFixed(1)}</span>
                       </div>
+                      <div className="member-level-sub-breakdown">
+                        <div className="breakdown-row sub-row">
+                          <span>実斤量</span>
+                          <span>{race.weightBreakdown.horseCarriedWeightKg.toFixed(1)}kg</span>
+                        </div>
+                        <div className="breakdown-row sub-row">
+                          <span>レース斤量中央値</span>
+                          <span>{race.weightBreakdown.raceMedianWeightKg.toFixed(1)}kg</span>
+                        </div>
+                        <div className="breakdown-row sub-row">
+                          <span>斤量差</span>
+                          <span>
+                            {race.weightBreakdown.weightDiffKg >= 0 ? "+" : ""}
+                            {race.weightBreakdown.weightDiffKg.toFixed(1)}kg
+                          </span>
+                        </div>
+                        <div className="breakdown-row sub-row">
+                          <span>距離</span>
+                          <span>{race.weightBreakdown.distance}m</span>
+                        </div>
+                        <div className="breakdown-row sub-row">
+                          <span>1kgあたり秒換算</span>
+                          <span>{race.weightBreakdown.secondsPerKg.toFixed(2)}秒</span>
+                        </div>
+                        <div className="breakdown-row sub-row">
+                          <span>
+                            斤量負荷換算
+                            {!race.weightBreakdown.isReliable && "（サンプル不足）"}
+                          </span>
+                          <span>
+                            {race.weightBreakdown.weightAdjustmentSeconds >= 0 ? "+" : ""}
+                            {race.weightBreakdown.weightAdjustmentSeconds.toFixed(2)}秒
+                          </span>
+                        </div>
+                      </div>
                       <div className="breakdown-row breakdown-total">
                         <span>1走スコア</span>
                         <span>{race.raceScore.toFixed(1)}</span>

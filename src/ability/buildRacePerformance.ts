@@ -1,16 +1,16 @@
 /**
  * 単発の RacePerformance を組み立てるヘルパー（主にテスト・単体動作確認用）。
- * memberLevelScoreAtRace・raceTimeScore・final3FScore は既知の値として受け取り、
+ * memberLevelScoreAtRace・raceTimeScore・final3FScore・weightScore は既知の値として受け取り、
  * timeGapScore・raceScoreをここで一元的に計算する。
  *
  * 実際のデータロードでは、複数馬の履歴を横断して memberLevelScoreAtRace・
- * raceTimeScore・final3FScore 自体を算出する必要があるため
+ * raceTimeScore・final3FScore・weightScore 自体を算出する必要があるため
  * raceHistoryPipeline.buildRaceHistory() を使う。
  */
 
 import { calculateRaceScore } from "./raceScore";
 import { calculateTimeGapScore } from "./timeGapScore";
-import type { Final3FBreakdown, RacePerformance } from "./types";
+import type { Final3FBreakdown, RacePerformance, WeightBreakdown } from "./types";
 
 const EMPTY_FINAL3F_BREAKDOWN: Final3FBreakdown = {
   horseFinal3FSeconds: 0,
@@ -21,6 +21,16 @@ const EMPTY_FINAL3F_BREAKDOWN: Final3FBreakdown = {
   absoluteDiffSeconds: null,
 };
 
+const EMPTY_WEIGHT_BREAKDOWN: WeightBreakdown = {
+  horseCarriedWeightKg: 0,
+  raceMedianWeightKg: 0,
+  weightDiffKg: 0,
+  distance: 0,
+  secondsPerKg: 0,
+  weightAdjustmentSeconds: 0,
+  isReliable: false,
+};
+
 export type RacePerformanceInput = Omit<
   RacePerformance,
   | "timeGapScore"
@@ -29,11 +39,16 @@ export type RacePerformanceInput = Omit<
   | "memberLevelBreakdown"
   | "raceTimeBreakdown"
   | "final3FBreakdown"
+  | "weightBreakdown"
 > &
   Partial<
     Pick<
       RacePerformance,
-      "retrospectiveMemberLevelScore" | "memberLevelBreakdown" | "raceTimeBreakdown" | "final3FBreakdown"
+      | "retrospectiveMemberLevelScore"
+      | "memberLevelBreakdown"
+      | "raceTimeBreakdown"
+      | "final3FBreakdown"
+      | "weightBreakdown"
     >
   >;
 
@@ -53,6 +68,7 @@ export function buildRacePerformance(input: RacePerformanceInput): RacePerforman
     memberLevelBreakdown: input.memberLevelBreakdown ?? null,
     raceTimeBreakdown: input.raceTimeBreakdown ?? null,
     final3FBreakdown: input.final3FBreakdown ?? EMPTY_FINAL3F_BREAKDOWN,
+    weightBreakdown: input.weightBreakdown ?? EMPTY_WEIGHT_BREAKDOWN,
     timeGapScore,
     raceScore,
   };

@@ -32,6 +32,7 @@ import { calculateFinal3FScore, combineFinal3FValue } from "./final3FScore";
 import { calculateTimeGapScore } from "./timeGapScore";
 import { calculateTrackAdjustment, type DayRaceRecord } from "./trackAdjustment";
 import { calculateFinal3FTrackAdjustment, type DayFinal3FRecord } from "./final3FTrackAdjustment";
+import { buildWeightEvaluation, calculateRaceMedianWeight } from "./weightScore";
 import { median } from "../simulation/probability";
 import { roundToOneDecimal } from "./raceScore";
 import type {
@@ -43,8 +44,9 @@ import type {
 } from "./types";
 
 /**
- * データ層が保持する生の実績値＋仮サブスコア。
- * memberLevelScore・raceTimeScore・final3FScore・timeGapScore・raceScoreは含まない（すべて自動算出のため）。
+ * データ層が保持する生の実績値。
+ * memberLevelScore・raceTimeScore・final3FScore・weightScore・timeGapScore・raceScoreは
+ * 含まない（すべて自動算出のため）。
  */
 export type RaceHistoryRawInput = Omit<
   RacePerformance,
@@ -56,6 +58,8 @@ export type RaceHistoryRawInput = Omit<
   | "raceTimeBreakdown"
   | "final3FScore"
   | "final3FBreakdown"
+  | "weightScore"
+  | "weightBreakdown"
   | "raceScore"
 >;
 
@@ -223,6 +227,7 @@ export function buildRaceHistory(
     );
 
     const final3FMeta = final3FMetaByRaceId.get(group[0].raw.raceId)!;
+    const raceMedianWeight = calculateRaceMedianWeight(group.map((e) => e.raw.carriedWeight));
 
     for (const entry of group) {
       const timeGapScore = calculateTimeGapScore(entry.raw.timeGap, entry.raw.distance);
@@ -233,12 +238,17 @@ export function buildRaceHistory(
         allFinal3FMetas,
         courseFinal3FBaselines,
       );
+      const { weightScore, breakdown: weightBreakdown } = buildWeightEvaluation(
+        entry.raw.carriedWeight,
+        raceMedianWeight,
+        entry.raw.distance,
+      );
       const raceScore = calculateRaceScore({
         memberLevelScoreAtRace: memberLevelScore,
         timeGapScore,
         raceTimeScore,
         final3FScore,
-        weightScore: entry.raw.weightScore,
+        weightScore,
       });
 
       const finalized: RacePerformance = {
@@ -251,6 +261,8 @@ export function buildRaceHistory(
         raceTimeBreakdown,
         final3FScore,
         final3FBreakdown,
+        weightScore,
+        weightBreakdown,
         raceScore,
       };
 

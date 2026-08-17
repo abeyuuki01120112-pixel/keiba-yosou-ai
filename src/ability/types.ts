@@ -114,6 +114,28 @@ export interface Final3FBreakdown {
   absoluteDiffSeconds: number | null;
 }
 
+/**
+ * weightScore の算出根拠。斤量は馬ごとに異なる個別値のため、final3FScoreと同じく
+ * 同じレースでも出走馬ごとに値が違う（raceMedianWeightKg・secondsPerKgはレース単位で共通）。
+ *
+ * 出走馬全頭の斤量が参照できない（不正値など）場合、isReliable=falseとなり、
+ * weightDiffKg・weightAdjustmentSecondsは0（中立）にフォールバックする。
+ */
+export interface WeightBreakdown {
+  horseCarriedWeightKg: number;
+  /** そのレース出走馬の斤量中央値（平均ではなく中央値） */
+  raceMedianWeightKg: number;
+  /** horseCarriedWeightKg - raceMedianWeightKg（正の値＝平均より重い斤量） */
+  weightDiffKg: number;
+  /** メートル */
+  distance: number;
+  /** 距離に応じた1kgあたりの秒換算（V0: 0.2 * distance/2000） */
+  secondsPerKg: number;
+  /** weightDiffKg * secondsPerKg（正の値＝平均より重い負荷を背負った） */
+  weightAdjustmentSeconds: number;
+  isReliable: boolean;
+}
+
 /** 1走分の実績データとスコア内訳 */
 export interface RacePerformance {
   raceId: string;
@@ -184,10 +206,13 @@ export interface RacePerformance {
   final3FBreakdown: Final3FBreakdown;
   /**
    * 斤量補正スコア（0〜100）。
-   * 将来的には距離に応じた秒換算（2000mで1kg差 ≒ 約0.2秒が目安）で算出する。
-   * V0では仮入力値を保持するのみ。
+   * 「56kgなら70点」のような固定点数ではなく、レース斤量中央値との差を
+   * 距離に応じた秒換算（V0: 2000mで1kg ≒ 0.2秒）に変換し calculateWeightScore() で算出する。
+   * 重い斤量を背負って走った馬ほど高評価、軽斤量ほど低評価。馬ごとに異なる個別値。
    */
   weightScore: number;
+  /** weightScore の算出根拠 */
+  weightBreakdown: WeightBreakdown;
 
   /** 5項目の加重平均（0〜100、小数第1位）。calculateRaceScore() の結果 */
   raceScore: number;
