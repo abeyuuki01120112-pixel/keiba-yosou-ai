@@ -12,5 +12,19 @@
     "raceTime": 132.6,
     "final3F": 35,
     "carriedWeight": 58
+  },
+  {
+    "raceId": "JRA-20260405-HANSHIN-11",
+    "raceName": "大阪杯",
+    "raceDate": "2026-04-05",
+    "racecourse": "阪神",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "finishPosition": 3,
+    "timeGap": 0.3,
+    "raceTime": 117.9,
+    "final3F": 34.9,
+    "carriedWeight": 58
   }
 ]

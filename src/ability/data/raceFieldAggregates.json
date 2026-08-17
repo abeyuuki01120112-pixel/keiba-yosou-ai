@@ -28,6 +28,13 @@
       "raceMedianWeightKg": 57.0,
       "raceMedianFinal3FSeconds": 35.2,
       "source": "JRA公式 fullfield_2025_andromeda_s.csv (n=16)"
+    },
+    {
+      "raceId": "JRA-20260405-HANSHIN-11",
+      "fieldCount": 15,
+      "raceMedianWeightKg": 58.0,
+      "raceMedianFinal3FSeconds": 35.4,
+      "source": "JRA公式 batch8_2026_osaka_hai_fullfield_verified.csv (n=15。2026大阪杯)"
     }
   ]
 }
