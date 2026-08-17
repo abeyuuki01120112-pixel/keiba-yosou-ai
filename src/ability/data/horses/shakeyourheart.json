@@ -1,0 +1,72 @@
+[
+  {
+    "raceId": "r0-g3",
+    "raceName": "小倉特別戦",
+    "raceDate": "2026-06-20",
+    "racecourse": "小倉",
+    "surface": "turf",
+    "distance": 1800,
+    "going": "良",
+    "finishPosition": 1,
+    "timeGap": -0.2,
+    "raceTime": 110,
+    "final3F": 35.6,
+    "carriedWeight": 56
+  },
+  {
+    "raceId": "r1-g1",
+    "raceName": "中山条件戦",
+    "raceDate": "2026-04-20",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 2100,
+    "going": "良",
+    "finishPosition": 1,
+    "timeGap": -0.3,
+    "raceTime": 127.3,
+    "final3F": 34,
+    "carriedWeight": 56
+  },
+  {
+    "raceId": "r2-g2",
+    "raceName": "阪神準重賞",
+    "raceDate": "2026-02-20",
+    "racecourse": "阪神",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "重",
+    "finishPosition": 3,
+    "timeGap": 0.7,
+    "raceTime": 123.4,
+    "final3F": 33.1,
+    "carriedWeight": 57
+  },
+  {
+    "raceId": "r3-g3",
+    "raceName": "中山特別戦",
+    "raceDate": "2025-12-20",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 1900,
+    "going": "良",
+    "finishPosition": 3,
+    "timeGap": 0.5,
+    "raceTime": 114.4,
+    "final3F": 34.8,
+    "carriedWeight": 57
+  },
+  {
+    "raceId": "r4-g0",
+    "raceName": "函館オープン特別",
+    "raceDate": "2025-10-20",
+    "racecourse": "函館",
+    "surface": "turf",
+    "distance": 2200,
+    "going": "良",
+    "finishPosition": 2,
+    "timeGap": 0.2,
+    "raceTime": 134.9,
+    "final3F": 33.5,
+    "carriedWeight": 56
+  }
+]

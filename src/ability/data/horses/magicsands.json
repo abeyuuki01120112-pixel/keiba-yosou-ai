@@ -1,0 +1,72 @@
+[
+  {
+    "raceId": "r0-g0",
+    "raceName": "中山オープン特別",
+    "raceDate": "2026-06-20",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 2100,
+    "going": "稍重",
+    "finishPosition": 4,
+    "timeGap": 0.7,
+    "raceTime": 126.4,
+    "final3F": 34.8,
+    "carriedWeight": 56
+  },
+  {
+    "raceId": "r1-g3",
+    "raceName": "札幌重賞トライアル",
+    "raceDate": "2026-04-20",
+    "racecourse": "札幌",
+    "surface": "turf",
+    "distance": 1900,
+    "going": "良",
+    "finishPosition": 3,
+    "timeGap": 0.7,
+    "raceTime": 117,
+    "final3F": 34.6,
+    "carriedWeight": 57
+  },
+  {
+    "raceId": "r2-g0",
+    "raceName": "函館オープン特別",
+    "raceDate": "2026-02-20",
+    "racecourse": "函館",
+    "surface": "turf",
+    "distance": 2200,
+    "going": "良",
+    "finishPosition": 1,
+    "timeGap": -0.4,
+    "raceTime": 134.3,
+    "final3F": 35.2,
+    "carriedWeight": 56
+  },
+  {
+    "raceId": "r3-g3",
+    "raceName": "中山特別戦",
+    "raceDate": "2025-12-20",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 1900,
+    "going": "良",
+    "finishPosition": 4,
+    "timeGap": 0.6,
+    "raceTime": 114,
+    "final3F": 33.9,
+    "carriedWeight": 57
+  },
+  {
+    "raceId": "r4-g3",
+    "raceName": "東京リステッド競走",
+    "raceDate": "2025-10-20",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "finishPosition": 2,
+    "timeGap": 0.3,
+    "raceTime": 121.5,
+    "final3F": 34.4,
+    "carriedWeight": 57
+  }
+]

@@ -1,15 +1,20 @@
 /**
  * 馬の直近5走データのロード。
- * data/racePerformances.json（実績の生データ＋仮サブスコア。memberLevelScore・raceTimeScore・
- * final3FScoreは含まない）と、data/courseTimeBaselines.json（過去5年基準タイム）、
+ *
+ * data/horses/<horseId>.json（1頭1ファイル。実績の生データのみ。memberLevelScore・
+ * raceTimeScore・final3FScore・weightScoreは含まない）と、
+ * data/courseTimeBaselines.json（過去5年基準タイム）、
  * data/courseFinal3FBaselines.json（過去5年上がり3F基準）から、
  * raceHistoryPipeline.buildRaceHistory() で、実質メンバーレベル・走破タイムスコア・
- * 上がり3Fスコア込みの timeGapScore・raceScoreを一括計算し、
+ * 上がり3Fスコア・斤量補正スコア込みの timeGapScore・raceScoreを一括計算し、
  * buildHorseAbilityProfile() で baseAbility を算出する。
- * 実データが確定したらそれぞれのJSONを差し替えるだけでよい構造にしている。
+ *
+ * 実データを投入する場合は data/horses/ 配下の対象馬のJSONファイルを差し替えるだけでよい
+ * （馬を追加する場合は新しいファイルを置くだけで自動的に読み込まれる）。
+ * 手順の詳細は docs/data-input-guide.md を参照。データを差し替えたら
+ * `npm run validate:data` で構造チェックできる。
  */
 
-import rawRacePerformances from "./data/racePerformances.json";
 import rawCourseTimeBaselines from "./data/courseTimeBaselines.json";
 import rawCourseFinal3FBaselines from "./data/courseFinal3FBaselines.json";
 import { loadDefaultHorses } from "../simulation/horseData";
@@ -19,7 +24,19 @@ import type { CourseFinal3FBaseline, CourseTimeBaseline, HorseAbilityProfile } f
 
 type RawData = Record<string, RaceHistoryRawInput[]>;
 
-const typedRawData = rawRacePerformances as unknown as RawData;
+// data/horses/*.json を1頭1ファイルとしてまとめて読み込む。
+// ファイルを追加/削除するだけで対象馬が増減する（コード変更不要）。
+const horseFileModules = import.meta.glob<RaceHistoryRawInput[]>("./data/horses/*.json", {
+  eager: true,
+  import: "default",
+});
+
+const typedRawData: RawData = {};
+for (const [filePath, races] of Object.entries(horseFileModules)) {
+  const horseId = filePath.replace(/^.*\//, "").replace(/\.json$/, "");
+  typedRawData[horseId] = races;
+}
+
 const typedTimeBaselines = rawCourseTimeBaselines.baselines as unknown as CourseTimeBaseline[];
 const typedFinal3FBaselines = rawCourseFinal3FBaselines.baselines as unknown as CourseFinal3FBaseline[];
 
