@@ -10,7 +10,7 @@
  *   adjustmentSeconds=0・isReliable=false のまま返す（1箇所で閾値を調整できる）。
  */
 
-import { findCourseTimeBaseline } from "./courseTimeBaseline";
+import { lookupCourseTimeBaseline } from "./courseTimeBaseline";
 import { median } from "../simulation/probability";
 import type { CourseTimeBaseline, Surface, TrackBiasTimeAdjustment } from "./types";
 
@@ -47,7 +47,7 @@ export function calculateTrackAdjustment(
 
   const diffs: number[] = [];
   for (const r of pool) {
-    const baseline = findCourseTimeBaseline(baselines, r.racecourse, r.surface, r.distance, r.going);
+    const { baseline } = lookupCourseTimeBaseline(baselines, r.racecourse, r.surface, r.distance, r.going);
     if (!baseline) continue;
     diffs.push(r.officialTimeSeconds - baseline.medianTimeSeconds);
   }

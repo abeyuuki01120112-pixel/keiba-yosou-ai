@@ -23,8 +23,8 @@
  */
 
 import { calculateAbilityBeforeRace, MAX_PRIOR_RACES_FOR_ABILITY } from "./abilityBeforeRace";
-import { findCourseTimeBaseline } from "./courseTimeBaseline";
-import { findCourseFinal3FBaseline } from "./courseFinal3FBaseline";
+import { lookupCourseTimeBaseline } from "./courseTimeBaseline";
+import { lookupCourseFinal3FBaseline } from "./courseFinal3FBaseline";
 import { calculateMemberLevel } from "./memberLevel";
 import { calculateRaceScore } from "./raceScore";
 import { calculateRaceTimeScore, RACE_TIME_SCORE_CENTER } from "./raceTimeScore";
@@ -73,7 +73,13 @@ function buildRaceTimeEvaluation(
   allRaceMetas: DayRaceRecord[],
   baselines: CourseTimeBaseline[],
 ): { raceTimeScore: number; breakdown: RaceTimeBreakdown | null } {
-  const baseline = findCourseTimeBaseline(baselines, meta.racecourse, meta.surface, meta.distance, meta.going);
+  const { baseline, meta: baselineMeta } = lookupCourseTimeBaseline(
+    baselines,
+    meta.racecourse,
+    meta.surface,
+    meta.distance,
+    meta.going,
+  );
   if (!baseline) {
     // 基準タイムが無い条件では推測せず中立値にフォールバックする
     return { raceTimeScore: RACE_TIME_SCORE_CENTER, breakdown: null };
@@ -91,6 +97,7 @@ function buildRaceTimeEvaluation(
       baseDiffSeconds: roundToOneDecimal(baseDiffSeconds),
       trackAdjustment,
       trackAdjustedDiffSeconds: roundToOneDecimal(trackAdjustedDiffSeconds),
+      baselineMeta,
     },
   };
 }
@@ -104,7 +111,7 @@ function buildFinal3FEvaluation(
 ): { final3FScore: number; breakdown: Final3FBreakdown } {
   const relativeDiffSeconds = raceFinal3FMedianSeconds - horseFinal3FSeconds;
 
-  const baseline = findCourseFinal3FBaseline(
+  const { baseline, meta: baselineMeta } = lookupCourseFinal3FBaseline(
     baselines,
     final3FMeta.racecourse,
     final3FMeta.surface,
@@ -123,6 +130,7 @@ function buildFinal3FEvaluation(
         courseBaselineSeconds: null,
         trackAdjustment: null,
         absoluteDiffSeconds: null,
+        baselineMeta,
       },
     };
   }
@@ -140,6 +148,7 @@ function buildFinal3FEvaluation(
       courseBaselineSeconds: baseline.medianFinal3FSeconds,
       trackAdjustment,
       absoluteDiffSeconds: roundToOneDecimal(absoluteDiffSeconds),
+      baselineMeta,
     },
   };
 }

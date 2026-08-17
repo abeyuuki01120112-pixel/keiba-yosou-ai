@@ -11,6 +11,7 @@ const baseline: CourseTimeBaseline = {
   sampleYears: 5,
   sampleCount: 40,
   medianTimeSeconds: 120.0,
+  source: "test",
 };
 const baselines: CourseTimeBaseline[] = [baseline];
 

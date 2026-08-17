@@ -11,7 +11,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "validate:data": "node scripts/validateAbilityData.mjs",
-    "import:csv": "tsx scripts/importRacePerformancesCsv.ts"
+    "import:csv": "tsx scripts/importRacePerformancesCsv.ts",
+    "import:time-baselines": "tsx scripts/importCourseTimeBaselinesCsv.ts",
+    "import:final3f-baselines": "tsx scripts/importCourseFinal3FBaselinesCsv.ts"
   },
   "dependencies": {
     "react": "^19.2.8",

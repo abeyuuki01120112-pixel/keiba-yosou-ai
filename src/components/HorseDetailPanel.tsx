@@ -1,8 +1,24 @@
 import { useMemo, useState } from "react";
 import { loadHorseAbilityProfile } from "../ability/horseAbilityData";
 import { formatRaceTimeSeconds } from "../ability/raceTimeScore";
+import type { BaselineMeta } from "../ability/types";
 
 const RACE_LABELS = ["前走", "2走前", "3走前", "4走前", "5走前"];
+
+const BASELINE_SOURCE_TIER_LABEL: Record<BaselineMeta["baselineSource"], string> = {
+  exact: "exact（競馬場×surface×距離×馬場状態が完全一致）",
+  distanceFallback: "distanceFallback（馬場状態は問わず競馬場×surface×距離で一致）",
+  defaultFallback: "defaultFallback（一致するbaselineなし）",
+};
+
+/** 「実データ / exact, sampleCount: 24, 信頼度: 高」のようなbaseline検索結果の表示文言を組み立てる */
+function formatBaselineMeta(meta: BaselineMeta): string {
+  const tier = BASELINE_SOURCE_TIER_LABEL[meta.baselineSource];
+  const sampleCount = meta.sampleCount === null ? "-" : meta.sampleCount;
+  const reliability = meta.isReliable ? "高" : "低";
+  const source = meta.dataSource ?? "-";
+  return `${tier}, sampleCount: ${sampleCount}, 信頼度: ${reliability}（出典: ${source}）`;
+}
 
 /**
  * このレースのraceScoreに、fallback／仮baseline由来の暫定値が
@@ -133,6 +149,10 @@ export function HorseDetailPanel({ horseId, onClose }: Props) {
                             <span>5年基準タイム</span>
                             <span>{formatRaceTimeSeconds(race.raceTimeBreakdown.baselineTimeSeconds)}</span>
                           </div>
+                          <div className="breakdown-row sub-row baseline-meta-row">
+                            <span>基準タイムの由来</span>
+                            <span>{formatBaselineMeta(race.raceTimeBreakdown.baselineMeta)}</span>
+                          </div>
                           <div className="breakdown-row sub-row">
                             <span>実走破タイム</span>
                             <span>{formatRaceTimeSeconds(race.raceTimeBreakdown.actualTimeSeconds)}</span>
@@ -200,6 +220,10 @@ export function HorseDetailPanel({ horseId, onClose }: Props) {
                             <div className="breakdown-row sub-row">
                               <span>5年同条件上がり基準</span>
                               <span>{race.final3FBreakdown.courseBaselineSeconds.toFixed(1)}</span>
+                            </div>
+                            <div className="breakdown-row sub-row baseline-meta-row">
+                              <span>上がり基準の由来</span>
+                              <span>{formatBaselineMeta(race.final3FBreakdown.baselineMeta)}</span>
                             </div>
                             <div className="breakdown-row sub-row">
                               <span>

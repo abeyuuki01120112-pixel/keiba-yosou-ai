@@ -34,6 +34,25 @@ export interface MemberLevelBreakdown {
 export type RaceGrade = "G1" | "G2" | "G3" | "L" | "OP" | "unknown";
 
 /**
+ * baseline検索がどの段階で一致したか。
+ *   exact             … 競馬場×surface×距離×馬場状態が完全一致
+ *   distanceFallback   … 競馬場×surface×距離は一致・馬場状態は問わない（②段階）
+ *   defaultFallback    … 一致するbaselineが無く、既存の中立値フォールバックに委ねる（③段階）
+ */
+export type BaselineSourceTier = "exact" | "distanceFallback" | "defaultFallback";
+
+/** baseline検索1回ぶんの結果メタ情報。実データと仮データ／fallbackを区別して表示するために使う */
+export interface BaselineMeta {
+  baselineSource: BaselineSourceTier;
+  /** 一致したbaselineのサンプル数。defaultFallback（一致なし）の場合はnull */
+  sampleCount: number | null;
+  /** sampleCountがMIN_RELIABLE_SAMPLE_COUNT以上かどうか。defaultFallbackの場合は常にfalse */
+  isReliable: boolean;
+  /** 一致したbaselineの出典（自由記述）。defaultFallbackの場合はnull */
+  dataSource: string | null;
+}
+
+/**
  * 競馬場×芝/ダート×距離×馬場状態ごとの過去5年基準タイム。
  * 平均ではなく中央値を使う（外れ値に引っ張られにくくするため）。
  * V0では仮データを保持するのみ。実データ確定後は差し替え可能な構造にしている。
@@ -48,6 +67,8 @@ export interface CourseTimeBaseline {
   sampleYears: number;
   sampleCount: number;
   medianTimeSeconds: number;
+  /** データの出典（自由記述。例: "netkeiba 2021-2025集計"）。V0仮データの場合はその旨を書く */
+  source: string;
 }
 
 /**
@@ -74,6 +95,8 @@ export interface RaceTimeBreakdown {
   trackAdjustment: TrackBiasTimeAdjustment;
   /** baseDiffSeconds + trackAdjustment.adjustmentSeconds */
   trackAdjustedDiffSeconds: number;
+  /** 使用した基準タイムの検索結果（exact/distanceFallback。baseline自体が無い場合はbreakdown全体がnullになる） */
+  baselineMeta: BaselineMeta;
 }
 
 /**
@@ -90,6 +113,8 @@ export interface CourseFinal3FBaseline {
   sampleYears: number;
   sampleCount: number;
   medianFinal3FSeconds: number;
+  /** データの出典（自由記述）。V0仮データの場合はその旨を書く */
+  source: string;
 }
 
 /**
@@ -112,6 +137,8 @@ export interface Final3FBreakdown {
   trackAdjustment: TrackBiasTimeAdjustment | null;
   /** (courseBaselineSeconds - horseFinal3FSeconds) + trackAdjustment.adjustmentSeconds。courseBaselineSecondsがnullの場合はnull */
   absoluteDiffSeconds: number | null;
+  /** 使用した上がり3F基準の検索結果（courseBaselineSecondsがnullならbaselineSource="defaultFallback"） */
+  baselineMeta: BaselineMeta;
 }
 
 /**

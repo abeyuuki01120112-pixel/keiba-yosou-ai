@@ -65,6 +65,7 @@ const BASELINE_COMMON_FIELDS = {
   going: { type: "string", nonEmpty: true },
   sampleYears: { type: "number", positive: true },
   sampleCount: { type: "number", positive: true },
+  source: { type: "string", nonEmpty: true },
 };
 
 function validateField(value, spec, label) {

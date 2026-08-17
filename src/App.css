@@ -320,6 +320,16 @@
   color: var(--text);
 }
 
+.baseline-meta-row {
+  font-size: 11px;
+  color: var(--text-h);
+}
+
+.baseline-meta-row > span:last-child {
+  text-align: right;
+  max-width: 65%;
+}
+
 .import-status-panel {
   margin-top: 24px;
   border: 1px solid var(--border);

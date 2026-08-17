@@ -62,12 +62,17 @@ raceScore → 直近5走均等平均 → baseAbility
 |---|---|---|
 | `racecourse` / `surface` / `distance` / `going` | 上と同じ | この条件に一致するレースにだけ適用される |
 | `sampleYears` | number | 集計年数（通常5） |
-| `sampleCount` | number | 集計サンプル数（参考値、計算には使わない） |
+| `sampleCount` | number | 集計サンプル数。`MIN_RELIABLE_SAMPLE_COUNT`（`src/ability/baselineLookup.ts`、既定15）未満だと検索時に信頼度「低」と判定される |
 | `medianTimeSeconds` | number（秒） | 過去5年の**中央値**タイム |
+| `source` | string | データの出典（自由記述。例:`"netkeiba 2021-2025集計"`）。V0仮データの場合はその旨を書く |
 
 対応するレースが `data/horses/` 内に無い条件は用意しなくてOK（無駄になるだけ）。
 逆に対応する条件が無いと、そのレースの`raceTimeScore`は中立値(70点)にフォールバックします
 （`npm run validate:data`が不足条件を警告してくれます）。
+
+条件（競馬場×surface×距離×馬場状態）が完全一致しない場合でも、競馬場×surface×距離が
+一致すれば馬場状態を問わず`distanceFallback`として使われます（`raceTimeScore`・`final3FScore`の
+計算式自体は変わらない。詳細は4章）。
 
 ### 2-3. `src/ability/data/courseFinal3FBaselines.json`（過去5年上がり3F基準）
 
@@ -97,12 +102,6 @@ JSONを直接手で書く代わりに、CSVから変換することもできま�
 # 1頭分のレース実績CSV → data/horses/<horseId>.json
 node scripts/csvToHorseRaces.mjs <horseId> templates/race-performances-template.csv
 
-# 基準タイムCSV → courseTimeBaselines.json
-node scripts/csvToBaselines.mjs time templates/course-time-baselines-template.csv
-
-# 基準上がり3FCSV → courseFinal3FBaselines.json
-node scripts/csvToBaselines.mjs final3f templates/course-final3f-baselines-template.csv
-
 # 変換後は必ず検証する
 npm run validate:data
 ```
@@ -110,11 +109,52 @@ npm run validate:data
 出力先を省略すると対応するJSONファイルを丸ごと置き換えます。別ファイルに
 出力したい場合は3番目の引数でパスを指定できます。
 
+基準タイム／上がり3F基準のCSV取り込みは、下記4-1のnpmスクリプトを使ってください
+（`normalize → 検証 → JSON化`をTypeScriptで一元管理しており、CLIとアプリ本体で
+判定ロジックが二重管理になりません）。
+
+### 4-1. 基準タイム／上がり3F基準CSVの取り込み（第7実装）
+
+**重要**: このCLIは「baselineの計算式を変えるのではなく、仮値を実データへ差し替える入口」
+です。`raceTimeScore`・`final3FScore`・`trackAdjustment`等の計算式自体はここでは変更されません。
+
+CSVの列: `racecourse,surface,distance,going,sampleYears,sampleCount,medianTimeSeconds,source`
+（上がり3F用は`medianTimeSeconds`の代わりに`medianFinal3FSeconds`）。`source`は出典の自由記述で
+**必須**です（空だとその行はエラーになり、書き込みされません）。
+
+`baselineSource`・`isReliable`列をCSVに含めても構いませんが、これらは検索
+（`lookupCourseTimeBaseline`/`lookupCourseFinal3FBaseline`）のたびに`sampleCount`と
+`MIN_RELIABLE_SAMPLE_COUNT`から毎回自動計算される値のため、CSVにあっても**読み捨てられ、
+保存はされません**（古い判定を誤って信用しないため）。テンプレートは
+`templates/course-time-baselines-template.csv` / `templates/course-final3f-baselines-template.csv`。
+
+```bash
+# 変換内容を確認するだけ（ファイルには書き込まない）
+npm run import:time-baselines -- --dry-run
+npm run import:final3f-baselines -- --dry-run
+
+# 別のCSVファイルを指定する場合
+npm run import:time-baselines -- path/to/your.csv --dry-run
+
+# 実際に src/ability/data/courseTimeBaselines.json / courseFinal3FBaselines.json へ書き込む
+npm run import:time-baselines
+npm run import:final3f-baselines
+
+# 書き込み後は必ず確認する
+npm run validate:data
+npm test
+```
+
+引数省略時のデフォルト入力は`src/ability/data/import/course-time-baselines.csv` /
+`course-final3f-baselines.csv`です。エラーが1件でもあれば書き込みは中止されます
+（一部の行だけ差し替わる、といったことは起きません）。競馬場×surface×距離×馬場状態が
+重複する行が複数あった場合もエラーになります。
+
 ### V0のCSVパーサの制約
 
-`scripts/lib/csv.mjs`は素朴な実装で、**フィールド内にカンマや改行を含む値には対応していません**
-（`raceName`や`going`は短い日本語テキストである前提）。Excel等でカンマを含む
-レース名を扱う必要が出てきたら、その時に専用のCSVパーサ導入を検討してください。
+`scripts/lib/csv.mjs`・`src/ability/import/csvParser.ts`は素朴な実装で、**フィールド内にカンマや
+改行を含む値には対応していません**（`raceName`や`going`は短い日本語テキストである前提）。
+Excel等でカンマを含むレース名を扱う必要が出てきたら、その時に専用のCSVパーサ導入を検討してください。
 
 ## 5. 複数馬・複数レースをまとめて取り込む（推奨: normalize層経由）
 
@@ -195,8 +235,9 @@ JRA公式IDなど、実データのCSVは既存ロスター（`sapporoKinen.json
 - スクレイパーは、`templates/*.csv`と同じ列を持つCSVを吐き出すだけでよい
   （HTMLパース結果を直接JSONに変換するコードを書く必要はない）。
 - 変換ロジック（型チェック・JSON化）は`scripts/csvToHorseRaces.mjs` /
-  `scripts/csvToBaselines.mjs`に既にあるので、スクレイパー側は
-  「対象ページから該当項目を抜き出してCSV行を1行作る」ことだけに集中できる。
+  `scripts/importCourseTimeBaselinesCsv.ts` / `scripts/importCourseFinal3FBaselinesCsv.ts`に
+  既にあるので、スクレイパー側は「対象ページから該当項目を抜き出してCSV行を1行作る」
+  ことだけに集中できる。
 - CSVを経由しない場合でも、スクレイパーが直接
   `RaceHistoryRawInput`（`src/ability/raceHistoryPipeline.ts`)の形の
   オブジェクト配列を作れるなら、`JSON.stringify`してそのまま
@@ -211,15 +252,19 @@ JRA公式IDなど、実データのCSVは既存ロスター（`sapporoKinen.json
 |---|---|
 | `scripts/validateAbilityData.mjs` | データ構造の検証（`npm run validate:data`） |
 | `scripts/csvToHorseRaces.mjs` | 1頭ぶんのレース実績CSV → 馬別JSON |
-| `scripts/csvToBaselines.mjs` | 基準タイム／上がり3F CSV → JSON |
 | `scripts/lib/csv.mjs` | 簡易CSVパーサ（CLIスクリプト用） |
 | `scripts/importRacePerformancesCsv.ts` | 複数馬・複数レースまとめてCSV → 馬別JSON（`npm run import:csv`） |
+| `scripts/importCourseTimeBaselinesCsv.ts` | 基準タイムCSV → `courseTimeBaselines.json`（`npm run import:time-baselines`） |
+| `scripts/importCourseFinal3FBaselinesCsv.ts` | 上がり3F基準CSV → `courseFinal3FBaselines.json`（`npm run import:final3f-baselines`） |
 | `templates/*.csv` | 4章のCSVスクリプト用ひな形 |
 | `src/ability/import/types.ts` | `RacePerformanceInput`・`ImportError`等の型定義 |
 | `src/ability/import/csvParser.ts` | 簡易CSVパーサ（アプリ本体・テスト用） |
 | `src/ability/import/normalize.ts` | raw row → 検証済みデータへの正規化（`normalizeRacePerformance()`） |
 | `src/ability/import/buildImportResult.ts` | CSV全体の取り込み・集計・ability計算用データへの変換 |
+| `src/ability/import/normalizeBaseline.ts` | baseline raw row → 検証済みデータへの正規化（第7実装） |
+| `src/ability/import/buildBaselineImportResult.ts` | baseline CSV全体の取り込み・集計（第7実装） |
 | `src/ability/import/recentRaces.ts` | horseIdごとに直近N走を未来情報リーク無しで取得するユーティリティ |
+| `src/ability/baselineLookup.ts` | baselineの3段階fallback検索・信頼度判定の共通ロジック（第7実装） |
 | `src/components/ImportStatusPanel.tsx` | 取り込み状況の確認パネル（アプリ画面下部） |
 | `src/ability/data/import/race-performances.csv` | 複数馬・複数レースまとめ取り込みのサンプル／雛形 |
 | `src/ability/data/horses/*.json` | 馬別のレース実績生データ（正規化後の内部形式） |

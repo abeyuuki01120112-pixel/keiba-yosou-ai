@@ -10,7 +10,14 @@
 
 import { calculateRaceScore } from "./raceScore";
 import { calculateTimeGapScore } from "./timeGapScore";
-import type { Final3FBreakdown, RacePerformance, WeightBreakdown } from "./types";
+import type { BaselineMeta, Final3FBreakdown, RacePerformance, WeightBreakdown } from "./types";
+
+const EMPTY_BASELINE_META: BaselineMeta = {
+  baselineSource: "defaultFallback",
+  sampleCount: null,
+  isReliable: false,
+  dataSource: null,
+};
 
 const EMPTY_FINAL3F_BREAKDOWN: Final3FBreakdown = {
   horseFinal3FSeconds: 0,
@@ -19,6 +26,7 @@ const EMPTY_FINAL3F_BREAKDOWN: Final3FBreakdown = {
   courseBaselineSeconds: null,
   trackAdjustment: null,
   absoluteDiffSeconds: null,
+  baselineMeta: EMPTY_BASELINE_META,
 };
 
 const EMPTY_WEIGHT_BREAKDOWN: WeightBreakdown = {

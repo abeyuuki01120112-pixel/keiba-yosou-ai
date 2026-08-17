@@ -7,7 +7,7 @@
  * 第3実装のtrackAdjustment.tsと同じ方針。
  */
 
-import { findCourseFinal3FBaseline } from "./courseFinal3FBaseline";
+import { lookupCourseFinal3FBaseline } from "./courseFinal3FBaseline";
 import { median } from "../simulation/probability";
 import type { CourseFinal3FBaseline, Surface, TrackBiasTimeAdjustment } from "./types";
 
@@ -44,7 +44,7 @@ export function calculateFinal3FTrackAdjustment(
 
   const diffs: number[] = [];
   for (const r of pool) {
-    const baseline = findCourseFinal3FBaseline(baselines, r.racecourse, r.surface, r.distance, r.going);
+    const { baseline } = lookupCourseFinal3FBaseline(baselines, r.racecourse, r.surface, r.distance, r.going);
     if (!baseline) continue;
     diffs.push(r.raceFinal3FMedianSeconds - baseline.medianFinal3FSeconds);
   }

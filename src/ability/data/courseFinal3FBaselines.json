@@ -8,7 +8,8 @@
       "going": "良",
       "sampleYears": 5,
       "sampleCount": 50,
-      "medianFinal3FSeconds": 35.2
+      "medianFinal3FSeconds": 35.2,
+      "source": "V0テスト用仮データ（実データ未投入）"
     },
     {
       "racecourse": "阪神",
@@ -17,7 +18,8 @@
       "going": "重",
       "sampleYears": 5,
       "sampleCount": 30,
-      "medianFinal3FSeconds": 34
+      "medianFinal3FSeconds": 34,
+      "source": "V0テスト用仮データ（実データ未投入）"
     },
     {
       "racecourse": "札幌",
@@ -26,7 +28,8 @@
       "going": "良",
       "sampleYears": 5,
       "sampleCount": 60,
-      "medianFinal3FSeconds": 35.1
+      "medianFinal3FSeconds": 35.1,
+      "source": "V0テスト用仮データ（実データ未投入）"
     },
     {
       "racecourse": "札幌",
@@ -35,7 +38,8 @@
       "going": "重",
       "sampleYears": 5,
       "sampleCount": 40,
-      "medianFinal3FSeconds": 35.4
+      "medianFinal3FSeconds": 35.4,
+      "source": "V0テスト用仮データ（実データ未投入）"
     },
     {
       "racecourse": "小倉",
@@ -44,7 +48,8 @@
       "going": "良",
       "sampleYears": 5,
       "sampleCount": 50,
-      "medianFinal3FSeconds": 34.6
+      "medianFinal3FSeconds": 34.6,
+      "source": "V0テスト用仮データ（実データ未投入）"
     },
     {
       "racecourse": "小倉",
@@ -53,7 +58,8 @@
       "going": "良",
       "sampleYears": 5,
       "sampleCount": 60,
-      "medianFinal3FSeconds": 35.6
+      "medianFinal3FSeconds": 35.6,
+      "source": "V0テスト用仮データ（実データ未投入）"
     },
     {
       "racecourse": "小倉",
@@ -62,7 +68,8 @@
       "going": "稍重",
       "sampleYears": 5,
       "sampleCount": 60,
-      "medianFinal3FSeconds": 35.5
+      "medianFinal3FSeconds": 35.5,
+      "source": "V0テスト用仮データ（実データ未投入）"
     },
     {
       "racecourse": "小倉",
@@ -71,7 +78,8 @@
       "going": "良",
       "sampleYears": 5,
       "sampleCount": 40,
-      "medianFinal3FSeconds": 34.2
+      "medianFinal3FSeconds": 34.2,
+      "source": "V0テスト用仮データ（実データ未投入）"
     },
     {
       "racecourse": "中山",
@@ -80,7 +88,8 @@
       "going": "良",
       "sampleYears": 5,
       "sampleCount": 60,
-      "medianFinal3FSeconds": 34.5
+      "medianFinal3FSeconds": 34.5,
+      "source": "V0テスト用仮データ（実データ未投入）"
     },
     {
       "racecourse": "中山",
@@ -89,7 +98,8 @@
       "going": "稍重",
       "sampleYears": 5,
       "sampleCount": 40,
-      "medianFinal3FSeconds": 34.8
+      "medianFinal3FSeconds": 34.8,
+      "source": "V0テスト用仮データ（実データ未投入）"
     },
     {
       "racecourse": "中山",
@@ -98,7 +108,8 @@
       "going": "良",
       "sampleYears": 5,
       "sampleCount": 40,
-      "medianFinal3FSeconds": 33.6
+      "medianFinal3FSeconds": 33.6,
+      "source": "V0テスト用仮データ（実データ未投入）"
     },
     {
       "racecourse": "東京",
@@ -107,7 +118,8 @@
       "going": "良",
       "sampleYears": 5,
       "sampleCount": 60,
-      "medianFinal3FSeconds": 36.2
+      "medianFinal3FSeconds": 36.2,
+      "source": "V0テスト用仮データ（実データ未投入）"
     },
     {
       "racecourse": "東京",
@@ -116,7 +128,8 @@
       "going": "良",
       "sampleYears": 5,
       "sampleCount": 30,
-      "medianFinal3FSeconds": 34
+      "medianFinal3FSeconds": 34,
+      "source": "V0テスト用仮データ（実データ未投入）"
     },
     {
       "racecourse": "函館",
@@ -125,7 +138,8 @@
       "going": "良",
       "sampleYears": 5,
       "sampleCount": 60,
-      "medianFinal3FSeconds": 35.6
+      "medianFinal3FSeconds": 35.6,
+      "source": "V0テスト用仮データ（実データ未投入）"
     },
     {
       "racecourse": "函館",
@@ -134,7 +148,8 @@
       "going": "良",
       "sampleYears": 5,
       "sampleCount": 50,
-      "medianFinal3FSeconds": 34.3
+      "medianFinal3FSeconds": 34.3,
+      "source": "V0テスト用仮データ（実データ未投入）"
     }
   ]
 }

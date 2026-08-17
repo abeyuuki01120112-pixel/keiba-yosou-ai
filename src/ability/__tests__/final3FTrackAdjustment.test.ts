@@ -14,6 +14,7 @@ const baseline: CourseFinal3FBaseline = {
   sampleYears: 5,
   sampleCount: 40,
   medianFinal3FSeconds: 35.0,
+  source: "test",
 };
 const baselines: CourseFinal3FBaseline[] = [baseline];
 

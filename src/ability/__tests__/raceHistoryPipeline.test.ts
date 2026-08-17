@@ -194,6 +194,7 @@ describe("buildRaceHistory の raceTimeScore（走破タイムスコア）", () 
     sampleYears: 5,
     sampleCount: 40,
     medianTimeSeconds: 119.8, // 1:59.8
+    source: "test",
   };
 
   it("trackAdjustedDiffの符号が正しい（基準より速い日に、さらに速いタイムを出した場合）", () => {
@@ -272,6 +273,88 @@ describe("buildRaceHistory の raceTimeScore（走破タイムスコア）", () 
   });
 });
 
+describe("buildRaceHistory と baselineMeta の接続（第7実装：baseline実データ投入基盤）", () => {
+  it("raceTimeBreakdown.baselineMetaに完全一致（exact）が反映される", () => {
+    const exactBaseline: CourseTimeBaseline = {
+      racecourse: "札幌",
+      surface: "turf",
+      distance: 2000,
+      going: "良",
+      sampleYears: 5,
+      sampleCount: 40,
+      medianTimeSeconds: 119.8,
+      source: "test-exact",
+    };
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "target", raceDate: "2026-01-01" })],
+    };
+    const result = buildRaceHistory(raw, [exactBaseline]);
+    expect(result.A[0].raceTimeBreakdown!.baselineMeta.baselineSource).toBe("exact");
+    expect(result.A[0].raceTimeBreakdown!.baselineMeta.sampleCount).toBe(40);
+    expect(result.A[0].raceTimeBreakdown!.baselineMeta.dataSource).toBe("test-exact");
+  });
+
+  it("raceTimeBreakdown.baselineMetaに馬場状態違いのdistanceFallbackが反映される", () => {
+    // race()のgoing既定値は「良」。baseline側は「重」しか無いので②段階(distanceFallback)に落ちる
+    const goingOnlyDifferentBaseline: CourseTimeBaseline = {
+      racecourse: "札幌",
+      surface: "turf",
+      distance: 2000,
+      going: "重",
+      sampleYears: 5,
+      sampleCount: 25,
+      medianTimeSeconds: 121.0,
+      source: "test-fallback",
+    };
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "target", raceDate: "2026-01-01" })],
+    };
+    const result = buildRaceHistory(raw, [goingOnlyDifferentBaseline]);
+    expect(result.A[0].raceTimeBreakdown).not.toBeNull();
+    expect(result.A[0].raceTimeBreakdown!.baselineMeta.baselineSource).toBe("distanceFallback");
+    expect(result.A[0].raceTimeBreakdown!.baselineMeta.sampleCount).toBe(25);
+  });
+
+  it("該当baselineが無い場合、raceTimeBreakdownはnullのまま（baselineMetaは存在しない）", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "target", raceDate: "2026-01-01", racecourse: "小倉", distance: 1800 })],
+    };
+    const result = buildRaceHistory(raw, []);
+    expect(result.A[0].raceTimeBreakdown).toBeNull();
+  });
+
+  it("final3FBreakdown.baselineMetaに完全一致（exact）が反映される", () => {
+    const exactBaseline: CourseFinal3FBaseline = {
+      racecourse: "札幌",
+      surface: "turf",
+      distance: 2000,
+      going: "良",
+      sampleYears: 5,
+      sampleCount: 40,
+      medianFinal3FSeconds: 35.0,
+      source: "test-exact",
+    };
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "target", raceDate: "2026-01-01" })],
+    };
+    const result = buildRaceHistory(raw, [], [exactBaseline]);
+    expect(result.A[0].final3FBreakdown.baselineMeta.baselineSource).toBe("exact");
+    expect(result.A[0].final3FBreakdown.baselineMeta.sampleCount).toBe(40);
+  });
+
+  it("final3FBreakdownは該当baselineが無くてもnullにならず、baselineMeta.baselineSource=defaultFallbackになる", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "target", raceDate: "2026-01-01", racecourse: "小倉", distance: 1800 })],
+    };
+    const result = buildRaceHistory(raw, [], []);
+    expect(result.A[0].final3FBreakdown).not.toBeNull();
+    expect(result.A[0].final3FBreakdown.courseBaselineSeconds).toBeNull();
+    expect(result.A[0].final3FBreakdown.baselineMeta.baselineSource).toBe("defaultFallback");
+    expect(result.A[0].final3FBreakdown.baselineMeta.sampleCount).toBeNull();
+    expect(result.A[0].final3FBreakdown.baselineMeta.isReliable).toBe(false);
+  });
+});
+
 describe("buildRaceHistory の final3FScore（上がり3Fスコア）", () => {
   const timeBaseline: CourseTimeBaseline = {
     racecourse: "札幌",
@@ -281,6 +364,7 @@ describe("buildRaceHistory の final3FScore（上がり3Fスコア）", () => {
     sampleYears: 5,
     sampleCount: 40,
     medianTimeSeconds: 119.8,
+    source: "test",
   };
   const final3FBaseline: CourseFinal3FBaseline = {
     racecourse: "札幌",
@@ -290,6 +374,7 @@ describe("buildRaceHistory の final3FScore（上がり3Fスコア）", () => {
     sampleYears: 5,
     sampleCount: 40,
     medianFinal3FSeconds: 35.0,
+    source: "test",
   };
 
   it("レース内上がり中央値が正しく計算される", () => {
