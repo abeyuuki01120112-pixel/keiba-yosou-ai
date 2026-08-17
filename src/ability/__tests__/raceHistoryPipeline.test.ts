@@ -4,6 +4,8 @@ import { calculateMemberLevel } from "../memberLevel";
 import { buildHorseAbilityProfile } from "../buildHorseAbilityProfile";
 import { calculateBaseAbility } from "../baseAbility";
 import { FALLBACK_MEMBER_LEVEL_SCORE } from "../memberLevel";
+import { RACE_TIME_SCORE_CENTER } from "../raceTimeScore";
+import type { CourseTimeBaseline } from "../types";
 
 function race(overrides: Partial<RaceHistoryRawInput> & Pick<RaceHistoryRawInput, "raceId" | "raceDate">): RaceHistoryRawInput {
   return {
@@ -17,7 +19,6 @@ function race(overrides: Partial<RaceHistoryRawInput> & Pick<RaceHistoryRawInput
     raceTime: 120,
     final3F: 34,
     carriedWeight: 56,
-    raceTimeScore: 80,
     final3FScore: 80,
     weightScore: 80,
     ...overrides,
@@ -182,5 +183,92 @@ describe("buildRaceHistory", () => {
     const result = buildRaceHistory(raw);
     expect(result.A[0].memberLevelScoreAtRace).toBe(FALLBACK_MEMBER_LEVEL_SCORE);
     expect(result.A[0].memberLevelBreakdown).toBeNull();
+  });
+});
+
+describe("buildRaceHistory の raceTimeScore（走破タイムスコア）", () => {
+  const baseline: CourseTimeBaseline = {
+    racecourse: "札幌",
+    surface: "turf",
+    distance: 2000,
+    going: "良",
+    sampleYears: 5,
+    sampleCount: 40,
+    medianTimeSeconds: 119.8, // 1:59.8
+  };
+
+  it("trackAdjustedDiffの符号が正しい（基準より速い日に、さらに速いタイムを出した場合）", () => {
+    // 5年基準1:59.8、実走1:57.6 -> baseDiff=+2.2
+    // 当日馬場補正が-0.8秒（速い馬場）になるよう、同日同競馬場同surfaceに複数レースを用意
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "target", raceDate: "2026-01-01", raceTime: 117.6 })],
+      B: [race({ raceId: "pool1", raceDate: "2026-01-01", raceTime: 119.1 })], // diff -0.7
+      C: [race({ raceId: "pool2", raceDate: "2026-01-01", raceTime: 118.9 })], // diff -0.9
+      D: [race({ raceId: "pool3", raceDate: "2026-01-01", raceTime: 119.2 })], // diff -0.6
+      E: [race({ raceId: "pool4", raceDate: "2026-01-01", raceTime: 118.8 })], // diff -1.0
+      F: [race({ raceId: "pool5", raceDate: "2026-01-01", raceTime: 119.0 })], // diff -0.8
+    };
+    const result = buildRaceHistory(raw, [baseline]);
+    const target = result.A[0];
+
+    expect(target.raceTimeBreakdown).not.toBeNull();
+    expect(target.raceTimeBreakdown!.baseDiffSeconds).toBeCloseTo(2.2, 1);
+    expect(target.raceTimeBreakdown!.trackAdjustment.adjustmentSeconds).toBeCloseTo(-0.8, 1);
+    expect(target.raceTimeBreakdown!.trackAdjustedDiffSeconds).toBeCloseTo(1.4, 1);
+  });
+
+  it("同じレースの出走馬全員に同じraceTimeScoreが適用される", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 1, raceTime: 118.0 })],
+      B: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 2, raceTime: 118.5 })],
+    };
+    const result = buildRaceHistory(raw, [baseline]);
+    expect(result.A[0].raceTimeScore).toBe(result.B[0].raceTimeScore);
+  });
+
+  it("raceScoreへ25%で反映される", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "target", raceDate: "2026-01-01", raceTime: 118.0 })],
+    };
+    const result = buildRaceHistory(raw, [baseline]);
+    const target = result.A[0];
+    const expectedRaceScore =
+      target.memberLevelScoreAtRace * 0.3 +
+      target.timeGapScore * 0.25 +
+      target.raceTimeScore * 0.25 +
+      target.final3FScore * 0.15 +
+      target.weightScore * 0.05;
+    expect(target.raceScore).toBeCloseTo(Math.round(expectedRaceScore * 10) / 10, 1);
+  });
+
+  it("baseAbilityが新raceTimeScore込みで再計算される", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [
+        race({ raceId: "a1", raceDate: "2026-01-01", raceTime: 118.0 }),
+        race({ raceId: "a2", raceDate: "2026-02-01", raceTime: 119.5 }),
+      ],
+    };
+    const result = buildRaceHistory(raw, [baseline]);
+    const profile = buildHorseAbilityProfile("A", "馬A", result.A);
+    expect(profile.baseAbility).toBeCloseTo(calculateBaseAbility(result.A), 5);
+  });
+
+  it("該当する基準タイムが無い場合はサンプル不足として壊れず、中立値にフォールバックする", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "no-baseline", raceDate: "2026-01-01", racecourse: "小倉", distance: 1800 })],
+    };
+    expect(() => buildRaceHistory(raw, [baseline])).not.toThrow();
+    const result = buildRaceHistory(raw, [baseline]);
+    expect(result.A[0].raceTimeScore).toBe(RACE_TIME_SCORE_CENTER);
+    expect(result.A[0].raceTimeBreakdown).toBeNull();
+  });
+
+  it("raceTimeScoreが0〜100にclampされる", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "extreme", raceDate: "2026-01-01", raceTime: 60 })], // 極端に速い
+    };
+    const result = buildRaceHistory(raw, [baseline]);
+    expect(result.A[0].raceTimeScore).toBeGreaterThanOrEqual(0);
+    expect(result.A[0].raceTimeScore).toBeLessThanOrEqual(100);
   });
 });

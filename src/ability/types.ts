@@ -33,6 +33,49 @@ export interface MemberLevelBreakdown {
  */
 export type RaceGrade = "G1" | "G2" | "G3" | "L" | "OP" | "unknown";
 
+/**
+ * 競馬場×芝/ダート×距離×馬場状態ごとの過去5年基準タイム。
+ * 平均ではなく中央値を使う（外れ値に引っ張られにくくするため）。
+ * V0では仮データを保持するのみ。実データ確定後は差し替え可能な構造にしている。
+ */
+export interface CourseTimeBaseline {
+  racecourse: string;
+  surface: Surface;
+  /** メートル */
+  distance: number;
+  going: string;
+
+  sampleYears: number;
+  sampleCount: number;
+  medianTimeSeconds: number;
+}
+
+/**
+ * 当日馬場補正。対象レースを除いた同日・同競馬場・同surfaceのレース群から算出する。
+ * サンプルが少なすぎる場合は勝手に大きな補正を作らず、adjustmentSeconds=0・isReliable=falseとする。
+ */
+export interface TrackBiasTimeAdjustment {
+  /** 実走タイム - 基準タイム の中央値（秒）。負の値＝当日は基準より速い馬場 */
+  adjustmentSeconds: number;
+  sampleCount: number;
+  isReliable: boolean;
+}
+
+/**
+ * raceTimeScoreAtRace の算出根拠。レース単位の値であり、そのレースに出走した全馬で共通。
+ * 5年基準タイムが見つからない条件だった場合はnull（raceTimeScoreは中立値にフォールバックする）。
+ */
+export interface RaceTimeBreakdown {
+  baselineTimeSeconds: number;
+  /** そのレースの公式タイム（勝ち馬の走破タイム）秒 */
+  actualTimeSeconds: number;
+  /** baselineTimeSeconds - actualTimeSeconds（正の値＝基準より速い） */
+  baseDiffSeconds: number;
+  trackAdjustment: TrackBiasTimeAdjustment;
+  /** baseDiffSeconds + trackAdjustment.adjustmentSeconds */
+  trackAdjustedDiffSeconds: number;
+}
+
 /** 1走分の実績データとスコア内訳 */
 export interface RacePerformance {
   raceId: string;
@@ -84,10 +127,14 @@ export interface RacePerformance {
   timeGapScore: number;
   /**
    * 走破タイムスコア（0〜100）。
-   * 将来的には 競馬場×芝/ダート×距離×馬場状態 ごとの過去5年基準タイム中央値
-   * ＋ 当日馬場補正 ＋ 実走破タイム から算出する。V0では仮入力値を保持するのみ。
+   * 競馬場×芝/ダート×距離×馬場状態 ごとの過去5年基準タイム中央値と当日馬場補正から、
+   * calculateRaceTimeScore() で算出する。レース単位の値であり、そのレースの全出走馬で共通。
    */
   raceTimeScore: number;
+  /**
+   * raceTimeScore の算出根拠。5年基準タイムが見つからなかった場合はnull。
+   */
+  raceTimeBreakdown: RaceTimeBreakdown | null;
   /**
    * 上がり3Fスコア（0〜100）。
    * 将来的にはレース全体の上がり水準・過去5年の同条件基準・当日の上がり馬場補正を使う。

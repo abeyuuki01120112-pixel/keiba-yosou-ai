@@ -57,3 +57,11 @@ export function stdDev(values: number[]): number {
   const variance = mean(values.map((v) => (v - m) ** 2));
   return Math.sqrt(variance);
 }
+
+/** 中央値。外れ値に引っ張られにくい代表値として、平均の代わりに使う */
+export function median(values: number[]): number {
+  if (values.length === 0) return 0;
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
+}

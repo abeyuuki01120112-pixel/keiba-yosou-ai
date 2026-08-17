@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { loadHorseAbilityProfile } from "../ability/horseAbilityData";
+import { formatRaceTimeSeconds } from "../ability/raceTimeScore";
 
 const RACE_LABELS = ["前走", "2走前", "3走前", "4走前", "5走前"];
 
@@ -85,6 +86,42 @@ export function HorseDetailPanel({ horseId, onClose }: Props) {
                         <span>走破タイム</span>
                         <span>{race.raceTimeScore.toFixed(1)}</span>
                       </div>
+                      {race.raceTimeBreakdown && (
+                        <div className="member-level-sub-breakdown">
+                          <div className="breakdown-row sub-row">
+                            <span>5年基準タイム</span>
+                            <span>{formatRaceTimeSeconds(race.raceTimeBreakdown.baselineTimeSeconds)}</span>
+                          </div>
+                          <div className="breakdown-row sub-row">
+                            <span>実走破タイム</span>
+                            <span>{formatRaceTimeSeconds(race.raceTimeBreakdown.actualTimeSeconds)}</span>
+                          </div>
+                          <div className="breakdown-row sub-row">
+                            <span>基準との差</span>
+                            <span>
+                              {race.raceTimeBreakdown.baseDiffSeconds >= 0 ? "+" : ""}
+                              {race.raceTimeBreakdown.baseDiffSeconds.toFixed(1)}秒
+                            </span>
+                          </div>
+                          <div className="breakdown-row sub-row">
+                            <span>
+                              当日馬場補正
+                              {!race.raceTimeBreakdown.trackAdjustment.isReliable && "（サンプル不足）"}
+                            </span>
+                            <span>
+                              {race.raceTimeBreakdown.trackAdjustment.adjustmentSeconds >= 0 ? "+" : ""}
+                              {race.raceTimeBreakdown.trackAdjustment.adjustmentSeconds.toFixed(1)}秒
+                            </span>
+                          </div>
+                          <div className="breakdown-row sub-row">
+                            <span>補正後タイム価値</span>
+                            <span>
+                              {race.raceTimeBreakdown.trackAdjustedDiffSeconds >= 0 ? "+" : ""}
+                              {race.raceTimeBreakdown.trackAdjustedDiffSeconds.toFixed(1)}秒
+                            </span>
+                          </div>
+                        </div>
+                      )}
                       <div className="breakdown-row">
                         <span>上がり3F</span>
                         <span>{race.final3FScore.toFixed(1)}</span>
