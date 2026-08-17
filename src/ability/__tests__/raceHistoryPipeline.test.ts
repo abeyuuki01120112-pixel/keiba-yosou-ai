@@ -6,7 +6,7 @@ import { calculateBaseAbility } from "../baseAbility";
 import { FALLBACK_MEMBER_LEVEL_SCORE } from "../memberLevel";
 import { RACE_TIME_SCORE_CENTER } from "../raceTimeScore";
 import { FINAL3F_SCORE_CENTER } from "../final3FScore";
-import type { CourseFinal3FBaseline, CourseTimeBaseline } from "../types";
+import type { CourseFinal3FBaseline, CourseTimeBaseline, RaceFieldAggregate } from "../types";
 
 function race(overrides: Partial<RaceHistoryRawInput> & Pick<RaceHistoryRawInput, "raceId" | "raceDate">): RaceHistoryRawInput {
   return {
@@ -548,5 +548,85 @@ describe("buildRaceHistory の weightScore（斤量補正スコア）", () => {
     expect(result.A[0].weightScore).toBeLessThanOrEqual(100);
     expect(result.B[0].weightScore).toBeGreaterThanOrEqual(0);
     expect(result.B[0].weightScore).toBeLessThanOrEqual(100);
+  });
+});
+
+describe("buildRaceHistory の raceFieldAggregatesByRaceId（第11実装：ロスター外対戦馬の集団統計上書き）", () => {
+  it("上書きが無い場合は、従来どおり手持ちの出走馬（自馬のみ）から中央値を計算する（退化ケース）", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "solo", raceDate: "2026-01-01", carriedWeight: 57, final3F: 34.5 })],
+    };
+    const result = buildRaceHistory(raw, [], []);
+    expect(result.A[0].weightBreakdown.raceMedianWeightKg).toBe(57);
+    expect(result.A[0].final3FBreakdown.raceFinal3FMedianSeconds).toBe(34.5);
+  });
+
+  it("上書きがあれば、自馬のみの退化中央値ではなく上書き値がraceMedianWeightKg/raceFinal3FMedianSecondsに使われる", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "target", raceDate: "2026-01-01", carriedWeight: 57, final3F: 34.5 })],
+    };
+    const aggregate: RaceFieldAggregate = {
+      raceId: "target",
+      fieldCount: 14,
+      raceMedianWeightKg: 55.0,
+      raceMedianFinal3FSeconds: 33.8,
+      source: "test",
+    };
+    const result = buildRaceHistory(raw, [], [], { target: aggregate });
+    expect(result.A[0].weightBreakdown.raceMedianWeightKg).toBe(55.0);
+    expect(result.A[0].final3FBreakdown.raceFinal3FMedianSeconds).toBe(33.8);
+    // weightDiffKgも上書き後の中央値との差になる（57 - 55 = 2）
+    expect(result.A[0].weightBreakdown.weightDiffKg).toBeCloseTo(2, 5);
+  });
+
+  it("上書きされたraceMedianWeightKg/raceFinal3FMedianSecondsに応じてweightScore/final3FScoreが変化する", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "target", raceDate: "2026-01-01", carriedWeight: 57, final3F: 34.5 })],
+    };
+    const withoutOverride = buildRaceHistory(raw, [], []).A[0];
+    const aggregate: RaceFieldAggregate = {
+      raceId: "target",
+      fieldCount: 14,
+      raceMedianWeightKg: 55.0,
+      raceMedianFinal3FSeconds: 33.8,
+      source: "test",
+    };
+    const withOverride = buildRaceHistory(raw, [], [], { target: aggregate }).A[0];
+    expect(withOverride.weightScore).not.toBe(withoutOverride.weightScore);
+    expect(withOverride.final3FScore).not.toBe(withoutOverride.final3FScore);
+  });
+
+  it("該当raceIdに一致しない上書きは無視され、他のレースの計算に影響しない", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "unrelated", raceDate: "2026-01-01", carriedWeight: 57, final3F: 34.5 })],
+    };
+    const aggregate: RaceFieldAggregate = {
+      raceId: "different-race",
+      fieldCount: 14,
+      raceMedianWeightKg: 55.0,
+      raceMedianFinal3FSeconds: 33.8,
+      source: "test",
+    };
+    const result = buildRaceHistory(raw, [], [], { "different-race": aggregate });
+    expect(result.A[0].weightBreakdown.raceMedianWeightKg).toBe(57);
+    expect(result.A[0].final3FBreakdown.raceFinal3FMedianSeconds).toBe(34.5);
+  });
+
+  it("複数頭が同じraceIdを共有する場合でも、上書きがあればそちらが優先される", () => {
+    const raw: Record<string, RaceHistoryRawInput[]> = {
+      A: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 1, carriedWeight: 56, final3F: 34.0 })],
+      B: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 2, carriedWeight: 58, final3F: 35.0 })],
+    };
+    const aggregate: RaceFieldAggregate = {
+      raceId: "shared",
+      fieldCount: 14,
+      raceMedianWeightKg: 55.0,
+      raceMedianFinal3FSeconds: 33.8,
+      source: "test",
+    };
+    const result = buildRaceHistory(raw, [], [], { shared: aggregate });
+    expect(result.A[0].weightBreakdown.raceMedianWeightKg).toBe(55.0);
+    expect(result.B[0].weightBreakdown.raceMedianWeightKg).toBe(55.0);
+    expect(result.A[0].final3FBreakdown.raceFinal3FMedianSeconds).toBe(33.8);
   });
 });

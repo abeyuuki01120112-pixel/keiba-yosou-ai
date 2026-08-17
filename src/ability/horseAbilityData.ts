@@ -4,7 +4,9 @@
  * data/horses/<horseId>.json（1頭1ファイル。実績の生データのみ。memberLevelScore・
  * raceTimeScore・final3FScore・weightScoreは含まない）と、
  * data/courseTimeBaselines.json（過去5年基準タイム）、
- * data/courseFinal3FBaselines.json（過去5年上がり3F基準）から、
+ * data/courseFinal3FBaselines.json（過去5年上がり3F基準）、
+ * data/raceFieldAggregates.json（ロスター外の対戦馬を含む、レース単位の
+ * raceMedianWeightKg/raceMedianFinal3FSecondsの実データ上書き。第11実装）から、
  * raceHistoryPipeline.buildRaceHistory() で、実質メンバーレベル・走破タイムスコア・
  * 上がり3Fスコア・斤量補正スコア込みの timeGapScore・raceScoreを一括計算し、
  * buildHorseAbilityProfile() で baseAbility を算出する。
@@ -17,10 +19,16 @@
 
 import rawCourseTimeBaselines from "./data/courseTimeBaselines.json";
 import rawCourseFinal3FBaselines from "./data/courseFinal3FBaselines.json";
+import rawRaceFieldAggregates from "./data/raceFieldAggregates.json";
 import { loadDefaultHorses } from "../simulation/horseData";
 import { buildHorseAbilityProfile } from "./buildHorseAbilityProfile";
 import { buildRaceHistory, type RaceHistoryRawInput } from "./raceHistoryPipeline";
-import type { CourseFinal3FBaseline, CourseTimeBaseline, HorseAbilityProfile } from "./types";
+import type {
+  CourseFinal3FBaseline,
+  CourseTimeBaseline,
+  HorseAbilityProfile,
+  RaceFieldAggregate,
+} from "./types";
 
 type RawData = Record<string, RaceHistoryRawInput[]>;
 
@@ -39,9 +47,19 @@ for (const [filePath, races] of Object.entries(horseFileModules)) {
 
 const typedTimeBaselines = rawCourseTimeBaselines.baselines as unknown as CourseTimeBaseline[];
 const typedFinal3FBaselines = rawCourseFinal3FBaselines.baselines as unknown as CourseFinal3FBaseline[];
+const typedRaceFieldAggregates = rawRaceFieldAggregates.aggregates as unknown as RaceFieldAggregate[];
+const raceFieldAggregatesByRaceId: Record<string, RaceFieldAggregate> = {};
+for (const aggregate of typedRaceFieldAggregates) {
+  raceFieldAggregatesByRaceId[aggregate.raceId] = aggregate;
+}
 
 // モジュール読み込み時に一度だけ全馬横断でパイプラインを実行する
-const historyByHorseId = buildRaceHistory(typedRawData, typedTimeBaselines, typedFinal3FBaselines);
+const historyByHorseId = buildRaceHistory(
+  typedRawData,
+  typedTimeBaselines,
+  typedFinal3FBaselines,
+  raceFieldAggregatesByRaceId,
+);
 
 export function loadHorseAbilityProfile(horseId: string): HorseAbilityProfile | undefined {
   const horse = loadDefaultHorses().find((h) => h.horseId === horseId);

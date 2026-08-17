@@ -20,6 +20,14 @@
  *   memberLevelScoreAtRace・raceTimeScoreはレース単位で1回だけ計算し出走馬全員で共通の値を使うが、
  *   final3FScoreは上がり3Fが馬ごとに異なる個別記録のため、レース内相対評価・絶対評価とも
  *   出走馬ごとに個別計算する（当日上がり補正のみレース単位で共通）。
+ *
+ * raceFieldAggregatesByRaceId（第11実装）：
+ *   raceMedianWeightKg・raceFinal3FMedianSecondsは本来「そのレースに出走した全頭」の
+ *   中央値だが、ロスター外の対戦馬は個別プロフィール（horseId）を持たないため、
+ *   手持ちデータ（自馬のみ等）から計算すると退化した値になることがある。
+ *   raceIdをキーに全出走馬から実際に集計した中央値を上書きできるようにし、
+ *   対戦馬のhorseIdを捏造せずに実データ化する。上書きが無いraceIdは従来どおり
+ *   手持ちの出走馬データから計算する（動作が変わるのは明示的に上書きを与えたレースのみ）。
  */
 
 import { calculateAbilityBeforeRace, MAX_PRIOR_RACES_FOR_ABILITY } from "./abilityBeforeRace";
@@ -39,6 +47,7 @@ import type {
   CourseFinal3FBaseline,
   CourseTimeBaseline,
   Final3FBreakdown,
+  RaceFieldAggregate,
   RacePerformance,
   RaceTimeBreakdown,
 } from "./types";
@@ -161,6 +170,7 @@ export function buildRaceHistory(
   rawByHorseId: Record<string, RaceHistoryRawInput[]>,
   courseTimeBaselines: CourseTimeBaseline[] = [],
   courseFinal3FBaselines: CourseFinal3FBaseline[] = [],
+  raceFieldAggregatesByRaceId: Record<string, RaceFieldAggregate> = {},
 ): Record<string, RacePerformance[]> {
   const entries: FlatEntry[] = [];
   for (const [horseId, races] of Object.entries(rawByHorseId)) {
@@ -200,6 +210,7 @@ export function buildRaceHistory(
   // 当日上がり補正用：全レースの上がり3F中央値一覧（同じく事実データ）
   const allFinal3FMetas: DayFinal3FRecord[] = raceGroups.map((group) => {
     const representative = group[0].raw;
+    const fieldAggregate = raceFieldAggregatesByRaceId[representative.raceId];
     return {
       raceId: representative.raceId,
       raceDate: representative.raceDate,
@@ -207,7 +218,8 @@ export function buildRaceHistory(
       surface: representative.surface,
       distance: representative.distance,
       going: representative.going,
-      raceFinal3FMedianSeconds: median(group.map((e) => e.raw.final3F)),
+      raceFinal3FMedianSeconds:
+        fieldAggregate?.raceMedianFinal3FSeconds ?? median(group.map((e) => e.raw.final3F)),
     };
   });
   const final3FMetaByRaceId = new Map(allFinal3FMetas.map((m) => [m.raceId, m]));
@@ -236,7 +248,9 @@ export function buildRaceHistory(
     );
 
     const final3FMeta = final3FMetaByRaceId.get(group[0].raw.raceId)!;
-    const raceMedianWeight = calculateRaceMedianWeight(group.map((e) => e.raw.carriedWeight));
+    const fieldAggregate = raceFieldAggregatesByRaceId[group[0].raw.raceId];
+    const raceMedianWeight =
+      fieldAggregate?.raceMedianWeightKg ?? calculateRaceMedianWeight(group.map((e) => e.raw.carriedWeight));
 
     for (const entry of group) {
       const timeGapScore = calculateTimeGapScore(entry.raw.timeGap, entry.raw.distance);

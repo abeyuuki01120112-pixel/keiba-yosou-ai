@@ -140,6 +140,7 @@ if (simData) {
 // --- 2. data/horses/*.json を読み込んで検証 ---
 const raceFieldConditions = new Map(); // key: racecourse|surface|distance|going -> true
 const horseDataIds = new Set();
+const allRaceIds = new Set(); // raceFieldAggregatesの整合性チェック用（全馬横断）
 
 if (!fs.existsSync(HORSES_DIR)) {
   error(`${path.relative(ROOT, HORSES_DIR)} が存在しません`);
@@ -173,6 +174,7 @@ if (!fs.existsSync(HORSES_DIR)) {
           error(`${label}: raceId "${race.raceId}" がこの馬の中で重複しています`);
         }
         seenRaceIds.add(race.raceId);
+        allRaceIds.add(race.raceId);
       }
       if (typeof race.raceDate === "string" && Number.isNaN(Date.parse(race.raceDate))) {
         error(`${label}: raceDate "${race.raceDate}" を日付として解釈できません`);
@@ -231,6 +233,40 @@ const final3FBaselines = validateBaselineFile(
   "medianFinal3FSeconds",
   "courseFinal3FBaselines",
 );
+
+// --- 4-2. raceFieldAggregates.json の検証（第11実装：ロスター外対戦馬の集団統計上書き） ---
+const RACE_FIELD_AGGREGATE_PATH = path.join(ROOT, "src/ability/data/raceFieldAggregates.json");
+const RACE_FIELD_AGGREGATE_FIELDS = {
+  raceId: { type: "string", nonEmpty: true },
+  fieldCount: { type: "number", positiveInteger: true },
+  raceMedianWeightKg: { type: "number", positive: true },
+  raceMedianFinal3FSeconds: { type: "number", positive: true },
+  source: { type: "string", nonEmpty: true },
+};
+
+if (fs.existsSync(RACE_FIELD_AGGREGATE_PATH)) {
+  const data = readJson(RACE_FIELD_AGGREGATE_PATH);
+  if (data !== null) {
+    if (!Array.isArray(data.aggregates)) {
+      error(`${path.relative(ROOT, RACE_FIELD_AGGREGATE_PATH)}: "aggregates" 配列がありません`);
+    } else {
+      const seenRaceIds = new Set();
+      data.aggregates.forEach((a, idx) => {
+        const label = `raceFieldAggregates[${idx}]`;
+        validateRecord(a, RACE_FIELD_AGGREGATE_FIELDS, label);
+        if (typeof a.raceId === "string") {
+          if (seenRaceIds.has(a.raceId)) {
+            error(`${label}: raceId "${a.raceId}" が重複しています`);
+          }
+          seenRaceIds.add(a.raceId);
+          if (!allRaceIds.has(a.raceId)) {
+            warn(`${label}: raceId "${a.raceId}" はdata/horses/内のどの馬の実績にも存在しません（上書きが適用されません）`);
+          }
+        }
+      });
+    }
+  }
+}
 
 // --- 5. カバレッジ情報（実際のレース条件に対して基準タイムがあるか。無くても壊れないが情報として出す） ---
 function hasBaseline(baselines, condition) {

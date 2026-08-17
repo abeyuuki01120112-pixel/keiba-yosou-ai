@@ -1,0 +1,33 @@
+{
+  "note": "対戦馬のhorseIdを持たない（ロスター外の）全出走馬データから算出した、レース単位のraceMedianWeightKg/raceMedianFinal3FSeconds。中央値はJRA公式フルフィールド結果から独立に再計算し、添付の事前集計サマリーと一致を確認済み。中日新聞杯の競走中止馬（リフレーミング）は斤量以外の実績値が空欄のため、実績のあった17頭のみで中央値を算出（斤量含め除外）。",
+  "aggregates": [
+    {
+      "raceId": "JRA-20260315-CHUKYO-11",
+      "fieldCount": 14,
+      "raceMedianWeightKg": 57.0,
+      "raceMedianFinal3FSeconds": 34.25,
+      "source": "JRA公式 fullfield_2026_kinko_sho.csv (n=14)"
+    },
+    {
+      "raceId": "JRA-20260215-KYOTO-11",
+      "fieldCount": 12,
+      "raceMedianWeightKg": 57.0,
+      "raceMedianFinal3FSeconds": 33.95,
+      "source": "JRA公式 fullfield_2026_kyoto_kinen.csv (n=12)"
+    },
+    {
+      "raceId": "JRA-20251213-CHUKYO-11",
+      "fieldCount": 18,
+      "raceMedianWeightKg": 55.0,
+      "raceMedianFinal3FSeconds": 33.8,
+      "source": "JRA公式 fullfield_2025_chunichi_shimbun_hai.csv (fieldCount=18は出走登録頭数。競走中止1頭を除く実績17頭で中央値算出)"
+    },
+    {
+      "raceId": "JRA-20251115-KYOTO-10",
+      "fieldCount": 16,
+      "raceMedianWeightKg": 57.0,
+      "raceMedianFinal3FSeconds": 35.2,
+      "source": "JRA公式 fullfield_2025_andromeda_s.csv (n=16)"
+    }
+  ]
+}

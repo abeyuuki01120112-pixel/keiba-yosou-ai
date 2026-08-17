@@ -163,6 +163,25 @@ export interface WeightBreakdown {
   isReliable: boolean;
 }
 
+/**
+ * レース単位の「全出走馬」斤量・上がり3F中央値の実データ上書き（第11実装）。
+ * horseIdを持たない（ロスター外の）対戦馬の集団統計だけを、個別の馬プロフィールを
+ * 作らずに反映するための仕組み。raceId単位でraceMedianWeightKg・
+ * raceMedianFinal3FSecondsを持ち、buildRaceHistory()内の自馬のみによる
+ * 退化した中央値計算より優先して使われる。
+ * 該当raceIdの上書きが無い場合は、従来どおり手持ちの出走馬データだけで中央値を計算する
+ * （動作が変わるのは上書きを明示的に与えたレースだけ）。
+ */
+export interface RaceFieldAggregate {
+  raceId: string;
+  /** 出走頭数（参考値。中央値の算出には使わない） */
+  fieldCount: number;
+  raceMedianWeightKg: number;
+  raceMedianFinal3FSeconds: number;
+  /** データの出典（自由記述） */
+  source: string;
+}
+
 /** 1走分の実績データとスコア内訳 */
 export interface RacePerformance {
   raceId: string;

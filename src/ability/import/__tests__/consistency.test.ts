@@ -14,8 +14,9 @@ import { buildHorseAbilityProfile } from "../../buildHorseAbilityProfile";
 import { loadAllHorseAbilityProfiles } from "../../horseAbilityData";
 import rawCourseTimeBaselines from "../../data/courseTimeBaselines.json";
 import rawCourseFinal3FBaselines from "../../data/courseFinal3FBaselines.json";
+import rawRaceFieldAggregates from "../../data/raceFieldAggregates.json";
 import rawSimHorses from "../../../simulation/data/sapporoKinen.json";
-import type { CourseFinal3FBaseline, CourseTimeBaseline } from "../../types";
+import type { CourseFinal3FBaseline, CourseTimeBaseline, RaceFieldAggregate } from "../../types";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const HORSES_DIR = path.resolve(__dirname, "../../data/horses");
@@ -85,7 +86,14 @@ describe("CSVインポート経由の計算結果が既存データと一致す�
 
     const timeBaselines = rawCourseTimeBaselines.baselines as unknown as CourseTimeBaseline[];
     const final3FBaselines = rawCourseFinal3FBaselines.baselines as unknown as CourseFinal3FBaseline[];
-    const historyFromCsv = buildRaceHistory(importResult.byHorseId, timeBaselines, final3FBaselines);
+    const fieldAggregates = rawRaceFieldAggregates.aggregates as unknown as RaceFieldAggregate[];
+    const fieldAggregatesByRaceId = Object.fromEntries(fieldAggregates.map((a) => [a.raceId, a]));
+    const historyFromCsv = buildRaceHistory(
+      importResult.byHorseId,
+      timeBaselines,
+      final3FBaselines,
+      fieldAggregatesByRaceId,
+    );
 
     const existingProfiles = loadAllHorseAbilityProfiles();
     expect(existingProfiles.length).toBeGreaterThan(0);
