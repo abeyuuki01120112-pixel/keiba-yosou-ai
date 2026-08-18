@@ -36,7 +36,12 @@ import { lookupCourseFinal3FBaseline } from "./courseFinal3FBaseline";
 import { calculateMemberLevel } from "./memberLevel";
 import { calculateRaceScore } from "./raceScore";
 import { calculateRaceTimeScore, RACE_TIME_SCORE_CENTER } from "./raceTimeScore";
-import { calculateFinal3FScore, combineFinal3FValue } from "./final3FScore";
+import {
+  calculateFinal3FScore,
+  classifyAbsoluteConfidence,
+  combineFinal3FValue,
+  computeSampleReliabilityWeight,
+} from "./final3FScore";
 import { calculateTimeGapScore } from "./timeGapScore";
 import { calculateTrackAdjustment, type DayRaceRecord } from "./trackAdjustment";
 import { calculateFinal3FTrackAdjustment, type DayFinal3FRecord } from "./final3FTrackAdjustment";
@@ -140,6 +145,8 @@ function buildFinal3FEvaluation(
         trackAdjustment: null,
         absoluteDiffSeconds: null,
         baselineMeta,
+        sampleReliabilityWeight: null,
+        absoluteConfidence: null,
       },
     };
   }
@@ -147,9 +154,12 @@ function buildFinal3FEvaluation(
   const trackAdjustment = calculateFinal3FTrackAdjustment(final3FMeta, allFinal3FMetas, baselines);
   const courseBaselineDiffSeconds = baseline.medianFinal3FSeconds - horseFinal3FSeconds;
   const absoluteDiffSeconds = courseBaselineDiffSeconds + trackAdjustment.adjustmentSeconds;
+  const sampleReliabilityWeight = computeSampleReliabilityWeight(baseline);
 
   return {
-    final3FScore: calculateFinal3FScore(combineFinal3FValue(relativeDiffSeconds, absoluteDiffSeconds)),
+    final3FScore: calculateFinal3FScore(
+      combineFinal3FValue(relativeDiffSeconds, absoluteDiffSeconds, sampleReliabilityWeight),
+    ),
     breakdown: {
       horseFinal3FSeconds,
       raceFinal3FMedianSeconds,
@@ -158,6 +168,8 @@ function buildFinal3FEvaluation(
       trackAdjustment,
       absoluteDiffSeconds: roundToOneDecimal(absoluteDiffSeconds),
       baselineMeta,
+      sampleReliabilityWeight: roundToOneDecimal(sampleReliabilityWeight),
+      absoluteConfidence: classifyAbsoluteConfidence(sampleReliabilityWeight),
     },
   };
 }
@@ -218,6 +230,7 @@ export function buildRaceHistory(
       surface: representative.surface,
       distance: representative.distance,
       going: representative.going,
+      raceNumber: representative.raceNumber ?? null,
       raceFinal3FMedianSeconds:
         fieldAggregate?.raceMedianFinal3FSeconds ?? median(group.map((e) => e.raw.final3F)),
     };

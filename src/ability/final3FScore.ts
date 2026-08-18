@@ -6,6 +6,12 @@
  * 絶対評価（5年基準＋当日上がり補正との差）を60/40で組み合わせ、
  * 連続関数で0〜100点へ変換する。
  *
+ * 第26実装: absolute側の40%は、baselineのsampleReliabilityWeight（0〜1、
+ * sampleCount/MIN_RELIABLE_SAMPLE_COUNTをclampした値。仮データ由来なら0）に応じて
+ * 縮小する。低信頼なexact baseline（例: sampleCount=1）を100%信じてしまわないための
+ * 措置で、relative 60% / absolute 40%という基本比率自体は変更していない
+ * （sampleReliabilityWeight=1.0のときは従来と完全に同じ計算になる）。
+ *
  * V0の目安（暫定値。実データを見ながらこのファイルの定数だけ調整すればよい）：
  *   非常に優秀 → 85〜90台
  *   優秀       → 78〜84
@@ -16,10 +22,12 @@
 
 import { clamp } from "../simulation/probability";
 import { roundToOneDecimal } from "./raceScore";
+import { isPlaceholderSource, MIN_RELIABLE_SAMPLE_COUNT } from "./baselineLookup";
+import type { CourseFinal3FBaseline } from "./types";
 
-/** レース内相対評価の重み */
+/** レース内相対評価の重み（sampleReliabilityWeight=1.0のときの絶対評価の重みは以下ABSOLUTE_WEIGHT） */
 export const RELATIVE_WEIGHT = 0.6;
-/** 5年基準＋当日補正による絶対評価の重み */
+/** 5年基準＋当日補正による絶対評価の重み（sampleReliabilityWeight=1.0のときに適用される上限） */
 export const ABSOLUTE_WEIGHT = 0.4;
 
 /** final3FValue=0秒のときのスコア */
@@ -30,17 +38,41 @@ export const FINAL3F_SCORE_AMPLITUDE = 25;
 export const FINAL3F_SCORE_SCALE = 1.2;
 
 /**
- * レース内相対評価（relativeDiffSeconds）と絶対評価（absoluteDiffSeconds）を60/40で合成する。
+ * baselineのsampleCountから、absolute評価に適用する信頼度重み（0〜1）を算出する。
+ * V0仮データ由来（isPlaceholderSource）の場合は、sampleCountの値に関わらず0
+ * （absolute評価へ一切寄与させない。exactでも仮データを信じない）。
+ * MIN_RELIABLE_SAMPLE_COUNT（baselineLookup.tsと共通）以上で1.0（従来どおりフル適用）。
+ */
+export function computeSampleReliabilityWeight(baseline: CourseFinal3FBaseline): number {
+  if (isPlaceholderSource(baseline.source)) return 0;
+  return clamp(baseline.sampleCount / MIN_RELIABLE_SAMPLE_COUNT, 0, 1);
+}
+
+/** sampleReliabilityWeightを高/中/低の3段階に丸める（score/confidenceを分離して扱うための表示用） */
+export function classifyAbsoluteConfidence(sampleReliabilityWeight: number): "high" | "medium" | "low" {
+  if (sampleReliabilityWeight >= 1) return "high";
+  if (sampleReliabilityWeight >= 0.5) return "medium";
+  return "low";
+}
+
+/**
+ * レース内相対評価（relativeDiffSeconds）と絶対評価（absoluteDiffSeconds）を合成する。
  * absoluteDiffSecondsがnull（5年基準タイムが無い条件）の場合は、相対評価100%にフォールバックする。
+ * sampleReliabilityWeight（省略時1.0=従来どおり）に応じて、絶対評価の実効的な重みを
+ * ABSOLUTE_WEIGHT×sampleReliabilityWeightへ縮小し、その分をrelative側へ振り戻す
+ * （relative+absoluteの合計は常に1.0を維持する）。
  */
 export function combineFinal3FValue(
   relativeDiffSeconds: number,
   absoluteDiffSeconds: number | null,
+  sampleReliabilityWeight: number = 1,
 ): number {
   if (absoluteDiffSeconds === null) {
     return relativeDiffSeconds;
   }
-  return relativeDiffSeconds * RELATIVE_WEIGHT + absoluteDiffSeconds * ABSOLUTE_WEIGHT;
+  const effectiveAbsoluteWeight = ABSOLUTE_WEIGHT * clamp(sampleReliabilityWeight, 0, 1);
+  const effectiveRelativeWeight = 1 - effectiveAbsoluteWeight;
+  return relativeDiffSeconds * effectiveRelativeWeight + absoluteDiffSeconds * effectiveAbsoluteWeight;
 }
 
 export function calculateFinal3FScore(final3FValue: number): number {

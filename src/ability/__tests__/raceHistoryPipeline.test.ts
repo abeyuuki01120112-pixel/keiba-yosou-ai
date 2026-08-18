@@ -424,9 +424,9 @@ describe("buildRaceHistory の final3FScore（上がり3Fスコア）", () => {
 
   it("trackAdjustedFinal3FDiffの符号が正しい（高速馬場で速い上がりを出した場合）", () => {
     const raw: Record<string, RaceHistoryRawInput[]> = {
-      A: [race({ raceId: "target", raceDate: "2026-01-01", final3F: 34.2 })],
-      B: [race({ raceId: "pool1", raceDate: "2026-01-01", final3F: 34.5 })], // diff -0.5
-      C: [race({ raceId: "pool2", raceDate: "2026-01-01", final3F: 34.3 })], // diff -0.7
+      A: [race({ raceId: "target", raceDate: "2026-01-01", raceNumber: 11, final3F: 34.2 })],
+      B: [race({ raceId: "pool1", raceDate: "2026-01-01", raceNumber: 1, final3F: 34.5 })], // diff -0.5
+      C: [race({ raceId: "pool2", raceDate: "2026-01-01", raceNumber: 2, final3F: 34.3 })], // diff -0.7
     };
     const result = buildRaceHistory(raw, [], [final3FBaseline]);
     const breakdown = result.A[0].final3FBreakdown;
@@ -487,6 +487,95 @@ describe("buildRaceHistory の final3FScore（上がり3Fスコア）", () => {
 
   it("final3FScoreのCENTER定数と一致する基準を持つ", () => {
     expect(FINAL3F_SCORE_CENTER).toBe(70);
+  });
+
+  describe("sampleReliabilityWeight / absoluteConfidence（第26実装）", () => {
+    it("sampleCountが十分なbaseline(sc=40)ではweight=1.0・confidence=highになる", () => {
+      const raw: Record<string, RaceHistoryRawInput[]> = {
+        A: [race({ raceId: "target", raceDate: "2026-01-01", final3F: 34.5 })],
+      };
+      const result = buildRaceHistory(raw, [], [final3FBaseline]);
+      const breakdown = result.A[0].final3FBreakdown;
+      expect(breakdown.sampleReliabilityWeight).toBe(1);
+      expect(breakdown.absoluteConfidence).toBe("high");
+    });
+
+    it("sampleCount=1(阪神2200重相当)のbaselineではweightが小さく縮小され、absolute寄与がほぼ相対評価だけになる", () => {
+      const thinBaseline: CourseFinal3FBaseline = {
+        racecourse: "阪神",
+        surface: "turf",
+        distance: 2200,
+        going: "重",
+        sampleYears: 1,
+        sampleCount: 1,
+        medianFinal3FSeconds: 36.85,
+        source: "JRA確認済みサンプル(n=1レース) verified",
+      };
+      const raw: Record<string, RaceHistoryRawInput[]> = {
+        A: [
+          race({
+            raceId: "target",
+            raceDate: "2026-01-01",
+            racecourse: "阪神",
+            distance: 2200,
+            going: "重",
+            final3F: 36.9,
+          }),
+        ],
+      };
+      const result = buildRaceHistory(raw, [], [thinBaseline]);
+      const breakdown = result.A[0].final3FBreakdown;
+      expect(breakdown.sampleReliabilityWeight).toBeLessThanOrEqual(0.1);
+      expect(breakdown.absoluteConfidence).toBe("low");
+
+      // 同じrelativeDiff/absoluteDiffで、weight=1.0のときと比べてabsoluteの影響がほぼ消えていることを確認
+      const scoreWithThinWeight = result.A[0].final3FScore;
+      const fullWeightBaseline: CourseFinal3FBaseline = { ...thinBaseline, sampleCount: 15 };
+      const resultFull = buildRaceHistory(raw, [], [fullWeightBaseline]);
+      const scoreWithFullWeight = resultFull.A[0].final3FScore;
+      // 同じ実データ（relativeDiff・absoluteDiffの値自体）でも、confidenceが低いほうがscoreは
+      // relative評価（このケースではabsoluteより悪い値）寄りになり、両者は異なる値になるはず
+      expect(scoreWithThinWeight).not.toBe(scoreWithFullWeight);
+    });
+
+    it("baselineが見つからない場合（defaultFallback）はweight/confidenceともnull", () => {
+      const raw: Record<string, RaceHistoryRawInput[]> = {
+        A: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 1, final3F: 34.0 })],
+        B: [race({ raceId: "shared", raceDate: "2026-01-01", finishPosition: 2, final3F: 36.0 })],
+      };
+      const result = buildRaceHistory(raw, [], []);
+      expect(result.A[0].final3FBreakdown.sampleReliabilityWeight).toBeNull();
+      expect(result.A[0].final3FBreakdown.absoluteConfidence).toBeNull();
+    });
+
+    it("V0仮データ由来のbaselineはweight=0・confidence=lowになる（sampleCountが大きくても信じない）", () => {
+      const placeholderBaseline: CourseFinal3FBaseline = {
+        racecourse: "阪神",
+        surface: "turf",
+        distance: 2000,
+        going: "重",
+        sampleYears: 5,
+        sampleCount: 30,
+        medianFinal3FSeconds: 34,
+        source: "V0テスト用仮データ（実データ未投入）",
+      };
+      const raw: Record<string, RaceHistoryRawInput[]> = {
+        A: [
+          race({
+            raceId: "target",
+            raceDate: "2026-01-01",
+            racecourse: "阪神",
+            distance: 2000,
+            going: "重",
+            final3F: 34.5,
+          }),
+        ],
+      };
+      const result = buildRaceHistory(raw, [], [placeholderBaseline]);
+      const breakdown = result.A[0].final3FBreakdown;
+      expect(breakdown.sampleReliabilityWeight).toBe(0);
+      expect(breakdown.absoluteConfidence).toBe("low");
+    });
   });
 });
 

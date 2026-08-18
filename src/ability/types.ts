@@ -115,6 +115,46 @@ export interface CourseFinal3FBaseline {
   medianFinal3FSeconds: number;
   /** データの出典（自由記述）。V0仮データの場合はその旨を書く */
   source: string;
+
+  /**
+   * このbaselineが「いつまでのデータで作られたか」を追跡するための任意メタデータ
+   * （第26実装・将来拡張用の骨格のみ。今回のバッチでは未使用・未投入）。
+   * 本格的なbaseline履歴管理は行わず、optionalなヒント情報として持てるようにするだけ。
+   */
+  /** このbaselineの集計に使った最も新しいレースの日付（ISO 8601） */
+  maxRaceDate?: string;
+  /** このbaselineが有効とみなせる基準日（ISO 8601）。historical backtest時の未来リーク検知に使える想定 */
+  effectiveAsOf?: string;
+  /** 集計対象期間の自由記述（例: "2018-2022"） */
+  builtFromPeriod?: string;
+}
+
+/**
+ * courseFinal3F absolute baselineの希少条件fallback階層（第26実装・設計のみ、未使用）。
+ * 阪神芝2200m重のようにexact条件のレース自体が稀少な場合に、将来的に
+ * より広い条件からの補助的な事前分布(prior)を参照できるようにするための型の骨格。
+ * 今回はこの型を定義するのみで、実際のlookupロジック・データ投入は行わない
+ * （exactよりconfidenceが低いことを前提に、遠いtierほど信頼度を下げて使う想定）。
+ */
+export type CourseFinal3FPriorTier =
+  /** Tier1: 同競馬場×同surface×同距離×同going（現行のexactと同じ） */
+  | "exact"
+  /** Tier2: 同競馬場×同surface×近い距離帯 */
+  | "sameCourseNearDistance"
+  /** Tier3: 同surface×同距離帯×類似going（例: 他競馬場の同距離帯データもここに参加しうる） */
+  | "sameDistanceBand"
+  /** Tier4: より広いJRA芝中距離prior */
+  | "broaderPrior";
+
+export interface CourseFinal3FPriorCandidate {
+  tier: CourseFinal3FPriorTier;
+  racecourse: string;
+  surface: Surface;
+  distance: number;
+  going: string;
+  medianFinal3FSeconds: number;
+  sampleCount: number;
+  source: string;
 }
 
 /**
@@ -139,6 +179,20 @@ export interface Final3FBreakdown {
   absoluteDiffSeconds: number | null;
   /** 使用した上がり3F基準の検索結果（courseBaselineSecondsがnullならbaselineSource="defaultFallback"） */
   baselineMeta: BaselineMeta;
+  /**
+   * 第26実装: absolute評価(40%)に実際に適用された重み（0〜1）。
+   * baseline.sampleCount / MIN_RELIABLE_SAMPLE_COUNT をclampした値（仮データ由来なら0）。
+   * courseBaselineSecondsがnull（baseline未検出）の場合はnull。
+   * optionalなのは、STEP1〜5.1のテストフィクスチャ等で本フィールドを持たない
+   * Final3FBreakdown構築コードとの後方互換性のため（本番のraceHistoryPipeline経由では必ず設定される）。
+   */
+  sampleReliabilityWeight?: number | null;
+  /**
+   * 第26実装: absolute評価側のconfidence（sampleReliabilityWeightから3段階に丸めたもの）。
+   * scoreとconfidenceを分離して扱うための表示用フィールド。baseline未検出の場合はnull。
+   * optionalな理由はsampleReliabilityWeightと同じ。
+   */
+  absoluteConfidence?: "high" | "medium" | "low" | null;
 }
 
 /**
@@ -214,6 +268,12 @@ export interface RacePerformance {
 
   /** 通過順位データ（STEP5.1）。無い過去走はundefined/null（推測で埋めない） */
   passingPosition?: PassingPositionData | null;
+
+  /**
+   * レース番号（1R,2R…）。第26実装で追加。同日trackAdjustmentのfuture leakage判定
+   * （対象レースより後のレース番号を使わない）に使う。不明ならundefined/null（安全側）。
+   */
+  raceNumber?: number | null;
 
   finishPosition: number;
   /**
