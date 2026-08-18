@@ -316,3 +316,174 @@ describe("computeFinalRaceAbility", () => {
     expect(resultA.finalRaceAbility).not.toBe(resultB.finalRaceAbility);
   });
 });
+
+describe("computeFinalRaceAbility - STEP5.1: 通過順位データ統合", () => {
+  const races5 = [makeMatchingRace(), makeMatchingRace(), makeMatchingRace(), makeMatchingRace(), makeMatchingRace()];
+
+  function racesWithPassingPosition(cornerPositionsList: number[][], fieldSize = 10) {
+    return cornerPositionsList.map((cornerPositions) =>
+      makeMatchingRace({
+        passingPosition: { cornerPositions, fieldSize, source: "テストデータ", isReliable: true },
+      }),
+    );
+  }
+
+  it("1. 通過順位データがある場合、それがautoRunningStyleの第一優先になる（fallbackAutoより優先）", () => {
+    // 4走とも1番手(逃げ)の通過順位データを持たせる
+    const racesNige = racesWithPassingPosition([[1], [1], [1], [1]]);
+    const result = computeFinalRaceAbility({
+      baseAbility: 80,
+      recentRaces: racesNige,
+      suitabilityTarget: SUITABILITY_TARGET,
+      raceContextTarget: RACE_CONTEXT_TARGET,
+      manualRunningStyle: null,
+      fieldRunningStyleDistributions: fieldGivingAveragePace(),
+      manualTrackBias: null,
+      autoTrackBias: null,
+    });
+    expect(result.passingPositionRunningStyle).not.toBeNull();
+    expect(result.autoRunningStyleSource).toBe("passingPosition");
+    expect(result.autoRunningStyle).toBe(result.passingPositionRunningStyle);
+    expect(result.autoRunningStyle.distribution.nige).toBeCloseTo(100, 1);
+    expect(result.autoRunningStyle.confidence).toBe("high"); // 4走分の有効データ
+    expect(result.runningStyleUsedSource).toBe("auto");
+  });
+
+  it("2. manualRunningStyleは通過順位autoより優先される", () => {
+    const racesNige = racesWithPassingPosition([[1], [1], [1], [1]]);
+    const result = computeFinalRaceAbility({
+      baseAbility: 80,
+      recentRaces: racesNige,
+      suitabilityTarget: SUITABILITY_TARGET,
+      raceContextTarget: RACE_CONTEXT_TARGET,
+      manualRunningStyle: manualStyle(PURE_OIKOMI, "high"),
+      fieldRunningStyleDistributions: fieldGivingAveragePace(),
+      manualTrackBias: null,
+      autoTrackBias: null,
+    });
+    expect(result.runningStyleUsedSource).toBe("manual");
+    expect(result.runningStyle.distribution).toEqual(PURE_OIKOMI);
+    // passingPositionRunningStyleは削除されず保持されている（逃げ寄りのはず）
+    expect(result.passingPositionRunningStyle).not.toBeNull();
+    expect(result.passingPositionRunningStyle!.distribution.nige).toBeCloseTo(100, 1);
+  });
+
+  it("3. 通過順位が無い場合、既存fallback auto(final3Fベース)へ戻る", () => {
+    const result = computeFinalRaceAbility({
+      baseAbility: 80,
+      recentRaces: races5, // passingPositionを持たない
+      suitabilityTarget: SUITABILITY_TARGET,
+      raceContextTarget: RACE_CONTEXT_TARGET,
+      manualRunningStyle: null,
+      fieldRunningStyleDistributions: fieldGivingAveragePace(),
+      manualTrackBias: null,
+      autoTrackBias: null,
+    });
+    expect(result.passingPositionRunningStyle).toBeNull();
+    expect(result.autoRunningStyleSource).toBe(result.fallbackAutoRunningStyle.source);
+    expect(result.autoRunningStyle).toBe(result.fallbackAutoRunningStyle);
+    expect(result.validPassingPositionSampleCount).toBe(0);
+  });
+
+  it("4. manual/通過順位/fallbackすべて材料が無ければ中立分布になる（fallbackAuto自体が中立を返す）", () => {
+    const result = computeFinalRaceAbility({
+      baseAbility: 80,
+      recentRaces: [], // 過去走ゼロ
+      suitabilityTarget: SUITABILITY_TARGET,
+      raceContextTarget: RACE_CONTEXT_TARGET,
+      manualRunningStyle: null,
+      fieldRunningStyleDistributions: fieldGivingAveragePace(),
+      manualTrackBias: null,
+      autoTrackBias: null,
+    });
+    expect(result.runningStyle.distribution).toEqual({ nige: 25, senko: 25, sashi: 25, oikomi: 25 });
+    expect(result.runningStyle.source).toBe("insufficientData");
+  });
+
+  it("5〜7. positionRatio・複数走からのdistribution・confidenceが統合結果へ正しく反映される", () => {
+    // 1番手(逃げ)を2走、8/10番手(追込寄り)を1走 → 逃げ2/追込1のdistribution、sampleCount=3→confidence=medium
+    const races = racesWithPassingPosition([[1], [1], [8, 8]], 10);
+    const result = computeFinalRaceAbility({
+      baseAbility: 80,
+      recentRaces: races,
+      suitabilityTarget: SUITABILITY_TARGET,
+      raceContextTarget: RACE_CONTEXT_TARGET,
+      manualRunningStyle: null,
+      fieldRunningStyleDistributions: fieldGivingAveragePace(),
+      manualTrackBias: null,
+      autoTrackBias: null,
+    });
+    expect(result.validPassingPositionSampleCount).toBe(3);
+    expect(result.autoRunningStyle.distribution.nige).toBeCloseTo(66.7, 1);
+    expect(result.autoRunningStyle.distribution.oikomi).toBeCloseTo(33.3, 1);
+    expect(result.autoRunningStyle.dominantStyle).toBe("nige");
+    expect(result.autoRunningStyle.confidence).toBe("medium"); // 3走
+  });
+
+  it("8. future leakage: recentRacesに対象レース自身が紛れ込んでいても計算から除外される", () => {
+    const selfRace = makeMatchingRace({
+      raceId: RACE_CONTEXT_TARGET.raceId,
+      passingPosition: { cornerPositions: [1], fieldSize: 10, source: "test", isReliable: true },
+    });
+    const withoutSelf = computeFinalRaceAbility({
+      baseAbility: 80,
+      recentRaces: races5,
+      suitabilityTarget: SUITABILITY_TARGET,
+      raceContextTarget: RACE_CONTEXT_TARGET,
+      manualRunningStyle: null,
+      fieldRunningStyleDistributions: fieldGivingAveragePace(),
+      manualTrackBias: null,
+      autoTrackBias: null,
+    });
+    const withSelfLeaked = computeFinalRaceAbility({
+      baseAbility: 80,
+      recentRaces: [selfRace, ...races5],
+      suitabilityTarget: SUITABILITY_TARGET,
+      raceContextTarget: RACE_CONTEXT_TARGET,
+      manualRunningStyle: null,
+      fieldRunningStyleDistributions: fieldGivingAveragePace(),
+      manualTrackBias: null,
+      autoTrackBias: null,
+    });
+    // 対象レース自身のpassingPositionが計算に混入していれば通過順位autoが採用されてしまうが、
+    // future leakageガードにより除外されるため、結果はwithoutSelfと同一になるはず
+    expect(withSelfLeaked.passingPositionRunningStyle).toBeNull();
+    expect(withSelfLeaked.autoRunningStyleSource).toBe(withoutSelf.autoRunningStyleSource);
+    expect(withSelfLeaked.effectiveAbility).toBe(withoutSelf.effectiveAbility);
+  });
+
+  it("9. 通過順位データが無い既存馬のSTEP5結果は、STEP5.1導入前と不必要に変化しない", () => {
+    const result = computeFinalRaceAbility({
+      baseAbility: 71.8,
+      recentRaces: races5,
+      suitabilityTarget: SUITABILITY_TARGET,
+      raceContextTarget: RACE_CONTEXT_TARGET,
+      manualRunningStyle: manualStyle(PURE_NIGE, "high"),
+      fieldRunningStyleDistributions: fieldGivingHighPace(),
+      manualTrackBias: manualTrackBias("front", "high"),
+      autoTrackBias: null,
+    });
+    // 通過順位データが無いため、manual > fallbackAuto という従来どおりのチェーンで解決される
+    expect(result.passingPositionRunningStyle).toBeNull();
+    expect(result.runningStyleUsedSource).toBe("manual");
+    // ハイペース×逃げ傾向(PURE_NIGE)は不利方向になる（従来どおりの計算結果、シナリオ③と同じ式）
+    expect(result.raceContext.paceScenarioFactor.adjusted).toBeCloseTo(95, 5);
+  });
+
+  it("10. baseAbility/suitabilityの値は通過順位データの有無によって変更されない", () => {
+    const racesNige = racesWithPassingPosition([[1], [1], [1], [1]]);
+    const resultWithPassing = computeFinalRaceAbility({
+      baseAbility: 71.8,
+      recentRaces: racesNige,
+      suitabilityTarget: SUITABILITY_TARGET,
+      raceContextTarget: RACE_CONTEXT_TARGET,
+      manualRunningStyle: null,
+      fieldRunningStyleDistributions: fieldGivingAveragePace(),
+      manualTrackBias: null,
+      autoTrackBias: null,
+    });
+    expect(resultWithPassing.baseAbility).toBe(71.8);
+    expect(resultWithPassing.effectiveAbility).toBe(71.8); // races全て対象条件一致→suitability=100%
+    expect(resultWithPassing.suitability.overallSuitability).toBe(100);
+  });
+});

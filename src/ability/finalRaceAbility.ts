@@ -1,5 +1,5 @@
 /**
- * finalRaceAbility（STEP5・第23実装）の統合オーケストレーター。
+ * finalRaceAbility（STEP5・第23実装、STEP5.1・第24実装で脚質推定を強化）の統合オーケストレーター。
  *
  *   baseAbility（STEP1、絶対能力）
  *     × suitability（STEP4、馬固有の条件適性）        → effectiveAbility
@@ -7,10 +7,16 @@
  *
  * baseAbility.ts / raceScore.ts / suitability.ts の既存計算式は一切変更しない。
  * STEP5は完全な追加レイヤーとして、effectiveAbility確定後にのみ作用する。
+ *
+ * runningStyleの解決優先順位（STEP5.1）:
+ *   manualRunningStyle > passingPositionRunningStyle > fallbackAutoRunningStyle
+ * 通過順位データが無い/信頼できない馬は常にfallbackAutoRunningStyleが選ばれるため、
+ * STEP5 V1時点の挙動は変わらない。
  */
 
 import { roundToOneDecimal } from "./raceScore";
-import { computeAutoRunningStyle, resolveRunningStyle } from "./runningStyle";
+import { computeAutoRunningStyle, resolveAutoRunningStyle, resolveRunningStyle } from "./runningStyle";
+import { computePassingPositionRunningStyle } from "./passingPositionRunningStyle";
 import { classifyPredictedPace } from "./predictedPace";
 import { computePaceScenarioFactor } from "./paceScenarioFactor";
 import { resolveTrackBias } from "./trackBias";
@@ -46,10 +52,16 @@ export interface FinalRaceAbilityInput {
 }
 
 export function computeFinalRaceAbility(input: FinalRaceAbilityInput): FinalRaceAbilityResult {
-  const suitability = computeSuitabilityBreakdown(input.recentRaces, input.suitabilityTarget);
+  // future leakage対策の安全網: recentRacesに対象レース自身が紛れ込んでいても必ず除外する
+  // （本来recentRaces自体が「対象レースより前の確定走」だけを持つ前提だが、二重に防御する）
+  const priorRaces = input.recentRaces.filter((r) => r.raceId !== input.raceContextTarget.raceId);
+
+  const suitability = computeSuitabilityBreakdown(priorRaces, input.suitabilityTarget);
   const effectiveAbility = roundToOneDecimal((input.baseAbility * suitability.overallSuitability) / 100);
 
-  const autoRunningStyle = computeAutoRunningStyle(input.recentRaces);
+  const fallbackAutoRunningStyle = computeAutoRunningStyle(priorRaces);
+  const passingPositionRunningStyle = computePassingPositionRunningStyle(priorRaces);
+  const autoRunningStyle = resolveAutoRunningStyle(passingPositionRunningStyle, fallbackAutoRunningStyle);
   const { actuallyUsed: runningStyle, usedSource: runningStyleUsedSource } = resolveRunningStyle(
     autoRunningStyle,
     input.manualRunningStyle,
@@ -72,9 +84,14 @@ export function computeFinalRaceAbility(input: FinalRaceAbilityInput): FinalRace
     baseAbility: input.baseAbility,
     suitability,
     effectiveAbility,
+    manualRunningStyle: input.manualRunningStyle,
+    passingPositionRunningStyle,
+    fallbackAutoRunningStyle,
     autoRunningStyle,
+    autoRunningStyleSource: autoRunningStyle.source,
     runningStyle,
     runningStyleUsedSource,
+    validPassingPositionSampleCount: passingPositionRunningStyle?.sampleCount ?? 0,
     predictedPace,
     raceContext,
     finalRaceAbility,

@@ -10,16 +10,11 @@
  *   それ以外 → 平均ペース想定
  */
 
+import { dominantRunningStyle } from "./runningStyle";
 import type { PredictedPace, RunningStyleDistribution } from "./raceContextTypes";
 
-/** distribution内で最も比率が高いスタイルを「その馬の主たる脚質候補」とみなす */
-function dominantStyle(distribution: RunningStyleDistribution): keyof RunningStyleDistribution {
-  const entries = Object.entries(distribution) as [keyof RunningStyleDistribution, number][];
-  return entries.reduce((best, cur) => (cur[1] > best[1] ? cur : best))[0];
-}
-
 export function classifyPredictedPace(fieldRunningStyleDistributions: RunningStyleDistribution[]): PredictedPace {
-  const dominants = fieldRunningStyleDistributions.map(dominantStyle);
+  const dominants = fieldRunningStyleDistributions.map(dominantRunningStyle);
   const nigeCandidateCount = dominants.filter((s) => s === "nige").length;
   const senkoCandidateCount = dominants.filter((s) => s === "senko").length;
   const fieldSize = fieldRunningStyleDistributions.length;

@@ -17,9 +17,15 @@ import { RECENT_RACE_COUNT } from "./baseAbility";
 import { FINAL3F_SCORE_SCALE } from "./final3FScore";
 import { roundToOneDecimal } from "./raceScore";
 import type { RacePerformance } from "./types";
-import type { RunningStyleDistribution, RunningStyleProfile } from "./raceContextTypes";
+import type { RunningStyle, RunningStyleDistribution, RunningStyleProfile } from "./raceContextTypes";
 
 const NEUTRAL_DISTRIBUTION: RunningStyleDistribution = { nige: 25, senko: 25, sashi: 25, oikomi: 25 };
+
+/** distribution内で最も比率が高いスタイルを返す（predictedPace.tsと共有） */
+export function dominantRunningStyle(distribution: RunningStyleDistribution): RunningStyle {
+  const entries = Object.entries(distribution) as [RunningStyle, number][];
+  return entries.reduce((best, cur) => (cur[1] > best[1] ? cur : best))[0];
+}
 
 /** 脚質の並び順（nige=-1 〜 oikomi=+1）。closerness→distribution変換の分割点として使う */
 const RUNNING_STYLE_ANCHORS: { style: keyof RunningStyleDistribution; pos: number }[] = [
@@ -64,6 +70,7 @@ export function computeAutoRunningStyle(recentRaces: RacePerformance[]): Running
       confidence: "low",
       source: "insufficientData",
       reason: "直近走のデータが無いため、中立分布（25/25/25/25）とした。",
+      dominantStyle: dominantRunningStyle(NEUTRAL_DISTRIBUTION),
     };
   }
 
@@ -78,7 +85,22 @@ export function computeAutoRunningStyle(recentRaces: RacePerformance[]): Running
     confidence: "low",
     source: "final3FProxy",
     reason: `直近${pool.length}走の上がり3Fレース内相対値の平均（${roundToOneDecimal(avgRelativeDiff)}秒）から脚質傾向を暫定推定。通過順位データが無いためconfidenceは常にlow。`,
+    dominantStyle: dominantRunningStyle(distribution),
   };
+}
+
+/**
+ * STEP5.1: AI自動側のrunningStyleを解決する。
+ * 通過順位ベースの推定（passingPositionAuto）が有効ならそれを優先し、
+ * 無ければ既存のfinal3F相対値ベースの推定（fallbackAuto）をそのまま使う。
+ * 通過順位データが無い馬については常にfallbackAutoが選ばれるため、
+ * STEP5 V1時点の挙動は変わらない。
+ */
+export function resolveAutoRunningStyle(
+  passingPositionAuto: RunningStyleProfile | null,
+  fallbackAuto: RunningStyleProfile,
+): RunningStyleProfile {
+  return passingPositionAuto ?? fallbackAuto;
 }
 
 export function resolveRunningStyle(

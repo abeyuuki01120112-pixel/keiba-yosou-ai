@@ -182,6 +182,22 @@ export interface RaceFieldAggregate {
   source: string;
 }
 
+/**
+ * 通過順位（コーナー通過順）データ（STEP5.1・第24実装）。
+ * コーナー数はレースによって異なるため、存在しないコーナーを0等で埋めず、
+ * 実際に記録されている順位だけをcornerPositionsに入れる（可変長）。
+ * データが無い過去走はRacePerformance.passingPosition自体をundefined/nullのままにする。
+ */
+export interface PassingPositionData {
+  /** 有効な通過順位のみ、記録された順（例: [4, 4, 3, 2]） */
+  cornerPositions: number[];
+  /** 出走頭数（positionRatio算出に使う） */
+  fieldSize: number;
+  /** データの出典（自由記述） */
+  source: string;
+  isReliable: boolean;
+}
+
 /** 1走分の実績データとスコア内訳 */
 export interface RacePerformance {
   raceId: string;
@@ -195,6 +211,9 @@ export interface RacePerformance {
   distance: number;
   /** 馬場状態（良・稍重・重・不良 など） */
   going: string;
+
+  /** 通過順位データ（STEP5.1）。無い過去走はundefined/null（推測で埋めない） */
+  passingPosition?: PassingPositionData | null;
 
   finishPosition: number;
   /**

@@ -1,7 +1,14 @@
 import { describe, expect, it } from "vitest";
 import { buildRacePerformance } from "../buildRacePerformance";
 import type { RacePerformanceInput } from "../buildRacePerformance";
-import { closernessToDistribution, computeAutoRunningStyle, resolveRunningStyle, runningStyleLeanScore } from "../runningStyle";
+import {
+  closernessToDistribution,
+  computeAutoRunningStyle,
+  dominantRunningStyle,
+  resolveAutoRunningStyle,
+  resolveRunningStyle,
+  runningStyleLeanScore,
+} from "../runningStyle";
 import type { RunningStyleProfile } from "../raceContextTypes";
 import type { BaselineMeta, MemberLevelBreakdown } from "../types";
 
@@ -148,5 +155,37 @@ describe("resolveRunningStyle", () => {
     const result = resolveRunningStyle(auto, null);
     expect(result.usedSource).toBe("auto");
     expect(result.actuallyUsed).toBe(auto);
+  });
+});
+
+describe("dominantRunningStyle", () => {
+  it("最も比率が高いスタイルを返す", () => {
+    expect(dominantRunningStyle({ nige: 60, senko: 20, sashi: 10, oikomi: 10 })).toBe("nige");
+    expect(dominantRunningStyle({ nige: 0, senko: 0, sashi: 0, oikomi: 100 })).toBe("oikomi");
+  });
+});
+
+describe("resolveAutoRunningStyle（STEP5.1）", () => {
+  const fallbackAuto: RunningStyleProfile = {
+    distribution: { nige: 25, senko: 25, sashi: 25, oikomi: 25 },
+    sampleCount: 3,
+    confidence: "low",
+    source: "final3FProxy",
+    reason: "fallback",
+  };
+  const passingPositionAuto: RunningStyleProfile = {
+    distribution: { nige: 100, senko: 0, sashi: 0, oikomi: 0 },
+    sampleCount: 4,
+    confidence: "high",
+    source: "passingPosition",
+    reason: "passingPosition",
+  };
+
+  it("通過順位ベースの推定があれば優先する", () => {
+    expect(resolveAutoRunningStyle(passingPositionAuto, fallbackAuto)).toBe(passingPositionAuto);
+  });
+
+  it("通過順位ベースの推定が無ければ既存fallback(final3Fベース)をそのまま使う（挙動不変）", () => {
+    expect(resolveAutoRunningStyle(null, fallbackAuto)).toBe(fallbackAuto);
   });
 });

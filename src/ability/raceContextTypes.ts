@@ -25,7 +25,16 @@ export interface RunningStyleDistribution {
   oikomi: number;
 }
 
-export type RunningStyleSource = "final3FProxy" | "insufficientData" | "manualInput";
+export type RunningStyleSource = "passingPosition" | "final3FProxy" | "insufficientData" | "manualInput";
+
+/** STEP5.1: 通過順位から脚質分類した1走分の内訳（人間が判断根拠を追える形） */
+export interface PassingPositionUsedRaceRecord {
+  raceId: string;
+  raceDate: string;
+  cornerPositions: number[];
+  fieldSize: number;
+  classifiedStyle: RunningStyle;
+}
 
 export interface RunningStyleProfile {
   distribution: RunningStyleDistribution;
@@ -34,6 +43,10 @@ export interface RunningStyleProfile {
   confidence: SuitabilityConfidence;
   source: RunningStyleSource;
   reason: string;
+  /** 分布の中で最多のスタイル（STEP5.1で追加。省略時は未計算） */
+  dominantStyle?: RunningStyle;
+  /** source="passingPosition"の場合、判定根拠になった各走の内訳（STEP5.1で追加） */
+  usedPastRaces?: PassingPositionUsedRaceRecord[];
 }
 
 export type PredictedPaceLevel = "slow" | "average" | "high";
@@ -121,14 +134,29 @@ export interface FinalRaceAbilityBreakdown {
 /**
  * STEP1〜5の全中間値を保持する最終結果。
  *   baseAbility → × suitability → effectiveAbility → × raceContextFactor → finalRaceAbility
+ *
+ * runningStyleの解決優先順位（STEP5.1で3段階化）:
+ *   manualRunningStyle > autoRunningStyle(=passingPositionRunningStyleがあればそれ、
+ *   無ければfallbackAutoRunningStyle) > （fallbackAutoRunningStyle自体が実質のneutral）
  */
 export interface FinalRaceAbilityResult {
   baseAbility: number;
   suitability: SuitabilityBreakdown;
   effectiveAbility: number;
+  /** 呼び出し側から渡された人間入力の脚質（無ければnull） */
+  manualRunningStyle: RunningStyleProfile | null;
+  /** 通過順位データからの脚質推定（STEP5.1）。有効な過去走が無ければnull */
+  passingPositionRunningStyle: RunningStyleProfile | null;
+  /** 既存のfinal3F相対値による低confidence推定（STEP5 V1から不変。常に算出される） */
+  fallbackAutoRunningStyle: RunningStyleProfile;
+  /** passingPositionRunningStyle ?? fallbackAutoRunningStyle（AI自動側で実際に採用された方） */
   autoRunningStyle: RunningStyleProfile;
+  autoRunningStyleSource: RunningStyleSource;
+  /** manualRunningStyle ?? autoRunningStyle（最終的に採用された脚質） */
   runningStyle: RunningStyleProfile;
   runningStyleUsedSource: "manual" | "auto";
+  /** 通過順位が有効だった過去走数（0なら通過順位による判定不能） */
+  validPassingPositionSampleCount: number;
   predictedPace: PredictedPace;
   raceContext: RaceContextFactor;
   finalRaceAbility: number;
