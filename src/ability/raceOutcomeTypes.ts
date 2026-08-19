@@ -24,6 +24,12 @@ export interface HorseOutcomeInput {
 export interface HorseOutcomeResult {
   horseId: string;
   horseName: string;
+  /**
+   * 過去走データが0件の場合、baseAbility.tsの都合上0が入る。この0は「能力0点」ではなく
+   * 「評価不能／データ不足」の意味（docs/step6-decisions.md 1-4）。呼び出し側でこの値のみから
+   * 両者を区別することはまだできない（TODO・既知の課題）。UI表示時は「能力0の馬」と
+   * 誤認させない表現（「—」「データ不足」等）にすること。
+   */
   baseAbility: number;
   suitability: number;
   finalRaceAbility: number;

@@ -18,25 +18,33 @@
  *
  * 変換はfinal3FScore.ts等と同じ CENTER + AMPLITUDE × tanh(value / SCALE) パターンに従う。
  * value（rawDelta）は「finalRaceAbilityのCENTERからの差 + margin補正 + stability補正」。
+ *
+ * ============================================================================
+ * 【V1係数固定方針・2026-08-19正式決定（docs/step6-decisions.md 1-1）】
+ * 以下の *_WEIGHT / *_CENTER / *_AMPLITUDE / *_SCALE 定数はいずれも「正しい係数」ではなく、
+ * V1の仮パラメータとして固定したものである。宝塚記念・札幌記念など特定レースの結果に
+ * 合わせて調整することは絶対に行わない。将来、十分な数の過去レースを用いたバックテストを
+ * 行い、その結果に基づいてのみ校正する（TODO: バックテスト基盤は未着手）。
+ * ============================================================================
  */
 
 import { clamp } from "../simulation/probability";
 import { roundToOneDecimal } from "./raceScore";
 import { STABILITY_FACTOR_NEUTRAL } from "./stabilityFactor";
 
-/** finalRaceAbilityがこの値のとき、margin/stability補正が無ければスコアはCENTERになる */
+/** finalRaceAbilityがこの値のとき、margin/stability補正が無ければスコアはCENTERになる（V1仮値・調整禁止） */
 export const OUTCOME_SCORE_CENTER = 70;
-/** 飽和時にCENTERへ加算/減算される最大幅 */
+/** 飽和時にCENTERへ加算/減算される最大幅（V1仮値・調整禁止） */
 export const OUTCOME_SCORE_AMPLITUDE = 28;
-/** カーブの伸び方を決めるスケール（finalRaceAbilityの点差換算） */
+/** カーブの伸び方を決めるスケール。finalRaceAbilityの点差換算（V1仮値・調整禁止） */
 export const OUTCOME_SCORE_SCALE = 15;
 
-/** ライバルとの差（margin）に掛ける重み。finalRaceAbility本体より必ず小さく保つ */
+/** ライバルとの差（margin）に掛ける重み。finalRaceAbility本体より必ず小さく保つ（V1仮値・調整禁止） */
 export const WIN_MARGIN_WEIGHT = 0.3;
 export const TOP2_MARGIN_WEIGHT = 0.3;
 export const TOP3_MARGIN_WEIGHT = 0.3;
 
-/** stabilityFactor（CENTERからの差分）に掛ける重み。winScoreは0=影響なし */
+/** stabilityFactor（CENTERからの差分）に掛ける重み。winScoreは0=影響なし（V1仮値・調整禁止） */
 export const STABILITY_WEIGHT_WIN = 0;
 export const STABILITY_WEIGHT_2 = 0.2;
 export const STABILITY_WEIGHT_3 = 0.35;

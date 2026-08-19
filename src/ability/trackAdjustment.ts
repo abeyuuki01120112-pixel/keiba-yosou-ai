@@ -8,6 +8,11 @@
  * 自己参照防止：対象レース自身は必ずプールから除外する。
  * サンプル不足防止：プールが少なすぎる場合は勝手に大きな補正を作らず、
  *   adjustmentSeconds=0・isReliable=false のまま返す（1箇所で閾値を調整できる）。
+ *
+ * TODO（docs/prediction-philosophy.md 思想6・docs/step6-decisions.md 衝突点3）:
+ * この補正は「同日の他レースとの相対差」のみを使う統計的近似であり、開幕週/最終週・
+ * A/B/Cコース替わり・クッション値・含水率・天候といった構造的な馬場変化要因は
+ * 入力に含まれていない。現時点では変更しない。将来の検討事項として記録のみ行う。
  */
 
 import { lookupCourseTimeBaseline } from "./courseTimeBaseline";

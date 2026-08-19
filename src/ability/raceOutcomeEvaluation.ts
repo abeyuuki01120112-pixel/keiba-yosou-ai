@@ -9,6 +9,15 @@
  * STEP1〜5.1の計算式は一切変更しない。除外馬（scratched）は、確率計算のプール・
  * スコア側のfieldAverage・margin比較対象のすべてから取り除いたうえで、確定した
  * 最終メンバーだけを使って再計算する（除外前の頭数に依存する値を一切残さない）。
+ *
+ * 【confidence分離の原則・2026-08-19正式決定（docs/step6-decisions.md 1-2、Design A）】
+ * confidenceは「その予測・能力評価をどれだけ信用してよいか」を表す独立した表示用情報で
+ * あり、予測値そのものではない。同じfinalRaceAbilityであれば、evaluationConfidenceが
+ * 異なってもwinProbability/winScore等を直接変更してはいけない（confidenceに応じた
+ * 縮小・重み付けをscore/probability側に混入させない）。この関数はconfidenceを表示用の
+ * 独立フィールドとしてのみ計算し、score/probabilityの計算パス（outcomeScore.ts/
+ * outcomeProbability.ts）には一切渡していない。この分離はSTEP6に限らず本プロジェクト
+ * 全体の原則（docs/prediction-philosophy.md）である。
  */
 
 import { computeStabilityFactor } from "./stabilityFactor";
@@ -23,7 +32,7 @@ const CONFIDENCE_RANK: Record<SuitabilityConfidence, number> = { low: 0, medium:
 /**
  * finalRaceAbility算出に寄与した各種confidenceのうち、最も弱いもの（weakest-link）を
  * evaluationConfidenceとして採用する。1つでも低信頼な要素があれば、全体としても
- * 低信頼として表示する、という保守的な考え方。
+ * 低信頼として表示する、という保守的な考え方。V1として正式採用（docs/step6-decisions.md 1-2）。
  */
 export function resolveEvaluationConfidence(result: FinalRaceAbilityResult): SuitabilityConfidence {
   const confidences: SuitabilityConfidence[] = [

@@ -11,6 +11,11 @@
  *
  * confidenceが低い場合は、STEP4のconfidence処理（Design-2縮小）と同じ方式で
  * 100%側へ縮小する。overall統合と同様、二重に重み付けはしない。
+ *
+ * TODO（docs/prediction-philosophy.md 思想8・docs/step6-decisions.md 衝突点5）:
+ * これは脚質×想定ペースの相性を統計的に近似する補正（±5%）であり、個別レースの
+ * 具体的な展開（実際に何番手を追走したか、進路ロスが何秒あったか等）を直接評価する
+ * 機構ではない。不利（トラブル）の定量評価（思想7）も別途未実装。現時点では変更しない。
  */
 
 import { clamp } from "../simulation/probability";

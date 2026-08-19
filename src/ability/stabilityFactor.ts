@@ -9,6 +9,12 @@
  * サンプル数が少ない場合（例: 5走中2走しか無い）、stabilityFactor自体をNEUTRAL側へ縮小する
  * （suitabilityのDesign-2縮小と同じ考え方）。ただし「安定しているかどうか分からない」ことを
  * 「能力が低い」と混同しないよう、stabilityConfidenceは別フィールドとして返す。
+ *
+ * 【V1固定方針・2026-08-19正式決定（docs/step6-decisions.md 1-1/1-3）】
+ * 下記CENTER/AMPLITUDE/SCALE/NEUTRALはV1の仮パラメータであり「正しい係数」ではない。
+ * 特定レースの結果に合わせて調整しない。将来バックテストでのみ校正する。
+ * stabilityConfidenceの閾値（baseConfidenceFromSampleCount、STEP4から流用）もV1では
+ * 維持する。特定レースでの分布だけを理由に閾値を変更しない。
  */
 
 import { clamp, mean } from "../simulation/probability";
@@ -18,13 +24,13 @@ import { baseConfidenceFromSampleCount, CONFIDENCE_SHRINK_WEIGHTS } from "./suit
 import type { RacePerformance } from "./types";
 import type { SuitabilityConfidence } from "./suitabilityTypes";
 
-/** downsideSemiDeviation=0（下振れが一切無い）ときのstabilityFactor */
+/** downsideSemiDeviation=0（下振れが一切無い）ときのstabilityFactor（V1仮値・調整禁止） */
 export const STABILITY_FACTOR_CENTER = 70;
-/** downsideSemiDeviationが大きいほどCENTERから減算される最大幅 */
+/** downsideSemiDeviationが大きいほどCENTERから減算される最大幅（V1仮値・調整禁止） */
 export const STABILITY_FACTOR_AMPLITUDE = 25;
-/** カーブの伸び方を決めるスケール（raceScoreの点差） */
+/** カーブの伸び方を決めるスケール。raceScoreの点差換算（V1仮値・調整禁止） */
 export const STABILITY_FACTOR_SCALE = 10;
-/** サンプル不足時にshrinkする先の中立値（何走も無い馬を「不安定」と決めつけないための基準点） */
+/** サンプル不足時にshrinkする先の中立値。何走も無い馬を「不安定」と決めつけないための基準点（V1仮値・調整禁止） */
 export const STABILITY_FACTOR_NEUTRAL = 65;
 
 export interface StabilityFactorResult {
