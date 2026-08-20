@@ -23,7 +23,7 @@ racecourse,surface,distance,going,sampleYears,sampleCount,medianTimeSeconds,sour
 阪神,turf,2000,稍重,1,1,123.5,JRA確認済みサンプル(n=1;対象年:2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate
 阪神,turf,2000,重,1,1,121.6,JRA確認済みサンプル(n=1;対象年:2021) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate
 阪神,turf,2200,良,4,6,131.1,JRA確認済みサンプル(n=6;対象年:2021;2022;2023;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate
-阪神,turf,2200,稍重,1,1,135.7,JRA確認済みサンプル(n=1;対象年:2022) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [wet_confirmed_samplesより追加。2025-06-15宝塚記念稍重131.1は誤日付データと判明済みのため除外継続]
+阪神,turf,2200,稍重,2,2,133.4,JRA確認済みサンプル(n=2;対象年:2022;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [第9実装で「誤日付データ」として除外した2025-06-15宝塚記念(稍重,131.1)を再監査の上、誤除外と判断して再追加。中央値135.7→133.4]
 阪神,turf,2200,重,1,2,134.0,JRA確認済みサンプル(n=2;対象年:2022) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [wet_confirmed_samplesより3歳上2勝クラス135.0を追加。中央値133.0から134.0へ更新]
 中京,turf,2000,良,3,3,117.6,JRA確認済みサンプル(n=3;対象年:2022;2023;2024) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。金鯱賞2021-2025の5件から良のみ抽出]
 中京,turf,2000,重,2,2,121.55,JRA確認済みサンプル(n=2;対象年:2021;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。金鯱賞2021-2025の5件から重のみ抽出]

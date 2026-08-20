@@ -210,6 +210,16 @@
       "sampleCount": 1,
       "source": "JRA確認済みサンプル(n=1レース;対象年:2022) verified_full_finisher_final3f 全18完走馬final3F中央値(median-of-race-medians、単一レースのため実質そのレースの中央値) 暫定candidate [batch7。2022-11-13エリザベス女王杯]",
       "medianFinal3FSeconds": 36.85
+    },
+    {
+      "racecourse": "阪神",
+      "surface": "turf",
+      "distance": 2200,
+      "going": "稍重",
+      "sampleYears": 1,
+      "sampleCount": 1,
+      "source": "JRA確認済みサンプル(n=1レース;対象年:2025) verified_full_finisher_final3f 全17完走馬final3F中央値(median-of-race-medians、単一レースのため実質そのレースの中央値) 暫定candidate [2025-06-15宝塚記念。第9実装で「誤日付データ」として除外されていたが再監査の上、誤除外と判断し新規追加]",
+      "medianFinal3FSeconds": 36.4
     }
   ]
 }

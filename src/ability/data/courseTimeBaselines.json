@@ -246,10 +246,10 @@
       "surface": "turf",
       "distance": 2200,
       "going": "稍重",
-      "sampleYears": 1,
-      "sampleCount": 1,
-      "source": "JRA確認済みサンプル(n=1;対象年:2022) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [wet_confirmed_samplesより追加。2025-06-15宝塚記念稍重131.1は誤日付データと判明済みのため除外継続]",
-      "medianTimeSeconds": 135.7
+      "sampleYears": 2,
+      "sampleCount": 2,
+      "source": "JRA確認済みサンプル(n=2;対象年:2022;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [第9実装で「誤日付データ」として除外した2025-06-15宝塚記念(稍重,131.1)を、複数の独立した実在確認（レース結果サイト横断検索でメイショウタバル1着・武豊騎手・2:11.1・3馬身差・7番人気を確認）に基づき再監査し、誤除外と判断して再追加。中央値135.7→133.4]",
+      "medianTimeSeconds": 133.4
     },
     {
       "racecourse": "阪神",
