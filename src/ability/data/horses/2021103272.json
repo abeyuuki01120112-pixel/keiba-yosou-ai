@@ -40,5 +40,20 @@
     "raceTime": 152.6,
     "final3F": 36.7,
     "carriedWeight": 58
+  },
+  {
+    "raceId": "JRA-20250615-HANSHIN-11",
+    "raceName": "宝塚記念",
+    "raceDate": "2025-06-15",
+    "racecourse": "阪神",
+    "surface": "turf",
+    "distance": 2200,
+    "going": "稍重",
+    "raceNumber": 11,
+    "finishPosition": 1,
+    "timeGap": 0,
+    "raceTime": 131.1,
+    "final3F": 36.0,
+    "carriedWeight": 58
   }
 ]

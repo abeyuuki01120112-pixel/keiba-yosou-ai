@@ -49,6 +49,20 @@
       "raceMedianWeightKg": 58.0,
       "raceMedianFinal3FSeconds": 35.6,
       "source": "JRA公式 arima_kinen_2025_full_field_verified.csv (n=16。2025有馬記念)"
+    },
+    {
+      "raceId": "JRA-20250615-HANSHIN-11",
+      "fieldCount": 17,
+      "raceMedianWeightKg": 58.0,
+      "raceMedianFinal3FSeconds": 36.4,
+      "source": "JRA公式 takarazuka_kinen_2025.csv (n=17。2025宝塚記念、全頭完走)"
+    },
+    {
+      "raceId": "JRA-20251130-TOKYO-12",
+      "fieldCount": 16,
+      "raceMedianWeightKg": 58.0,
+      "raceMedianFinal3FSeconds": 34.8,
+      "source": "JRA公式 japan_cup_2025.csv (n=16。2025ジャパンカップ、完走16頭。中止1頭・取消1頭は実績値が無いため中央値算出から除外)"
     }
   ]
 }

@@ -40,5 +40,20 @@
     "raceTime": 151.6,
     "final3F": 35,
     "carriedWeight": 58
+  },
+  {
+    "raceId": "JRA-20251130-TOKYO-12",
+    "raceName": "ジャパンカップ",
+    "raceDate": "2025-11-30",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 2400,
+    "going": "良",
+    "raceNumber": 12,
+    "finishPosition": 3,
+    "timeGap": 0.5,
+    "raceTime": 140.8,
+    "final3F": 33.8,
+    "carriedWeight": 58
   }
 ]
