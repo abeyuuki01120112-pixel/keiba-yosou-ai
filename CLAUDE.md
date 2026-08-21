@@ -10,6 +10,10 @@
   整合性を再検討すること。
 - **[`docs/step6-decisions.md`](docs/step6-decisions.md)** — STEP6 V1で正式決定した
   係数固定方針・confidence分離原則・データ不足の意味論、および現状実装との既知の衝突点。
+- **[`docs/memberlevel-v1-decision.md`](docs/memberlevel-v1-decision.md)** — memberLevel V1
+  として正式決定したconfidence考慮Top5方式の仕様。**現状`raceHistoryPipeline.ts`には未実装**
+  （`memberLevel.ts`の旧top3/top5/field/depth方式のまま）。実装置き換えは別途明示的な指示が
+  出るまで着手しないこと。
 
 ## 絶対に守ること（要約。詳細は上記2文書）
 
