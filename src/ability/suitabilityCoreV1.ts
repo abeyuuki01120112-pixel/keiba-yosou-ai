@@ -83,10 +83,15 @@ export function buildTokyoDirt1600GateComponent(input: {
     score: null,
     confidence: result.overallConfidence,
     reason:
-      "東京ダート1600mは芝スタートで外枠ほど芝部分を長く走れる構造のため、外枠有利の方向性が" +
-      "複数ソースの実測データと一致している（reasonCodes: " +
+      "東京ダート1600mは芝スタートで外枠ほど芝部分を長く走れる構造が複数ソースで一致している" +
+      "（gateBiasLevel=" +
+      result.courseContextPrior.gateBiasLevel +
+      "）。ただし2026-08-22のCHECKPOINT10.1〜10.2実データ検証（30レース・451頭）では" +
+      "frame-finishPosition相関がほぼゼロ・方向不安定であり（empiricalValidationStatus=" +
+      result.courseContextPrior.empiricalValidationStatus +
+      "）、CHECKPOINT10.3で強い数値補正には使わない方針とした（reasonCodes: " +
       result.reasonCodes.join(", ") +
-      "）。ただしpercentへの変換は未確定。",
+      "）。scoreはpercent未変換のまま。",
     source: "coursePrior",
     // 本人実績の集計手段が無いため常にnull（Course Priorのみのcomponentになる）
     horseEvidence: null,

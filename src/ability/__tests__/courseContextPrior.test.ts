@@ -42,6 +42,14 @@ describe("calculateRelativeGatePosition", () => {
 });
 
 describe("computeTokyoDirt1600CourseContextPrior", () => {
+  it("empiricalValidationStatus=weakOrUnstable（CHECKPOINT10.3・30レース実測検証を踏まえた設定）", () => {
+    const prior = computeTokyoDirt1600CourseContextPrior(8);
+    expect(prior!.empiricalValidationStatus).toBe("weakOrUnstable");
+    expect(prior!.reasonCodes).toContain("EMPIRICAL_30RACE_INCONCLUSIVE");
+    // gateBiasLevel（出典の記述としての確信度）自体は変更していない
+    expect(prior!.gateBiasLevel).toBe("high");
+  });
+
   it("frame=8（最も外枠有利）でgateCoefficient=1.0", () => {
     const prior = computeTokyoDirt1600CourseContextPrior(8);
     expect(prior).not.toBeNull();

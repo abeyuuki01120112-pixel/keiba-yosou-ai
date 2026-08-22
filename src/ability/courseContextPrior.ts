@@ -17,6 +17,16 @@
  *   5. overall confidence = min(horse evidence confidence, courseKarte confidence)。
  *      データ不足を0点扱いにはしない。
  *
+ * 【CHECKPOINT 10.3追記・重要】gateBiasLevel="high"は、JRA-VAN/競馬ラボ等の複数ソースが
+ * 「芝スタートで外側ほど芝区間が長い」という構造的根拠に一致して同意していることを表す
+ * （＝出典の記述としての確信度）。しかし2026-08-22のCHECKPOINT10.1〜10.2実データ検証
+ * （東京ダート1600m・30レース・451頭）では、frame-finishPosition相関は+0.0081
+ * （ほぼゼロ・符号もgateBiasLevelの想定と逆）、going別に見ても方向が一貫しなかった。
+ * そのため「gateBiasLevelが高い＝強い数値補正をかけてよい」という解釈はCHECKPOINT10.3で
+ * 正式に撤回し、`empiricalValidationStatus`で出典側の確信度と実測側の検証結果を分離した
+ * （詳細: docs/gate-suitability-v1-decision.md）。gateBiasLevel・gateCoefficient自体の値は
+ * 変更していない（出典の記述を書き換える理由が無いため）。
+ *
  * 対象は東京ダート1600m（TOKYO_DIRT_1600）のみ。他コースへの拡張は今回のスコープ外。
  */
 
@@ -52,12 +62,28 @@ export interface RaceGateInput {
 
 export type GateBiasLevel = "low" | "medium" | "high";
 
+/**
+ * 実測データ（複数レース横断の統計的検証）が、gateBiasLevelの示す方向・強さを
+ * 裏付けているかどうか（CHECKPOINT10.3で追加）。
+ *   supported      : 実測が方向・強さとも概ね一致
+ *   weakOrUnstable : 方向は完全否定できないが弱い、またはgoing等の層別で方向が不安定
+ *   notEvaluated   : まだ実測検証を行っていない
+ */
+export type EmpiricalValidationStatus = "supported" | "weakOrUnstable" | "notEvaluated";
+
 /** courseKarte由来の枠構造事前分布。frameが不明/範囲外の場合はnull */
 export interface CourseContextPrior {
   /** -1〜+1のunitless相対係数。suitability percentへは未変換（CHECKPOINT8の意図的な仕様） */
   gateCoefficient: number;
+  /** 出典（JRA-VAN/競馬ラボ等）の記述としての確信度。実測検証結果とは別軸（CHECKPOINT10.3） */
   gateBiasLevel: GateBiasLevel;
   sourceConfidence: SuitabilityConfidence;
+  /**
+   * 実測データによる検証状況（CHECKPOINT10.3）。"weakOrUnstable"の場合、
+   * gateBiasLevel="high"であっても強い数値補正の根拠には使わないこと
+   * （docs/gate-suitability-v1-decision.md参照）。
+   */
+  empiricalValidationStatus: EmpiricalValidationStatus;
   reasonCodes: string[];
 }
 
@@ -94,10 +120,14 @@ export function computeTokyoDirt1600CourseContextPrior(frame: number | null): Co
     gateCoefficient: row.gatePriorCoefficient,
     gateBiasLevel: courseKarte.gateBias.level,
     sourceConfidence: courseKarte.confidence,
+    // CHECKPOINT10.3: 30レース・451頭の実測検証（frame-finishPosition相関+0.0081、
+    // going別でも方向不安定）を踏まえ、方向情報は保持しつつ強い数値補正の根拠にはしない。
+    empiricalValidationStatus: "weakOrUnstable",
     reasonCodes: [
       "STRUCTURE_TURF_START_OUTER_ADVANTAGE",
       "MULTI_SOURCE_AGREEMENT",
       "EMPIRICAL_PLACE_RATE_DELTA",
+      "EMPIRICAL_30RACE_INCONCLUSIVE",
     ],
   };
 }
