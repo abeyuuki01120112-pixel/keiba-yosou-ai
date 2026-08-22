@@ -1,6 +1,8 @@
 /**
  * baseAbility（基礎能力）の計算。
  * 直近5走のraceScoreを均等20%ずつ平均する。前走を特別に重くしない。
+ *
+ * Ability Model V1として2026-08-22に正式確定・凍結（docs/ability-model-v1.md）。
  */
 
 import { roundToOneDecimal } from "./raceScore";

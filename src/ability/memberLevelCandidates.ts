@@ -3,7 +3,8 @@
  *
  * calculateTopNConfidenceWeightedMean() が memberLevel V1（confidence考慮Top5重み付き平均）の
  * 正式な算出関数であり、raceHistoryPipeline.ts の本番memberLevelScoreAtRace計算はこの関数を
- * MEMBER_LEVEL_TOP_N（=5）で呼び出す。
+ * MEMBER_LEVEL_TOP_N（=5）で呼び出す。Ability Model V1として2026-08-22に正式確定・凍結
+ * （docs/ability-model-v1.md）。
  *
  * calculateTopNSimpleAverage / calculateTopNMedian は採用しなかった比較候補（監査・参考値用）
  * として残しており、Top5単純平均はmemberLevelBreakdown.simpleTop5Averageの算出に引き続き使う。

@@ -1,6 +1,8 @@
 /**
  * abilityBeforeRace: 「対象レースより前に確定していた過去走だけ」から作る能力値。
  * memberLevelScoreAtRace の算出に使う。未来情報リークと循環参照を防ぐための要。
+ *
+ * Ability Model V1として2026-08-22に正式確定・凍結（docs/ability-model-v1.md）。
  */
 
 import { roundToOneDecimal } from "./raceScore";

@@ -2,6 +2,8 @@
  * 1走スコア（raceScore）の計算。
  * 実質メンバーレベル30% / タイム差25% / 走破タイム25% / 上がり3F15% / 斤量補正5%
  *
+ * Ability Model V1として2026-08-22に正式確定・凍結（docs/ability-model-v1.md）。
+ *
  * TODO（docs/prediction-philosophy.md 思想4・docs/step6-decisions.md 衝突点2）:
  * 上記5項目は独立加重平均（線形結合）であり、「着差×相手レベル×レース内容」のような
  * 項目間の掛け算的な文脈評価（例: 相手レベルが低い時は着差の価値を割り引く）にはなって
