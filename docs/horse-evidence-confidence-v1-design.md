@@ -1,6 +1,11 @@
 # HorseEvidence Confidence V1 設計比較（CHECKPOINT 10.5）
 
-**作成日: 2026-08-22。ステータス: 設計比較・Claude推奨案の提示のみ。未承認・未実装。**
+**作成日: 2026-08-22。ステータス: 設計比較・Claude推奨案の提示。**
+
+**追記（CHECKPOINT10.6, 2026-08-22）: 本文書STEP8で推奨したB案がユーザー承認により正式採用され、
+`src/ability/horseEvidenceConfidence.ts`の`resolveHorseEvidenceConfidence()`として実装済み。
+STEP4で列挙した注意項目は[`docs/horse-evidence-confidence-v1-known-issues.md`](horse-evidence-confidence-v1-known-issues.md)
+に技術的負債として正式記録した。**
 
 [`docs/ability-model-v1.md`](ability-model-v1.md)（Ability Model V1、凍結済み）とは独立したレイヤー。
 [`docs/gate-suitability-v1-decision.md`](gate-suitability-v1-decision.md)（CHECKPOINT10.3）で確定した
