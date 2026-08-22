@@ -191,6 +191,18 @@ if (!fs.existsSync(HORSES_DIR)) {
       if (typeof race.raceDate === "string" && Number.isNaN(Date.parse(race.raceDate))) {
         error(`${label}: raceDate "${race.raceDate}" を日付として解釈できません`);
       }
+      // horseNumber > fieldSize は除外・取消・中止馬がいた実レースでも起こりうる正当なケース
+      // （馬番は除外後も詰め直されないため）。誤りとは断定せず、勝手に補正もせず警告のみ出す。
+      if (
+        typeof race.horseNumber === "number" &&
+        typeof race.fieldSize === "number" &&
+        race.horseNumber > race.fieldSize
+      ) {
+        warn(
+          `${label}: horseNumber(${race.horseNumber})がfieldSize(${race.fieldSize})を超えています` +
+            `（除外・取消・中止馬がいたレースで起こりうる正当なケースの可能性があります。relativeGatePositionはnullとして扱われます）`,
+        );
+      }
       if (race.racecourse && race.surface && race.distance && race.going) {
         const key = `${race.racecourse}|${race.surface}|${race.distance}|${race.going}`;
         raceFieldConditions.set(key, {
