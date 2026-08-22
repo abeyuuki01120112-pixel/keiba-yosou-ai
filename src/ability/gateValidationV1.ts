@@ -9,6 +9,7 @@
  */
 
 import rawRows from "./data/gateValidation/tokyoDirt1600RealRaces10.json";
+import rawAdd20Rows from "./data/gateValidation/tokyoDirt1600Add20.json";
 import { computeTokyoDirt1600CourseContextPrior, calculateRelativeGatePosition } from "./courseContextPrior";
 import { CONFIDENCE_SHRINK_WEIGHTS } from "./suitabilityConfidence";
 import type { SuitabilityConfidence } from "./suitabilityTypes";
@@ -30,7 +31,17 @@ export interface GateValidationRow {
   sourceUrl: string;
 }
 
+/** CHECKPOINT10.1の10レース分（後方互換のため個別にも公開） */
 export const GATE_VALIDATION_ROWS = rawRows as unknown as GateValidationRow[];
+
+/** CHECKPOINT10.2で追加した20レース分（fieldSize定義修正版） */
+export const GATE_VALIDATION_ADD20_ROWS = rawAdd20Rows as unknown as GateValidationRow[];
+
+/** 10レース＋追加20レース＝約30レースの統合データセット（CHECKPOINT10.2） */
+export const ALL_GATE_VALIDATION_ROWS: GateValidationRow[] = [
+  ...GATE_VALIDATION_ROWS,
+  ...GATE_VALIDATION_ADD20_ROWS,
+];
 
 export interface FrameStats {
   frame: number;

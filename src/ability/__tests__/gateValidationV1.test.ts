@@ -8,6 +8,8 @@ import {
   simulateHypotheticalEffectiveAbility,
   lookupGateCoefficient,
   GATE_VALIDATION_ROWS,
+  GATE_VALIDATION_ADD20_ROWS,
+  ALL_GATE_VALIDATION_ROWS,
   type GateValidationRow,
 } from "../gateValidationV1";
 
@@ -24,6 +26,42 @@ describe("GATE_VALIDATION_ROWS（実データ読み込み）", () => {
   it("10レース分である", () => {
     const raceIds = new Set(GATE_VALIDATION_ROWS.map((r) => r.raceId));
     expect(raceIds.size).toBe(10);
+  });
+});
+
+describe("GATE_VALIDATION_ADD20_ROWS / ALL_GATE_VALIDATION_ROWS（CHECKPOINT10.2）", () => {
+  it("追加20レース分は294行、全て東京・dirt・1600mのみ", () => {
+    expect(GATE_VALIDATION_ADD20_ROWS).toHaveLength(294);
+    for (const row of GATE_VALIDATION_ADD20_ROWS) {
+      expect(row.venue).toBe("東京");
+      expect(row.surface).toBe("dirt");
+      expect(row.distance).toBe(1600);
+    }
+  });
+
+  it("追加20レース分は20レース、既存10レースとraceId重複なし", () => {
+    const raceIds = new Set(GATE_VALIDATION_ADD20_ROWS.map((r) => r.raceId));
+    expect(raceIds.size).toBe(20);
+    const existingIds = new Set(GATE_VALIDATION_ROWS.map((r) => r.raceId));
+    for (const id of raceIds) expect(existingIds.has(id)).toBe(false);
+  });
+
+  it("統合データセットは157+294=451行、30レース", () => {
+    expect(ALL_GATE_VALIDATION_ROWS).toHaveLength(451);
+    const raceIds = new Set(ALL_GATE_VALIDATION_ROWS.map((r) => r.raceId));
+    expect(raceIds.size).toBe(30);
+  });
+
+  it("fieldSize定義が10レース版と統一されている（fieldSize=実フィニッシャー数）", () => {
+    const byRace = new Map<string, GateValidationRow[]>();
+    for (const row of GATE_VALIDATION_ADD20_ROWS) {
+      const list = byRace.get(row.raceId) ?? [];
+      list.push(row);
+      byRace.set(row.raceId, list);
+    }
+    for (const [, rows] of byRace) {
+      expect(rows[0].fieldSize).toBe(rows.length);
+    }
   });
 });
 
