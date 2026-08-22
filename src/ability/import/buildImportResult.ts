@@ -56,11 +56,17 @@ export function toRaceHistoryRawInput(input: RacePerformanceInput): RaceHistoryR
     surface: input.surface,
     distance: input.distance,
     going: input.going,
+    raceNumber: input.raceNumber,
     finishPosition,
     timeGap: timeGapSeconds,
     raceTime: actualRaceTimeSeconds,
     final3F: final3FSeconds,
     carriedWeight: carriedWeightKg,
+    // 枠番・馬番・出走頭数（CHECKPOINT9で追加）。CourseContextPrior検証用の参考データとして
+    // 保持するのみで、能力計算（raceScore/memberLevel等）には使わない。
+    gate: input.gate,
+    horseNumber: input.horseNumber,
+    fieldSize: input.fieldSize,
   };
 }
 

@@ -56,6 +56,12 @@ const RACE_FIELDS = {
   raceTime: { type: "number", positive: true },
   final3F: { type: "number", positive: true },
   carriedWeight: { type: "number", positive: true },
+  // 枠番・馬番・出走頭数（CHECKPOINT9で追加）。CourseContextPrior検証用の参考データであり、
+  // baseAbility/raceScore/memberLevelの計算には使わない。フィールド自体が無い（optional）
+  // 場合も、値がある場合はnullも許容する（不明を推測で埋めないため）。
+  gate: { type: "number", optional: true, nullable: true, positiveInteger: true },
+  horseNumber: { type: "number", optional: true, nullable: true, positiveInteger: true },
+  fieldSize: { type: "number", optional: true, nullable: true, positiveInteger: true },
 };
 
 const BASELINE_COMMON_FIELDS = {
@@ -70,7 +76,13 @@ const BASELINE_COMMON_FIELDS = {
 
 function validateField(value, spec, label) {
   if (value === undefined) {
+    if (spec.optional) return;
     error(`${label}: フィールドがありません`);
+    return;
+  }
+  if (value === null) {
+    if (spec.nullable) return;
+    error(`${label}: nullは許可されていません`);
     return;
   }
   if (spec.type === "string" && typeof value !== "string") {

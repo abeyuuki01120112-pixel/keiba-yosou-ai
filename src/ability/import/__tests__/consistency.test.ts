@@ -145,11 +145,15 @@ describe("CSVインポート経由の計算結果が既存データと一致す�
       surface: "turf",
       distance: 1900,
       going: "良",
+      raceNumber: null,
       finishPosition: 2,
       timeGap: 0.6,
       raceTime: 116.9,
       final3F: 36.3,
       carriedWeight: 56,
+      gate: null,
+      horseNumber: 6,
+      fieldSize: 5,
     });
   });
 });

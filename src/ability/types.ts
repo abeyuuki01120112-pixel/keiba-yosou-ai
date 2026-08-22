@@ -293,6 +293,17 @@ export interface RacePerformance {
    */
   raceNumber?: number | null;
 
+  /**
+   * 枠番（1〜8）・馬番（1〜）・出走頭数（CHECKPOINT9で追加）。
+   * CourseContextPrior（courseContextPrior.ts）の入力候補として保持するのみで、
+   * baseAbility/raceScore/memberLevel V1/timeGapScore/raceTimeScore/final3FScore/
+   * weightScore/trackBiasのいずれの計算にも一切使わない（Ability Model V1は無変更）。
+   * 不明なら推測せずundefined/null。
+   */
+  gate?: number | null;
+  horseNumber?: number | null;
+  fieldSize?: number | null;
+
   finishPosition: number;
   /**
    * 勝ち馬とのタイム差（秒）。負けた馬は正の値。
