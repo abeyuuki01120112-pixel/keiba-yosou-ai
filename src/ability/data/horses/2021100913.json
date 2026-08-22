@@ -69,5 +69,50 @@
     "raceTime": 134.4,
     "final3F": 39.2,
     "carriedWeight": 58
+  },
+  {
+    "raceId": "JRA-20251005-KYOTO-11",
+    "raceName": "京都大賞典",
+    "raceDate": "2025-10-05",
+    "racecourse": "京都",
+    "surface": "turf",
+    "distance": 2400,
+    "going": "稍重",
+    "raceNumber": 11,
+    "finishPosition": 12,
+    "timeGap": 0.9,
+    "raceTime": 144.8,
+    "final3F": 34.8,
+    "carriedWeight": 57.0
+  },
+  {
+    "raceId": "JRA-20250913-HANSHIN-11",
+    "raceName": "チャレンジC",
+    "raceDate": "2025-09-13",
+    "racecourse": "阪神",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 10,
+    "timeGap": 0.7,
+    "raceTime": 118.7,
+    "final3F": 34.5,
+    "carriedWeight": 57.5
+  },
+  {
+    "raceId": "JRA-20250510-TOKYO-11",
+    "raceName": "エプソムC",
+    "raceDate": "2025-05-10",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 1800,
+    "going": "稍重",
+    "raceNumber": 11,
+    "finishPosition": 16,
+    "timeGap": 2.4,
+    "raceTime": 106.3,
+    "final3F": 36.5,
+    "carriedWeight": 59.0
   }
 ]
