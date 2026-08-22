@@ -105,21 +105,23 @@ export function HorseDetailPanel({ horseId, onClose }: Props) {
                       {race.memberLevelBreakdown ? (
                         <div className="member-level-sub-breakdown">
                           <div className="breakdown-row sub-row">
-                            <span>上位3頭平均</span>
-                            <span>{race.memberLevelBreakdown.top3Average.toFixed(1)}</span>
+                            <span>Top5単純平均（参考値）</span>
+                            <span>{race.memberLevelBreakdown.simpleTop5Average.toFixed(1)}</span>
                           </div>
                           <div className="breakdown-row sub-row">
-                            <span>上位5頭平均</span>
-                            <span>{race.memberLevelBreakdown.top5Average.toFixed(1)}</span>
+                            <span>参照可能な出走馬数</span>
+                            <span>{race.memberLevelBreakdown.participantCount}</span>
                           </div>
-                          <div className="breakdown-row sub-row">
-                            <span>全体平均</span>
-                            <span>{race.memberLevelBreakdown.fieldAverage.toFixed(1)}</span>
-                          </div>
-                          <div className="breakdown-row sub-row">
-                            <span>層の厚さ</span>
-                            <span>{race.memberLevelBreakdown.depthScore.toFixed(1)}</span>
-                          </div>
+                          {race.memberLevelBreakdown.candidates.map((c) => (
+                            <div className="breakdown-row sub-row" key={c.horseId}>
+                              <span>
+                                {c.horseId}（{c.sampleCount}走・confidence:{c.confidence}）
+                              </span>
+                              <span>
+                                {c.ability.toFixed(1)}（重み{c.weight.toFixed(1)}）
+                              </span>
+                            </div>
+                          ))}
                         </div>
                       ) : (
                         <div className="member-level-sub-breakdown">

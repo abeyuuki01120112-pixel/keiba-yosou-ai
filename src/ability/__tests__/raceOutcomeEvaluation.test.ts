@@ -9,7 +9,12 @@ import type { SuitabilityTargetRaceContext } from "../suitabilityTypes";
 import type { FinalRaceAbilityResult, RaceContextTargetInfo, RunningStyleDistribution, RunningStyleProfile } from "../raceContextTypes";
 
 function cleanMemberLevelBreakdown(): MemberLevelBreakdown {
-  return { top3Average: 70, top5Average: 65, fieldAverage: 60, depthScore: 80, participantCount: 10 };
+  return {
+    candidates: [{ horseId: "dummy", ability: 65, sampleCount: 5, confidence: "high", weight: 1.0 }],
+    weightedMean: 65,
+    simpleTop5Average: 65,
+    participantCount: 10,
+  };
 }
 function cleanBaselineMeta(): BaselineMeta {
   return { baselineSource: "exact", sampleCount: 20, isReliable: true, dataSource: "JRA確認済みサンプル(n=20) verified" };

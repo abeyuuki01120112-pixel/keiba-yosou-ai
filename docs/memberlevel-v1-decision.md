@@ -39,27 +39,33 @@ STEP4/STEP6で確定済みの定義をそのまま再利用しており、今回
 この基準を満たしたことを根拠に、これ以上Top5候補馬の追加データ収集は行わずmemberLevel V1を
 確定した。
 
-## 【重要・現状の実装との関係】
+## 【重要・現状の実装との関係】（2026-08-22 更新：本番実装完了）
 
-**`src/ability/memberLevel.ts`の`calculateMemberLevel()`（top3Average×0.4 + top5Average×0.3 +
-fieldAverage×0.2 + depthScore×0.1）は、この決定を受けても本番の`raceHistoryPipeline.ts`内では
-変更していない。** `raceHistoryPipeline.ts`が実際に呼び出す関数は引き続き`calculateMemberLevel()`
-であり、`memberLevelScoreAtRace`は全レース・全馬について従来どおりのtop3/top5/field/depth方式で
-算出され続ける。
+**本番の`raceHistoryPipeline.ts`は、memberLevel V1（confidence考慮Top5重み付き平均）へ
+移行済み。** `memberLevelScoreAtRace`は全レース・全馬について
+`calculateTopNConfidenceWeightedMean(candidates, MEMBER_LEVEL_TOP_N=5)`
+（`src/ability/memberLevelCandidates.ts`）で算出される。
 
-今回の「V1正式決定」は、①宝塚記念2026という個別レースについて、confidence考慮Top5方式で
-算出した値（75.4）を用いた場合の影響を監査用に再計算すること、②将来`memberLevel.ts`を
-書き換える際の正式仕様を文書として確定すること、の2点を指す。**`raceHistoryPipeline.ts`への
-実装への組み込み（`calculateMemberLevel()`の置き換え）は本ラウンドでは行っていない。** 実装の
-組み込みは、影響範囲が全レース・全馬に及ぶ大きな変更であり、既存テスト（`memberLevel.test.ts`
-等）の大幅な更新を伴うため、別途明示的な実装指示があった時点で着手する。
+旧方式（`src/ability/memberLevel.ts`の`calculateMemberLevel()`。top3Average×0.4 +
+top5Average×0.3 + fieldAverage×0.2 + depthScore×0.1）は本番からは呼ばれなくなったが、
+旧方式との比較・監査用にファイルとして残している。戻り値の型は新方式の
+`MemberLevelBreakdown`（`types.ts`）と衝突しないよう、`memberLevel.ts`側に
+`LegacyMemberLevelBreakdown`として独立させた。
+
+`RacePerformance.memberLevelBreakdown`（`types.ts`の`MemberLevelBreakdown`）は、
+候補馬が1頭も無い場合のみnull（フォールバック発動のシグナル）というトリガー条件を
+旧方式のときと完全に維持したまま、非null時の内訳をTop5候補一覧
+（horseId・ability・sampleCount・confidence・weight）＋weightedMean＋
+simpleTop5Average（監査用参考値）＋participantCountへ置き換えた。
+候補馬が5頭未満の場合も、存在する分だけで重み付き平均を計算し（パディングなし）、
+候補が0頭の場合のみ既存のFALLBACK_MEMBER_LEVEL_SCORE（=50）にフォールバックする
+（フォールバックのトリガー条件・値とも変更していない）。
 
 ## 今後の運用
 
-- 新しいレースのmemberLevel検証を行う際は、この文書のconfidence考慮Top5方式を正式仕様として
-  参照する。
+- `memberLevelScoreAtRace`の算出は、今後もこの文書のconfidence考慮Top5方式
+  （`calculateTopNConfidenceWeightedMean`）を正式仕様として参照する。
 - Top5候補馬のうちn<3かつconfidence<mediumの馬が新たに浮上した場合、この決定の再検討が必要な
   場合がある（現時点では発生していない）。
-- `calculateMemberLevel()`の実装置き換えに着手する場合は、影響範囲（全レース・全馬の
-  raceScore・baseAbility）を事前に見積もり、既存テストへの影響を洗い出したうえで、別ラウンドの
-  明示的な指示のもとで行う。
+- 旧方式（`memberLevel.ts`の`calculateMemberLevel()`）は比較・監査専用として残しており、
+  本番計算には使わない。削除する場合は別途明示的な指示のもとで行う。

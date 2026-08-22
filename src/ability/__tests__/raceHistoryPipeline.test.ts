@@ -1,9 +1,20 @@
 import { describe, expect, it } from "vitest";
 import { buildRaceHistory, type RaceHistoryRawInput } from "../raceHistoryPipeline";
-import { calculateMemberLevel } from "../memberLevel";
+import { calculateTopNConfidenceWeightedMean, MEMBER_LEVEL_TOP_N, type AbilityCandidate } from "../memberLevelCandidates";
 import { buildHorseAbilityProfile } from "../buildHorseAbilityProfile";
 import { calculateBaseAbility } from "../baseAbility";
 import { FALLBACK_MEMBER_LEVEL_SCORE } from "../memberLevel";
+
+/**
+ * raceHistoryPipeline.ts本番実装（buildMemberLevelResult）と同じ「候補構築 → confidence考慮Top5
+ * 重み付き平均」で期待値を計算するテスト用ヘルパー。
+ * ここでのsampleCountは各テストシナリオの「対象レースより前の確定済み過去走数」を手動指定する
+ * （本番のMAX_PRIOR_RACES_FOR_ABILITYキャップと同じ考え方で、テストの過去走数は5未満のため
+ * キャップは実質発生しない）。
+ */
+function expectedMemberLevelScore(candidates: AbilityCandidate[]): number {
+  return calculateTopNConfidenceWeightedMean(candidates, MEMBER_LEVEL_TOP_N) ?? FALLBACK_MEMBER_LEVEL_SCORE;
+}
 import { RACE_TIME_SCORE_CENTER } from "../raceTimeScore";
 import { FINAL3F_SCORE_CENTER } from "../final3FScore";
 import type { CourseFinal3FBaseline, CourseTimeBaseline, RaceFieldAggregate } from "../types";
@@ -45,9 +56,12 @@ describe("buildRaceHistory", () => {
 
     // sharedレースのmemberLevelScoreは、A・Bそれぞれの「old」レースのraceScoreだけから
     // 算出されているはず（sharedレース自身のスコアは一切使わない）
-    const expected = calculateMemberLevel([aOld.raceScore, bOld.raceScore]);
-    expect(aShared.memberLevelScoreAtRace).toBeCloseTo(expected.memberLevelScore, 5);
-    expect(bShared.memberLevelScoreAtRace).toBeCloseTo(expected.memberLevelScore, 5);
+    const expected = expectedMemberLevelScore([
+      { id: "A", ability: aOld.raceScore, sampleCount: 1 },
+      { id: "B", ability: bOld.raceScore, sampleCount: 1 },
+    ]);
+    expect(aShared.memberLevelScoreAtRace).toBeCloseTo(expected, 5);
+    expect(bShared.memberLevelScoreAtRace).toBeCloseTo(expected, 5);
   });
 
   it("未来のレースデータを参照しない（未来のレースを追加しても過去のレース結果は変わらない）", () => {
@@ -100,9 +114,12 @@ describe("buildRaceHistory", () => {
 
     const priorA = result.A.find((r) => r.raceId === "prior-A")!;
     const priorB = result.B.find((r) => r.raceId === "prior-B")!;
-    const expected = calculateMemberLevel([priorA.raceScore, priorB.raceScore]);
+    const expected = expectedMemberLevelScore([
+      { id: "A", ability: priorA.raceScore, sampleCount: 1 },
+      { id: "B", ability: priorB.raceScore, sampleCount: 1 },
+    ]);
     // targetレースの極端なtimeGapがmemberLevelScoreに混入していないことを確認
-    expect(targetA.memberLevelScoreAtRace).toBeCloseTo(expected.memberLevelScore, 5);
+    expect(targetA.memberLevelScoreAtRace).toBeCloseTo(expected, 5);
   });
 
   it("raceScoreに新memberLevelScoreが30%で反映される", () => {
@@ -168,8 +185,8 @@ describe("buildRaceHistory", () => {
     const priorA = result.A.find((r) => r.raceId === "prior-A")!;
 
     // Bのabilityが不明なので、Aの過去走スコアのみで算出されているはず
-    const expected = calculateMemberLevel([priorA.raceScore]);
-    expect(targetA.memberLevelScoreAtRace).toBeCloseTo(expected.memberLevelScore, 5);
+    const expected = expectedMemberLevelScore([{ id: "A", ability: priorA.raceScore, sampleCount: 1 }]);
+    expect(targetA.memberLevelScoreAtRace).toBeCloseTo(expected, 5);
     expect(targetA.memberLevelBreakdown?.participantCount).toBe(1);
   });
 

@@ -33,7 +33,16 @@
 import { calculateAbilityBeforeRace, MAX_PRIOR_RACES_FOR_ABILITY } from "./abilityBeforeRace";
 import { lookupCourseTimeBaseline } from "./courseTimeBaseline";
 import { lookupCourseFinal3FBaseline } from "./courseFinal3FBaseline";
-import { calculateMemberLevel } from "./memberLevel";
+import { FALLBACK_MEMBER_LEVEL_SCORE } from "./memberLevel";
+import {
+  calculateTopNConfidenceWeightedMean,
+  calculateTopNSimpleAverage,
+  confidenceFromSampleCount,
+  confidenceWeightFromSampleCount,
+  MEMBER_LEVEL_TOP_N,
+  selectTopNCandidates,
+  type AbilityCandidate,
+} from "./memberLevelCandidates";
 import { calculateRaceScore } from "./raceScore";
 import { calculateRaceTimeScore, RACE_TIME_SCORE_CENTER } from "./raceTimeScore";
 import {
@@ -52,6 +61,7 @@ import type {
   CourseFinal3FBaseline,
   CourseTimeBaseline,
   Final3FBreakdown,
+  MemberLevelBreakdown,
   RaceFieldAggregate,
   RacePerformance,
   RaceTimeBreakdown,
@@ -80,6 +90,39 @@ export type RaceHistoryRawInput = Omit<
 interface FlatEntry {
   horseId: string;
   raw: RaceHistoryRawInput;
+}
+
+/**
+ * memberLevel V1（confidence考慮Top5重み付き平均。docs/memberlevel-v1-decision.md）を
+ * 対象レースの候補馬一覧から算出する。
+ * 候補が1頭も無い場合（全出走馬がabilityBeforeRace算出不能）は、従来と同じ
+ * FALLBACK_MEMBER_LEVEL_SCOREへフォールバックし、breakdownはnullにする
+ * （「評価不能」を数値で覆い隠さないため）。
+ */
+function buildMemberLevelResult(
+  candidates: AbilityCandidate[],
+): { memberLevelScore: number; breakdown: MemberLevelBreakdown | null } {
+  const weightedMean = calculateTopNConfidenceWeightedMean(candidates, MEMBER_LEVEL_TOP_N);
+  if (weightedMean === null) {
+    return { memberLevelScore: FALLBACK_MEMBER_LEVEL_SCORE, breakdown: null };
+  }
+  const top = selectTopNCandidates(candidates, MEMBER_LEVEL_TOP_N);
+  const simpleTop5Average = calculateTopNSimpleAverage(candidates, MEMBER_LEVEL_TOP_N)!;
+  return {
+    memberLevelScore: weightedMean,
+    breakdown: {
+      candidates: top.map((c) => ({
+        horseId: c.id,
+        ability: c.ability,
+        sampleCount: c.sampleCount,
+        confidence: confidenceFromSampleCount(c.sampleCount),
+        weight: confidenceWeightFromSampleCount(c.sampleCount),
+      })),
+      weightedMean,
+      simpleTop5Average,
+      participantCount: candidates.length,
+    },
+  };
 }
 
 function buildRaceTimeEvaluation(
@@ -242,16 +285,20 @@ export function buildRaceHistory(
 
   for (const group of raceGroups) {
     // このレースより前に確定済みの、各出走馬自身の過去走だけを見る（未来情報リークなし）
-    const abilitiesBeforeRace = group.map((entry) => {
+    const abilityCandidates: AbilityCandidate[] = [];
+    for (const entry of group) {
       const prior = finalizedByHorseId.get(entry.horseId) ?? [];
       const recentPriorScores = prior
         .slice(-MAX_PRIOR_RACES_FOR_ABILITY)
         .map((r) => r.raceScore)
         .reverse(); // 新しい順に
-      return calculateAbilityBeforeRace(recentPriorScores);
-    });
+      const ability = calculateAbilityBeforeRace(recentPriorScores);
+      if (ability !== null) {
+        abilityCandidates.push({ id: entry.horseId, ability, sampleCount: recentPriorScores.length });
+      }
+    }
 
-    const { memberLevelScore, breakdown: memberLevelBreakdown } = calculateMemberLevel(abilitiesBeforeRace);
+    const { memberLevelScore, breakdown: memberLevelBreakdown } = buildMemberLevelResult(abilityCandidates);
 
     const meta = metaByRaceId.get(group[0].raw.raceId)!;
     const { raceTimeScore, breakdown: raceTimeBreakdown } = buildRaceTimeEvaluation(

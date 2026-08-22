@@ -1,17 +1,12 @@
 /**
- * memberLevel V1候補比較（STEP5.2・検証専用モジュール）。
+ * memberLevel候補算出ロジック（STEP5.2で検証・docs/memberlevel-v1-decision.mdで正式決定）。
  *
- * 【重要】このファイルはmemberLevel.ts（本番ロジック）を置き換えるものではない。
- * raceHistoryPipeline.ts はこのファイルを一切importせず、memberLevelScoreAtRace の
- * 算出は引き続き memberLevel.ts の calculateMemberLevel() のみが担う。
- * ここにある関数群は「宝塚記念の実データで4方式を比較検証する」ためだけの読み取り専用
- * ユーティリティであり、どれか1つを正式採用したわけではない（ユーザー＋ChatGPTの判断待ち）。
+ * calculateTopNConfidenceWeightedMean() が memberLevel V1（confidence考慮Top5重み付き平均）の
+ * 正式な算出関数であり、raceHistoryPipeline.ts の本番memberLevelScoreAtRace計算はこの関数を
+ * MEMBER_LEVEL_TOP_N（=5）で呼び出す。
  *
- * 4候補:
- *   A) Top3単純平均
- *   B) Top5単純平均
- *   C) Top5中央値
- *   D) confidence考慮型（Top5の重み付き平均。weight=confidenceWeight）
+ * calculateTopNSimpleAverage / calculateTopNMedian は採用しなかった比較候補（監査・参考値用）
+ * として残しており、Top5単純平均はmemberLevelBreakdown.simpleTop5Averageの算出に引き続き使う。
  *
  * confidenceの定義は新規に作らず、STEP4/STEP6で既に確定している
  * baseConfidenceFromSampleCount / CONFIDENCE_SHRINK_WEIGHTS（suitabilityConfidence.ts）を
@@ -31,6 +26,9 @@ export interface AbilityCandidate {
   sampleCount: number;
 }
 
+/** memberLevel V1で正式決定したTop-Nの「N」（docs/memberlevel-v1-decision.md） */
+export const MEMBER_LEVEL_TOP_N = 5;
+
 /** sampleCountから、既存のconfidence定義（STEP4/STEP6と共通）に基づく重み(0〜1)を返す */
 export function confidenceWeightFromSampleCount(sampleCount: number): number {
   return CONFIDENCE_SHRINK_WEIGHTS[baseConfidenceFromSampleCount(sampleCount)];
@@ -44,20 +42,21 @@ function sanitize(candidates: AbilityCandidate[]): AbilityCandidate[] {
   return candidates.filter((c) => Number.isFinite(c.ability) && Number.isFinite(c.sampleCount) && c.sampleCount >= 0);
 }
 
-function selectTopN(candidates: AbilityCandidate[], n: number): AbilityCandidate[] {
+/** ability降順でTop-N候補を選ぶ（存在する分だけ。N未満でもパディングしない） */
+export function selectTopNCandidates(candidates: AbilityCandidate[], n: number): AbilityCandidate[] {
   return [...sanitize(candidates)].sort((a, b) => b.ability - a.ability).slice(0, n);
 }
 
 /** A/B: Top-N単純平均。対象馬が1頭も無ければnull（=判断不能、勝手に0や中立値で埋めない） */
 export function calculateTopNSimpleAverage(candidates: AbilityCandidate[], n: number): number | null {
-  const top = selectTopN(candidates, n);
+  const top = selectTopNCandidates(candidates, n);
   if (top.length === 0) return null;
   return roundToOneDecimal(mean(top.map((c) => c.ability)));
 }
 
 /** C: Top-N中央値 */
 export function calculateTopNMedian(candidates: AbilityCandidate[], n: number): number | null {
-  const top = selectTopN(candidates, n);
+  const top = selectTopNCandidates(candidates, n);
   if (top.length === 0) return null;
   return roundToOneDecimal(median(top.map((c) => c.ability)));
 }
@@ -72,7 +71,7 @@ export function calculateTopNMedian(candidates: AbilityCandidate[], n: number): 
  * （判断不能であることをそのまま呼び出し側に伝える）。
  */
 export function calculateTopNConfidenceWeightedMean(candidates: AbilityCandidate[], n: number): number | null {
-  const top = selectTopN(candidates, n);
+  const top = selectTopNCandidates(candidates, n);
   if (top.length === 0) return null;
   const weighted = top.map((c) => ({ ability: c.ability, weight: confidenceWeightFromSampleCount(c.sampleCount) }));
   const totalWeight = weighted.reduce((sum, w) => sum + w.weight, 0);

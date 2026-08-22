@@ -14,15 +14,33 @@
 export type Surface = "turf" | "dirt";
 
 /**
- * memberLevelScoreAtRace の算出内訳（V0: 上位3頭40% / 上位5頭30% / 全体20% / 層の厚さ10%）。
+ * memberLevelScoreAtRace の算出に採用したTop5候補1頭ぶんの内訳
+ * （V1: confidence考慮Top5重み付き平均。docs/memberlevel-v1-decision.md参照）。
+ */
+export interface MemberLevelCandidateDetail {
+  horseId: string;
+  /** そのレースより前の直近走から算出したabilityBeforeRace */
+  ability: number;
+  /** abilityBeforeRace算出に使った過去走数 */
+  sampleCount: number;
+  confidence: "high" | "medium" | "low";
+  /** confidenceに応じた重み（high=1.0/medium=0.6/low=0.3。STEP4定義の再利用） */
+  weight: number;
+}
+
+/**
+ * memberLevelScoreAtRace の算出内訳
+ * （V1: confidence考慮Top5重み付き平均。docs/memberlevel-v1-decision.md参照）。
  * レース単位の値であり、そのレースに出走した全馬で共通。
  */
 export interface MemberLevelBreakdown {
-  top3Average: number;
-  top5Average: number;
-  fieldAverage: number;
-  depthScore: number;
-  /** 能力値が参照できた出走馬の頭数（未参照の馬は集計から除外） */
+  /** 重み付き平均の算出に使ったTop5候補（ability降順） */
+  candidates: MemberLevelCandidateDetail[];
+  /** confidence考慮Top5重み付き平均（= memberLevelScoreAtRaceと同じ値） */
+  weightedMean: number;
+  /** Top5の単純平均（監査・比較用の参考値。memberLevelScoreAtRaceの算出には使わない） */
+  simpleTop5Average: number;
+  /** 能力値が参照できた出走馬の頭数（Top5選出前の全候補数。未参照の馬は集計から除外） */
   participantCount: number;
 }
 
@@ -304,8 +322,10 @@ export interface RacePerformance {
    */
   retrospectiveMemberLevelScore: number | null;
   /**
-   * memberLevelScoreAtRace の算出根拠（上位3頭平均・上位5頭平均・全体平均・層の厚さ）。
-   * 参照可能な能力値を持つ出走馬が1頭も無く算出不能だった場合はnull。
+   * memberLevelScoreAtRace の算出根拠（confidence考慮Top5の候補内訳・重み付き平均・
+   * 参考値としての単純Top5平均）。
+   * 参照可能な能力値を持つ出走馬が1頭も無く算出不能だった場合はnull
+   * （このときmemberLevelScoreAtRaceはFALLBACK_MEMBER_LEVEL_SCOREにフォールバックする）。
    */
   memberLevelBreakdown: MemberLevelBreakdown | null;
   /** タイム差スコア（0〜100）。calculateTimeGapScore() で距離補正込みに計算する */

@@ -1,11 +1,12 @@
 /**
- * 実質メンバーレベル（memberLevelScoreAtRace）の計算。
+ * 実質メンバーレベル（memberLevelScoreAtRace）の旧算出方式（V0）。
  *
- * 固定思想：レース名・格（G1/G2/G3など）は一切使わない。
- * そのレースに実際に出走していた馬たちの abilityBeforeRace（そのレースより前の
- * 過去走だけで計算した能力値）の分布だけから算出する。
+ * 【重要】本番のraceHistoryPipeline.tsはmemberLevel V1（confidence考慮Top5重み付き平均。
+ * docs/memberlevel-v1-decision.md）へ移行済みで、この関数はもう呼ばれていない。
+ * 旧方式との比較・監査用にファイルとして残しており、FALLBACK_MEMBER_LEVEL_SCORE
+ * （評価不能時のフォールバック値=50）だけは新方式でも同じ意味で再利用している。
  *
- *   memberLevelScore =
+ *   memberLevelScore（旧方式） =
  *     top3Average * 0.40
  *     + top5Average * 0.30
  *     + fieldAverage * 0.20
@@ -14,7 +15,15 @@
 
 import { clamp } from "../simulation/probability";
 import { roundToOneDecimal } from "./raceScore";
-import type { MemberLevelBreakdown } from "./types";
+
+/** 旧方式（top3/top5/field/depth）の算出内訳。新方式のMemberLevelBreakdown（types.ts）とは別物 */
+export interface LegacyMemberLevelBreakdown {
+  top3Average: number;
+  top5Average: number;
+  fieldAverage: number;
+  depthScore: number;
+  participantCount: number;
+}
 
 export const MEMBER_LEVEL_WEIGHTS = {
   top3: 0.4,
@@ -39,7 +48,7 @@ export const FALLBACK_MEMBER_LEVEL_SCORE = 50;
 export interface MemberLevelResult {
   memberLevelScore: number;
   /** 算出不能（参照可能な能力値が1頭も無い）だった場合はnull */
-  breakdown: MemberLevelBreakdown | null;
+  breakdown: LegacyMemberLevelBreakdown | null;
 }
 
 function average(values: number[]): number {
