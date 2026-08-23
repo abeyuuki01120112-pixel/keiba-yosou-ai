@@ -20,8 +20,9 @@
  * RaceContext・trackBiasにも触れない。effectiveAbilityへの本番接続も行わない
  * （CHECKPOINT11.3 STEP8・STOP条件）。
  */
-import { mean } from "../simulation/probability";
+import { mean, median } from "../simulation/probability";
 import { roundToOneDecimal } from "./raceScore";
+import { calculateAbilityBeforeRace } from "./abilityBeforeRace";
 import { computeCourseSuitability } from "./courseSuitability";
 import { computeDistanceSuitability } from "./distanceSuitability";
 import { computeGoingSuitability } from "./goingSuitability";
@@ -31,10 +32,10 @@ import {
   type EmpiricalValidationStatus,
   type RaceGateInput,
 } from "./courseContextPrior";
-import { collectHorseGateEvidence } from "./horseGateEvidence";
-import { getHorseEvidenceConfidence } from "./horseEvidenceConfidence";
+import { collectHorseGateEvidence, type HorseEvidence } from "./horseGateEvidence";
+import { resolveHorseEvidenceConfidence, type HorseEvidenceConfidence } from "./horseEvidenceConfidence";
 import type { RacePerformance } from "./types";
-import type { SuitabilityComponent, SuitabilityTargetRaceContext } from "./suitabilityTypes";
+import type { SuitabilityComponent, SuitabilityConfidence, SuitabilityTargetRaceContext } from "./suitabilityTypes";
 import type { CoursePriorDetail, HorseEvidenceDetail } from "./suitabilityCoreV1Types";
 import type { SuitabilityComponentResultV1, SuitabilityV1ComponentKey, SuitabilityV1Result } from "./suitabilityV1Types";
 
@@ -58,6 +59,28 @@ export const GATE_VALIDATION_STATUS_WEIGHT: Record<EmpiricalValidationStatus, nu
   weakOrUnstable: 0.5,
   notEvaluated: 0,
 };
+
+/**
+ * gate HorseEvidence（本人実績）のrawPerformanceDelta（=raceScore−abilityBeforeRace、
+ * HorseEvidence V1と同一定義、CHECKPOINT11.5正式採用）をpercentへ変換するtanh飽和式。
+ *
+ *   rawPercent = 100 + GATE_HORSE_EVIDENCE_AMPLITUDE × tanh(aggregatedDelta / GATE_HORSE_EVIDENCE_SCALE)
+ *
+ * tanhは±1に飽和するため、amplitudeはrawPercentが取りうる最大乖離幅を数学的に保証する
+ * （どれだけ極端なdeltaでも100±amplitudeを超えない）。「枠は能力を微調整する要素」という
+ * 思想に基づき、候補[3,4,5,6,8]のうち実データ（data/horses/、同一馬×同一
+ * racecourse×surface×distance再訪問、n=7グループ）で90/110は言うに及ばず95/105すら
+ * 一度も超えない最大値として5を採用した（CHECKPOINT11.5 STEP2〜4）。
+ */
+export const GATE_HORSE_EVIDENCE_AMPLITUDE = 5;
+
+/**
+ * scaleは小さいdeltaへの反応感度を決める（暫定値）。実データ(n=7グループ)では
+ * scale=3が「delta=1で101.6%、delta=8で105.0%へ飽和」という、STEP5感度分析上
+ * 妥当な挙動を示したが、n=7は統計的な確定には小さすぎるサンプルであるため、
+ * amplitudeと異なり「暫定」として扱う（CHECKPOINT11.5 STEP9）。
+ */
+export const GATE_HORSE_EVIDENCE_SCALE = 3;
 
 /** Suitability V1最終出力への異常値防止の安全境界（通常はほぼ到達しない想定）。clamp(90,110)とは別物 */
 export const SUITABILITY_V1_SAFETY_MIN = 60;
@@ -115,82 +138,164 @@ export interface SuitabilityV1Input {
 }
 
 /**
- * gateコンポーネント。CoursePrior（東京ダート1600m限定・courseContextPrior.ts）を
- * 優先度2として使う。HorseEvidence（本人実績、horseGateEvidence.ts）は事実として
- * 収集・保持するが、gateのpercentを算出する採点式がまだ設計されていないため
- * （既存コードのどこにも存在しない）、今回はrawPercentの算出には使わない。
- * これは「HorseEvidence優先度1」を無視しているのではなく、HorseEvidence側に
- * percentへ変換する式がまだ無いために発生する制約であり、次回以降の課題として
- * 完了報告で明示する（推測でscoreを作らない、というプロジェクトの絶対原則を優先した）。
+ * gateのrawPerformanceDelta（=raceScore−abilityBeforeRace、HorseEvidence V1と同一定義）を、
+ * 対象条件（racecourse×surface×distance完全一致）に該当する走ごとに計算する。
+ *
+ * `recentRaces`は呼び出し側が既に「対象レースより前・新しい順」に制限した配列
+ * （baseAbilityと同じ母集団）である前提。各マッチ走について、その走より古い
+ * （newest-first配列で後ろ側の）走だけをabilityBeforeRace算出に使うことで、
+ * future leakageを構造的に防ぐ（Ability Model V1凍結済み関数`calculateAbilityBeforeRace`を
+ * 無変更のまま再利用）。
+ *
+ * `recentRaces`自体が直近5走に制限されているため、その中で古い側の走ほど
+ * abilityBeforeRace算出に使える「さらに古い走」が窓の外に無く、nullになりやすい
+ * （＝この走のdeltaは算出しない、0点や推測で埋めない）。これは意図した安全側の挙動であり、
+ * `horseGateEvidence.ts`が返す生のsampleCount（対象条件マッチ数）より、実際に
+ * delta化できる件数の方が少なくなりうることをreasonに明記する。
  */
-function computeGateSuitabilityV1(input: SuitabilityV1Input): SuitabilityComponentResultV1 {
-  const horseEvidenceRaw = collectHorseGateEvidence(input.horseId, input.recentRaces, {
-    racecourse: input.target.racecourse,
-    surface: input.target.surface,
-    distance: input.target.distance,
+function collectGateHorseEvidenceDeltas(
+  recentRaces: RacePerformance[],
+  target: Pick<SuitabilityTargetRaceContext, "racecourse" | "surface" | "distance">,
+): number[] {
+  const deltas: number[] = [];
+  recentRaces.forEach((race, i) => {
+    if (race.racecourse !== target.racecourse || race.surface !== target.surface || race.distance !== target.distance) {
+      return;
+    }
+    const priorScoresNewestFirst = recentRaces.slice(i + 1).map((r) => r.raceScore);
+    const abilityBeforeRace = calculateAbilityBeforeRace(priorScoresNewestFirst);
+    if (abilityBeforeRace === null) return;
+    deltas.push(race.raceScore - abilityBeforeRace);
   });
-  const horseEvidenceConfidence = getHorseEvidenceConfidence(horseEvidenceRaw);
-  const horseEvidence: HorseEvidenceDetail = {
-    sampleCount: horseEvidenceRaw.sampleCount,
-    confidence: horseEvidenceConfidence,
-    reason:
-      `本人実績（対象条件完全一致${horseEvidenceRaw.sampleCount}走、confidence=${horseEvidenceConfidence}）を` +
-      "事実として保持するが、gateのpercent算出式が未設計のため今回のrawPercentには使用しない（次回以降の課題）。",
-  };
+  return deltas;
+}
 
-  if (!isTokyoDirt1600(input.target)) {
-    return {
-      key: "gate",
-      evaluated: false,
-      rawPercent: SUITABILITY_CENTER,
-      adjustedPercent: SUITABILITY_CENTER,
-      confidence: "unknown",
-      reason: "CoursePriorは東京ダート1600m限定のため、対象コースでは評価不能（推測で埋めない）。",
-      horseEvidence,
-      coursePrior: null,
-    };
-  }
+/** deltas.length>=1の場合のみ呼ばれる想定（resolveHorseEvidenceConfidenceは"unknown"を返さない）。念のための安全側デフォルト */
+function toShrinkConfidence(confidence: HorseEvidenceConfidence): SuitabilityConfidence {
+  return confidence === "unknown" ? "low" : confidence;
+}
 
+/**
+ * 東京ダート1600m限定のCoursePrior detail（監査用）を計算する。
+ * frame不明・対象コース外の場合はnull（推測しない）。
+ */
+function computeGateCoursePriorDetail(input: SuitabilityV1Input): {
+  detail: CoursePriorDetail;
+  rawPercent: number;
+  confidence: SuitabilityConfidence;
+} | null {
+  if (!isTokyoDirt1600(input.target)) return null;
   const coursePrior = computeTokyoDirt1600CourseContextPrior(input.gate.frame);
-  if (coursePrior === null) {
-    return {
-      key: "gate",
-      evaluated: false,
-      rawPercent: SUITABILITY_CENTER,
-      adjustedPercent: SUITABILITY_CENTER,
-      confidence: "unknown",
-      reason: "枠番（frame）が不明なため、CoursePriorが算出不能（推測で埋めない）。",
-      horseEvidence,
-      coursePrior: null,
-    };
-  }
+  if (coursePrior === null) return null;
 
   const validationWeight = GATE_VALIDATION_STATUS_WEIGHT[coursePrior.empiricalValidationStatus];
   const rawPercent = roundToOneDecimal(
     SUITABILITY_CENTER + coursePrior.gateCoefficient * GATE_COURSE_PRIOR_AMPLITUDE * validationWeight,
   );
-  const adjustedPercent = roundToOneDecimal(shrinkTowardCenter(rawPercent, coursePrior.sourceConfidence));
 
-  const coursePriorDetail: CoursePriorDetail = {
+  return {
+    rawPercent,
     confidence: coursePrior.sourceConfidence,
-    reason:
-      `gateCoefficient=${coursePrior.gateCoefficient}（東京ダート1600m、gateBiasLevel=${coursePrior.gateBiasLevel}、` +
-      `empiricalValidationStatus=${coursePrior.empiricalValidationStatus}）。CoursePrior単独の最大影響幅を` +
-      `±${GATE_COURSE_PRIOR_AMPLITUDE}ptに制限し、実測検証状況に応じてさらに${validationWeight}倍へ縮小した。`,
-    referenceSource: "courseContextPrior.ts (TOKYO_DIRT_1600)",
+    detail: {
+      confidence: coursePrior.sourceConfidence,
+      reason:
+        `gateCoefficient=${coursePrior.gateCoefficient}（東京ダート1600m、gateBiasLevel=${coursePrior.gateBiasLevel}、` +
+        `empiricalValidationStatus=${coursePrior.empiricalValidationStatus}）。CoursePrior単独の最大影響幅を` +
+        `±${GATE_COURSE_PRIOR_AMPLITUDE}ptに制限し、実測検証状況に応じてさらに${validationWeight}倍へ縮小した。`,
+      referenceSource: "courseContextPrior.ts (TOKYO_DIRT_1600)",
+    },
   };
+}
+
+/**
+ * gateコンポーネント（CHECKPOINT11.5で正式化）。
+ *
+ * 優先順位（`docs/gate-suitability-v1-decision.md`）: HorseEvidence（優先度1）＞
+ * CoursePrior（優先度2）＞unknown（優先度3）。今回は「厳密な案A」を採用する
+ * （CHECKPOINT11.5 STEP8）: rawPerformanceDeltaが1件でも算出できればHorseEvidenceのみで
+ * percentを決定し、CoursePriorは監査用メタデータとしてのみ保持する（percentには混ぜない）。
+ * confidenceが低い場合の「弱い証拠を信じすぎない」役割は、新たな合成比重を発明せず、
+ * 既存のshrinkTowardCenterに委ねる（弱い証拠は自然に100へ寄る）。
+ * HorseEvidenceが1件も無い場合のみ、CoursePrior（東京ダート1600m限定）にフォールバックする。
+ */
+function computeGateSuitabilityV1(input: SuitabilityV1Input): SuitabilityComponentResultV1 {
+  const horseEvidenceRaw: HorseEvidence = collectHorseGateEvidence(input.horseId, input.recentRaces, {
+    racecourse: input.target.racecourse,
+    surface: input.target.surface,
+    distance: input.target.distance,
+  });
+  const deltas = collectGateHorseEvidenceDeltas(input.recentRaces, input.target);
+  const coursePriorResult = computeGateCoursePriorDetail(input);
+
+  if (deltas.length > 0) {
+    const confidence = resolveHorseEvidenceConfidence(deltas.length);
+    const aggregatedDelta = median(deltas);
+    const rawPercent = roundToOneDecimal(
+      SUITABILITY_CENTER + GATE_HORSE_EVIDENCE_AMPLITUDE * Math.tanh(aggregatedDelta / GATE_HORSE_EVIDENCE_SCALE),
+    );
+    const adjustedPercent = roundToOneDecimal(shrinkTowardCenter(rawPercent, toShrinkConfidence(confidence)));
+
+    const horseEvidence: HorseEvidenceDetail = {
+      sampleCount: deltas.length,
+      confidence,
+      reason:
+        `対象条件完全一致${horseEvidenceRaw.sampleCount}走のうちabilityBeforeRace算出可能な${deltas.length}走から` +
+        `rawPerformanceDelta（=raceScore−abilityBeforeRace、HorseEvidence V1と同一定義）を計算し中央値集約。` +
+        `aggregatedDelta=${roundToOneDecimal(aggregatedDelta)}。`,
+    };
+
+    return {
+      key: "gate",
+      evaluated: true,
+      rawPercent,
+      adjustedPercent,
+      confidence,
+      reason:
+        `HorseEvidence（本人実績、優先度1）のrawPerformanceDelta中央値=${roundToOneDecimal(aggregatedDelta)}を` +
+        `tanh変換（amplitude=${GATE_HORSE_EVIDENCE_AMPLITUDE}、scale=${GATE_HORSE_EVIDENCE_SCALE}〈暫定〉）してrawPercent=${rawPercent}%。` +
+        `confidence(${confidence})で縮小しadjustedPercent=${adjustedPercent}%。` +
+        (coursePriorResult !== null
+          ? " CoursePriorも算出可能だが、HorseEvidenceが優先度1のため今回のpercentには使用していない。"
+          : ""),
+      horseEvidence,
+      coursePrior: coursePriorResult?.detail ?? null,
+    };
+  }
+
+  const horseEvidence: HorseEvidenceDetail = {
+    sampleCount: 0,
+    confidence: "unknown",
+    reason: `対象条件（racecourse×surface×distance完全一致）でrawPerformanceDeltaを算出できる走が無い（本人実績なし）。`,
+  };
+
+  if (coursePriorResult === null) {
+    return {
+      key: "gate",
+      evaluated: false,
+      rawPercent: SUITABILITY_CENTER,
+      adjustedPercent: SUITABILITY_CENTER,
+      confidence: "unknown",
+      reason: isTokyoDirt1600(input.target)
+        ? "枠番（frame）が不明なため、CoursePriorが算出不能（推測で埋めない）。"
+        : "本人実績が無く、CoursePriorは東京ダート1600m限定のため対象コースでは評価不能（推測で埋めない）。",
+      horseEvidence,
+      coursePrior: null,
+    };
+  }
+
+  const adjustedPercent = roundToOneDecimal(shrinkTowardCenter(coursePriorResult.rawPercent, coursePriorResult.confidence));
 
   return {
     key: "gate",
     evaluated: true,
-    rawPercent,
+    rawPercent: coursePriorResult.rawPercent,
     adjustedPercent,
-    confidence: coursePrior.sourceConfidence,
+    confidence: coursePriorResult.confidence,
     reason:
-      `CoursePrior（東京ダート1600m gate構造事前分布、優先度2）のみに基づくrawPercent=${rawPercent}%。` +
-      "本人実績（HorseEvidence、優先度1）はpercent算出式が未設計のため今回は未使用。",
+      `本人実績（HorseEvidence）が無いため、CoursePrior（東京ダート1600m gate構造事前分布、優先度2）` +
+      `のみに基づくrawPercent=${coursePriorResult.rawPercent}%。`,
     horseEvidence,
-    coursePrior: coursePriorDetail,
+    coursePrior: coursePriorResult.detail,
   };
 }
 

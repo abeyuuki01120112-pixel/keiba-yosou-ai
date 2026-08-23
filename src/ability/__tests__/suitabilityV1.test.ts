@@ -5,6 +5,7 @@ import {
   aggregateSuitabilityComponents,
   computeSuitabilityV1,
   GATE_COURSE_PRIOR_AMPLITUDE,
+  GATE_HORSE_EVIDENCE_AMPLITUDE,
   SUITABILITY_V1_SAFETY_MAX,
   SUITABILITY_V1_SAFETY_MIN,
 } from "../suitabilityV1";
@@ -196,7 +197,7 @@ function makeRace(
 const TARGET: SuitabilityTargetRaceContext = { racecourse: "阪神", surface: "turf", distance: 2000, going: "重" };
 
 describe("computeSuitabilityV1（系統A: distance/course/going、系統B: gateの結合確認）", () => {
-  it("distance/course/goingとも完全一致・gateは対象コース外(notEvaluated)の場合、evaluatedな3要素の平均=100", () => {
+  it("distance/course/goingとも完全一致・gateは同一条件への再訪問がありHorseEvidenceで評価される", () => {
     const races = [
       makeRace({ racecourse: "阪神", going: "重", distance: 2000 }, "high"),
       makeRace({ racecourse: "阪神", going: "重", distance: 2000 }, "low"),
@@ -214,11 +215,14 @@ describe("computeSuitabilityV1（系統A: distance/course/going、系統B: gate�
     expect(result.distance.rawPercent).toBe(100);
     expect(result.course.evaluated).toBe(true);
     expect(result.going.evaluated).toBe(true);
-    // 阪神は東京ダート1600m限定のCoursePrior対象外のため、gateは評価不能
-    expect(result.gate.evaluated).toBe(false);
-    expect(result.gate.confidence).toBe("unknown");
-    expect(result.overallSuitabilityPercent).toBe(100);
-    expect(result.evaluatedComponentCount).toBe(3);
+    // gateは東京ダート1600m限定のCoursePriorではなく、racecourse×surface×distance完全一致への
+    // 再訪問（このfixtureは全走が阪神/turf/2000mで一致）からHorseEvidenceで評価される
+    // （CHECKPOINT11.5でgate HorseEvidence→percentの正式式を実装したことによる挙動変更）。
+    expect(result.gate.evaluated).toBe(true);
+    expect(result.gate.horseEvidence?.sampleCount).toBeGreaterThan(0);
+    expect(result.gate.coursePrior).toBeNull(); // 阪神は東京ダート1600m限定のCoursePrior対象外
+    expect(Math.abs(result.gate.rawPercent - 100)).toBeLessThanOrEqual(GATE_HORSE_EVIDENCE_AMPLITUDE);
+    expect(result.evaluatedComponentCount).toBe(4);
   });
 
   it("過去走が1件も無い場合、distance/course/goingはすべてevaluated=false・unknownとなる", () => {
@@ -263,5 +267,75 @@ describe("computeSuitabilityV1（系統A: distance/course/going、系統B: gate�
     });
     expect(result.gate.evaluated).toBe(false);
     expect(result.gate.confidence).toBe("unknown");
+  });
+});
+
+// ---- CHECKPOINT11.5 STEP11: gate異常系テスト（NaN/Infinity/不自然な100固定にならないことの確認） ----
+
+const TOKYO_DIRT_1600: SuitabilityTargetRaceContext = { racecourse: "東京", surface: "dirt", distance: 1600, going: "良" };
+
+describe("computeSuitabilityV1 gate異常系（STEP11）", () => {
+  it("極端な正のaggregatedDeltaでもrawPercentはamplitudeの範囲内に飽和し、NaN/Infinityにならない", () => {
+    const races = [
+      makeRace({ racecourse: "阪神", going: "重", distance: 2000 }, "high", { finishPosition: 1 }),
+      makeRace({ racecourse: "阪神", going: "重", distance: 2000 }, "high", { finishPosition: 1 }),
+    ];
+    const result = computeSuitabilityV1({
+      horseId: "h1",
+      recentRaces: races,
+      target: TARGET,
+      gate: { horseNumber: null, fieldSize: null, frame: null },
+    });
+    expect(Number.isFinite(result.gate.rawPercent)).toBe(true);
+    expect(Number.isFinite(result.gate.adjustedPercent)).toBe(true);
+    expect(Math.abs(result.gate.rawPercent - 100)).toBeLessThanOrEqual(GATE_HORSE_EVIDENCE_AMPLITUDE);
+  });
+
+  it("極端な負のaggregatedDeltaでもrawPercentはamplitudeの範囲内に飽和し、NaN/Infinityにならない", () => {
+    const races = [
+      makeRace({ racecourse: "阪神", going: "重", distance: 2000 }, "low", { finishPosition: 16 }),
+      makeRace({ racecourse: "阪神", going: "重", distance: 2000 }, "low", { finishPosition: 16 }),
+    ];
+    const result = computeSuitabilityV1({
+      horseId: "h1",
+      recentRaces: races,
+      target: TARGET,
+      gate: { horseNumber: null, fieldSize: null, frame: null },
+    });
+    expect(Number.isFinite(result.gate.rawPercent)).toBe(true);
+    expect(Number.isFinite(result.gate.adjustedPercent)).toBe(true);
+    expect(Math.abs(result.gate.rawPercent - 100)).toBeLessThanOrEqual(GATE_HORSE_EVIDENCE_AMPLITUDE);
+  });
+
+  it("HorseEvidenceとCoursePriorが両方利用可能な場合（東京ダート1600m×再訪問）、HorseEvidenceが優先されCoursePriorは監査用メタデータのみになる", () => {
+    const races = [
+      makeRace({ racecourse: "東京", going: "良", distance: 1600 }, "high", { surface: "dirt" }),
+      makeRace({ racecourse: "東京", going: "良", distance: 1600 }, "low", { surface: "dirt" }),
+    ];
+    const result = computeSuitabilityV1({
+      horseId: "h1",
+      recentRaces: races,
+      target: TOKYO_DIRT_1600,
+      gate: { horseNumber: 1, fieldSize: 16, frame: 1 },
+    });
+    expect(result.gate.evaluated).toBe(true);
+    expect(result.gate.horseEvidence?.sampleCount).toBeGreaterThan(0);
+    // CoursePriorも監査用に保持されるが、percentの根拠には使われない（reasonに明記）
+    expect(result.gate.coursePrior).not.toBeNull();
+    expect(result.gate.reason).toContain("HorseEvidenceが優先度1のため今回のpercentには使用していない");
+    expect(Math.abs(result.gate.rawPercent - 100)).toBeLessThanOrEqual(GATE_HORSE_EVIDENCE_AMPLITUDE);
+  });
+
+  it("sampleCount=0・CoursePriorも無い場合、confidence=unknownかつrawPercent=100（0点やNaNにならない）", () => {
+    const result = computeSuitabilityV1({
+      horseId: "h1",
+      recentRaces: [],
+      target: TARGET,
+      gate: { horseNumber: null, fieldSize: null, frame: null },
+    });
+    expect(result.gate.evaluated).toBe(false);
+    expect(result.gate.confidence).toBe("unknown");
+    expect(result.gate.rawPercent).toBe(100);
+    expect(Number.isNaN(result.gate.rawPercent)).toBe(false);
   });
 });
