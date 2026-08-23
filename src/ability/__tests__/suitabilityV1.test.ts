@@ -339,3 +339,95 @@ describe("computeSuitabilityV1 gate異常系（STEP11）", () => {
     expect(Number.isNaN(result.gate.rawPercent)).toBe(false);
   });
 });
+
+// ---- CHECKPOINT11.11: confidence閾値統一のsampleCount 0〜6境界値テスト ----
+
+describe("confidence閾値統一（CHECKPOINT11.11）: sampleCount 0〜6境界値", () => {
+  // HorseEvidence側の閾値（resolveHorseEvidenceConfidence、既存関数）に統一された期待値
+  const EXPECTED_CONFIDENCE: Record<number, SuitabilityConfidence | "unknown"> = {
+    0: "unknown",
+    1: "low",
+    2: "low",
+    3: "medium",
+    4: "medium",
+    5: "high",
+  };
+  const SHRINK_WEIGHT: Record<SuitabilityConfidence, number> = { high: 1.0, medium: 0.6, low: 0.3 };
+
+  it("distance component: sampleCount 0〜5（RECENT_RACE_COUNT上限）でconfidence/adjustedPercentが期待通り", () => {
+    for (let n = 0; n <= 5; n++) {
+      const races = Array.from({ length: n }, () => makeRace({ racecourse: "阪神", going: "重", distance: 2000 }, "high"));
+      const result = computeSuitabilityV1({
+        horseId: "h1",
+        recentRaces: races,
+        target: TARGET,
+        gate: { horseNumber: null, fieldSize: null, frame: null },
+      });
+      expect(result.distance.confidence).toBe(EXPECTED_CONFIDENCE[n]);
+      expect(result.distance.evaluated).toBe(n > 0);
+
+      if (n === 0) {
+        // 評価不能: raw=100固定、shrinkしても100のまま
+        expect(result.distance.rawPercent).toBe(100);
+        expect(result.distance.adjustedPercent).toBe(100);
+      } else {
+        const confidence = EXPECTED_CONFIDENCE[n] as SuitabilityConfidence;
+        const expectedAdjusted = roundToOneDecimal(shrinkTowardCenter(result.distance.rawPercent, confidence));
+        expect(result.distance.adjustedPercent).toBeCloseTo(expectedAdjusted, 5);
+        // shrink weightが正しく適用されている（rawが100でなければadjustedはrawと100の間）
+        if (result.distance.rawPercent !== 100) {
+          const weight = SHRINK_WEIGHT[confidence];
+          expect(result.distance.adjustedPercent - 100).toBeCloseTo((result.distance.rawPercent - 100) * weight, 5);
+        }
+      }
+    }
+  });
+
+  it("sampleCount=2/4はHorseEvidence側閾値(low/medium)を採用し、旧Suitability側閾値(medium/high)とは異なる", () => {
+    const races2 = Array.from({ length: 2 }, () => makeRace({ racecourse: "阪神", going: "重", distance: 2000 }, "high"));
+    const result2 = computeSuitabilityV1({
+      horseId: "h1",
+      recentRaces: races2,
+      target: TARGET,
+      gate: { horseNumber: null, fieldSize: null, frame: null },
+    });
+    // 旧Suitability側(baseConfidenceFromSampleCount)なら sampleCount=2 は "medium" だったが、
+    // 統一後は resolveHorseEvidenceConfidence(2) = "low" になる
+    expect(result2.distance.confidence).toBe("low");
+
+    const races4 = Array.from({ length: 4 }, () => makeRace({ racecourse: "阪神", going: "重", distance: 2000 }, "high"));
+    const result4 = computeSuitabilityV1({
+      horseId: "h1",
+      recentRaces: races4,
+      target: TARGET,
+      gate: { horseNumber: null, fieldSize: null, frame: null },
+    });
+    // 旧Suitability側なら sampleCount=4 は "high" だったが、統一後は "medium" になる
+    expect(result4.distance.confidence).toBe("medium");
+  });
+
+  it("gate component: sampleCount=6（5走を超える再訪問）でもconfidence=highのまま安全に処理される", () => {
+    // gateはRECENT_RACE_COUNTの5走制限を受けず、recentRaces全体からマッチ条件を数える。
+    // 7走を同一条件で用意すると、最古の1走はabilityBeforeRace算出不能で除外され、
+    // 残り6走がdelta算出対象になる（sampleCount=6）。
+    // recentRacesは新しい順（[0]が最新）である必要があるため、日付降順で並べる
+    const races = Array.from({ length: 7 }, (_, i) =>
+      makeRace({ racecourse: "阪神", going: "重", distance: 2000 }, i % 2 === 0 ? "high" : "low", {
+        raceDate: `2025-${String(7 - i).padStart(2, "0")}-01`,
+      }),
+    );
+    const result = computeSuitabilityV1({
+      horseId: "h1",
+      recentRaces: races,
+      target: TARGET,
+      gate: { horseNumber: 5, fieldSize: 16, frame: 3 },
+    });
+    expect(result.gate.evaluated).toBe(true);
+    expect(result.gate.horseEvidence?.sampleCount).toBe(6);
+    expect(result.gate.confidence).toBe("high");
+    expect(Number.isFinite(result.gate.rawPercent)).toBe(true);
+    expect(Number.isFinite(result.gate.adjustedPercent)).toBe(true);
+    // confidence=highはshrink weight=1.0のため、adjustedPercent===rawPercent
+    expect(result.gate.adjustedPercent).toBe(result.gate.rawPercent);
+  });
+});

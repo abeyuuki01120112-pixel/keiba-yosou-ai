@@ -106,14 +106,35 @@ function isTokyoDirt1600(target: SuitabilityTargetRaceContext): boolean {
  * 系統A（distance/course/going）の`SuitabilityComponent`出力を
  * `SuitabilityComponentResultV1`形式へ変換する薄いラッパー。
  *
- * 系統Aは`sampleCount=0`の場合でも`raw=100`（中立）・`confidence="low"`を返す
- * （中立値へのフォールバックであり評価不能ではない、という既存の設計）。
- * CHECKPOINT11.3 STEP4の指示に従い、V1ではこれを「評価不能（unknown）」として
- * 明示的に扱い直す（overall統合から除外できるようにするため）。
+ * 【CHECKPOINT11.11・confidence閾値統一】系統Aの`component.confidence`は
+ * `suitabilityConfidence.ts`の`baseConfidenceFromSampleCount`（3段階:
+ * 0-1=low/2-3=medium/4+=high）で算出されているが、この関数は
+ * `memberLevelCandidates.ts`（Ability Model V1・memberLevel V1の本番計算、
+ * 凍結済み）と`stabilityFactor.ts`（docs/step6-decisions.mdで閾値変更禁止と
+ * 明記済み）からも共有参照されており、**この関数自体・`suitabilityConfidence.ts`は
+ * 変更できない**（変更するとAbility Model V1の凍結計算に影響する）。
+ *
+ * 一方HorseEvidence側は`resolveHorseEvidenceConfidence`（4段階:
+ * 0=unknown/1-2=low/3-4=medium/5+=high、HorseEvidence V1凍結仕様）を使っており、
+ * gate componentはこちらを使う。両者はsampleCount=2/4で判定が食い違う
+ * （2走: medium vs low、4走: high vs medium）。
+ *
+ * この不一致は、Suitability V1（`suitabilityV1.ts`、CHECKPOINT11.3以降の新設
+ * レイヤーで凍結対象外）の出力層でのみ解消する。系統Aの`component.raw`
+ * （confidence反映前の生値）を受け取り、**HorseEvidence側の閾値
+ * （`resolveHorseEvidenceConfidence`、既存関数をそのまま再利用）でconfidenceを
+ * 再判定し、`shrinkTowardCenter`（既存、無変更）で`adjustedPercent`を
+ * 独自に再計算する**。`distanceSuitability.ts`等が自身の内部計算・テストで使う
+ * `component.adjusted`（3段階基準のまま）自体は一切変更しない
+ * （呼び出し元・既存テストへの影響ゼロ）。
+ *
+ * sampleCount=0の場合は`resolveHorseEvidenceConfidence(0)`が"unknown"を返すため、
+ * CHECKPOINT11.3 STEP4の「評価不能（unknown）」扱いもそのまま維持される。
  */
 function wrapSystemAComponent(key: SuitabilityV1ComponentKey, component: SuitabilityComponent): SuitabilityComponentResultV1 {
   const evaluated = component.sampleCount > 0;
-  const confidence = evaluated ? component.confidence : "unknown";
+  const confidence = resolveHorseEvidenceConfidence(component.sampleCount);
+  const adjustedPercent = roundToOneDecimal(shrinkTowardCenter(component.raw, toShrinkConfidence(confidence)));
 
   const horseEvidence: HorseEvidenceDetail = {
     sampleCount: component.sampleCount,
@@ -125,7 +146,7 @@ function wrapSystemAComponent(key: SuitabilityV1ComponentKey, component: Suitabi
     key,
     evaluated,
     rawPercent: component.raw,
-    adjustedPercent: component.adjusted,
+    adjustedPercent,
     confidence,
     reason: component.reason,
     horseEvidence,
