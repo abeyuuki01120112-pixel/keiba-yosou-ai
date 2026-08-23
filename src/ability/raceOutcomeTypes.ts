@@ -7,6 +7,7 @@
  */
 
 import type { SuitabilityConfidence } from "./suitabilityTypes";
+import type { SuitabilityConfidenceV1 } from "./suitabilityCoreV1Types";
 import type { FinalRaceAbilityResult } from "./raceContextTypes";
 import type { RacePerformance } from "./types";
 
@@ -45,8 +46,11 @@ export interface HorseOutcomeResult {
   /** %。同一レース内の全馬合計=300 */
   top3Probability: number;
 
-  /** finalRaceAbility算出過程の信頼度（weakest-link）。score/probability自体は変化させない表示用の値 */
-  evaluationConfidence: SuitabilityConfidence;
+  /**
+   * finalRaceAbility算出過程の信頼度（weakest-link）。score/probability自体は変化させない表示用の値。
+   * CHECKPOINT11.14でSuitability V1接続に伴い4段階（unknown/low/medium/high）へ拡張。
+   */
+  evaluationConfidence: SuitabilityConfidenceV1;
 
   stabilityFactor: number;
   stabilityConfidence: SuitabilityConfidence;

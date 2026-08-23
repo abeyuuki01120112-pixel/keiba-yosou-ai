@@ -4,7 +4,9 @@
  * baseAbility（絶対能力）・suitability（馬固有の条件適性）とは完全に別レイヤー。
  * ここで定義する値は既存のbaseAbility.ts/raceScore.ts/suitability.ts等の計算には一切影響しない。
  *
- *   effectiveAbility  = baseAbility × suitability / 100        （STEP4までで確定済み）
+ *   effectiveAbility  = baseAbility × suitability.overallSuitabilityPercent / 100
+ *     （Suitability V1、CHECKPOINT11.14で本番接続。overallSuitabilityPercent自体はclampせず、
+ *      Suitability V1内部の異常値防止safety boundary(60-120)のみ適用される。90-110のclampは戻さない）
  *   raceContextFactor = clamp(paceScenarioFactor × trackBiasFactor / 100, 90, 110)
  *   finalRaceAbility  = effectiveAbility × raceContextFactor / 100
  *
@@ -13,7 +15,8 @@
  * usedSource（"manual" / "auto" / "neutral"）で追跡できる。
  */
 
-import type { SuitabilityBreakdown, SuitabilityConfidence } from "./suitabilityTypes";
+import type { SuitabilityConfidence } from "./suitabilityTypes";
+import type { SuitabilityV1Result } from "./suitabilityV1Types";
 
 export type RunningStyle = "nige" | "senko" | "sashi" | "oikomi";
 
@@ -141,7 +144,8 @@ export interface FinalRaceAbilityBreakdown {
  */
 export interface FinalRaceAbilityResult {
   baseAbility: number;
-  suitability: SuitabilityBreakdown;
+  /** Suitability V1（distance/course/going/gateの4component）の出力そのもの。CHECKPOINT11.14で本番接続 */
+  suitability: SuitabilityV1Result;
   effectiveAbility: number;
   /** 呼び出し側から渡された人間入力の脚質（無ければnull） */
   manualRunningStyle: RunningStyleProfile | null;

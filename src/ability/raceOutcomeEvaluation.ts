@@ -23,22 +23,33 @@
 import { computeStabilityFactor } from "./stabilityFactor";
 import { computeOutcomeScores } from "./outcomeScore";
 import { computeOutcomeProbabilities } from "./outcomeProbability";
-import type { SuitabilityConfidence } from "./suitabilityTypes";
+import type { SuitabilityConfidenceV1 } from "./suitabilityCoreV1Types";
 import type { FinalRaceAbilityResult } from "./raceContextTypes";
 import type { HorseOutcomeInput, HorseOutcomeResult } from "./raceOutcomeTypes";
 
-const CONFIDENCE_RANK: Record<SuitabilityConfidence, number> = { low: 0, medium: 1, high: 2 };
+/**
+ * unknown/low/medium/highの4段階ランク（CHECKPOINT11.14）。suitability.distance/course/going
+ * （Suitability V1、evaluated=falseの場合はconfidence="unknown"になりうる）と、runningStyle/
+ * paceScenarioFactor/trackBiasFactor（旧3段階、high/medium/lowのみ）を同じ配列で比較するために、
+ * 旧CONFIDENCE_RANK（low/medium/highのみ）を4段階へ拡張する。新しい判定ロジックの追加ではなく、
+ * "unknown"を「既存3段階よりさらに弱い」ものとして順位表へ加えるだけの最小限の型対応。
+ */
+const CONFIDENCE_RANK: Record<SuitabilityConfidenceV1, number> = { unknown: 0, low: 1, medium: 2, high: 3 };
 
 /**
  * finalRaceAbility算出に寄与した各種confidenceのうち、最も弱いもの（weakest-link）を
  * evaluationConfidenceとして採用する。1つでも低信頼な要素があれば、全体としても
  * 低信頼として表示する、という保守的な考え方。V1として正式採用（docs/step6-decisions.md 1-2）。
+ *
+ * 【CHECKPOINT11.14】suitabilityの参照先をSuitability V1（distance/course/going）へ更新した
+ * フィールド参照修正のみ。gateのconfidenceは今回の対象に含めない（既存3項目からの単純な
+ * フィールド名対応に留め、新しい評価対象の追加は行わないため）。
  */
-export function resolveEvaluationConfidence(result: FinalRaceAbilityResult): SuitabilityConfidence {
-  const confidences: SuitabilityConfidence[] = [
-    result.suitability.distanceSuitability.confidence,
-    result.suitability.goingSuitability.confidence,
-    result.suitability.courseSuitability.confidence,
+export function resolveEvaluationConfidence(result: FinalRaceAbilityResult): SuitabilityConfidenceV1 {
+  const confidences: SuitabilityConfidenceV1[] = [
+    result.suitability.distance.confidence,
+    result.suitability.going.confidence,
+    result.suitability.course.confidence,
     result.runningStyle.confidence,
     result.raceContext.paceScenarioFactor.confidence,
     result.raceContext.trackBiasFactor.confidence,
@@ -83,7 +94,7 @@ export function evaluateRaceOutcomes(horses: HorseOutcomeInput[]): HorseOutcomeR
       horseId: h.horseId,
       horseName: h.horseName,
       baseAbility: h.finalRaceAbilityResult.baseAbility,
-      suitability: h.finalRaceAbilityResult.suitability.overallSuitability,
+      suitability: h.finalRaceAbilityResult.suitability.overallSuitabilityPercent,
       finalRaceAbility: h.finalRaceAbilityResult.finalRaceAbility,
       winScore: score.winScore,
       top2Score: score.top2Score,

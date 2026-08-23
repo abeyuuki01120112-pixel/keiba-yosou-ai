@@ -16,6 +16,7 @@ import type {
   HorseEvidenceDetail,
   SuitabilityComponentKey,
   SuitabilityConfidenceV1,
+  SuitabilitySourceV1,
 } from "./suitabilityCoreV1Types";
 
 /** V1で実装するcomponentは distance / course / going / gate の4つのみ */
@@ -35,6 +36,11 @@ export interface SuitabilityComponentResultV1 {
   horseEvidence: HorseEvidenceDetail | null;
   /** コース構造事前分布（優先度2・弱い補助情報）。無ければnull */
   coursePrior: CoursePriorDetail | null;
+  /**
+   * このcomponentの結論が主にどちらの情報源から得られたか（CHECKPOINT11.14で追加）。
+   * horseEvidence/coursePriorの非null判定から機械的に導出する派生値であり、新しい判定ロジックではない。
+   */
+  source: SuitabilitySourceV1;
 }
 
 export interface SuitabilityV1Result {
@@ -46,4 +52,10 @@ export interface SuitabilityV1Result {
   overallSuitabilityPercent: number;
   /** evaluated=trueだったcomponent数（0〜4）。0の場合overallSuitabilityPercentは中立100固定 */
   evaluatedComponentCount: number;
+  /**
+   * 4componentのconfidenceのweakest-link（CHECKPOINT11.14で追加）。
+   * raceOutcomeEvaluation.tsのresolveEvaluationConfidenceと同じ考え方をSuitability V1自身の
+   * 出力層に持たせたもので、新しいconfidence定義・閾値は一切作らない（既存4段階の集約のみ）。
+   */
+  overallConfidence: SuitabilityConfidenceV1;
 }

@@ -3,10 +3,15 @@ import { buildRacePerformance } from "../buildRacePerformance";
 import type { RacePerformanceInput } from "../buildRacePerformance";
 import { computeFinalRaceAbility } from "../finalRaceAbility";
 import { evaluateRaceOutcomes, resolveEvaluationConfidence } from "../raceOutcomeEvaluation";
+import type { RaceGateInput } from "../courseContextPrior";
 import type { HorseOutcomeInput } from "../raceOutcomeTypes";
 import type { BaselineMeta, MemberLevelBreakdown } from "../types";
 import type { SuitabilityTargetRaceContext } from "../suitabilityTypes";
 import type { FinalRaceAbilityResult, RaceContextTargetInfo, RunningStyleDistribution, RunningStyleProfile } from "../raceContextTypes";
+
+const TEST_HORSE_ID = "test-horse";
+/** gate情報が無いテスト向けの共通null補完。推測値ではなく「不明」の明示 */
+const NO_GATE_INFO: RaceGateInput = { horseNumber: null, fieldSize: null, frame: null };
 
 function cleanMemberLevelBreakdown(): MemberLevelBreakdown {
   return {
@@ -72,6 +77,8 @@ function buildFinalRaceAbility(raceScoreLevel: number, confidence: RunningStyleP
   const races5 = Array.from({ length: 5 }, () => makeMatchingRace(raceScoreLevel));
   return computeFinalRaceAbility({
     baseAbility: raceScoreLevel,
+    horseId: TEST_HORSE_ID,
+    gate: NO_GATE_INFO,
     recentRaces: races5,
     suitabilityTarget: SUITABILITY_TARGET,
     raceContextTarget: RACE_CONTEXT_TARGET,
@@ -225,6 +232,8 @@ describe("resolveEvaluationConfidence（weakest-link）", () => {
     const races5 = Array.from({ length: 5 }, () => makeMatchingRace(75));
     const highEverything = computeFinalRaceAbility({
       baseAbility: 75,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       recentRaces: races5,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,

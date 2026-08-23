@@ -5,8 +5,13 @@
  *     × suitability（STEP4、馬固有の条件適性）        → effectiveAbility
  *     × raceContextFactor（STEP5、今回の展開・馬場）  → finalRaceAbility
  *
- * baseAbility.ts / raceScore.ts / suitability.ts の既存計算式は一切変更しない。
+ * baseAbility.ts / raceScore.ts の既存計算式は一切変更しない。
  * STEP5は完全な追加レイヤーとして、effectiveAbility確定後にのみ作用する。
+ *
+ * 【CHECKPOINT11.14】suitability（STEP4）は旧`suitability.ts`ではなく、Suitability V1
+ * （`suitabilityV1.ts`、distance/course/going/gateの4component）を正式に呼び出す。
+ * 旧`suitability.ts`（`computeSuitabilityBreakdown`/`computeEffectiveAbility`）はこの経路から
+ * 呼び出さない（旧・新の二重評価を避けるため）。
  *
  * runningStyleの解決優先順位（STEP5.1）:
  *   manualRunningStyle > passingPositionRunningStyle > fallbackAutoRunningStyle
@@ -22,7 +27,8 @@ import { computePaceScenarioFactor } from "./paceScenarioFactor";
 import { resolveTrackBias } from "./trackBias";
 import { computeTrackBiasFactor } from "./trackBiasFactor";
 import { computeRaceContextFactor } from "./raceContextFactor";
-import { computeSuitabilityBreakdown } from "./suitability";
+import { computeSuitabilityV1 } from "./suitabilityV1";
+import type { RaceGateInput } from "./courseContextPrior";
 import type { RacePerformance } from "./types";
 import type { SuitabilityTargetRaceContext } from "./suitabilityTypes";
 import type {
@@ -35,10 +41,14 @@ import type {
 
 export interface FinalRaceAbilityInput {
   baseAbility: number;
+  /** Suitability V1のHorseEvidence抽出（collectHorseGateEvidence）が結果に添える監査用ID */
+  horseId: string;
   /** baseAbility/suitabilityと同じ、対象馬自身の直近5走（新しい順） */
   recentRaces: RacePerformance[];
   /** STEP4: 対象レースの距離・馬場状態・競馬場条件 */
   suitabilityTarget: SuitabilityTargetRaceContext;
+  /** Suitability V1のgate component用。不明な項目はnull（推測しない） */
+  gate: RaceGateInput;
   /** STEP5のfuture leakage判定に使う、対象レースの識別情報 */
   raceContextTarget: RaceContextTargetInfo;
   /** 人間/ウマプロ入力の脚質情報。無ければnull（自動推定にフォールバック） */
@@ -56,8 +66,13 @@ export function computeFinalRaceAbility(input: FinalRaceAbilityInput): FinalRace
   // （本来recentRaces自体が「対象レースより前の確定走」だけを持つ前提だが、二重に防御する）
   const priorRaces = input.recentRaces.filter((r) => r.raceId !== input.raceContextTarget.raceId);
 
-  const suitability = computeSuitabilityBreakdown(priorRaces, input.suitabilityTarget);
-  const effectiveAbility = roundToOneDecimal((input.baseAbility * suitability.overallSuitability) / 100);
+  const suitability = computeSuitabilityV1({
+    horseId: input.horseId,
+    recentRaces: priorRaces,
+    target: input.suitabilityTarget,
+    gate: input.gate,
+  });
+  const effectiveAbility = roundToOneDecimal((input.baseAbility * suitability.overallSuitabilityPercent) / 100);
 
   const fallbackAutoRunningStyle = computeAutoRunningStyle(priorRaces);
   const passingPositionRunningStyle = computePassingPositionRunningStyle(priorRaces);

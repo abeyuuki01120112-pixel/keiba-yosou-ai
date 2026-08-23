@@ -2,9 +2,14 @@ import { describe, expect, it } from "vitest";
 import { buildRacePerformance } from "../buildRacePerformance";
 import type { RacePerformanceInput } from "../buildRacePerformance";
 import { computeFinalRaceAbility } from "../finalRaceAbility";
+import type { RaceGateInput } from "../courseContextPrior";
 import type { BaselineMeta, MemberLevelBreakdown } from "../types";
 import type { SuitabilityTargetRaceContext } from "../suitabilityTypes";
 import type { RaceContextTargetInfo, RunningStyleDistribution, RunningStyleProfile, TrackBiasObservation } from "../raceContextTypes";
+
+const TEST_HORSE_ID = "test-horse";
+/** gate情報が無いテスト（枠番の影響を対象としないケース）向けの共通null補完。推測値ではなく「不明」の明示 */
+const NO_GATE_INFO: RaceGateInput = { horseNumber: null, fieldSize: null, frame: null };
 
 function cleanMemberLevelBreakdown(): MemberLevelBreakdown {
   return {
@@ -108,6 +113,8 @@ describe("computeFinalRaceAbility", () => {
     const result = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: races5,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: manualStyle(PURE_OIKOMI),
@@ -115,7 +122,7 @@ describe("computeFinalRaceAbility", () => {
       manualTrackBias: null,
       autoTrackBias: null,
     });
-    expect(result.suitability.overallSuitability).toBe(100);
+    expect(result.suitability.overallSuitabilityPercent).toBe(100);
     expect(result.effectiveAbility).toBe(80);
     expect(result.raceContext.paceScenarioFactor.adjusted).toBeCloseTo(100, 5); // 平均ペース→中立
     expect(result.raceContext.trackBiasFactor.adjusted).toBe(100); // 情報なし→中立
@@ -127,6 +134,8 @@ describe("computeFinalRaceAbility", () => {
     const result = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: races5,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: manualStyle(PURE_OIKOMI, "high"),
@@ -143,6 +152,8 @@ describe("computeFinalRaceAbility", () => {
     const result = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: races5,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: manualStyle(PURE_NIGE, "high"),
@@ -158,6 +169,8 @@ describe("computeFinalRaceAbility", () => {
     const result = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: races5,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: manualStyle(PURE_NIGE, "high"),
@@ -174,6 +187,8 @@ describe("computeFinalRaceAbility", () => {
     const result = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: races5,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: manualStyle(PURE_OIKOMI, "high"),
@@ -194,6 +209,8 @@ describe("computeFinalRaceAbility", () => {
     const result = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: closerLeaningRaces,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: null, // autoにフォールバック
@@ -216,6 +233,8 @@ describe("computeFinalRaceAbility", () => {
     const result = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: nigeLeaningRaces,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: manualStyle(PURE_OIKOMI, "high"), // autoとは逆の傾向を手動指定
@@ -235,6 +254,8 @@ describe("computeFinalRaceAbility", () => {
     const result = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: races5,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: manualStyle(PURE_NIGE, "high"),
@@ -251,6 +272,8 @@ describe("computeFinalRaceAbility", () => {
     const result = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: races5,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: manualStyle(PURE_NIGE, "high"),
@@ -271,6 +294,8 @@ describe("computeFinalRaceAbility", () => {
     const result = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: races5,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: manualStyle(PURE_NIGE, "high"),
@@ -286,6 +311,8 @@ describe("computeFinalRaceAbility", () => {
     const result2 = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: races5,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: manualStyle(PURE_NIGE, "high"),
@@ -300,6 +327,8 @@ describe("computeFinalRaceAbility", () => {
     const inputsA = {
       baseAbility: 71.8,
       recentRaces: races5,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: manualStyle(PURE_OIKOMI, "high"),
@@ -314,7 +343,7 @@ describe("computeFinalRaceAbility", () => {
 
     expect(resultA.baseAbility).toBe(71.8);
     expect(resultB.baseAbility).toBe(71.8);
-    expect(resultA.suitability.overallSuitability).toBe(resultB.suitability.overallSuitability);
+    expect(resultA.suitability.overallSuitabilityPercent).toBe(resultB.suitability.overallSuitabilityPercent);
     expect(resultA.effectiveAbility).toBe(resultB.effectiveAbility);
     expect(resultA.effectiveAbility).toBe(71.8);
     // STEP5側は変わっているのにSTEP4までは完全に不変であることの確認
@@ -339,6 +368,8 @@ describe("computeFinalRaceAbility - STEP5.1: 通過順位データ統合", () =>
     const result = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: racesNige,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: null,
@@ -359,6 +390,8 @@ describe("computeFinalRaceAbility - STEP5.1: 通過順位データ統合", () =>
     const result = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: racesNige,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: manualStyle(PURE_OIKOMI, "high"),
@@ -377,6 +410,8 @@ describe("computeFinalRaceAbility - STEP5.1: 通過順位データ統合", () =>
     const result = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: races5, // passingPositionを持たない
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: null,
@@ -394,6 +429,8 @@ describe("computeFinalRaceAbility - STEP5.1: 通過順位データ統合", () =>
     const result = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: [], // 過去走ゼロ
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: null,
@@ -411,6 +448,8 @@ describe("computeFinalRaceAbility - STEP5.1: 通過順位データ統合", () =>
     const result = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: races,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: null,
@@ -433,6 +472,8 @@ describe("computeFinalRaceAbility - STEP5.1: 通過順位データ統合", () =>
     const withoutSelf = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: races5,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: null,
@@ -443,6 +484,8 @@ describe("computeFinalRaceAbility - STEP5.1: 通過順位データ統合", () =>
     const withSelfLeaked = computeFinalRaceAbility({
       baseAbility: 80,
       recentRaces: [selfRace, ...races5],
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: null,
@@ -461,6 +504,8 @@ describe("computeFinalRaceAbility - STEP5.1: 通過順位データ統合", () =>
     const result = computeFinalRaceAbility({
       baseAbility: 71.8,
       recentRaces: races5,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: manualStyle(PURE_NIGE, "high"),
@@ -480,6 +525,8 @@ describe("computeFinalRaceAbility - STEP5.1: 通過順位データ統合", () =>
     const resultWithPassing = computeFinalRaceAbility({
       baseAbility: 71.8,
       recentRaces: racesNige,
+      horseId: TEST_HORSE_ID,
+      gate: NO_GATE_INFO,
       suitabilityTarget: SUITABILITY_TARGET,
       raceContextTarget: RACE_CONTEXT_TARGET,
       manualRunningStyle: null,
@@ -489,6 +536,6 @@ describe("computeFinalRaceAbility - STEP5.1: 通過順位データ統合", () =>
     });
     expect(resultWithPassing.baseAbility).toBe(71.8);
     expect(resultWithPassing.effectiveAbility).toBe(71.8); // races全て対象条件一致→suitability=100%
-    expect(resultWithPassing.suitability.overallSuitability).toBe(100);
+    expect(resultWithPassing.suitability.overallSuitabilityPercent).toBe(100);
   });
 });

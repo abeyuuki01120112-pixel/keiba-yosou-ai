@@ -30,6 +30,7 @@ function componentAt(
     reason: "test fixture",
     horseEvidence: { sampleCount: 5, confidence, reason: "test" },
     coursePrior: null,
+    source: "horseEvidence",
   };
 }
 
@@ -43,6 +44,7 @@ function unevaluated(key: SuitabilityComponentResultV1["key"]): SuitabilityCompo
     reason: "no evidence",
     horseEvidence: { sampleCount: 0, confidence: "unknown", reason: "no evidence" },
     coursePrior: null,
+    source: "none",
   };
 }
 

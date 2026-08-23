@@ -36,7 +36,7 @@ import { collectHorseGateEvidence, type HorseEvidence } from "./horseGateEvidenc
 import { resolveHorseEvidenceConfidence, type HorseEvidenceConfidence } from "./horseEvidenceConfidence";
 import type { RacePerformance } from "./types";
 import type { SuitabilityComponent, SuitabilityConfidence, SuitabilityTargetRaceContext } from "./suitabilityTypes";
-import type { CoursePriorDetail, HorseEvidenceDetail } from "./suitabilityCoreV1Types";
+import type { CoursePriorDetail, HorseEvidenceDetail, SuitabilityConfidenceV1 } from "./suitabilityCoreV1Types";
 import type { SuitabilityComponentResultV1, SuitabilityV1ComponentKey, SuitabilityV1Result } from "./suitabilityV1Types";
 
 /**
@@ -152,6 +152,7 @@ function wrapSystemAComponent(key: SuitabilityV1ComponentKey, component: Suitabi
     horseEvidence,
     // distance/course/goingにはCoursePrior相当の実装が現状無い（CHECKPOINT11監査結果）
     coursePrior: null,
+    source: evaluated ? "horseEvidence" : "none",
   };
 }
 
@@ -286,6 +287,7 @@ function computeGateSuitabilityV1(input: SuitabilityV1Input): SuitabilityCompone
           : ""),
       horseEvidence,
       coursePrior: coursePriorResult?.detail ?? null,
+      source: coursePriorResult !== null ? "both" : "horseEvidence",
     };
   }
 
@@ -307,6 +309,7 @@ function computeGateSuitabilityV1(input: SuitabilityV1Input): SuitabilityCompone
         : "本人実績が無く、CoursePriorは東京ダート1600m限定のため対象コースでは評価不能（推測で埋めない）。",
       horseEvidence,
       coursePrior: null,
+      source: "none",
     };
   }
 
@@ -323,6 +326,7 @@ function computeGateSuitabilityV1(input: SuitabilityV1Input): SuitabilityCompone
       `のみに基づくrawPercent=${coursePriorResult.rawPercent}%。`,
     horseEvidence,
     coursePrior: coursePriorResult.detail,
+    source: "coursePrior",
   };
 }
 
@@ -359,6 +363,21 @@ function clampSafety(value: number): number {
   return Math.min(Math.max(value, SUITABILITY_V1_SAFETY_MIN), SUITABILITY_V1_SAFETY_MAX);
 }
 
+const CONFIDENCE_V1_RANK: Record<SuitabilityConfidenceV1, number> = { unknown: 0, low: 1, medium: 2, high: 3 };
+
+/**
+ * 4componentのconfidenceのweakest-link（CHECKPOINT11.14 STEP1）。
+ * raceOutcomeEvaluation.tsのresolveEvaluationConfidenceと同じ「最も弱いものを採用する」考え方を
+ * 再利用するだけで、新しいconfidence定義・閾値は一切作らない。1つでもevaluated=falseの
+ * component（常にconfidence="unknown"）があれば、その時点でoverallConfidenceも"unknown"になる。
+ */
+function computeOverallConfidence(components: SuitabilityComponentResultV1[]): SuitabilityConfidenceV1 {
+  return components.reduce<SuitabilityConfidenceV1>(
+    (weakest, c) => (CONFIDENCE_V1_RANK[c.confidence] < CONFIDENCE_V1_RANK[weakest] ? c.confidence : weakest),
+    "high",
+  );
+}
+
 export function computeSuitabilityV1(input: SuitabilityV1Input): SuitabilityV1Result {
   const distance = wrapSystemAComponent("distance", computeDistanceSuitability(input.recentRaces, input.target));
   const course = wrapSystemAComponent("course", computeCourseSuitability(input.recentRaces, input.target));
@@ -371,6 +390,7 @@ export function computeSuitabilityV1(input: SuitabilityV1Input): SuitabilityV1Re
     going,
     gate,
   ]);
+  const overallConfidence = computeOverallConfidence([distance, course, going, gate]);
 
-  return { distance, course, going, gate, overallSuitabilityPercent, evaluatedComponentCount };
+  return { distance, course, going, gate, overallSuitabilityPercent, evaluatedComponentCount, overallConfidence };
 }
