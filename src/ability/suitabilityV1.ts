@@ -75,12 +75,18 @@ export const GATE_VALIDATION_STATUS_WEIGHT: Record<EmpiricalValidationStatus, nu
 export const GATE_HORSE_EVIDENCE_AMPLITUDE = 5;
 
 /**
- * scaleは小さいdeltaへの反応感度を決める（暫定値）。実データ(n=7グループ)では
- * scale=3が「delta=1で101.6%、delta=8で105.0%へ飽和」という、STEP5感度分析上
- * 妥当な挙動を示したが、n=7は統計的な確定には小さすぎるサンプルであるため、
- * amplitudeと異なり「暫定」として扱う（CHECKPOINT11.5 STEP9）。
+ * scaleは小さいdeltaへの反応感度を決める。CHECKPOINT11.6〜11.9で段階的に
+ * 実データを拡張（n=7→18→23グループ、20頭、positive/negative/neutral全方向、
+ * negative側5頭・neutral側2グループを確保）し、houohbiscuits依存もleave-one-horse-out
+ * でshift=0.00まで実質解消したことを確認した上で、事前に固定した選択ルール
+ * （1.過補正防止 2.Base Ability順位の逆転回避 3.LOHO安定性 4.positive/negative双方への
+ * 反応性維持 5.解釈可能性、実質同等ならより補正の弱い値を優先するtie-break rule）に
+ * 従いscale=3.5とscale=4.0を比較した（CHECKPOINT11.9）。実データ上もっとも強い
+ * positive/negative deltaでもscale=4.0は3.5比0.04〜0.18pt程度しか差が無く反応不足は
+ * 確認されなかったため、tie-break ruleにより補正の弱いscale=4.0をV1正式値として採用した
+ * （CHECKPOINT11.10）。詳細はdocs/gate-horse-evidence-v1-spec.md参照。
  */
-export const GATE_HORSE_EVIDENCE_SCALE = 3;
+export const GATE_HORSE_EVIDENCE_SCALE = 4;
 
 /** Suitability V1最終出力への異常値防止の安全境界（通常はほぼ到達しない想定）。clamp(90,110)とは別物 */
 export const SUITABILITY_V1_SAFETY_MIN = 60;
@@ -252,7 +258,7 @@ function computeGateSuitabilityV1(input: SuitabilityV1Input): SuitabilityCompone
       confidence,
       reason:
         `HorseEvidence（本人実績、優先度1）のrawPerformanceDelta中央値=${roundToOneDecimal(aggregatedDelta)}を` +
-        `tanh変換（amplitude=${GATE_HORSE_EVIDENCE_AMPLITUDE}、scale=${GATE_HORSE_EVIDENCE_SCALE}〈暫定〉）してrawPercent=${rawPercent}%。` +
+        `tanh変換（amplitude=${GATE_HORSE_EVIDENCE_AMPLITUDE}、scale=${GATE_HORSE_EVIDENCE_SCALE}）してrawPercent=${rawPercent}%。` +
         `confidence(${confidence})で縮小しadjustedPercent=${adjustedPercent}%。` +
         (coursePriorResult !== null
           ? " CoursePriorも算出可能だが、HorseEvidenceが優先度1のため今回のpercentには使用していない。"
