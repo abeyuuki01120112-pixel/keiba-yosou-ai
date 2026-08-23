@@ -92,7 +92,7 @@ export function computeFinalRaceAbility(input: FinalRaceAbilityInput): FinalRace
   );
   const trackBiasFactor = computeTrackBiasFactor(runningStyle, trackBiasObservation, trackBiasUsedSource);
 
-  const raceContext = computeRaceContextFactor(paceScenarioFactor, trackBiasFactor);
+  const raceContext = computeRaceContextFactor(paceScenarioFactor, trackBiasFactor, predictedPace);
   const finalRaceAbility = roundToOneDecimal((effectiveAbility * raceContext.value) / 100);
 
   return {

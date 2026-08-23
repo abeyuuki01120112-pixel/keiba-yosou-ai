@@ -121,10 +121,23 @@ export interface ManualRaceReviewNote {
 export interface RaceContextFactor {
   paceScenarioFactor: PaceScenarioFactor;
   trackBiasFactor: TrackBiasFactor;
-  /** clamp前のpaceScenarioFactor.adjusted × trackBiasFactor.adjusted / 100 */
+  /**
+   * clamp前のpaceScenarioFactor.adjusted × trackBiasFactor.adjusted / 100。
+   * evaluatedの真偽に関わらず、実際の計算結果を常に保持する監査用の値（未評価時もvalueとは別に隠さず残す）
+   */
   raw: number;
-  /** clamp(raw, 90, 110) */
+  /**
+   * evaluated=trueならclamp(raw, 90, 110)。evaluated=falseの場合は中立100に上書きされ、
+   * finalRaceAbilityへ実質的な補正を及ぼさない（CHECKPOINT11.17: 評価できていない要素は
+   * 能力を動かさない、という原則をRaceContextへも適用したガード）
+   */
   value: number;
+  /**
+   * predictedPace.fieldSize>0（対戦馬の脚質データが1頭以上ある）、または
+   * trackBiasFactor.usedSourceが"neutral"でない（人間入力/自動いずれかの実観測が使われた）
+   * のいずれかを満たせばtrue。両方とも実データが無い場合のみfalse（CHECKPOINT11.17で追加）。
+   */
+  evaluated: boolean;
 }
 
 export interface FinalRaceAbilityBreakdown {

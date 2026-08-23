@@ -366,13 +366,22 @@ function clampSafety(value: number): number {
 const CONFIDENCE_V1_RANK: Record<SuitabilityConfidenceV1, number> = { unknown: 0, low: 1, medium: 2, high: 3 };
 
 /**
- * 4componentのconfidenceのweakest-link（CHECKPOINT11.14 STEP1）。
- * raceOutcomeEvaluation.tsのresolveEvaluationConfidenceと同じ「最も弱いものを採用する」考え方を
- * 再利用するだけで、新しいconfidence定義・閾値は一切作らない。1つでもevaluated=falseの
- * component（常にconfidence="unknown"）があれば、その時点でoverallConfidenceも"unknown"になる。
+ * evaluated=trueのcomponentのみを対象としたconfidenceのweakest-link（CHECKPOINT11.17正式化）。
+ *
+ * confidence（証拠の質・信頼度）とcompleteness（4component中いくつ評価できたか、
+ * evaluatedComponentCountが担う）を別概念として分離する（CHECKPOINT11.16 STEP2〜4の
+ * 監査・推奨に基づく）。evaluated=falseのcomponent（常にconfidence="unknown"）を
+ * weakest-link対象に含めない——「未評価」というcompletenessの情報を、confidenceという
+ * 別の軸へ混入させないため。raceOutcomeEvaluation.tsのresolveEvaluationConfidenceと同じ
+ * 「最も弱いものを採用する」考え方を再利用するだけで、新しいconfidence定義・閾値は
+ * 一切作らない。evaluated=trueのcomponentが1つも無い場合のみ"unknown"を返す
+ * （この場合はevaluatedComponentCount=0と併せて読むことで「本当に何も評価できなかった」
+ * ことが分かる）。
  */
-function computeOverallConfidence(components: SuitabilityComponentResultV1[]): SuitabilityConfidenceV1 {
-  return components.reduce<SuitabilityConfidenceV1>(
+export function computeOverallConfidence(components: SuitabilityComponentResultV1[]): SuitabilityConfidenceV1 {
+  const evaluated = components.filter((c) => c.evaluated);
+  if (evaluated.length === 0) return "unknown";
+  return evaluated.reduce<SuitabilityConfidenceV1>(
     (weakest, c) => (CONFIDENCE_V1_RANK[c.confidence] < CONFIDENCE_V1_RANK[weakest] ? c.confidence : weakest),
     "high",
   );

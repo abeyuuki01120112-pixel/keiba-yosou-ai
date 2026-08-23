@@ -3,6 +3,7 @@ import { roundToOneDecimal } from "../raceScore";
 import { shrinkTowardCenter } from "../suitabilityConfidence";
 import {
   aggregateSuitabilityComponents,
+  computeOverallConfidence,
   computeSuitabilityV1,
   GATE_COURSE_PRIOR_AMPLITUDE,
   GATE_HORSE_EVIDENCE_AMPLITUDE,
@@ -132,6 +133,39 @@ describe("aggregateSuitabilityComponents（STEP9: CASE A〜D）", () => {
       componentAt("gate", 300, "high"),
     ];
     expect(aggregateSuitabilityComponents(extremeHigh).overallSuitabilityPercent).toBe(SUITABILITY_V1_SAFETY_MAX);
+  });
+});
+
+describe("computeOverallConfidence（CHECKPOINT11.17: evaluated=trueのみでweakest-link）", () => {
+  it("CASE A: 4/4 evaluated、high/high/medium/high → overallConfidence=medium", () => {
+    const components = [
+      componentAt("distance", 100, "high"),
+      componentAt("course", 100, "high"),
+      componentAt("going", 100, "medium"),
+      componentAt("gate", 100, "high"),
+    ];
+    expect(computeOverallConfidence(components)).toBe("medium");
+  });
+
+  it("CASE B: 2/4 evaluated(medium/medium)+2 unevaluated(unknown) → overallConfidence=medium（未評価componentがunknown化しない）", () => {
+    const components = [
+      componentAt("distance", 100, "medium"),
+      componentAt("going", 100, "medium"),
+      unevaluated("course"),
+      unevaluated("gate"),
+    ];
+    expect(computeOverallConfidence(components)).toBe("medium");
+  });
+
+  it("CASE C: 1/4 evaluated(low)+3 unevaluated(unknown) → overallConfidence=low", () => {
+    const components = [componentAt("distance", 100, "low"), unevaluated("course"), unevaluated("going"), unevaluated("gate")];
+    expect(computeOverallConfidence(components)).toBe("low");
+  });
+
+  it("CASE D: 0/4 evaluated → overallConfidence=unknown（evaluatedComponentCount=0と併せて読む）", () => {
+    const components = [unevaluated("distance"), unevaluated("course"), unevaluated("going"), unevaluated("gate")];
+    expect(computeOverallConfidence(components)).toBe("unknown");
+    expect(aggregateSuitabilityComponents(components).evaluatedComponentCount).toBe(0);
   });
 });
 
