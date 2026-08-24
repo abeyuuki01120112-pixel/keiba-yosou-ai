@@ -20,10 +20,12 @@
 import rawCourseTimeBaselines from "./data/courseTimeBaselines.json";
 import rawCourseFinal3FBaselines from "./data/courseFinal3FBaselines.json";
 import rawRaceFieldAggregates from "./data/raceFieldAggregates.json";
+import rawCareerCounts from "./data/careerCounts.json";
 import { loadDefaultHorses } from "../simulation/horseData";
 import { buildHorseAbilityProfile } from "./buildHorseAbilityProfile";
 import { buildRaceHistory, type RaceHistoryRawInput } from "./raceHistoryPipeline";
 import { computeDatasetVersionInfo, type DatasetVersionInfo } from "./datasetVersion";
+import type { CareerCountRecord } from "./abilityEvidence";
 import type {
   CourseFinal3FBaseline,
   CourseTimeBaseline,
@@ -108,4 +110,20 @@ export function getAllCanonicalHorseIds(): string[] {
  */
 export function getProductionDatasetVersionInfo(): DatasetVersionInfo {
   return computeDatasetVersionInfo(typedRawData);
+}
+
+const typedCareerCounts = rawCareerCounts.records as unknown as (CareerCountRecord & { horseId: string })[];
+const careerCountByHorseId: Record<string, CareerCountRecord> = {};
+for (const record of typedCareerCounts) {
+  const { horseId, ...rest } = record;
+  careerCountByHorseId[horseId] = rest;
+}
+
+/**
+ * source-backedなknownCareerRaceCountの記録を返す（CHECKPOINT13.4G、Short Career
+ * Eligibility V1）。data/careerCounts.jsonに明示的に登録されていない馬はnullを返す
+ * （data/horses内の記録走数から推測しない。絶対原則、CHECKPOINT13.4F 9節）。
+ */
+export function getCareerCountRecord(horseId: string): CareerCountRecord | null {
+  return careerCountByHorseId[horseId] ?? null;
 }

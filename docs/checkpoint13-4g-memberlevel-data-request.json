@@ -1,0 +1,191 @@
+{
+  "manifestVersion": "checkpoint13-4g-v1",
+  "generatedAt": "2026-08-24",
+  "purpose": "3頭(ゾロアストロ/ダノンシーマ/ドゥレッツァ)のmemberLevelUnavailableを解消するための、対戦馬15頭分の追加実データrequest。MEMBER_LEVEL_TOP_N=5(memberLevel V1既存仕様、無変更)に合わせ、各対象走の着順上位5頭のみを最小限の対象とした(再帰拡大なし)。",
+  "requiredFields": {
+    "note": "既存race_performances.csv contract(CHECKPOINT13.4A)に従う。requiredPriorRaces各行に、以下のfieldをCSVの列として提供すること。",
+    "required": [
+      "raceId",
+      "raceName",
+      "raceDate",
+      "racecourse",
+      "surface",
+      "distance",
+      "going",
+      "horseId",
+      "horseName",
+      "finishPosition",
+      "timeGap",
+      "raceTime",
+      "final3F",
+      "carriedWeight"
+    ],
+    "optionalButUseful": [
+      "raceNumber",
+      "gate",
+      "horseNumber",
+      "passingPosition",
+      "source",
+      "sourceRaceId",
+      "sourceHorseId"
+    ]
+  },
+  "summary": {
+    "targetHorseCount": 3,
+    "requestedOpponentHorseCount": 15,
+    "uniqueOpponentHorseCount": 15,
+    "duplicateOpponentHorseCount": 0
+  },
+  "requests": [
+    {
+      "targetHorseName": "ゾロアストロ",
+      "targetHorseId": "2023106850",
+      "targetRaceId": "JRA-20250727-NIIGATA-02",
+      "targetRaceName": "2歳未勝利",
+      "targetRaceDate": "2025-07-27",
+      "requiredOpponentHorseName": "ジーネキング",
+      "requiredOpponentHorseId": "2023104885",
+      "requiredPriorRaces": "この馬自身の、2025-07-27より前の実績（直近最大5走）。raceId/raceDateは現時点で不明のため推測・捏造していない。"
+    },
+    {
+      "targetHorseName": "ゾロアストロ",
+      "targetHorseId": "2023106850",
+      "targetRaceId": "JRA-20250727-NIIGATA-02",
+      "targetRaceName": "2歳未勝利",
+      "targetRaceDate": "2025-07-27",
+      "requiredOpponentHorseName": "パンジー",
+      "requiredOpponentHorseId": "2023106589",
+      "requiredPriorRaces": "この馬自身の、2025-07-27より前の実績（直近最大5走）。raceId/raceDateは現時点で不明のため推測・捏造していない。"
+    },
+    {
+      "targetHorseName": "ゾロアストロ",
+      "targetHorseId": "2023106850",
+      "targetRaceId": "JRA-20250727-NIIGATA-02",
+      "targetRaceName": "2歳未勝利",
+      "targetRaceDate": "2025-07-27",
+      "requiredOpponentHorseName": "クリスタルメモリー",
+      "requiredOpponentHorseId": "2023106048",
+      "requiredPriorRaces": "この馬自身の、2025-07-27より前の実績（直近最大5走）。raceId/raceDateは現時点で不明のため推測・捏造していない。"
+    },
+    {
+      "targetHorseName": "ゾロアストロ",
+      "targetHorseId": "2023106850",
+      "targetRaceId": "JRA-20250727-NIIGATA-02",
+      "targetRaceName": "2歳未勝利",
+      "targetRaceDate": "2025-07-27",
+      "requiredOpponentHorseName": "ソルトバーン",
+      "requiredOpponentHorseId": "2023102163",
+      "requiredPriorRaces": "この馬自身の、2025-07-27より前の実績（直近最大5走）。raceId/raceDateは現時点で不明のため推測・捏造していない。"
+    },
+    {
+      "targetHorseName": "ゾロアストロ",
+      "targetHorseId": "2023106850",
+      "targetRaceId": "JRA-20250727-NIIGATA-02",
+      "targetRaceName": "2歳未勝利",
+      "targetRaceDate": "2025-07-27",
+      "requiredOpponentHorseName": "シシリアンフラッグ",
+      "requiredOpponentHorseId": "2023102677",
+      "requiredPriorRaces": "この馬自身の、2025-07-27より前の実績（直近最大5走）。raceId/raceDateは現時点で不明のため推測・捏造していない。"
+    },
+    {
+      "targetHorseName": "ダノンシーマ",
+      "targetHorseId": "2022104645",
+      "targetRaceId": "JRA-20250928-HANSHIN-09",
+      "targetRaceName": "兵庫特別",
+      "targetRaceDate": "2025-09-28",
+      "requiredOpponentHorseName": "サークルオブジョイ",
+      "requiredOpponentHorseId": "2021105796",
+      "requiredPriorRaces": "この馬自身の、2025-09-28より前の実績（直近最大5走）。raceId/raceDateは現時点で不明のため推測・捏造していない。"
+    },
+    {
+      "targetHorseName": "ダノンシーマ",
+      "targetHorseId": "2022104645",
+      "targetRaceId": "JRA-20250928-HANSHIN-09",
+      "targetRaceName": "兵庫特別",
+      "targetRaceDate": "2025-09-28",
+      "requiredOpponentHorseName": "カエルム",
+      "requiredOpponentHorseId": "2021105160",
+      "requiredPriorRaces": "この馬自身の、2025-09-28より前の実績（直近最大5走）。raceId/raceDateは現時点で不明のため推測・捏造していない。"
+    },
+    {
+      "targetHorseName": "ダノンシーマ",
+      "targetHorseId": "2022104645",
+      "targetRaceId": "JRA-20250928-HANSHIN-09",
+      "targetRaceName": "兵庫特別",
+      "targetRaceDate": "2025-09-28",
+      "requiredOpponentHorseName": "パンデアスカル",
+      "requiredOpponentHorseId": "2020103369",
+      "requiredPriorRaces": "この馬自身の、2025-09-28より前の実績（直近最大5走）。raceId/raceDateは現時点で不明のため推測・捏造していない。"
+    },
+    {
+      "targetHorseName": "ダノンシーマ",
+      "targetHorseId": "2022104645",
+      "targetRaceId": "JRA-20250928-HANSHIN-09",
+      "targetRaceName": "兵庫特別",
+      "targetRaceDate": "2025-09-28",
+      "requiredOpponentHorseName": "パーサヴィアランス",
+      "requiredOpponentHorseId": "2019105330",
+      "requiredPriorRaces": "この馬自身の、2025-09-28より前の実績（直近最大5走）。raceId/raceDateは現時点で不明のため推測・捏造していない。"
+    },
+    {
+      "targetHorseName": "ダノンシーマ",
+      "targetHorseId": "2022104645",
+      "targetRaceId": "JRA-20250928-HANSHIN-09",
+      "targetRaceName": "兵庫特別",
+      "targetRaceDate": "2025-09-28",
+      "requiredOpponentHorseName": "デルマグレムリン",
+      "requiredOpponentHorseId": "2019105877",
+      "requiredPriorRaces": "この馬自身の、2025-09-28より前の実績（直近最大5走）。raceId/raceDateは現時点で不明のため推測・捏造していない。"
+    },
+    {
+      "targetHorseName": "ドゥレッツァ",
+      "targetHorseId": "2020103650",
+      "targetRaceId": "JRA-20240310-CHUKYO-11",
+      "targetRaceName": "金鯱賞",
+      "targetRaceDate": "2024-03-10",
+      "requiredOpponentHorseName": "プログノーシス",
+      "requiredOpponentHorseId": "2018104541",
+      "requiredPriorRaces": "この馬自身の、2024-03-10より前の実績（直近最大5走）。raceId/raceDateは現時点で不明のため推測・捏造していない。"
+    },
+    {
+      "targetHorseName": "ドゥレッツァ",
+      "targetHorseId": "2020103650",
+      "targetRaceId": "JRA-20240310-CHUKYO-11",
+      "targetRaceName": "金鯱賞",
+      "targetRaceDate": "2024-03-10",
+      "requiredOpponentHorseName": "ヨーホーレイク",
+      "requiredOpponentHorseId": "2018105012",
+      "requiredPriorRaces": "この馬自身の、2024-03-10より前の実績（直近最大5走）。raceId/raceDateは現時点で不明のため推測・捏造していない。"
+    },
+    {
+      "targetHorseName": "ドゥレッツァ",
+      "targetHorseId": "2020103650",
+      "targetRaceId": "JRA-20240310-CHUKYO-11",
+      "targetRaceName": "金鯱賞",
+      "targetRaceDate": "2024-03-10",
+      "requiredOpponentHorseName": "ハヤヤッコ",
+      "requiredOpponentHorseId": "2016104624",
+      "requiredPriorRaces": "この馬自身の、2024-03-10より前の実績（直近最大5走）。raceId/raceDateは現時点で不明のため推測・捏造していない。"
+    },
+    {
+      "targetHorseName": "ドゥレッツァ",
+      "targetHorseId": "2020103650",
+      "targetRaceId": "JRA-20240310-CHUKYO-11",
+      "targetRaceName": "金鯱賞",
+      "targetRaceDate": "2024-03-10",
+      "requiredOpponentHorseName": "アラタ",
+      "requiredOpponentHorseId": "2017104756",
+      "requiredPriorRaces": "この馬自身の、2024-03-10より前の実績（直近最大5走）。raceId/raceDateは現時点で不明のため推測・捏造していない。注記: 2017104756はCHECKPOINT13.4Dで既に34行分の実データが復元済みだが、2024-03-10より前の実績は0件のまま。今回の要求と重複しない。"
+    },
+    {
+      "targetHorseName": "ドゥレッツァ",
+      "targetHorseId": "2020103650",
+      "targetRaceId": "JRA-20240310-CHUKYO-11",
+      "targetRaceName": "金鯱賞",
+      "targetRaceDate": "2024-03-10",
+      "requiredOpponentHorseName": "ワイドエンペラー",
+      "requiredOpponentHorseId": "2018101660",
+      "requiredPriorRaces": "この馬自身の、2024-03-10より前の実績（直近最大5走）。raceId/raceDateは現時点で不明のため推測・捏造していない。"
+    }
+  ]
+}

@@ -381,7 +381,7 @@ describe("CHECKPOINT13.2 Test9: Data Completeness Reportで新規warningが取�
   // 「現時点でこの条件を満たす実データ馬」であることを理解して使うこと。
   const SPARSE_HORSE_ID = "2016102229";
 
-  it("insufficientRecentHistory: 直近5走に満たない馬でcompletenessFlagsに含まれる", () => {
+  it("insufficient_evidence: 直近5走に満たない馬（1〜2走）でcompletenessFlagsに含まれる（CHECKPOINT13.4G Short Career Eligibility V1、Case D）", () => {
     expect(getHorseRecentRaces(SPARSE_HORSE_ID).length).toBeLessThan(5);
     const result = buildHorseSnapshotEntry(
       entry({ horseId: SPARSE_HORSE_ID, horseName: "テスト対象馬" }),
@@ -391,7 +391,8 @@ describe("CHECKPOINT13.2 Test9: Data Completeness Reportで新規warningが取�
       1,
     );
     expect(result.baseAbility).not.toBeNull();
-    expect(result.completenessFlags).toContain("insufficientRecentHistory");
+    expect(result.completenessFlags).toContain("insufficient_evidence");
+    expect(result.abilityEvidence?.blockingReason).toBe("insufficient_evidence");
   });
 
   it("memberLevelUnavailable: memberLevelBreakdownがnullの走を含む馬でcompletenessFlagsに含まれる", () => {

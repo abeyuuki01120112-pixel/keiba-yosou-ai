@@ -24,7 +24,8 @@
 import { roundToOneDecimal } from "./raceScore";
 import { calculateBaseAbility, RECENT_RACE_COUNT } from "./baseAbility";
 import { computeSuitabilityV1 } from "./suitabilityV1";
-import { getHorseRecentRaces } from "./horseAbilityData";
+import { getCareerCountRecord, getHorseRecentRaces } from "./horseAbilityData";
+import { resolveAbilityEvidence, type AbilityEvidence } from "./abilityEvidence";
 import type { RaceGateInput } from "./courseContextPrior";
 import type { RacePerformance, Surface } from "./types";
 import type { SuitabilityTargetRaceContext } from "./suitabilityTypes";
@@ -119,8 +120,18 @@ export interface HorseSnapshotEntry {
    *     出走馬の候補が1頭も無くmemberLevelがFALLBACK値になっていた。
    *   "placeholderDataExcluded": この馬の過去走の一部/全部がdataKind=
    *     "placeholder"/"fixture"のため、baseAbility/Suitability算出から除外した。
+   *   "insufficient_evidence" / "career_history_completeness_unknown" /
+   *     "incomplete_recent_history": Short Career Eligibility V1（CHECKPOINT13.4G、
+   *     abilityEvidence.ts）による判定。詳細はabilityEvidenceフィールド参照。
    */
   completenessFlags: string[];
+  /**
+   * Short Career Eligibility V1（CHECKPOINT13.4G）の評価結果。baseAbility算出に
+   * 使った走数・キャリア完全性・証拠量のconfidenceを、baseAbilityの数値とは
+   * 分離して保持する（「4走だから減点」等は一切行わない）。
+   * scratchedまたは過去走0件（baseAbility=null）の場合はnull。
+   */
+  abilityEvidence: AbilityEvidence | null;
 }
 
 /** Stage B用：発走2時間前時点で保存してよいオッズ情報の置き場所。能力計算には一切使用しない */
@@ -215,6 +226,7 @@ export function buildHorseSnapshotEntry(
       effectiveAbility: null,
       warnings,
       completenessFlags,
+      abilityEvidence: null,
     };
   }
 
@@ -245,15 +257,26 @@ export function buildHorseSnapshotEntry(
       effectiveAbility: null,
       warnings,
       completenessFlags,
+      abilityEvidence: null,
     };
   }
 
   const baseAbility = calculateBaseAbility(priorRaces);
 
-  if (priorRaces.length < RECENT_RACE_COUNT) {
-    completenessFlags.push("insufficientRecentHistory");
+  const abilityEvidence = resolveAbilityEvidence(
+    priorRaces.length,
+    getCareerCountRecord(entry.horseId),
+    predictionCutoffAt,
+  );
+  if (abilityEvidence.blockingReason !== null) {
+    completenessFlags.push(abilityEvidence.blockingReason);
+  }
+  if (abilityEvidence.abilityEvidenceCount < RECENT_RACE_COUNT) {
+    const shortCareerNote = abilityEvidence.shortCareer
+      ? "（キャリア全体を把握済みの短キャリア馬として扱っています。baseAbilityの数値自体は減点していません）"
+      : "";
     warnings.push(
-      `baseAbility算出に使える実データ過去走が${priorRaces.length}走のみです（Base Ability V1の既存仕様どおり直近最大${RECENT_RACE_COUNT}走の均等平均だが、今回はそれ未満）。`,
+      `baseAbility算出に使える実データ過去走が${priorRaces.length}走のみです（Base Ability V1の既存仕様どおり直近最大${RECENT_RACE_COUNT}走の均等平均だが、今回はそれ未満）。${shortCareerNote}`,
     );
   }
   if (priorRaces.slice(0, RECENT_RACE_COUNT).some((r) => r.memberLevelBreakdown === null)) {
@@ -304,6 +327,7 @@ export function buildHorseSnapshotEntry(
     effectiveAbility,
     warnings,
     completenessFlags,
+    abilityEvidence,
   };
 }
 
