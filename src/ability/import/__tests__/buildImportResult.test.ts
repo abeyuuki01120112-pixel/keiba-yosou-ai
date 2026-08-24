@@ -213,6 +213,7 @@ describe("toRaceHistoryRawInput", () => {
     gate: null,
     horseNumber: null,
     fieldSize: null,
+    passingPosition: null,
   };
 
   it("欠損が無ければRaceHistoryRawInputへ変換できる", () => {

@@ -1,4 +1,4 @@
-raceId,raceDate,racecourse,raceNumber,raceName,surface,distance,going,horseId,horseName,horseNumber,gate,finishPosition,carriedWeightKg,actualRaceTimeSeconds,final3FSeconds,timeGapSeconds,fieldSize
+raceId,raceDate,racecourse,raceNumber,raceName,surface,distance,going,horseId,horseName,horseNumber,gate,finishPosition,carriedWeightKg,actualRaceTimeSeconds,final3FSeconds,timeGapSeconds,fieldSize,passingPosition
 r0-g1,2026-06-20,東京,,東京特別戦,turf,1900,良,admireterra,アドマイヤテラ,10,,1,57,115.6,35.2,-0.2,5
 r0-g1,2026-06-20,東京,,東京特別戦,turf,1900,良,roshampark,ローシャムパーク,6,,2,56,116.9,36.3,0.6,5
 r0-g1,2026-06-20,東京,,東京特別戦,turf,1900,良,shohei,ショウヘイ,7,,3,56,114.8,35.1,0.5,5

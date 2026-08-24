@@ -10,10 +10,12 @@
  *   ただし値がセルにある場合は数値として妥当か検証する（不正な文字列はエラー）。
  */
 
+import type { PassingPositionData } from "../types";
 import type { ImportError, RacePerformanceInput } from "./types";
 
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const VALID_SURFACES = ["turf", "dirt"];
+const PASSING_POSITION_SEPARATOR = "-";
 
 /** JRAの実際の斤量帯に対する常識的な範囲（これを外れる値は入力ミスとして弾く） */
 export const MIN_CARRIED_WEIGHT_KG = 40;
@@ -56,6 +58,32 @@ function optionalNumber(value: string | undefined, fieldName: string, errors: st
     return null;
   }
   return n;
+}
+
+/**
+ * 通過順位CSVセル（例: "3-4-4-3"、2コーナーのみのコースなら"8-7"）を
+ * cornerPositions（number[]）へパースする。存在しないコーナーを推測で補完しない
+ * （記録されている値の個数がそのままcornerPositions.lengthになる、CHECKPOINT14A.2）。
+ * 区切り文字は"-"固定。1以上の整数のみ許容し、空・非数値・0以下はmalformedとして弾く。
+ */
+function parsePassingPositionCorners(value: string): { ok: true; cornerPositions: number[] } | { ok: false; error: string } {
+  const parts = value.split(PASSING_POSITION_SEPARATOR);
+  const cornerPositions: number[] = [];
+  for (const part of parts) {
+    const trimmed = part.trim();
+    if (!/^\d+$/.test(trimmed)) {
+      return { ok: false, error: `通過順位を解釈できません（値: "${value}"）。数値を"-"で区切った形式にしてください（例: "3-4-4-3"）` };
+    }
+    const n = Number(trimmed);
+    if (n < 1) {
+      return { ok: false, error: `通過順位は1以上の整数である必要があります（値: "${value}"）` };
+    }
+    cornerPositions.push(n);
+  }
+  if (cornerPositions.length === 0) {
+    return { ok: false, error: `通過順位が空です（値: "${value}"）` };
+  }
+  return { ok: true, cornerPositions };
 }
 
 export function normalizeRacePerformance(row: Record<string, string>, rowIndex: number): NormalizeResult {
@@ -130,6 +158,33 @@ export function normalizeRacePerformance(row: Record<string, string>, rowIndex: 
   const sourceRaceId = optionalString(row.sourceRaceId);
   const sourceHorseId = optionalString(row.sourceHorseId);
 
+  // 通過順位（CHECKPOINT14A.2で追加）。空セルはnull（未提供）。値がある場合のみ検証する。
+  // PassingPositionData.fieldSizeは必須項目のため、fieldSize列も同じ行に必要
+  // （存在しないコーナーを推測で補完しない、同じくfieldSizeを推測で補完しない）。
+  let passingPosition: PassingPositionData | null = null;
+  const passingPositionRaw = row.passingPosition?.trim() ?? "";
+  if (passingPositionRaw !== "") {
+    const parsed = parsePassingPositionCorners(passingPositionRaw);
+    if (!parsed.ok) {
+      errors.push(parsed.error);
+    } else if (fieldSize === null) {
+      errors.push(
+        `passingPosition（値: "${passingPositionRaw}"）を指定する場合、同じ行にfieldSizeも必須です（通過順位の相対化に使うため）`,
+      );
+    } else if (Math.max(...parsed.cornerPositions) > fieldSize) {
+      errors.push(
+        `passingPosition（値: "${passingPositionRaw}"）にfieldSize(${fieldSize})を超える順位が含まれています`,
+      );
+    } else {
+      passingPosition = {
+        cornerPositions: parsed.cornerPositions,
+        fieldSize,
+        source: source ?? "unknown",
+        isReliable: true,
+      };
+    }
+  }
+
   if (errors.length > 0) {
     return {
       ok: false,
@@ -163,6 +218,7 @@ export function normalizeRacePerformance(row: Record<string, string>, rowIndex: 
       gate,
       horseNumber,
       fieldSize,
+      passingPosition,
       source,
       sourceRaceId,
       sourceHorseId,

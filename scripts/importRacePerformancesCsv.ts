@@ -159,19 +159,54 @@ if (replaceMode) {
   }
 } else {
   console.log("\nMerge / Upsert方式で取り込みます（既存の過去走は削除されません）。");
+
+  // CHECKPOINT14A.2 12節: dry-runでも全馬横断の集計（rows parsed/new race records/
+  // exact duplicates/enrichment candidates/enriched fields/conflicts/errors）を確認できるようにする
+  let totalAdded = 0;
+  let totalDuplicate = 0;
+  let totalEnrichedRecords = 0;
+  let totalEnrichedFields = 0;
+  let totalConflicts = 0;
+  const mergeResultsByHorseId: Record<string, ReturnType<typeof mergeHorseRaceHistory>> = {};
   for (const horseId of horseIds) {
     const filePath = path.join(HORSES_DIR, `${horseId}.json`);
     const existingRaces: RaceHistoryRawInput[] = fs.existsSync(filePath)
       ? JSON.parse(fs.readFileSync(filePath, "utf-8"))
       : [];
-    const incomingRaces = incomingByHorseId[horseId];
+    const mergeResult = mergeHorseRaceHistory(existingRaces, incomingByHorseId[horseId]);
+    mergeResultsByHorseId[horseId] = mergeResult;
+    totalAdded += mergeResult.addedRaceIds.length;
+    totalDuplicate += mergeResult.duplicateRaceIds.length;
+    totalEnrichedRecords += mergeResult.enriched.length;
+    totalEnrichedFields += mergeResult.enriched.reduce((sum, e) => sum + e.enrichedFields.length, 0);
+    totalConflicts += mergeResult.conflicts.length;
+  }
+  console.log("\n=== Dry Run Summary（全馬横断集計） ===");
+  console.log(`  rows parsed: ${result.totalRows}`);
+  console.log(`  new race records: ${totalAdded}`);
+  console.log(`  exact duplicates: ${totalDuplicate}`);
+  console.log(`  enrichment candidates（record数）: ${totalEnrichedRecords}`);
+  console.log(`  enriched fields（延べfield数）: ${totalEnrichedFields}`);
+  console.log(`  conflicts: ${totalConflicts}`);
+  console.log(`  errors: ${result.errorCount}`);
 
-    const mergeResult = mergeHorseRaceHistory(existingRaces, incomingRaces);
+  for (const horseId of horseIds) {
+    const filePath = path.join(HORSES_DIR, `${horseId}.json`);
+    const existingRaces: RaceHistoryRawInput[] = fs.existsSync(filePath)
+      ? JSON.parse(fs.readFileSync(filePath, "utf-8"))
+      : [];
+    const mergeResult = mergeResultsByHorseId[horseId];
 
     console.log(`\n${horseId}:`);
     console.log(`  既存: ${existingRaces.length}走 / 新規追加: ${mergeResult.addedRaceIds.length}走`);
     if (mergeResult.duplicateRaceIds.length > 0) {
       console.log(`  重複import（無視、実害なし）: ${mergeResult.duplicateRaceIds.join(", ")}`);
+    }
+    if (mergeResult.enriched.length > 0) {
+      console.log(`  enrichment候補（既存recordのoptional fieldをnull→populatedへ安全に補完）: ${mergeResult.enriched.length}件`);
+      for (const e of mergeResult.enriched) {
+        console.log(`    raceId=${e.raceId}: ${e.enrichedFields.join(", ")}`);
+      }
     }
     if (mergeResult.conflicts.length > 0) {
       hadConflict = true;
@@ -182,11 +217,11 @@ if (replaceMode) {
           console.log(`      ${diff.field}: 既存=${JSON.stringify(diff.existingValue)} / 新規=${JSON.stringify(diff.incomingValue)}`);
         }
       }
-      continue; // このhorseIdはconflictがあるため書き込まない（既存ファイルは無変更のまま）
+      continue; // このhorseIdはconflictがあるため書き込まない（既存ファイルは無変更のまま、enrichmentも含め一切適用しない）
     }
 
-    if (mergeResult.addedRaceIds.length === 0) {
-      console.log("  変更なし（新規raceは無く、書き込みをスキップします）");
+    if (mergeResult.addedRaceIds.length === 0 && mergeResult.enriched.length === 0) {
+      console.log("  変更なし（新規raceもenrichmentも無く、書き込みをスキップします）");
       continue;
     }
 

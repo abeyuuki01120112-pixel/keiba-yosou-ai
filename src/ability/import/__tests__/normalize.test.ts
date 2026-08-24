@@ -143,4 +143,67 @@ describe("normalizeRacePerformance", () => {
       expect(result.error.message.length).toBeGreaterThan(0);
     }
   });
+
+  describe("passingPosition（CHECKPOINT14A.2で追加）", () => {
+    it("空セルならnull（未提供、エラーにしない）", () => {
+      const result = normalizeRacePerformance(validRow({ passingPosition: "" }), 1);
+      expect(result.ok).toBe(true);
+      if (result.ok) expect(result.data.passingPosition).toBeNull();
+    });
+
+    it("正常な値（4コーナー分）を正しくパースする", () => {
+      const result = normalizeRacePerformance(validRow({ passingPosition: "3-4-4-3", fieldSize: "10" }), 1);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.data.passingPosition).toEqual({
+          cornerPositions: [3, 4, 4, 3],
+          fieldSize: 10,
+          source: "unknown", // CSVにsource列が無い場合のfallback（PassingPositionData.sourceは必須文字列のためnullにできない）
+          isReliable: true,
+        });
+      }
+    });
+
+    it("Test F: 2コーナーのみのコース分（要素数2）も、存在しないコーナーを補完せずそのまま保持する", () => {
+      const result = normalizeRacePerformance(validRow({ passingPosition: "8-7", fieldSize: "8" }), 1);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.data.passingPosition?.cornerPositions).toEqual([8, 7]);
+      }
+    });
+
+    it("source列があれば、passingPosition.sourceにそのまま引き継がれる", () => {
+      const result = normalizeRacePerformance(
+        validRow({ passingPosition: "3-4-4-3", fieldSize: "10", source: "test_dataset" }),
+        1,
+      );
+      expect(result.ok).toBe(true);
+      if (result.ok) expect(result.data.passingPosition?.source).toBe("test_dataset");
+    });
+
+    it("Test E: malformed（非数値混入）はrejectされる", () => {
+      const result = normalizeRacePerformance(validRow({ passingPosition: "3-x-4-3", fieldSize: "10" }), 1);
+      expect(result.ok).toBe(false);
+    });
+
+    it("malformed（区切り文字が違う）はrejectされる", () => {
+      const result = normalizeRacePerformance(validRow({ passingPosition: "3,4,4,3", fieldSize: "10" }), 1);
+      expect(result.ok).toBe(false);
+    });
+
+    it("malformed（0や負の順位）はrejectされる", () => {
+      const result = normalizeRacePerformance(validRow({ passingPosition: "0-4-4-3", fieldSize: "10" }), 1);
+      expect(result.ok).toBe(false);
+    });
+
+    it("fieldSize列が無い行でpassingPositionだけ指定するとrejectされる（fieldSizeを推測で補完しない）", () => {
+      const result = normalizeRacePerformance(validRow({ passingPosition: "3-4-4-3", fieldSize: "" }), 1);
+      expect(result.ok).toBe(false);
+    });
+
+    it("passingPositionの値がfieldSizeを超える場合はrejectされる", () => {
+      const result = normalizeRacePerformance(validRow({ passingPosition: "3-4-4-3", fieldSize: "3" }), 1);
+      expect(result.ok).toBe(false);
+    });
+  });
 });

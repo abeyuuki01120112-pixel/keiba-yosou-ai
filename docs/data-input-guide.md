@@ -186,7 +186,13 @@ raceHistoryPipeline.buildRaceHistory()（変更なし。既存のロジックを
 （競走中止・タイム不明などで空欄にしてよい。**空欄はnullとして扱われ、0として計算されることはない**。
 これらのうち1つでもnullだと、その行は能力計算の対象から安全に除外される）。
 
-**参考列（保持のみ、計算には使わない）**: `raceNumber, gate, horseNumber, fieldSize`
+**参考列（保持のみ、計算には使わない）**: `raceNumber, gate, horseNumber, fieldSize, passingPosition`
+
+`passingPosition`（CHECKPOINT14A.2で追加）は通過順位（コーナー通過順）を`"-"`区切りで
+指定する（例: `"3-4-4-3"`。2コーナーしかないコースなら`"8-7"`のように、存在しないコーナーを
+埋めずそのまま記録された数だけ書く）。指定する場合は同じ行に`fieldSize`も必須
+（`PassingPositionData.fieldSize`が必須項目のため）。空欄なら未提供として扱われ、
+エラーにはならない。
 
 サンプルとして、実際に使われている1レース分（東京特別戦、5頭）を
 `src/ability/data/import/race-performances.csv` に置いています。
@@ -208,8 +214,15 @@ npm run validate:data
 npm test
 ```
 
-`import:csv` は対象horseIdのファイルを**まるごと置き換える**（自動マージはしない）。
-既存の過去走を残したまま追加したい場合は、CSVに既存分の行も含めてから実行すること。
+`import:csv` は既定でMerge/Upsert方式（CHECKPOINT13.2）。既存の過去走は削除されず、
+CSVに含まれる新しいraceIdだけが追加される。既存と完全に同じ内容のraceId（重複import）は
+無視され、既存と異なる内容の同一raceId（値の食い違い）はconflictとして報告され、
+自動採用されない（該当馬のファイル全体の書き込みをスキップし、既存値を維持する）。
+ただし`fieldSize`・`passingPosition`（enrichment field）に限り、既存値がnull・
+新規値が入力されている場合は安全に補完される（Non-destructive Enrichment Merge、
+CHECKPOINT14A.2）。core field（raceTime・finishPosition・carriedWeight等）は
+この補完の対象外で、従来通りconflict扱いのまま。まるごと置き換えたい場合のみ
+`--replace`（破壊的操作、通常運用では使わない）を付ける。
 
 ### horseIdの差し替え（外部IDと内部ロスターの接続）
 

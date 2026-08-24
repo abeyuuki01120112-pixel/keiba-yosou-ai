@@ -22,6 +22,7 @@ function perf(raceId: string, horseId: string, raceDate: string): RacePerformanc
     gate: null,
     horseNumber: null,
     fieldSize: null,
+    passingPosition: null,
   };
 }
 

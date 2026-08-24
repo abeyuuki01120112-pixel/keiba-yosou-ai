@@ -67,6 +67,8 @@ export function toRaceHistoryRawInput(input: RacePerformanceInput): RaceHistoryR
     gate: input.gate,
     horseNumber: input.horseNumber,
     fieldSize: input.fieldSize,
+    // 通過順位（CHECKPOINT14A.2で追加）。能力計算（raceScore/memberLevel等）には使わない。
+    passingPosition: input.passingPosition,
     // データ出所・監査用メタデータ（CHECKPOINT13.2）。能力計算には使わない。
     source: input.source,
     sourceRaceId: input.sourceRaceId,

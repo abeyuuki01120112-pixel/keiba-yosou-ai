@@ -8,7 +8,7 @@
  * 馬名・レース名ではなく raceId / horseId をキーにする（同名馬・同名レースでも壊れない）。
  */
 
-import type { Surface } from "../types";
+import type { PassingPositionData, Surface } from "../types";
 
 /**
  * CSV等から正規化された、1走ぶんの検証済み中間データ。
@@ -48,6 +48,13 @@ export interface RacePerformanceInput {
   horseNumber: number | null;
   /** 出走頭数。無ければnull */
   fieldSize: number | null;
+  /**
+   * 通過順位（コーナー通過順）データ（CHECKPOINT14A.2で追加）。無ければnull。
+   * CSVのpassingPosition列（例: "3-4-4-3"）をnormalize.tsでパース・検証した結果。
+   * fieldSizeが無い行でpassingPositionだけ指定された場合はエラーとして弾く
+   * （PassingPositionData.fieldSizeが必須のため、CSVのfieldSize列を流用する）。
+   */
+  passingPosition: PassingPositionData | null;
 
   /**
    * データ出所・監査用メタデータ（CHECKPOINT13.2で追加）。ability計算には使わない。
