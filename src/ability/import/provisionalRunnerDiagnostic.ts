@@ -30,8 +30,10 @@
 import { buildHorseSnapshotEntry, GOING_UNKNOWN_SENTINEL } from "../predictionSnapshot";
 import type { HorseSnapshotEntry, RaceEntryInput, SnapshotRaceTarget } from "../predictionSnapshot";
 import { RECENT_RACE_COUNT } from "../baseAbility";
+import { getAllCanonicalHorseIds, getHorseRecentRaces } from "../horseAbilityData";
 import {
   buildCanonicalHorseRegistry,
+  buildSourceHorseIdRegistry,
   toCanonicalHorseNameEntries,
   type CanonicalHorseRegistryEntry,
 } from "./canonicalHorseRegistry";
@@ -88,7 +90,13 @@ export interface ProvisionalDiagnosticResult {
 }
 
 export interface RunProvisionalDiagnosticOptions {
-  /** 今回はまだ実データが無い前提（STEP6/8）。架空mappingを作らないよう明示的に渡す */
+  /**
+   * sourceHorseId → canonicalHorseId 対応表。省略時はdata/horses/の実データ
+   * （各馬の走に記録された実際のsourceHorseId）から自動構築する
+   * （CHECKPOINT13.4D、buildSourceHorseIdRegistry参照。手作業のハードコードは行わない）。
+   * 明示的に空オブジェクト{}を渡せば、CHECKPOINT13.2/13.3までの「実データが無ければ
+   * Priority 2を発火させない」挙動を再現できる（テスト用）。
+   */
   sourceHorseIdRegistry?: Record<string, string>;
   /** 診断基準時刻（省略時は現在時刻）。future leakage防止のcutoffとして使う */
   diagnosticAt?: string;
@@ -112,9 +120,12 @@ export function runProvisionalDiagnostic(
   const resolverContext: RunnerResolverContext = {
     canonicalHorseIds: new Set(registry.map((e) => e.horseId)),
     canonicalHorseNames: toCanonicalHorseNameEntries(registry),
-    // STEP6/8: sourceHorseIdからcanonicalHorseIdを勝手に推測しない。
-    // 実データの対応表が無ければ常に空のまま（Priority 2は発火しない）。
-    sourceHorseIdRegistry: options.sourceHorseIdRegistry ?? {},
+    // CHECKPOINT13.4D: sourceHorseIdからcanonicalHorseIdを勝手に「推測」はしないが、
+    // data/horses/の実データに実際に記録されているsourceHorseId（CSV取り込み時の
+    // 実際の値）は、既に確定した事実として対応表に自動登録する（buildSourceHorseIdRegistry
+    // 参照。走ごとに値が食い違う馬・記録が無い馬は登録しない＝安全側）。
+    sourceHorseIdRegistry:
+      options.sourceHorseIdRegistry ?? buildSourceHorseIdRegistry(getAllCanonicalHorseIds(), getHorseRecentRaces),
   };
 
   const { results: resolverResults } = resolveRunners(

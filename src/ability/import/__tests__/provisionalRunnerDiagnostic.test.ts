@@ -8,6 +8,8 @@ import {
   type ProvisionalRaceTarget,
   type ProvisionalRegisteredRunner,
 } from "../provisionalRunnerDiagnostic";
+import { getHorseRecentRaces } from "../../horseAbilityData";
+import { calculateBaseAbility } from "../../baseAbility";
 
 const NIIGATA_TARGET: ProvisionalRaceTarget = {
   raceLabel: "Niigata Kinen 2026",
@@ -52,12 +54,24 @@ describe("CHECKPOINT13.3 Test1: 11頭をProvisional Race Cardとして読み込�
     expect(result.summary.totalRunners).toBe(11);
   });
 
-  it("現在のcanonicalデータでは11頭全てがunresolvedになる（実際の登録馬が未登録のため、正直な結果）", () => {
+  it("CHECKPOINT13.4Dの34行復元+sourceHorseId自動registryにより、11頭全てがresolvedになる", () => {
     const fixture = loadFixture();
     const result = runProvisionalDiagnostic(fixture.runners, NIIGATA_TARGET);
+    expect(result.summary.resolved).toBe(11);
+    expect(result.summary.unresolved).toBe(0);
+    expect(result.summary.ambiguous).toBe(0);
+    // memberLevelUnavailable/insufficientRecentHistoryが残る馬がいるため
+    // predictionEligibleは11頭全てではない（正直な結果。無理に全員eligibleにしない）。
+    expect(result.summary.predictionEligible).toBeGreaterThan(0);
+    expect(result.summary.predictionEligible).toBeLessThan(11);
+  });
+
+  it("実データが無ければPriority 2は発火しない（sourceHorseIdRegistryを明示的に空にした場合の後方互換確認）", () => {
+    const fixture = loadFixture();
+    const result = runProvisionalDiagnostic(fixture.runners, NIIGATA_TARGET, { sourceHorseIdRegistry: {} });
+    // registryを明示的に空にしても、Priority 3（ロースター名索引）に該当馬名は無いため未resolve
     expect(result.summary.unresolved).toBe(11);
     expect(result.summary.resolved).toBe(0);
-    expect(result.summary.predictionEligible).toBe(0);
   });
 });
 
@@ -146,41 +160,44 @@ describe("CHECKPOINT13.3 Test6: 部分データraceScore計算をしない", () 
 });
 
 describe("CHECKPOINT13.3 Test7: Base Ability diagnosticは全体data/horses経路を使用", () => {
-  it("シェイクユアハートのbaseAbility(diagnostic)=70.3が正式経路で再現される", () => {
+  it("シェイクユアハートのbaseAbility(diagnostic)が正式経路（getHorseRecentRaces）と一致する（CHECKPOINT13.4Dで70.3固定assertionから変更。理由はdatasetVersion.ts参照）", () => {
     const result = runProvisionalDiagnostic(
       [{ horseName: "シェイクユアハート", sourceHorseId: "dummy" }],
       NIIGATA_TARGET,
     );
     expect(result.runners[0].baseAbilityAvailable).toBe(true);
-    expect(result.runners[0].baseAbility).toBe(70.3);
+    expect(result.runners[0].baseAbility).toBe(calculateBaseAbility(getHorseRecentRaces("shakeyourheart")));
   });
 });
 
 describe("CHECKPOINT13.3 Test8: Missing Data Reportを馬単位で生成", () => {
-  it("formatProvisionalDiagnosticReportが馬ごとの不足理由を含むテキストを出力する", () => {
+  it("formatProvisionalDiagnosticReportが馬ごとの不足理由を含むテキストを出力する（CHECKPOINT13.4Dで11/11 resolvedに更新）", () => {
     const fixture = loadFixture();
     const result = runProvisionalDiagnostic(fixture.runners, NIIGATA_TARGET);
     const text = formatProvisionalDiagnosticReport(result);
     expect(text).toContain("Niigata Kinen 2026");
     expect(text).toContain("Status: PROVISIONAL");
     expect(text).toContain("Resolved:");
-    expect(text).toContain("0 / 11");
+    expect(text).toContain("11 / 11");
     expect(text).toContain("アーバンシック");
-    expect(text).toContain("canonical horse not found");
+    // resolveできた馬の不足理由はmemberLevelUnavailable等であり、
+    // 「canonical horse not found」はもう出ない（全馬resolved）
+    expect(text).not.toContain("canonical horse not found");
   });
 });
 
 describe("CHECKPOINT13.3 Test9: 必要ならDATA REQUEST MANIFESTを生成", () => {
-  it("predictionEligible=falseの馬全員についてmanifestエントリが生成される", () => {
+  it("predictionEligible=falseの馬（CHECKPOINT13.4D時点で4頭）についてmanifestエントリが生成される", () => {
     const fixture = loadFixture();
     const result = runProvisionalDiagnostic(fixture.runners, NIIGATA_TARGET);
     const manifest = buildDataRequestManifest(result);
-    expect(manifest).toHaveLength(11);
-    expect(manifest[0].horseName).toBe("アーバンシック");
-    expect(manifest[0].sourceHorseId).toBe("2021105436");
-    expect(manifest[0].requiredFields.length).toBeGreaterThan(0);
-    // 実在しないraceId/raceDateを捏造していない（要求内容の説明文のみ）
-    expect(manifest[0].requiredRaces.some((r) => r.includes("推測不可"))).toBe(true);
+    expect(manifest.length).toBe(result.summary.totalRunners - result.summary.predictionEligible);
+    expect(manifest.length).toBeGreaterThan(0);
+    for (const entry of manifest) {
+      expect(entry.requiredFields.length).toBeGreaterThan(0);
+      // 実在しないraceId/raceDateを捏造していない（要求内容の説明文のみ）
+      expect(entry.requiredRaces.some((r) => r.includes("推測不可"))).toBe(true);
+    }
   });
 
   it("predictionEligible=trueの馬はmanifestに含まれない", () => {

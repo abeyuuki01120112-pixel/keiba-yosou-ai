@@ -23,6 +23,7 @@ import rawRaceFieldAggregates from "./data/raceFieldAggregates.json";
 import { loadDefaultHorses } from "../simulation/horseData";
 import { buildHorseAbilityProfile } from "./buildHorseAbilityProfile";
 import { buildRaceHistory, type RaceHistoryRawInput } from "./raceHistoryPipeline";
+import { computeDatasetVersionInfo, type DatasetVersionInfo } from "./datasetVersion";
 import type {
   CourseFinal3FBaseline,
   CourseTimeBaseline,
@@ -97,4 +98,14 @@ export function getHorseRecentRaces(horseId: string): RacePerformance[] {
  */
 export function getAllCanonicalHorseIds(): string[] {
   return Object.keys(historyByHorseId);
+}
+
+/**
+ * 現在のdata/horses全体のmodelVersion/datasetFingerprintを返す（CHECKPOINT13.4Dで追加）。
+ * Model Freeze（BA-V1の数式）とDataset Freeze（特定時点のdata/horsesスナップショット）を
+ * 分離して追跡するための最小実装。Production Base Abilityの値を報告する際、
+ * どのモデル・どのデータセットから算出されたかを明示するために使う。
+ */
+export function getProductionDatasetVersionInfo(): DatasetVersionInfo {
+  return computeDatasetVersionInfo(typedRawData);
 }

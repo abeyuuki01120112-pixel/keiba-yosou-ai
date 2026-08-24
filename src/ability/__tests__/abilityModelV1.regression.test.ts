@@ -1,52 +1,42 @@
 /**
- * Ability Model V1 回帰検知テスト（CHECKPOINT 5・2026-08-22で正式追加）。
+ * Ability Model V1 回帰検知テスト（CHECKPOINT 5・2026-08-22で正式追加。
+ * CHECKPOINT13.4Dで Model Freeze / Dataset Freeze を分離）。
  * 仕様は docs/ability-model-v1.md 参照。
  *
- * 目的: baseAbility V1の計算式・入力データが意図せず変更された場合に検知すること。
- * 以下の期待値（70.3等）は「正しい能力値」を保証するためのものではなく、現在確定している
- * V1仕様＋現在のrepoデータ（src/ability/data/horses/*.json）から実際に算出された値を
- * ゴールデンマスターとして固定したものである。
+ * 目的: baseAbility V1の計算式が意図せず変更された場合に検知すること。
  *
- * このテストが失敗した場合、まず「Ability Model V1の式（raceScore.ts・baseAbility.ts・
- * abilityBeforeRace.ts・memberLevelCandidates.ts等）を変更していないか」
- * 「対象馬・関連馬のdata/horses/*.jsonを変更していないか」を確認すること。
- * 意図した変更であれば、期待値とdocs/ability-model-v1.mdのバージョン情報を明示的に更新してよい。
- * 式そのものを変更する場合はV1を黙って書き換えず、Ability Model V2として切り出すこと
- * （docs/ability-model-v1.md「凍結ルール」参照）。
+ * 「70.3」という特定の値に対する固定assertion（Dataset Freeze）は
+ * `abilityModelV1.frozenBenchmark.test.ts`（CP12.6時点のdata/horses全体を凍結した
+ * 専用fixtureを使用、本番data/horsesに一切依存しない）へ分離した。
+ *
+ * 本ファイルは「Production Dataset」（本番data/horses、実データImportのたびに
+ * 増減する）を対象とする。CHECKPOINT13.4Cで判明した通り、Base Ability V1の数式が
+ * 完全に無変更でも、本番datasetの内容が変わればbaseAbilityの値は変わりうる
+ * （memberLevel V1の候補プールがdata/horses全体から動的に構築されるため）。
+ * したがって本ファイルは特定の数値に対する固定assertionを行わない。
+ * 数式そのものの回帰検知は下部の決定性テスト、および frozenBenchmark.test.ts で行う。
  */
 import { describe, expect, it } from "vitest";
-import { loadHorseAbilityProfile } from "../horseAbilityData";
+import { getProductionDatasetVersionInfo, loadHorseAbilityProfile } from "../horseAbilityData";
 import { buildRaceHistory, type RaceHistoryRawInput } from "../raceHistoryPipeline";
+import { MODEL_VERSION } from "../datasetVersion";
 
-describe("Ability Model V1 回帰検知: シェイクユアハート基準馬", () => {
-  it("baseAbility V1が現在確定している値から変化しない", () => {
+describe("Ability Model V1 Production Dataset: シェイクユアハート基準馬（非固定値・情報提供のみ）", () => {
+  it("baseAbilityは算出可能であり、modelVersion/datasetFingerprintと共に追跡できる（70.3固定assertionはしない）", () => {
     const profile = loadHorseAbilityProfile("shakeyourheart");
     expect(profile).toBeDefined();
-    expect(profile!.baseAbility).toBeCloseTo(70.3, 1);
-  });
+    expect(typeof profile!.baseAbility).toBe("number");
 
-  it("直近5走それぞれのraceScore/memberLevelScoreAtRaceが現在確定している値から変化しない", () => {
-    const profile = loadHorseAbilityProfile("shakeyourheart");
-    expect(profile).toBeDefined();
-    const byRaceId = new Map(profile!.recentRaces.map((r) => [r.raceId, r]));
+    const versionInfo = getProductionDatasetVersionInfo();
+    expect(versionInfo.modelVersion).toBe(MODEL_VERSION);
+    expect(versionInfo.datasetFingerprint.length).toBeGreaterThan(0);
 
-    const expected: Record<string, { raceName: string; raceScore: number; memberLevelScoreAtRace: number }> = {
-      "JRA-20260614-HANSHIN-11": { raceName: "宝塚記念", raceScore: 62.6, memberLevelScoreAtRace: 74.4 },
-      "JRA-20260315-CHUKYO-11": { raceName: "金鯱賞", raceScore: 74.6, memberLevelScoreAtRace: 69.5 },
-      "JRA-20260215-KYOTO-11": { raceName: "京都記念", raceScore: 67.8, memberLevelScoreAtRace: 66.7 },
-      "JRA-20251213-CHUKYO-11": { raceName: "中日新聞杯", raceScore: 75.8, memberLevelScoreAtRace: 65.3 },
-      "JRA-20251115-KYOTO-10": { raceName: "アンドロメダステークス", raceScore: 70.6, memberLevelScoreAtRace: 66.6 },
-    };
-
-    for (const [raceId, exp] of Object.entries(expected)) {
-      const race = byRaceId.get(raceId);
-      expect(race, `raceId=${raceId}(${exp.raceName})が見つかりません`).toBeDefined();
-      expect(race!.raceScore, `${exp.raceName}のraceScore`).toBeCloseTo(exp.raceScore, 1);
-      expect(race!.memberLevelScoreAtRace, `${exp.raceName}のmemberLevelScoreAtRace`).toBeCloseTo(
-        exp.memberLevelScoreAtRace,
-        1,
-      );
-    }
+    // eslint-disable-next-line no-console
+    console.log(
+      `[Production Base Ability] shakeyourheart=${profile!.baseAbility} ` +
+        `modelVersion=${versionInfo.modelVersion} datasetFingerprint=${versionInfo.datasetFingerprint} ` +
+        `horseCount=${versionInfo.horseCount} totalRaceCount=${versionInfo.totalRaceCount} maxRaceDate=${versionInfo.maxRaceDate}`,
+    );
   });
 });
 

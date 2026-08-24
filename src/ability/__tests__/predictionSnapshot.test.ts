@@ -11,6 +11,7 @@ import {
   type SnapshotRaceTarget,
 } from "../predictionSnapshot";
 import { getHorseRecentRaces } from "../horseAbilityData";
+import { calculateBaseAbility } from "../baseAbility";
 
 const SHAKE_ID = "shakeyourheart";
 const CUTOFF_AFTER_ALL_HER_RACES = "2026-08-24T00:00:00Z";
@@ -39,7 +40,7 @@ const HANSHIN_TARGET: SnapshotRaceTarget = {
 };
 
 describe("CHECKPOINT13 STEP13 A: 正式な全体データ経路からBase Abilityが計算されること", () => {
-  it("シェイクユアハートのbaseAbility=70.3が、Snapshot経由でも正式経路から再現される", () => {
+  it("シェイクユアハートのbaseAbilityが、Snapshot経由でも正式経路（getHorseRecentRaces）と一致する（CHECKPOINT13.4Dで70.3固定assertionから変更。理由はdatasetVersion.ts参照）", () => {
     const result = buildHorseSnapshotEntry(
       entry(),
       HANSHIN_TARGET,
@@ -47,7 +48,8 @@ describe("CHECKPOINT13 STEP13 A: 正式な全体データ経路からBase Abilit
       CUTOFF_AFTER_ALL_HER_RACES,
       1,
     );
-    expect(result.baseAbility).toBe(70.3);
+    const expected = calculateBaseAbility(getHorseRecentRaces(SHAKE_ID));
+    expect(result.baseAbility).toBe(expected);
   });
 });
 
@@ -76,8 +78,7 @@ describe("CHECKPOINT13 STEP13 B: 対象レース出走馬だけの部分デー�
     const aloneShake = aloneResult.runners.find((r) => r.horseId === SHAKE_ID)!;
     const crowdedShake = crowdedResult.runners.find((r) => r.horseId === SHAKE_ID)!;
 
-    expect(aloneShake.baseAbility).toBe(70.3);
-    expect(crowdedShake.baseAbility).toBe(70.3);
+    expect(aloneShake.baseAbility).not.toBeNull();
     expect(aloneShake.baseAbility).toBe(crowdedShake.baseAbility);
     expect(aloneShake.suitability?.overallSuitabilityPercent).toBe(crowdedShake.suitability?.overallSuitabilityPercent);
     expect(aloneShake.effectiveAbility).toBe(crowdedShake.effectiveAbility);
@@ -284,7 +285,7 @@ describe("CHECKPOINT13 STEP13 I: data completeness不足・比較母集団不足
 
 describe("future leakage防止（CHECKPOINT13 STEP6）", () => {
   it("predictionCutoffAtより後の日付の過去走は使われない", () => {
-    // シェイクユアハートの最新走(2026-06-14)より前をcutoffにすると、baseAbilityは70.3から変わる
+    // シェイクユアハートの最新走(2026-06-14)より前をcutoffにすると、baseAbilityが変わる
     const earlyCutoffResult = buildHorseSnapshotEntry(
       entry(),
       HANSHIN_TARGET,
@@ -299,7 +300,7 @@ describe("future leakage防止（CHECKPOINT13 STEP6）", () => {
       CUTOFF_AFTER_ALL_HER_RACES,
       1,
     );
-    expect(fullCutoffResult.baseAbility).toBe(70.3);
+    expect(fullCutoffResult.baseAbility).not.toBeNull();
     expect(earlyCutoffResult.baseAbility).not.toBe(fullCutoffResult.baseAbility);
   });
 });
@@ -361,16 +362,24 @@ describe("CHECKPOINT13.2 Test8: placeholder/fixtureが正式Prediction用デー�
 
   it("実データ馬（シェイクユアハート）はdataKind未設定でも従来どおりreal扱いされる（後方互換）", () => {
     const result = buildHorseSnapshotEntry(entry(), HANSHIN_TARGET, { evaluated: false }, CUTOFF_AFTER_ALL_HER_RACES, 1);
-    expect(result.baseAbility).toBe(70.3);
+    expect(result.baseAbility).not.toBeNull();
     expect(result.completenessFlags).not.toContain("placeholderDataExcluded");
   });
 });
 
 describe("CHECKPOINT13.2 Test9: Data Completeness Reportで新規warningが取得可能", () => {
-  // 実データ馬2022105102は過去走3走のみ（RECENT_RACE_COUNT=5未満）、
-  // かつ最も古い1走はmemberLevelBreakdownがnull（当時の候補馬データ不足）。
+  // 実データ馬2016102229は過去走1走のみ（RECENT_RACE_COUNT=5未満）、
+  // かつその1走はmemberLevelBreakdownがnull（当時の候補馬データ不足）。
   // insufficientRecentHistory・memberLevelUnavailable両方を実データで再現できる。
-  const SPARSE_HORSE_ID = "2022105102";
+  //
+  // 【CHECKPOINT13.4Cで判明・注記】以前ここでは"2022105102"を使っていたが、
+  // 実データImport（CHECKPOINT13.4D）でこの馬自身の対戦相手データが充実し、
+  // 該当走のmemberLevelBreakdownがnullでなくなった（fallbackが解消された）ため、
+  // 本テストの前提が崩れて陳腐化した。これはbaseAbility 70.3→70.9ドリフトと
+  // 同根の現象（本番datasetが増えるとfallback発生条件も変わりうる）であり、
+  // 数式のバグではない。将来また同様の陳腐化が起きうる前提で、このIDは
+  // 「現時点でこの条件を満たす実データ馬」であることを理解して使うこと。
+  const SPARSE_HORSE_ID = "2016102229";
 
   it("insufficientRecentHistory: 直近5走に満たない馬でcompletenessFlagsに含まれる", () => {
     expect(getHorseRecentRaces(SPARSE_HORSE_ID).length).toBeLessThan(5);
@@ -433,7 +442,7 @@ describe("CHECKPOINT13.2 STEP17: Runner Resolver → RaceEntryInput → Snapshot
       generatedAt: CUTOFF_AFTER_ALL_HER_RACES,
     });
     expect(snapshot.runners).toHaveLength(1);
-    expect(snapshot.runners[0].baseAbility).toBe(70.3);
+    expect(snapshot.runners[0].baseAbility).toBe(calculateBaseAbility(getHorseRecentRaces(SHAKE_ID)));
   });
 });
 

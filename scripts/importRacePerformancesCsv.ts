@@ -25,10 +25,18 @@
  * （実際、raceCardCheck.tsはこのファイルを一切importしていない＝呼び出しようがない）。
  * 実行時には警告banner付きでその旨を表示する。
  *
- * horseIdの差し替え: CSVのhorseIdがJRA公式IDなど、既存ロスター
- * （src/simulation/data/sapporoKinen.json）の内部horseIdと異なっていても、
- * 馬名が一致すればロスター側のhorseIdへ自動的に差し替えてから書き込む
- * （予想ロジックには影響しない。詳細は src/ability/import/horseIdAliases.ts）。
+ * horseIdの差し替え（CHECKPOINT13.4Dで挙動変更・オプトイン化）:
+ * CSVのhorseIdがJRA公式IDなど、既存ロスター（src/simulation/data/sapporoKinen.json）の
+ * 内部horseIdと異なっていても、馬名が一致すればロスター側のhorseIdへ差し替える機能が
+ * ある（詳細は src/ability/import/horseIdAliases.ts）。
+ *
+ * 【重要・CHECKPOINT13.4C/13.4Dで修正】これは元々「ロースター上の対象馬自身の
+ * 過去走CSV（外部ID体系）を、既存プロフィールへ接続する」ための機構であり、
+ * デフォルトでは適用しない。--alias-roster-names を明示的に付けた場合のみ有効になる。
+ * 通常のCSV取り込み（対戦馬データ等、対象レースの実際の出走馬データ）では、
+ * horseNameが偶然ロースターの馬名と一致するだけで、無関係な対戦馬のデータが
+ * ロースターの（架空のことがある）canonical horseIdへ誤って混入するのを防ぐため。
+ * CSVのhorseId列は、それ自体が既にcanonical horseIdとして安全に使える前提とする。
  */
 
 import fs from "node:fs";
@@ -48,6 +56,9 @@ const HORSES_DIR = path.join(ROOT, "src/ability/data/horses");
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
 const replaceMode = args.includes("--replace");
+// CHECKPOINT13.4D: ロースター馬名エイリアスはデフォルトOFF。
+// 対象馬自身の外部ID体系CSVを既存プロフィールへ接続する場合のみ明示的に付ける。
+const aliasRosterNames = args.includes("--alias-roster-names");
 const inputArg = args.find((a) => !a.startsWith("--"));
 const inputPath = inputArg ? path.resolve(process.cwd(), inputArg) : DEFAULT_INPUT;
 const importedAt = new Date().toISOString();
@@ -74,7 +85,13 @@ if (replaceMode) {
 }
 
 const csvText = fs.readFileSync(inputPath, "utf-8");
-const horseIdAliasesByName = buildHorseIdAliasesByName(rawSapporoKinen.horses);
+const horseIdAliasesByName = aliasRosterNames ? buildHorseIdAliasesByName(rawSapporoKinen.horses) : {};
+if (aliasRosterNames) {
+  console.log(
+    "\n--alias-roster-names が指定されたため、CSVのhorseNameがロースター16頭のいずれかと一致する行は、\n" +
+      "そのロースターのcanonical horseIdへ差し替えて取り込みます（対象馬自身のCSVを接続する場合のみ使用）。\n",
+  );
+}
 const result = buildImportResult(csvText, { horseIdAliasesByName });
 
 console.log(`入力: ${path.relative(ROOT, inputPath)}`);

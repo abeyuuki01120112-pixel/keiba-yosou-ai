@@ -78,3 +78,38 @@ export function toCanonicalHorseNameEntries(registry: CanonicalHorseRegistryEntr
     .filter((entry): entry is CanonicalHorseRegistryEntry & { horseName: string } => entry.horseName !== null)
     .map((entry) => ({ horseId: entry.horseId, horseName: entry.horseName }));
 }
+
+/**
+ * sourceHorseId → canonicalHorseId のRunner Resolver用registryを、
+ * data/horses/の実データから自動構築する（CHECKPOINT13.4D、Runner ResolverのID-first対応）。
+ *
+ * 手作業でのハードコードを第一選択にしないための実装。各horseIdについて、
+ * その馬の全走（getHorseRecentRaces）が持つsourceHorseId値を集計し、
+ * 「1種類のsourceHorseIdだけが一貫して記録されている」場合のみ、その
+ * sourceHorseId → horseId を対応表に登録する（sourceHorseIdが1件も無い馬、
+ * または走ごとに値が食い違う馬は「推測しない」原則により登録しない）。
+ *
+ * 新潟記念11頭のように、CSV取り込み時に horseId===sourceHorseId となる
+ * データ（CHECKPOINT13.4A契約）では、この関数だけで実質的に恒等写像が
+ * 自動生成される。手作業のmanual mappingは行わない。
+ */
+export function buildSourceHorseIdRegistry(
+  horseIds: string[],
+  getRaces: (horseId: string) => { sourceHorseId?: string | null }[],
+): Record<string, string> {
+  const registry: Record<string, string> = {};
+  for (const horseId of horseIds) {
+    const sourceIds = new Set(
+      getRaces(horseId)
+        .map((r) => r.sourceHorseId)
+        .filter((id): id is string => !!id),
+    );
+    if (sourceIds.size === 1) {
+      const [sourceHorseId] = sourceIds;
+      registry[sourceHorseId] = horseId;
+    }
+    // sourceIds.size === 0（sourceHorseId未記録）や2以上（走ごとに食い違う）の場合は
+    // 推測せず登録しない。
+  }
+  return registry;
+}

@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { runRaceCardBridge, formatRaceCardBridgeReport } from "../raceCardBridge";
 import { buildAbilityBoard } from "../../predictionSnapshot";
+import { getHorseRecentRaces } from "../../horseAbilityData";
+import { calculateBaseAbility } from "../../baseAbility";
 import type { RaceCardInput } from "../raceCardTypes";
 import type { CanonicalHorseRegistryEntry } from "../canonicalHorseRegistry";
 import fs from "node:fs";
@@ -113,18 +115,19 @@ describe("CHECKPOINT13.2B Test9: 不足馬があるRace Cardで正式Stage Aと�
 });
 
 describe("CHECKPOINT13.2B Test10: complete fixtureでRace Card→Resolver→RaceEntryInput→Stage A→Ability Boardまで接続できる", () => {
-  it("resolved・predictionEligibleな馬について、baseAbility=70.3（正式経路）がAbility Boardまで伝播する", () => {
+  it("resolved・predictionEligibleな馬について、baseAbility（正式経路）がAbility Boardまで伝播する（CHECKPOINT13.4Dで70.3固定assertionから変更。理由はdatasetVersion.ts参照）", () => {
     const card = raceCard({
       runners: [{ horseId: "shakeyourheart", horseName: "シェイクユアハート", frame: 5, horseNumber: 9, scratched: false }],
     });
     const result = runRaceCardBridge(card);
+    const expected = calculateBaseAbility(getHorseRecentRaces("shakeyourheart"));
 
     expect(result.diagnosticSnapshot.stage).toBe("gateConfirmed");
-    expect(result.diagnosticSnapshot.runners[0].baseAbility).toBe(70.3);
+    expect(result.diagnosticSnapshot.runners[0].baseAbility).toBe(expected);
 
     const board = buildAbilityBoard(result.diagnosticSnapshot);
     expect(board).toHaveLength(1);
-    expect(board[0].baseAbility).toBe(70.3);
+    expect(board[0].baseAbility).toBe(expected);
     expect(board[0].rankByBaseAbility).toBe(1);
   });
 
