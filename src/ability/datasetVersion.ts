@@ -53,7 +53,12 @@ export function computeDatasetVersionInfo(rawByHorseId: Record<string, RaceHisto
   };
 }
 
-function fnv1a(input: string): string {
+/**
+ * FNV-1aによる決定的な簡易チェックサム（暗号学的ハッシュではない）。
+ * datasetFingerprintと同じ実装を、CHECKPOINT13.5BのRace Card fingerprintでも
+ * 再利用するためexportする（計算内容自体は無変更）。
+ */
+export function fnv1a(input: string): string {
   let hash = 0x811c9dc5;
   for (let i = 0; i < input.length; i++) {
     hash ^= input.charCodeAt(i);
