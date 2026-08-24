@@ -28,6 +28,7 @@ import type {
   CourseTimeBaseline,
   HorseAbilityProfile,
   RaceFieldAggregate,
+  RacePerformance,
 } from "./types";
 
 type RawData = Record<string, RaceHistoryRawInput[]>;
@@ -73,4 +74,18 @@ export function loadAllHorseAbilityProfiles(): HorseAbilityProfile[] {
     const recentRaces = historyByHorseId[h.horseId] ?? [];
     return buildHorseAbilityProfile(h.horseId, h.horseName, recentRaces);
   });
+}
+
+/**
+ * horseId単体の確定済みRacePerformance[]（新しい順）を返す（CHECKPOINT13で追加）。
+ *
+ * loadHorseAbilityProfile()と異なり、loadDefaultHorses()（simulation/data/sapporoKinen.json）
+ * への登録有無を問わない。data/horses/にJSONファイルさえあれば、どのhorseIdでも
+ * このモジュール読み込み時に一度だけ計算済みのhistoryByHorseId（data/horses/全体を
+ * 投入したbuildRaceHistory()の結果、CHECKPOINT12.5/12.6で安全性を確認済みの正式経路）
+ * から参照するだけであり、この関数自体がbuildRaceHistory()を部分データで
+ * 再実行することは無い。
+ */
+export function getHorseRecentRaces(horseId: string): RacePerformance[] {
+  return historyByHorseId[horseId] ?? [];
 }
