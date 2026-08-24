@@ -17,8 +17,13 @@
  * 既存の値をそのまま残した上でconflict内容をレポートする（silent overwrite禁止）。
  * conflictが1件でもある馬は、その馬のファイル全体を書き込まない（安全側に倒す）。
  *
- * --replace を付けると、CHECKPOINT13.1以前と同じ「まるごと置き換え」方式に戻せる
- * （既存の過去走を意図的に一括修正したい場合など、限定的な用途向け）。
+ * 【CHECKPOINT13.2B: --replaceはlegacy/destructive操作】
+ * --replace を付けると、CHECKPOINT13.1以前と同じ「まるごと置き換え」方式に戻せるが、
+ * これは破壊的操作（既存の過去走が消える）であり、正式運用では使用しない方針とする。
+ * 意図的な一括修正が必要な限定的な場面のみに留め、通常のRace Card Input Bridge
+ * （scripts/raceCardCheck.ts）や通常のCSV取り込みフローからは呼び出さない
+ * （実際、raceCardCheck.tsはこのファイルを一切importしていない＝呼び出しようがない）。
+ * 実行時には警告banner付きでその旨を表示する。
  *
  * horseIdの差し替え: CSVのhorseIdがJRA公式IDなど、既存ロスター
  * （src/simulation/data/sapporoKinen.json）の内部horseIdと異なっていても、
@@ -50,6 +55,22 @@ const importedAt = new Date().toISOString();
 if (!fs.existsSync(inputPath)) {
   console.error(`入力ファイルが見つかりません: ${inputPath}`);
   process.exit(1);
+}
+
+// CHECKPOINT13.2B STEP14: --replaceはlegacy/destructive操作として明示する。
+// 正式運用（Race Card Input Bridge経由の通常フロー含む）はMerge/Upsert（デフォルト）のみを使い、
+// --replaceを内部から呼び出すことは無い（raceCardCheck.ts等、このスクリプト以外の
+// どのファイルもimportRacePerformancesCsv.tsを呼び出していない＝呼び出しようがない）。
+if (replaceMode) {
+  console.warn(
+    "\n" +
+      "!!! 警告: --replace は破壊的なlegacy操作です !!!\n" +
+      "既存の過去走履歴を丸ごと置き換えます（Merge/Upsertと違い、CSVに含まれない既存raceは消えます）。\n" +
+      "正式運用（Race Card Input Bridge・通常のCSV取り込みフロー）ではMerge/Upsert（デフォルト、\n" +
+      "--replaceを付けない）を使ってください。--replaceは意図的な一括修正が必要な限定的な場面のみ" +
+      (dryRun ? "（今回は--dry-runのため実際の書き込みはありません）" : "") +
+      "。\n",
+  );
 }
 
 const csvText = fs.readFileSync(inputPath, "utf-8");

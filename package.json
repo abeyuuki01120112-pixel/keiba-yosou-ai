@@ -13,7 +13,8 @@
     "validate:data": "node scripts/validateAbilityData.mjs",
     "import:csv": "tsx scripts/importRacePerformancesCsv.ts",
     "import:time-baselines": "tsx scripts/importCourseTimeBaselinesCsv.ts",
-    "import:final3f-baselines": "tsx scripts/importCourseFinal3FBaselinesCsv.ts"
+    "import:final3f-baselines": "tsx scripts/importCourseFinal3FBaselinesCsv.ts",
+    "racecard:check": "vite-node scripts/raceCardCheck.ts --"
   },
   "dependencies": {
     "react": "^19.2.8",
@@ -28,6 +29,7 @@
     "tsx": "^4.23.12",
     "typescript": "~6.0.2",
     "vite": "^8.2.0",
+    "vite-node": "^6.0.0",
     "vitest": "^4.1.10"
   }
 }

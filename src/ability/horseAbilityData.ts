@@ -89,3 +89,12 @@ export function loadAllHorseAbilityProfiles(): HorseAbilityProfile[] {
 export function getHorseRecentRaces(horseId: string): RacePerformance[] {
   return historyByHorseId[horseId] ?? [];
 }
+
+/**
+ * data/horses/ に実在する全horseIdの一覧を返す（CHECKPOINT13.2Bで追加）。
+ * canonicalHorseRegistry.ts が、24頭分の馬名をハードコードせず
+ * data/horses/ から自動的にresolver indexを構築するために使う。
+ */
+export function getAllCanonicalHorseIds(): string[] {
+  return Object.keys(historyByHorseId);
+}
