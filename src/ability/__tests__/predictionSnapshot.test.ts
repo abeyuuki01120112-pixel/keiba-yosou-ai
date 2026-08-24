@@ -368,18 +368,19 @@ describe("CHECKPOINT13.2 Test8: placeholder/fixtureが正式Prediction用デー�
 });
 
 describe("CHECKPOINT13.2 Test9: Data Completeness Reportで新規warningが取得可能", () => {
-  // 実データ馬2016102229は過去走1走のみ（RECENT_RACE_COUNT=5未満）、
+  // 実データ馬2023100767は過去走1走のみ（RECENT_RACE_COUNT=5未満）、
   // かつその1走はmemberLevelBreakdownがnull（当時の候補馬データ不足）。
   // insufficientRecentHistory・memberLevelUnavailable両方を実データで再現できる。
   //
-  // 【CHECKPOINT13.4Cで判明・注記】以前ここでは"2022105102"を使っていたが、
-  // 実データImport（CHECKPOINT13.4D）でこの馬自身の対戦相手データが充実し、
-  // 該当走のmemberLevelBreakdownがnullでなくなった（fallbackが解消された）ため、
-  // 本テストの前提が崩れて陳腐化した。これはbaseAbility 70.3→70.9ドリフトと
-  // 同根の現象（本番datasetが増えるとfallback発生条件も変わりうる）であり、
-  // 数式のバグではない。将来また同様の陳腐化が起きうる前提で、このIDは
-  // 「現時点でこの条件を満たす実データ馬」であることを理解して使うこと。
-  const SPARSE_HORSE_ID = "2016102229";
+  // 【CHECKPOINT13.4Cで判明・CHECKPOINT13.4Hで再発・注記】このIDは既に2回目の
+  // 差し替え（"2022105102"→"2016102229"→"2023100767"）。実データImportのたびに
+  // 「当時fallbackだった走」が解消されうるため、この種のfixtureは本質的に
+  // 陳腐化する運命にある。今回は CHECKPOINT13.4H のmemberLevel追加データImport
+  // （兵庫特別JRA-20250928-HANSHIN-09の対戦馬5頭に prior race を追加）により、
+  // 同レースに出走していた全12頭（"2016102229"を含む）のmemberLevelBreakdownが
+  // 一斉にnullでなくなったため、前回の差し替え先も陳腐化した。バグではなく、
+  // Base Ability V1の動的再計算という設計そのものの帰結（CHECKPOINT13.4C参照）。
+  const SPARSE_HORSE_ID = "2023100767";
 
   it("insufficient_evidence: 直近5走に満たない馬（1〜2走）でcompletenessFlagsに含まれる（CHECKPOINT13.4G Short Career Eligibility V1、Case D）", () => {
     expect(getHorseRecentRaces(SPARSE_HORSE_ID).length).toBeLessThan(5);

@@ -44,5 +44,28 @@
     "sourceHorseId": "2018105012",
     "dataKind": "real",
     "importedAt": "2026-08-24T06:06:37.712Z"
+  },
+  {
+    "raceId": "JRA-20220116-CHUKYO-11",
+    "raceName": "日経新春杯",
+    "raceDate": "2022-01-16",
+    "racecourse": "中京",
+    "surface": "turf",
+    "distance": 2200,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 1,
+    "timeGap": -0.1,
+    "raceTime": 131.7,
+    "final3F": 34.4,
+    "carriedWeight": 55,
+    "gate": 5,
+    "horseNumber": 10,
+    "fieldSize": null,
+    "source": "netkeiba_web_reference",
+    "sourceRaceId": null,
+    "sourceHorseId": "2018105012",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T07:55:21.674Z"
   }
 ]

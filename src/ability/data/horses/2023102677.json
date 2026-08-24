@@ -21,5 +21,28 @@
     "sourceHorseId": "2023102677",
     "dataKind": "real",
     "importedAt": "2026-08-24T06:06:37.712Z"
+  },
+  {
+    "raceId": "JRA-20250622-HAKODATE-05",
+    "raceName": "2歳新馬",
+    "raceDate": "2025-06-22",
+    "racecourse": "函館",
+    "surface": "turf",
+    "distance": 1200,
+    "going": "重",
+    "raceNumber": 5,
+    "finishPosition": 11,
+    "timeGap": 1.4,
+    "raceTime": 71.9,
+    "final3F": 35.8,
+    "carriedWeight": 55,
+    "gate": 7,
+    "horseNumber": 10,
+    "fieldSize": null,
+    "source": "keiba_navi_web_reference",
+    "sourceRaceId": null,
+    "sourceHorseId": "2023102677",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T07:55:21.674Z"
   }
 ]

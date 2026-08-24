@@ -21,5 +21,28 @@
     "sourceHorseId": "2019105877",
     "dataKind": "real",
     "importedAt": "2026-08-24T06:06:37.712Z"
+  },
+  {
+    "raceId": "JRA-20250830-SAPPORO-11",
+    "raceName": "札幌日刊スポーツ杯",
+    "raceDate": "2025-08-30",
+    "racecourse": "札幌",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "稍",
+    "raceNumber": 11,
+    "finishPosition": 7,
+    "timeGap": 1.5,
+    "raceTime": 125,
+    "final3F": 37,
+    "carriedWeight": 58,
+    "gate": 6,
+    "horseNumber": 9,
+    "fieldSize": null,
+    "source": "netkeiba_web_reference",
+    "sourceRaceId": null,
+    "sourceHorseId": "2019105877",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T07:55:21.674Z"
   }
 ]

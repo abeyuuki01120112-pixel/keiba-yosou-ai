@@ -21,5 +21,28 @@
     "sourceHorseId": "2021105160",
     "dataKind": "real",
     "importedAt": "2026-08-24T06:06:37.712Z"
+  },
+  {
+    "raceId": "JRA-20250412-FUKUSHIMA-08",
+    "raceName": "4歳以上1勝クラス",
+    "raceDate": "2025-04-12",
+    "racecourse": "福島",
+    "surface": "turf",
+    "distance": 2600,
+    "going": "良",
+    "raceNumber": 8,
+    "finishPosition": 1,
+    "timeGap": -0.2,
+    "raceTime": 159.6,
+    "final3F": 35.4,
+    "carriedWeight": 58,
+    "gate": 4,
+    "horseNumber": 7,
+    "fieldSize": null,
+    "source": "netkeiba_web_reference",
+    "sourceRaceId": null,
+    "sourceHorseId": "2021105160",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T07:55:21.674Z"
   }
 ]

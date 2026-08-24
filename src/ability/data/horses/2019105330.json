@@ -21,5 +21,28 @@
     "sourceHorseId": "2019105330",
     "dataKind": "real",
     "importedAt": "2026-08-24T06:06:37.712Z"
+  },
+  {
+    "raceId": "JRA-20250914-HANSHIN-09",
+    "raceName": "能勢特別",
+    "raceDate": "2025-09-14",
+    "racecourse": "阪神",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "raceNumber": 9,
+    "finishPosition": 6,
+    "timeGap": 0.8,
+    "raceTime": 122.1,
+    "final3F": 34.2,
+    "carriedWeight": 58,
+    "gate": 3,
+    "horseNumber": 3,
+    "fieldSize": null,
+    "source": "netkeiba_web_reference",
+    "sourceRaceId": null,
+    "sourceHorseId": "2019105330",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T07:55:21.674Z"
   }
 ]

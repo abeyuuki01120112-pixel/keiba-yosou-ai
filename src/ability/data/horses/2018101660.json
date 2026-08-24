@@ -44,5 +44,28 @@
     "sourceHorseId": "2018101660",
     "dataKind": "real",
     "importedAt": "2026-08-24T06:06:37.712Z"
+  },
+  {
+    "raceId": "JRA-20240218-TOKYO-10",
+    "raceName": "コパノリッキーカップ",
+    "raceDate": "2024-02-18",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "raceNumber": 10,
+    "finishPosition": 4,
+    "timeGap": 0.4,
+    "raceTime": 122.2,
+    "final3F": 32.8,
+    "carriedWeight": 57,
+    "gate": 5,
+    "horseNumber": 5,
+    "fieldSize": null,
+    "source": "netkeiba_web_reference",
+    "sourceRaceId": null,
+    "sourceHorseId": "2018101660",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T07:55:21.674Z"
   }
 ]

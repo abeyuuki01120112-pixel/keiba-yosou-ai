@@ -21,5 +21,28 @@
     "sourceHorseId": "2023106589",
     "dataKind": "real",
     "importedAt": "2026-08-24T06:06:37.712Z"
+  },
+  {
+    "raceId": "JRA-20250713-FUKUSHIMA-05",
+    "raceName": "2歳新馬",
+    "raceDate": "2025-07-13",
+    "racecourse": "福島",
+    "surface": "turf",
+    "distance": 1800,
+    "going": "良",
+    "raceNumber": 5,
+    "finishPosition": 13,
+    "timeGap": 2.5,
+    "raceTime": 116.1,
+    "final3F": 37.7,
+    "carriedWeight": 55,
+    "gate": 4,
+    "horseNumber": 6,
+    "fieldSize": null,
+    "source": "netkeiba_web_reference",
+    "sourceRaceId": "202503020605",
+    "sourceHorseId": "2023106589",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T07:55:21.674Z"
   }
 ]

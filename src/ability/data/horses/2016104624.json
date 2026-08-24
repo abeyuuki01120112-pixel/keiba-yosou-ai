@@ -113,5 +113,28 @@
     "sourceHorseId": "2016104624",
     "dataKind": "real",
     "importedAt": "2026-08-24T06:06:37.712Z"
+  },
+  {
+    "raceId": "JRA-20231209-CHUKYO-11",
+    "raceName": "中日新聞杯",
+    "raceDate": "2023-12-09",
+    "racecourse": "中京",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 2,
+    "timeGap": 0.1,
+    "raceTime": 118.9,
+    "final3F": 33.9,
+    "carriedWeight": 58.5,
+    "gate": 6,
+    "horseNumber": 11,
+    "fieldSize": null,
+    "source": "netkeiba_web_reference",
+    "sourceRaceId": null,
+    "sourceHorseId": "2016104624",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T07:55:21.674Z"
   }
 ]
