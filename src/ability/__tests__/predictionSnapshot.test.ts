@@ -381,6 +381,13 @@ describe("CHECKPOINT13.2 Test9: Data Completeness Reportで新規warningが取�
   // 一斉にnullでなくなったため、前回の差し替え先も陳腐化した。バグではなく、
   // Base Ability V1の動的再計算という設計そのものの帰結（CHECKPOINT13.4C参照）。
   const SPARSE_HORSE_ID = "2023100767";
+  // 【CHECKPOINT13.4Jで分離】以前はSPARSE_HORSE_IDの1走がmemberLevelUnavailableの
+  // 実例も兼ねていたが、その1走(JRA-20251221-NAKAYAMA-05・2歳新馬)は
+  // MemberLevel Evidence V1により"structural_no_prior_history"と正しく判定され、
+  // もうcompletenessFlagsをblockしなくなった（CHECKPOINT13.4J本来の目的通りの挙動）。
+  // そのため、真にデータ欠損由来のmemberLevelUnavailableを再現する別の実データ馬
+  // （2019105877、対象走は新馬戦ではない通常のレース）を別途用意する。
+  const MISSING_DATA_HORSE_ID = "2019105877";
 
   it("insufficient_evidence: 直近5走に満たない馬（1〜2走）でcompletenessFlagsに含まれる（CHECKPOINT13.4G Short Career Eligibility V1、Case D）", () => {
     expect(getHorseRecentRaces(SPARSE_HORSE_ID).length).toBeLessThan(5);
@@ -396,8 +403,9 @@ describe("CHECKPOINT13.2 Test9: Data Completeness Reportで新規warningが取�
     expect(result.abilityEvidence?.blockingReason).toBe("insufficient_evidence");
   });
 
-  it("memberLevelUnavailable: memberLevelBreakdownがnullの走を含む馬でcompletenessFlagsに含まれる", () => {
-    expect(getHorseRecentRaces(SPARSE_HORSE_ID).some((r) => r.memberLevelBreakdown === null)).toBe(true);
+  it("structural_no_prior_history: 対戦馬全員がsource-backedなcareer debut（新馬戦）の場合、memberLevelUnavailableではblockしない（CHECKPOINT13.4J）", () => {
+    const races = getHorseRecentRaces(SPARSE_HORSE_ID);
+    expect(races.some((r) => r.memberLevelBreakdown === null)).toBe(true);
     const result = buildHorseSnapshotEntry(
       entry({ horseId: SPARSE_HORSE_ID, horseName: "テスト対象馬" }),
       HANSHIN_TARGET,
@@ -405,7 +413,21 @@ describe("CHECKPOINT13.2 Test9: Data Completeness Reportで新規warningが取�
       "2099-01-01T00:00:00Z",
       1,
     );
+    expect(result.completenessFlags).not.toContain("memberLevelUnavailable");
+    expect(result.memberLevelEvidenceStatus).toBe("structural_no_prior_history");
+  });
+
+  it("memberLevelUnavailable: 真にデータ欠損由来のfallback（新馬戦ではない）ではcompletenessFlagsに含まれる（CHECKPOINT13.4J、missing_data判定）", () => {
+    expect(getHorseRecentRaces(MISSING_DATA_HORSE_ID).some((r) => r.memberLevelBreakdown === null)).toBe(true);
+    const result = buildHorseSnapshotEntry(
+      entry({ horseId: MISSING_DATA_HORSE_ID, horseName: "テスト対象馬" }),
+      HANSHIN_TARGET,
+      { evaluated: false },
+      "2099-01-01T00:00:00Z",
+      1,
+    );
     expect(result.completenessFlags).toContain("memberLevelUnavailable");
+    expect(result.memberLevelEvidenceStatus).toBe("missing_data");
   });
 
   it("scratched馬・データ不足馬はcompletenessFlagsが空配列で初期化されている（未定義エラーにならない）", () => {

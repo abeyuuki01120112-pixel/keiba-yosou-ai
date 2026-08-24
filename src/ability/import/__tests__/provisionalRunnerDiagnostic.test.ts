@@ -60,10 +60,11 @@ describe("CHECKPOINT13.3 Test1: 11頭をProvisional Race Cardとして読み込�
     expect(result.summary.resolved).toBe(11);
     expect(result.summary.unresolved).toBe(0);
     expect(result.summary.ambiguous).toBe(0);
-    // memberLevelUnavailable/insufficientRecentHistoryが残る馬がいるため
-    // predictionEligibleは11頭全てではない（正直な結果。無理に全員eligibleにしない）。
-    expect(result.summary.predictionEligible).toBeGreaterThan(0);
-    expect(result.summary.predictionEligible).toBeLessThan(11);
+    // CHECKPOINT13.4H（memberLevel対戦馬データ追加）とCHECKPOINT13.4J
+    // （Structural No-Prior History判定の導入）により、11頭全てが
+    // predictionEligible=trueとなった（無理に11/11へ合わせたのではなく、
+    // データ整備とEvidence区分の両方が揃った結果としての、正直な11/11）。
+    expect(result.summary.predictionEligible).toBe(11);
   });
 
   it("実データが無ければPriority 2は発火しない（sourceHorseIdRegistryを明示的に空にした場合の後方互換確認）", () => {
@@ -187,12 +188,14 @@ describe("CHECKPOINT13.3 Test8: Missing Data Reportを馬単位で生成", () =>
 });
 
 describe("CHECKPOINT13.3 Test9: 必要ならDATA REQUEST MANIFESTを生成", () => {
-  it("predictionEligible=falseの馬（CHECKPOINT13.4D時点で4頭）についてmanifestエントリが生成される", () => {
+  it("predictionEligible=falseの馬が残っていればmanifestエントリが生成される（CHECKPOINT13.4J時点では0頭であり、manifestは空でよい）", () => {
     const fixture = loadFixture();
     const result = runProvisionalDiagnostic(fixture.runners, NIIGATA_TARGET);
     const manifest = buildDataRequestManifest(result);
     expect(manifest.length).toBe(result.summary.totalRunners - result.summary.predictionEligible);
-    expect(manifest.length).toBeGreaterThan(0);
+    // CHECKPOINT13.4J時点でpredictionEligible=11/11のため、manifestは正しく空になる
+    // （無理に空にしたのではなく、上のTest1で確認した11/11という結果に連動した挙動）。
+    expect(manifest).toHaveLength(0);
     for (const entry of manifest) {
       expect(entry.requiredFields.length).toBeGreaterThan(0);
       // 実在しないraceId/raceDateを捏造していない（要求内容の説明文のみ）

@@ -103,6 +103,23 @@ export function getAllCanonicalHorseIds(): string[] {
 }
 
 /**
+ * 指定raceIdに出走した馬（data/horses全体を横断し、実際にそのraceIdの走を
+ * 持つ馬）について、raceDateより前の実績走数の一覧を返す（CHECKPOINT13.4J、
+ * memberLevelEvidence.tsのStructural No-Prior History判定用）。
+ * data/horses内で1頭も見つからなければ空配列を返す（判定不能を意味する）。
+ * この関数自体はbuildRaceHistory()を再実行しない（既存のhistoryByHorseIdを
+ * 走査するだけ）。
+ */
+export function getRaceFieldPriorRaceCounts(raceId: string, raceDate: string): number[] {
+  const counts: number[] = [];
+  for (const races of Object.values(historyByHorseId)) {
+    if (!races.some((r) => r.raceId === raceId)) continue;
+    counts.push(races.filter((r) => r.raceDate < raceDate).length);
+  }
+  return counts;
+}
+
+/**
  * 現在のdata/horses全体のmodelVersion/datasetFingerprintを返す（CHECKPOINT13.4Dで追加）。
  * Model Freeze（BA-V1の数式）とDataset Freeze（特定時点のdata/horsesスナップショット）を
  * 分離して追跡するための最小実装。Production Base Abilityの値を報告する際、

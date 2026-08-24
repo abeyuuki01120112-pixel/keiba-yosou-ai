@@ -1,8 +1,10 @@
 /**
- * Short Career Eligibility V1（CHECKPOINT13.4G）の統合テスト。
+ * Short Career Eligibility V1（CHECKPOINT13.4G）／MemberLevel Evidence V1
+ * （CHECKPOINT13.4J）の統合テスト。
  * 本番data/horses・data/careerCounts.jsonを経由した、実際のbuildHorseSnapshotEntry()の
  * 挙動を確認する（regression: 既存5走馬の挙動が壊れていないこと／ロデオドライブの
- * Short Career解決とmemberLevelUnavailable残存の分離を確認）。
+ * Short Career解決とmemberLevelUnavailable〈structural_no_prior_history〉解決の
+ * 両方を確認）。
  */
 import { describe, expect, it } from "vitest";
 import { buildHorseSnapshotEntry, type RaceEntryInput, type SnapshotRaceTarget } from "../predictionSnapshot";
@@ -100,7 +102,7 @@ describe("CHECKPOINT13.4G ロデオドライブ: Short Career Rule適用後の�
     expect(result.abilityEvidence?.blockingReason).toBeNull();
   });
 
-  it("ただしmemberLevelUnavailableは別問題として残る（Short Career解決とは独立）", () => {
+  it("CHECKPOINT13.4J: デビュー戦のmemberLevelUnavailableはstructural_no_prior_historyと正しく判定され、もうblockしない", () => {
     const result = buildHorseSnapshotEntry(
       entry({ horseId: RODEO_DRIVE_ID, horseName: "ロデオドライブ" }),
       TARGET,
@@ -108,6 +110,13 @@ describe("CHECKPOINT13.4G ロデオドライブ: Short Career Rule適用後の�
       CUTOFF,
       null,
     );
-    expect(result.completenessFlags).toContain("memberLevelUnavailable");
+    // デビュー戦（2歳新馬、JRA-20251221-NAKAYAMA-05）の対戦馬15頭全員が
+    // source-backedなcareer debutと確認できるため、memberLevelUnavailableは
+    // もうcompletenessFlagsに含まれない（CHECKPOINT13.4I監査→13.4J実装）。
+    expect(result.completenessFlags).not.toContain("memberLevelUnavailable");
+    expect(result.memberLevelEvidenceStatus).toBe("structural_no_prior_history");
+    // baseAbilityの数値自体は無変更（追加補正なし）
+    expect(result.baseAbility).toBe(76.7);
+    expect(result.completenessFlags).toEqual([]);
   });
 });

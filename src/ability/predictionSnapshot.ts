@@ -24,8 +24,9 @@
 import { roundToOneDecimal } from "./raceScore";
 import { calculateBaseAbility, RECENT_RACE_COUNT } from "./baseAbility";
 import { computeSuitabilityV1 } from "./suitabilityV1";
-import { getCareerCountRecord, getHorseRecentRaces } from "./horseAbilityData";
+import { getCareerCountRecord, getHorseRecentRaces, getRaceFieldPriorRaceCounts } from "./horseAbilityData";
 import { resolveAbilityEvidence, type AbilityEvidence } from "./abilityEvidence";
+import { resolveMemberLevelEvidence, type MemberLevelEvidenceStatus } from "./memberLevelEvidence";
 import type { RaceGateInput } from "./courseContextPrior";
 import type { RacePerformance, Surface } from "./types";
 import type { SuitabilityTargetRaceContext } from "./suitabilityTypes";
@@ -132,6 +133,20 @@ export interface HorseSnapshotEntry {
    * scratchedまたは過去走0件（baseAbility=null）の場合はnull。
    */
   abilityEvidence: AbilityEvidence | null;
+  /**
+   * MemberLevel Evidence V1（CHECKPOINT13.4J）。baseAbility算出に使った走
+   * （最大RECENT_RACE_COUNT走）を横断した、memberLevel fallbackの原因の要約。
+   *   "available": 全走でmemberLevelが正式計算できていた。
+   *   "missing_data": 少なくとも1走でfallbackが発生し、かつcanonical datasetに
+   *     本来存在するはずの対戦馬prior raceがまだ取り込まれていない可能性がある
+   *     （predictionEligibleをblockする）。
+   *   "structural_no_prior_history": fallbackが発生した走は全て、対戦馬全員が
+   *     source-backedなcareer debutで、prior raceが構造的に存在し得ないケース
+   *     のみ（predictionEligibleをblockしない。memberLevelScoreAtRace自体は
+   *     引き続きFALLBACK_MEMBER_LEVEL_SCOREのまま、baseAbilityへの追加補正も無い）。
+   * scratchedまたは過去走0件の場合はnull。
+   */
+  memberLevelEvidenceStatus: MemberLevelEvidenceStatus | null;
 }
 
 /** Stage B用：発走2時間前時点で保存してよいオッズ情報の置き場所。能力計算には一切使用しない */
@@ -227,6 +242,7 @@ export function buildHorseSnapshotEntry(
       warnings,
       completenessFlags,
       abilityEvidence: null,
+      memberLevelEvidenceStatus: null,
     };
   }
 
@@ -258,6 +274,7 @@ export function buildHorseSnapshotEntry(
       warnings,
       completenessFlags,
       abilityEvidence: null,
+      memberLevelEvidenceStatus: null,
     };
   }
 
@@ -279,10 +296,34 @@ export function buildHorseSnapshotEntry(
       `baseAbility算出に使える実データ過去走が${priorRaces.length}走のみです（Base Ability V1の既存仕様どおり直近最大${RECENT_RACE_COUNT}走の均等平均だが、今回はそれ未満）。${shortCareerNote}`,
     );
   }
-  if (priorRaces.slice(0, RECENT_RACE_COUNT).some((r) => r.memberLevelBreakdown === null)) {
+  const usedRaces = priorRaces.slice(0, RECENT_RACE_COUNT);
+  const memberLevelEvidences = usedRaces.map((r) =>
+    resolveMemberLevelEvidence(
+      r,
+      r.memberLevelBreakdown === null ? getRaceFieldPriorRaceCounts(r.raceId, r.raceDate) : [],
+    ),
+  );
+  const memberLevelEvidenceStatus: MemberLevelEvidenceStatus = memberLevelEvidences.some(
+    (e) => e.memberLevelEvidenceStatus === "missing_data",
+  )
+    ? "missing_data"
+    : memberLevelEvidences.some((e) => e.memberLevelEvidenceStatus === "structural_no_prior_history")
+      ? "structural_no_prior_history"
+      : "available";
+
+  if (memberLevelEvidenceStatus === "missing_data") {
     completenessFlags.push("memberLevelUnavailable");
     warnings.push(
       "baseAbility算出に使った走のうち少なくとも1走で、当時の対戦相手データ不足によりmemberLevelがフォールバック値（FALLBACK_MEMBER_LEVEL_SCORE）で計算されていました。",
+    );
+  } else if (memberLevelEvidenceStatus === "structural_no_prior_history") {
+    // CHECKPOINT13.4J: 対戦馬全員がsource-backedなcareer debutで、prior raceが
+    // 構造的に存在し得ないケース。データ欠損ではないため、これだけを理由に
+    // predictionEligibleをblockしない（completenessFlagsへは追加しない）。
+    // memberLevelScoreAtRace自体は引き続きFALLBACK_MEMBER_LEVEL_SCOREのまま、
+    // baseAbilityへの追加補正も行わない。
+    warnings.push(
+      "baseAbility算出に使った走のうち少なくとも1走は、対戦馬全員がキャリア初戦（新馬戦等）であることが確認できたため、memberLevelはフォールバック値（FALLBACK_MEMBER_LEVEL_SCORE）のままです。これはデータ欠損ではなく、Evidenceが構造的に存在しないケースです。",
     );
   }
 
@@ -328,6 +369,7 @@ export function buildHorseSnapshotEntry(
     warnings,
     completenessFlags,
     abilityEvidence,
+    memberLevelEvidenceStatus,
   };
 }
 
