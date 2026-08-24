@@ -62,6 +62,16 @@ const RACE_FIELDS = {
   gate: { type: "number", optional: true, nullable: true, positiveInteger: true },
   horseNumber: { type: "number", optional: true, nullable: true, positiveInteger: true },
   fieldSize: { type: "number", optional: true, nullable: true, positiveInteger: true },
+  // レース番号（第26実装で追加済みだがこのスキーマには未登録だったため、CHECKPOINT13.2で追加）。
+  // ability計算には使わない。
+  raceNumber: { type: "number", optional: true, nullable: true, positiveInteger: true },
+  // データ出所・監査用メタデータ（CHECKPOINT13.2で追加）。いずれもability計算には使わない。
+  source: { type: "string", optional: true, nullable: true },
+  sourceRaceId: { type: "string", optional: true, nullable: true },
+  sourceHorseId: { type: "string", optional: true, nullable: true },
+  importedAt: { type: "string", optional: true, nullable: true },
+  // データ種別（CHECKPOINT13.2 Placeholder隔離）。未記載は"real"として扱われる（後方互換）。
+  dataKind: { type: "string", optional: true, nullable: true, oneOf: ["real", "placeholder", "fixture"] },
 };
 
 const BASELINE_COMMON_FIELDS = {
@@ -177,6 +187,29 @@ function recordRaceGroupInfo(raceId, horseId, fieldSize, finishPosition) {
   }
 }
 
+// CHECKPOINT13.2 D: raceIdMismatch。同一raceIdなのに馬ごとにracecourse/surface/
+// distance/going/raceDateが食い違っていないかを検出する（本来同じ実レースを指す
+// はずのraceIdが、実は別々のレースを指してしまっている可能性の検知）。
+const raceMetaByRaceId = new Map(); // raceId -> { key: string, sample: {...}, horseIds: Set }
+
+function raceMetaKey(race) {
+  return `${race.racecourse}|${race.surface}|${race.distance}|${race.going}|${race.raceDate}`;
+}
+
+function recordRaceMeta(raceId, horseId, race) {
+  const key = raceMetaKey(race);
+  let entry = raceMetaByRaceId.get(raceId);
+  if (!entry) {
+    entry = { variants: new Map(), horseIds: new Set() };
+    raceMetaByRaceId.set(raceId, entry);
+  }
+  entry.horseIds.add(horseId);
+  if (!entry.variants.has(key)) {
+    entry.variants.set(key, { racecourse: race.racecourse, surface: race.surface, distance: race.distance, going: race.going, raceDate: race.raceDate, horseIds: [] });
+  }
+  entry.variants.get(key).horseIds.push(horseId);
+}
+
 if (!fs.existsSync(HORSES_DIR)) {
   error(`${path.relative(ROOT, HORSES_DIR)} が存在しません`);
 } else {
@@ -216,6 +249,9 @@ if (!fs.existsSync(HORSES_DIR)) {
           typeof race.fieldSize === "number" ? race.fieldSize : null,
           typeof race.finishPosition === "number" ? race.finishPosition : null,
         );
+        if (race.racecourse && race.surface && race.distance && race.going && race.raceDate) {
+          recordRaceMeta(race.raceId, horseId, race);
+        }
       }
       if (typeof race.raceDate === "string" && Number.isNaN(Date.parse(race.raceDate))) {
         error(`${label}: raceDate "${race.raceDate}" を日付として解釈できません`);
@@ -363,6 +399,21 @@ for (const [raceId, info] of raceGroupInfoByRaceId.entries()) {
         `raceTimeScoreの基準タイムには本来の勝ち馬ではない馬のraceTimeが使われている可能性があります。`,
     );
   }
+}
+
+// --- 4-4. raceIdMismatch（CHECKPOINT13.2 D）---
+// 同一raceIdのはずなのに、馬ごとにracecourse/surface/distance/going/raceDateが
+// 食い違っている場合、そのraceIdが実は別々のレースを指してしまっている可能性がある
+// （複数Sourceの統合時や、raceIdの手打ちミス等で起こりうる）。
+for (const [raceId, entry] of raceMetaByRaceId.entries()) {
+  if (entry.variants.size <= 1) continue;
+  const variantSummaries = [...entry.variants.values()].map(
+    (v) => `[${v.racecourse}/${v.surface}/${v.distance}m/${v.going}/${v.raceDate}] (${v.horseIds.join(", ")})`,
+  );
+  warn(
+    `raceId "${raceId}": 同一raceIdなのにracecourse/surface/distance/going/raceDateが` +
+      `馬によって食い違っています（raceIdMismatchの可能性）。内訳: ${variantSummaries.join(" / ")}`,
+  );
 }
 
 // --- 5. カバレッジ情報（実際のレース条件に対して基準タイムがあるか。無くても壊れないが情報として出す） ---

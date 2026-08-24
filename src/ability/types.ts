@@ -304,6 +304,39 @@ export interface RacePerformance {
   horseNumber?: number | null;
   fieldSize?: number | null;
 
+  /**
+   * データ出所・監査用メタデータ（CHECKPOINT13.2で追加）。
+   * いずれもability計算（raceScore/baseAbility/memberLevel/timeGapScore/
+   * raceTimeScore/final3FScore/weightScore/Suitability V1）には一切使わない、
+   * 純粋な記録・監査・重複防止用の情報。
+   *
+   * source: このデータの取得元（例: "JRA公式CSV"）。未記録ならundefined/null。
+   * sourceRaceId / sourceHorseId: 外部Source側で使われているraceId/horseId。
+   *   システム内部のcanonical raceId/horseId（このRacePerformanceの`raceId`
+   *   フィールドや、data/horses/<horseId>.jsonのファイル名）とは別物であり、
+   *   同一視しない（CHECKPOINT13.1で指摘された「複数Source統合時の二重登録」
+   *   防止のための布石）。
+   * importedAt: 取り込み処理を実行した時刻（ISO 8601）。
+   */
+  source?: string | null;
+  sourceRaceId?: string | null;
+  sourceHorseId?: string | null;
+  importedAt?: string | null;
+
+  /**
+   * データ種別（CHECKPOINT13.2で追加、Placeholder隔離）。
+   *   "real"        : 実データ（実際のJRAレース結果等）。
+   *   "placeholder" : V0時代の仮データ・プレースホルダー（実際のレース結果ではない）。
+   *   "fixture"     : テスト・検証専用の作り物データ。
+   * 未記録（undefined/null）の場合は"real"として扱う（既存データとの後方互換性維持。
+   * 2026-08-22以前に作成されたdata/horses/内の実データ馬にはこのフィールドが無いため）。
+   * "placeholder"/"fixture"は、Stage A/B Snapshot（predictionSnapshot.ts）の
+   * 正式な能力計算対象から除外する。data/horses/*.json自体の読み込み
+   * （historyByHorseId・horseHistoryPipeline.buildRaceHistory()）自体は変更しない
+   * （既存の馬詳細画面・シミュレーション機能への影響を避けるため）。
+   */
+  dataKind?: "real" | "placeholder" | "fixture" | null;
+
   finishPosition: number;
   /**
    * 勝ち馬とのタイム差（秒）。負けた馬は正の値。

@@ -11,7 +11,8 @@
     "timeGap": -0.2,
     "raceTime": 115.6,
     "final3F": 35.2,
-    "carriedWeight": 57
+    "carriedWeight": 57,
+    "dataKind": "placeholder"
   },
   {
     "raceId": "r1-g3",
@@ -25,7 +26,8 @@
     "timeGap": 0.5,
     "raceTime": 116.3,
     "final3F": 33.7,
-    "carriedWeight": 57
+    "carriedWeight": 57,
+    "dataKind": "placeholder"
   },
   {
     "raceId": "r2-g1",
@@ -39,7 +41,8 @@
     "timeGap": -0.6,
     "raceTime": 116.1,
     "final3F": 35.1,
-    "carriedWeight": 55
+    "carriedWeight": 55,
+    "dataKind": "placeholder"
   },
   {
     "raceId": "r3-g0",
@@ -53,7 +56,8 @@
     "timeGap": 0.4,
     "raceTime": 126.2,
     "final3F": 33.1,
-    "carriedWeight": 55
+    "carriedWeight": 55,
+    "dataKind": "placeholder"
   },
   {
     "raceId": "r4-g2",
@@ -67,6 +71,7 @@
     "timeGap": 0.5,
     "raceTime": 114.1,
     "final3F": 35.9,
-    "carriedWeight": 58
+    "carriedWeight": 58,
+    "dataKind": "placeholder"
   }
 ]

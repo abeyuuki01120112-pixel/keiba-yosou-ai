@@ -67,6 +67,13 @@ export function toRaceHistoryRawInput(input: RacePerformanceInput): RaceHistoryR
     gate: input.gate,
     horseNumber: input.horseNumber,
     fieldSize: input.fieldSize,
+    // データ出所・監査用メタデータ（CHECKPOINT13.2）。能力計算には使わない。
+    source: input.source,
+    sourceRaceId: input.sourceRaceId,
+    sourceHorseId: input.sourceHorseId,
+    // CSV経由の取り込みは実データ取り込み専用の経路のため、常に"real"とする
+    // （プレースホルダー/fixtureはこの経路から生成しない）。
+    dataKind: "real",
   };
 }
 

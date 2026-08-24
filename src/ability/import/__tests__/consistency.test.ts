@@ -154,6 +154,11 @@ describe("CSVインポート経由の計算結果が既存データと一致す�
       gate: null,
       horseNumber: 6,
       fieldSize: 5,
+      // CHECKPOINT13.2で追加。CSVにsource列が無いためnull、dataKindはCSV取り込み経路の固定値"real"
+      source: null,
+      sourceRaceId: null,
+      sourceHorseId: null,
+      dataKind: "real",
     });
   });
 });

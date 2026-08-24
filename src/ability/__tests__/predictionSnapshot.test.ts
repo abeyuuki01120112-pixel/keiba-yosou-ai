@@ -34,6 +34,7 @@ const HANSHIN_TARGET: SnapshotRaceTarget = {
   racecourse: "阪神",
   surface: "turf",
   distance: 2200,
+  raceNumber: 11,
   postTimeIso: "2026-08-30T15:45:00+09:00",
 };
 
@@ -315,5 +316,175 @@ describe("computeT2hCutoff", () => {
   it("発走予定時刻の2時間前を返す（15:45発走→13:45）", () => {
     const cutoff = computeT2hCutoff("2026-08-30T15:45:00+09:00");
     expect(new Date(cutoff).toISOString()).toBe(new Date("2026-08-30T13:45:00+09:00").toISOString());
+  });
+});
+
+describe("CHECKPOINT13.2: raceNumber", () => {
+  it("SnapshotRaceTarget.raceNumberを保持できる。ability計算には影響しない", () => {
+    const withNumber = buildHorseSnapshotEntry(entry(), HANSHIN_TARGET, { evaluated: false }, CUTOFF_AFTER_ALL_HER_RACES, 1);
+    const withoutNumber = buildHorseSnapshotEntry(
+      entry(),
+      { ...HANSHIN_TARGET, raceNumber: null },
+      { evaluated: false },
+      CUTOFF_AFTER_ALL_HER_RACES,
+      1,
+    );
+    expect(HANSHIN_TARGET.raceNumber).toBe(11);
+    expect(withNumber.baseAbility).toBe(withoutNumber.baseAbility);
+    expect(withNumber.effectiveAbility).toBe(withoutNumber.effectiveAbility);
+  });
+});
+
+describe("CHECKPOINT13.2 Test8: placeholder/fixtureが正式Prediction用データへ黙って混入しない", () => {
+  it("全走がdataKind=placeholderの馬（grandia）はbaseAbility算出不能・警告あり", () => {
+    // grandiaはCHECKPOINT13.1監査で発見されたV0プレースホルダーデータの馬。
+    // CHECKPOINT13.2でdataKind: "placeholder"を全走に付与済み。
+    const grandiaEntry = entry({ horseId: "grandia", horseName: "グランディア" });
+    const result = buildHorseSnapshotEntry(
+      grandiaEntry,
+      HANSHIN_TARGET,
+      { evaluated: false },
+      "2099-01-01T00:00:00Z",
+      1,
+    );
+    expect(result.baseAbility).toBeNull();
+    expect(result.suitability).toBeNull();
+    expect(result.effectiveAbility).toBeNull();
+    expect(result.completenessFlags).toContain("placeholderDataExcluded");
+    expect(result.warnings.some((w) => w.includes("placeholder"))).toBe(true);
+  });
+
+  it("getHorseRecentRaces(grandia)自体は5走返す（データは存在する）が、Snapshotはそれを実データとして使わない", () => {
+    expect(getHorseRecentRaces("grandia").length).toBe(5);
+    expect(getHorseRecentRaces("grandia").every((r) => r.dataKind === "placeholder")).toBe(true);
+  });
+
+  it("実データ馬（シェイクユアハート）はdataKind未設定でも従来どおりreal扱いされる（後方互換）", () => {
+    const result = buildHorseSnapshotEntry(entry(), HANSHIN_TARGET, { evaluated: false }, CUTOFF_AFTER_ALL_HER_RACES, 1);
+    expect(result.baseAbility).toBe(70.3);
+    expect(result.completenessFlags).not.toContain("placeholderDataExcluded");
+  });
+});
+
+describe("CHECKPOINT13.2 Test9: Data Completeness Reportで新規warningが取得可能", () => {
+  // 実データ馬2022105102は過去走3走のみ（RECENT_RACE_COUNT=5未満）、
+  // かつ最も古い1走はmemberLevelBreakdownがnull（当時の候補馬データ不足）。
+  // insufficientRecentHistory・memberLevelUnavailable両方を実データで再現できる。
+  const SPARSE_HORSE_ID = "2022105102";
+
+  it("insufficientRecentHistory: 直近5走に満たない馬でcompletenessFlagsに含まれる", () => {
+    expect(getHorseRecentRaces(SPARSE_HORSE_ID).length).toBeLessThan(5);
+    const result = buildHorseSnapshotEntry(
+      entry({ horseId: SPARSE_HORSE_ID, horseName: "テスト対象馬" }),
+      HANSHIN_TARGET,
+      { evaluated: false },
+      "2099-01-01T00:00:00Z",
+      1,
+    );
+    expect(result.baseAbility).not.toBeNull();
+    expect(result.completenessFlags).toContain("insufficientRecentHistory");
+  });
+
+  it("memberLevelUnavailable: memberLevelBreakdownがnullの走を含む馬でcompletenessFlagsに含まれる", () => {
+    expect(getHorseRecentRaces(SPARSE_HORSE_ID).some((r) => r.memberLevelBreakdown === null)).toBe(true);
+    const result = buildHorseSnapshotEntry(
+      entry({ horseId: SPARSE_HORSE_ID, horseName: "テスト対象馬" }),
+      HANSHIN_TARGET,
+      { evaluated: false },
+      "2099-01-01T00:00:00Z",
+      1,
+    );
+    expect(result.completenessFlags).toContain("memberLevelUnavailable");
+  });
+
+  it("scratched馬・データ不足馬はcompletenessFlagsが空配列で初期化されている（未定義エラーにならない）", () => {
+    const scratchedResult = buildHorseSnapshotEntry(
+      entry({ scratched: true }),
+      HANSHIN_TARGET,
+      { evaluated: false },
+      CUTOFF_AFTER_ALL_HER_RACES,
+      1,
+    );
+    expect(scratchedResult.completenessFlags).toEqual([]);
+  });
+});
+
+describe("CHECKPOINT13.2 STEP17: Runner Resolver → RaceEntryInput → Snapshotへの接続可能性確認", () => {
+  it("Runner Resolverのresolved結果からRaceEntryInputを構築し、そのままbuildGateConfirmedSnapshotへ渡せる", async () => {
+    const { resolveRunners } = await import("../import/runnerResolver");
+    const { results } = resolveRunners(
+      [{ horseName: "シェイクユアハート", canonicalHorseIdHint: SHAKE_ID }, { horseName: "存在しない馬" }],
+      {
+        canonicalHorseIds: new Set([SHAKE_ID]),
+        canonicalHorseNames: [{ horseId: SHAKE_ID, horseName: "シェイクユアハート" }],
+      },
+    );
+
+    const resolvedEntries: RaceEntryInput[] = results
+      .filter((r) => r.status === "resolved" && r.horseId !== null)
+      .map((r) => entry({ horseId: r.horseId!, horseName: r.horseName }));
+
+    expect(resolvedEntries).toHaveLength(1);
+
+    const snapshot = buildGateConfirmedSnapshot({
+      raceTarget: HANSHIN_TARGET,
+      entries: resolvedEntries,
+      going: { evaluated: false },
+      generatedAt: CUTOFF_AFTER_ALL_HER_RACES,
+    });
+    expect(snapshot.runners).toHaveLength(1);
+    expect(snapshot.runners[0].baseAbility).toBe(70.3);
+  });
+});
+
+describe("CHECKPOINT13.2 STEP14: Missing Data Report", () => {
+  it("Runner Resolve結果とSnapshotを組み合わせて、resolved/unresolved/ambiguousと per-horse reasonsを持つレポートを生成できる", async () => {
+    const { resolveRunners } = await import("../import/runnerResolver");
+    const { buildMissingDataReport, formatMissingDataReport } = await import("../import/missingDataReport");
+
+    const resolverBatch = resolveRunners(
+      [
+        { horseName: "シェイクユアハート", canonicalHorseIdHint: SHAKE_ID },
+        { horseName: "存在しない馬" },
+        { horseName: "グランディア", canonicalHorseIdHint: "grandia" },
+      ],
+      {
+        canonicalHorseIds: new Set([SHAKE_ID, "grandia"]),
+        canonicalHorseNames: [
+          { horseId: SHAKE_ID, horseName: "シェイクユアハート" },
+          { horseId: "grandia", horseName: "グランディア" },
+        ],
+      },
+    );
+
+    const resolvedEntries: RaceEntryInput[] = resolverBatch.results
+      .filter((r) => r.status === "resolved" && r.horseId !== null)
+      .map((r) => entry({ horseId: r.horseId!, horseName: r.horseName }));
+
+    const snapshot = buildGateConfirmedSnapshot({
+      raceTarget: HANSHIN_TARGET,
+      entries: resolvedEntries,
+      going: { evaluated: false },
+      generatedAt: "2099-01-01T00:00:00Z",
+    });
+
+    const report = buildMissingDataReport(HANSHIN_TARGET.raceId, HANSHIN_TARGET.raceName, resolverBatch.results, snapshot);
+
+    expect(report.totalRunners).toBe(3);
+    expect(report.resolved).toBe(2);
+    expect(report.unresolved).toBe(1);
+    expect(report.ambiguous).toBe(0);
+
+    const grandiaProblem = report.problems.find((p) => p.horseName === "グランディア");
+    expect(grandiaProblem?.reasons).toContain("placeholderDataExcluded");
+
+    const unresolvedProblem = report.problems.find((p) => p.horseName === "存在しない馬");
+    expect(unresolvedProblem?.reasons).toEqual(["unresolvedHorse"]);
+
+    const text = formatMissingDataReport(report);
+    expect(text).toContain(`Race ${HANSHIN_TARGET.raceId}`);
+    expect(text).toContain("Resolved: 2");
+    expect(text).toContain("Unresolved: 1");
+    expect(text).toContain("unresolvedHorse");
   });
 });

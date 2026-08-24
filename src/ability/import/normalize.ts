@@ -27,6 +27,12 @@ function isBlank(value: string | undefined): boolean {
   return value === undefined || value.trim() === "";
 }
 
+/** 任意（欠損許容）の文字列セル。空文字ならnull（CHECKPOINT13.2: source/sourceRaceId/sourceHorseId用） */
+function optionalString(value: string | undefined): string | null {
+  if (isBlank(value)) return null;
+  return value!.trim();
+}
+
 /** 必須の数値セルをパースする。空・非数値ならエラーメッセージを返す */
 function requireNumber(value: string | undefined, fieldName: string, errors: string[]): number {
   if (isBlank(value)) {
@@ -119,6 +125,11 @@ export function normalizeRacePerformance(row: Record<string, string>, rowIndex: 
   // timeGapSecondsは勝ち馬でマイナス値を取りうるため符号チェックはしない（有限数値かのみ検証済み）
   const timeGapSeconds = optionalNumber(row.timeGapSeconds, "timeGapSeconds", errors);
 
+  // データ出所・監査用メタデータ（CHECKPOINT13.2）。任意項目、ability計算には使わない。
+  const source = optionalString(row.source);
+  const sourceRaceId = optionalString(row.sourceRaceId);
+  const sourceHorseId = optionalString(row.sourceHorseId);
+
   if (errors.length > 0) {
     return {
       ok: false,
@@ -152,6 +163,9 @@ export function normalizeRacePerformance(row: Record<string, string>, rowIndex: 
       gate,
       horseNumber,
       fieldSize,
+      source,
+      sourceRaceId,
+      sourceHorseId,
     },
   };
 }

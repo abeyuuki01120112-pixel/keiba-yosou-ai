@@ -22,11 +22,11 @@
  */
 
 import { roundToOneDecimal } from "./raceScore";
-import { calculateBaseAbility } from "./baseAbility";
+import { calculateBaseAbility, RECENT_RACE_COUNT } from "./baseAbility";
 import { computeSuitabilityV1 } from "./suitabilityV1";
 import { getHorseRecentRaces } from "./horseAbilityData";
 import type { RaceGateInput } from "./courseContextPrior";
-import type { Surface } from "./types";
+import type { RacePerformance, Surface } from "./types";
 import type { SuitabilityTargetRaceContext } from "./suitabilityTypes";
 import type { SuitabilityV1Result } from "./suitabilityV1Types";
 
@@ -74,6 +74,13 @@ export interface SnapshotRaceTarget {
   distance: number;
   /** 発走予定時刻（ISO 8601、T-2h算出に使う） */
   postTimeIso: string;
+  /**
+   * レース番号（1R〜12R）。CHECKPOINT13.1監査で不足が指摘された項目
+   * （CHECKPOINT13.2で追加）。CHECKPOINT13の正式対象は毎週土日の各場11Rだが、
+   * 今回はraceNumberを保持できるようにするだけで、フィルタリング機能は追加しない。
+   * ability計算には使用しない（監査・識別専用）。不明ならnull。
+   */
+  raceNumber: number | null;
 }
 
 /**
@@ -99,6 +106,21 @@ export interface HorseSnapshotEntry {
   /** baseAbility × overallSuitabilityPercent / 100。baseAbilityがnullならnull */
   effectiveAbility: number | null;
   warnings: string[];
+  /**
+   * Data Completeness Reportの機械可読な検知コード一覧（CHECKPOINT13.2で追加）。
+   * warningsは人間向けの自由文、completenessFlagsは`missingDataReport.ts`等の
+   * 後続処理がコード名で判定できるようにするための構造化フィールド。
+   * 値はraceScore/baseAbility/Suitability V1の計算結果には一切影響しない
+   * （検知・報告専用）。
+   *   "insufficientRecentHistory": 過去走が1件はあるがRECENT_RACE_COUNT
+   *     （Base Ability V1既存仕様の直近5走窓）未満で、baseAbilityが完全な
+   *     5走平均ではない可能性がある。
+   *   "memberLevelUnavailable": baseAbility算出に使った走のいずれかで、
+   *     出走馬の候補が1頭も無くmemberLevelがFALLBACK値になっていた。
+   *   "placeholderDataExcluded": この馬の過去走の一部/全部がdataKind=
+   *     "placeholder"/"fixture"のため、baseAbility/Suitability算出から除外した。
+   */
+  completenessFlags: string[];
 }
 
 /** Stage B用：発走2時間前時点で保存してよいオッズ情報の置き場所。能力計算には一切使用しない */
@@ -160,6 +182,16 @@ export function computeT2hCutoff(postTimeIso: string): string {
  * ここでraceDateがpredictionCutoffAt以降の走を除外してから
  * calculateBaseAbility()・computeSuitabilityV1()（どちらも凍結済み・無変更）に渡す。
  */
+/**
+ * dataKindが"real"（またはundefined/null＝既存データとの後方互換）の走だけを残す。
+ * "placeholder"/"fixture"は正式なStage A/B Snapshotの計算対象から除外する
+ * （CHECKPOINT13.1で発見されたV0プレースホルダーデータの混入防止、CHECKPOINT13.2 STEP10/11）。
+ */
+function excludeNonRealData(races: RacePerformance[]): { real: RacePerformance[]; excludedCount: number } {
+  const real = races.filter((r) => r.dataKind == null || r.dataKind === "real");
+  return { real, excludedCount: races.length - real.length };
+}
+
 export function buildHorseSnapshotEntry(
   entry: RaceEntryInput,
   raceTarget: SnapshotRaceTarget,
@@ -168,6 +200,7 @@ export function buildHorseSnapshotEntry(
   fieldSize: number | null,
 ): HorseSnapshotEntry {
   const warnings: string[] = [];
+  const completenessFlags: string[] = [];
 
   if (entry.scratched) {
     warnings.push("出走取消のため、baseAbility/Suitability/effectiveAbilityは算出していません。");
@@ -181,15 +214,25 @@ export function buildHorseSnapshotEntry(
       suitability: null,
       effectiveAbility: null,
       warnings,
+      completenessFlags,
     };
   }
 
   const cutoffMs = Date.parse(predictionCutoffAt);
-  const priorRaces = getHorseRecentRaces(entry.horseId).filter((r) => Date.parse(r.raceDate) < cutoffMs);
+  const beforeCutoff = getHorseRecentRaces(entry.horseId).filter((r) => Date.parse(r.raceDate) < cutoffMs);
+  const { real: priorRaces, excludedCount: placeholderExcludedCount } = excludeNonRealData(beforeCutoff);
+
+  if (placeholderExcludedCount > 0) {
+    completenessFlags.push("placeholderDataExcluded");
+    warnings.push(
+      `過去走${placeholderExcludedCount}件がdataKind=placeholder/fixtureのため、baseAbility/Suitability算出から除外しました（正式な実データではありません）。`,
+    );
+  }
 
   if (priorRaces.length === 0) {
+    completenessFlags.push("insufficientRecentHistory");
     warnings.push(
-      "predictionCutoffAtより前の過去走データが無いため、baseAbility算出不能です（能力0点ではなくデータ不足を意味します）。",
+      "predictionCutoffAtより前の実データ過去走が無いため、baseAbility算出不能です（能力0点ではなくデータ不足を意味します）。",
     );
     return {
       horseId: entry.horseId,
@@ -201,10 +244,24 @@ export function buildHorseSnapshotEntry(
       suitability: null,
       effectiveAbility: null,
       warnings,
+      completenessFlags,
     };
   }
 
   const baseAbility = calculateBaseAbility(priorRaces);
+
+  if (priorRaces.length < RECENT_RACE_COUNT) {
+    completenessFlags.push("insufficientRecentHistory");
+    warnings.push(
+      `baseAbility算出に使える実データ過去走が${priorRaces.length}走のみです（Base Ability V1の既存仕様どおり直近最大${RECENT_RACE_COUNT}走の均等平均だが、今回はそれ未満）。`,
+    );
+  }
+  if (priorRaces.slice(0, RECENT_RACE_COUNT).some((r) => r.memberLevelBreakdown === null)) {
+    completenessFlags.push("memberLevelUnavailable");
+    warnings.push(
+      "baseAbility算出に使った走のうち少なくとも1走で、当時の対戦相手データ不足によりmemberLevelがフォールバック値（FALLBACK_MEMBER_LEVEL_SCORE）で計算されていました。",
+    );
+  }
 
   const target: SuitabilityTargetRaceContext = {
     racecourse: raceTarget.racecourse,
@@ -246,6 +303,7 @@ export function buildHorseSnapshotEntry(
     suitability,
     effectiveAbility,
     warnings,
+    completenessFlags,
   };
 }
 

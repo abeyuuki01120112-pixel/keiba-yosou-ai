@@ -48,6 +48,16 @@ export interface RacePerformanceInput {
   horseNumber: number | null;
   /** 出走頭数。無ければnull */
   fieldSize: number | null;
+
+  /**
+   * データ出所・監査用メタデータ（CHECKPOINT13.2で追加）。ability計算には使わない。
+   * canonical raceId/horseIdとは別物（同一視しない）。CSVに列が無ければnull。
+   * optional：既存テスト・既存呼び出し元のオブジェクトリテラルとの後方互換性のため
+   * （省略時はnormalize.ts側でnullとして正規化される）。
+   */
+  source?: string | null;
+  sourceRaceId?: string | null;
+  sourceHorseId?: string | null;
 }
 
 /** normalize時に発生したエラー（行単位）。アプリを落とさず内容を確認できるようにする */
