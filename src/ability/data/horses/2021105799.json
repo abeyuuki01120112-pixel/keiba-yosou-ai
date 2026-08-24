@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20260712-FUKUSHIMA-11",
+    "raceName": "七夕賞",
+    "raceDate": "2026-07-12",
+    "racecourse": "福島",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "稍重",
+    "raceNumber": 11,
+    "finishPosition": 11,
+    "timeGap": 2,
+    "raceTime": 119.9,
+    "final3F": 36.9,
+    "carriedWeight": 55,
+    "gate": 4,
+    "horseNumber": 8,
+    "fieldSize": null,
+    "source": "JRA_official_results",
+    "sourceRaceId": "202603020611",
+    "sourceHorseId": null,
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

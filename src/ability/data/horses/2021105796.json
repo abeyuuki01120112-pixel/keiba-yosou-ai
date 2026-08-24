@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20250928-HANSHIN-09",
+    "raceName": "兵庫特別",
+    "raceDate": "2025-09-28",
+    "racecourse": "阪神",
+    "surface": "turf",
+    "distance": 2400,
+    "going": "良",
+    "raceNumber": 9,
+    "finishPosition": 2,
+    "timeGap": 0.1,
+    "raceTime": 145.9,
+    "final3F": 33.8,
+    "carriedWeight": 55,
+    "gate": 4,
+    "horseNumber": 4,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202509040909",
+    "sourceHorseId": "2021105796",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

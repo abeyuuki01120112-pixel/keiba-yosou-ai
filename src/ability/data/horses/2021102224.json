@@ -12,5 +12,28 @@
     "raceTime": 135.3,
     "final3F": 38,
     "carriedWeight": 58
+  },
+  {
+    "raceId": "JRA-20260516-NIIGATA-11",
+    "raceName": "新潟大賞典",
+    "raceDate": "2026-05-16",
+    "racecourse": "新潟",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 15,
+    "timeGap": 1.2,
+    "raceTime": 120.1,
+    "final3F": 35.2,
+    "carriedWeight": 58,
+    "gate": 8,
+    "horseNumber": 15,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202604010511",
+    "sourceHorseId": "2021102224",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
   }
 ]

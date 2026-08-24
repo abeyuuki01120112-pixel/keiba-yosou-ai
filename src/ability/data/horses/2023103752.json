@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20260510-TOKYO-11",
+    "raceName": "NHKマイルカップ",
+    "raceDate": "2026-05-10",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 8,
+    "timeGap": 0.7,
+    "raceTime": 92.2,
+    "final3F": 34.2,
+    "carriedWeight": 57,
+    "gate": 6,
+    "horseNumber": 12,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202605020611",
+    "sourceHorseId": "2023103752",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

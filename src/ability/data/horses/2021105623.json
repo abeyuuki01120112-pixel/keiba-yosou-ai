@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20251129-TOKYO-11",
+    "raceName": "キャピタルステークス",
+    "raceDate": "2025-11-29",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 16,
+    "timeGap": 1.3,
+    "raceTime": 93.2,
+    "final3F": 34.7,
+    "carriedWeight": 57,
+    "gate": 7,
+    "horseNumber": 14,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202505050711",
+    "sourceHorseId": "2021105623",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

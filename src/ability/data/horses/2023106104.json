@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20260301-NAKAYAMA-07",
+    "raceName": "3歳1勝クラス",
+    "raceDate": "2026-03-01",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "良",
+    "raceNumber": 7,
+    "finishPosition": 8,
+    "timeGap": 1.7,
+    "raceTime": 93.8,
+    "final3F": 35.5,
+    "carriedWeight": 57,
+    "gate": 1,
+    "horseNumber": 1,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202606020207",
+    "sourceHorseId": "2023106104",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

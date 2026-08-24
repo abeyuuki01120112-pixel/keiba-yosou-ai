@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20260411-NAKAYAMA-11",
+    "raceName": "ニュージーランドトロフィー",
+    "raceDate": "2026-04-11",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 9,
+    "timeGap": 1.2,
+    "raceTime": 94.5,
+    "final3F": 34.5,
+    "carriedWeight": 57,
+    "gate": 6,
+    "horseNumber": 10,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202606030511",
+    "sourceHorseId": "2023102083",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

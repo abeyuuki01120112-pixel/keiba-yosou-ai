@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20250727-NIIGATA-02",
+    "raceName": "2歳未勝利",
+    "raceDate": "2025-07-27",
+    "racecourse": "新潟",
+    "surface": "turf",
+    "distance": 1800,
+    "going": "良",
+    "raceNumber": 2,
+    "finishPosition": 6,
+    "timeGap": 3.3,
+    "raceTime": 110.7,
+    "final3F": 35.9,
+    "carriedWeight": 52,
+    "gate": 4,
+    "horseNumber": 4,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202504020202",
+    "sourceHorseId": "2023102677",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

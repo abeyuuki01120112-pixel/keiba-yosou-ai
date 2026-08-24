@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20251221-NAKAYAMA-05",
+    "raceName": "2歳新馬",
+    "raceDate": "2025-12-21",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "重",
+    "raceNumber": 5,
+    "finishPosition": 12,
+    "timeGap": 3,
+    "raceTime": 98.1,
+    "final3F": 37,
+    "carriedWeight": 55,
+    "gate": 1,
+    "horseNumber": 2,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202506050605",
+    "sourceHorseId": "2023100767",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

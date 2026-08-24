@@ -10,9 +10,9 @@
     "raceNumber": 11,
     "finishPosition": 14,
     "timeGap": 1.4,
-    "raceTime": 119.0,
+    "raceTime": 119,
     "final3F": 32.7,
-    "carriedWeight": 55.0
+    "carriedWeight": 55
   },
   {
     "raceId": "JRA-20251115-KYOTO-10",
@@ -27,7 +27,7 @@
     "timeGap": 0.4,
     "raceTime": 119.3,
     "final3F": 34.3,
-    "carriedWeight": 57.0
+    "carriedWeight": 57
   },
   {
     "raceId": "JRA-20250525-KYOTO-11",
@@ -40,9 +40,9 @@
     "raceNumber": 11,
     "finishPosition": 5,
     "timeGap": 0.8,
-    "raceTime": 106.0,
-    "final3F": 35.0,
-    "carriedWeight": 55.0
+    "raceTime": 106,
+    "final3F": 35,
+    "carriedWeight": 55
   },
   {
     "raceId": "JRA-20250413-FUKUSHIMA-11",
@@ -55,9 +55,9 @@
     "raceNumber": 11,
     "finishPosition": 4,
     "timeGap": 0.2,
-    "raceTime": 120.0,
+    "raceTime": 120,
     "final3F": 34.3,
-    "carriedWeight": 57.0
+    "carriedWeight": 57
   },
   {
     "raceId": "JRA-20250222-TOKYO-11",
@@ -72,7 +72,7 @@
     "timeGap": 2.4,
     "raceTime": 214.6,
     "final3F": 36.1,
-    "carriedWeight": 55.0
+    "carriedWeight": 55
   },
   {
     "raceId": "JRA-20241130-NAKAYAMA-11",
@@ -86,7 +86,30 @@
     "finishPosition": 7,
     "timeGap": 0.4,
     "raceTime": 227.1,
-    "final3F": 35.0,
-    "carriedWeight": 57.0
+    "final3F": 35,
+    "carriedWeight": 57
+  },
+  {
+    "raceId": "JRA-20260531-TOKYO-12",
+    "raceName": "目黒記念",
+    "raceDate": "2026-05-31",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 2500,
+    "going": "良",
+    "raceNumber": 12,
+    "finishPosition": 8,
+    "timeGap": 0.6,
+    "raceTime": 150.4,
+    "final3F": 33.8,
+    "carriedWeight": 55,
+    "gate": 6,
+    "horseNumber": 10,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202605021212",
+    "sourceHorseId": "2020105781",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
   }
 ]

@@ -26,5 +26,28 @@
     "raceTime": 152.6,
     "final3F": 36,
     "carriedWeight": 58
+  },
+  {
+    "raceId": "JRA-20241124-TOKYO-12",
+    "raceName": "ジャパンカップ",
+    "raceDate": "2024-11-24",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 2400,
+    "going": "良",
+    "raceNumber": 12,
+    "finishPosition": 2,
+    "timeGap": 0,
+    "raceTime": 145.5,
+    "final3F": 33.1,
+    "carriedWeight": 56,
+    "gate": 5,
+    "horseNumber": 7,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202405050812",
+    "sourceHorseId": "2021110048",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
   }
 ]

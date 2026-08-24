@@ -12,7 +12,7 @@
     "timeGap": 1.1,
     "raceTime": 133.8,
     "final3F": 34.4,
-    "carriedWeight": 57.0
+    "carriedWeight": 57
   },
   {
     "raceId": "JRA-20260118-KYOTO-11",
@@ -27,7 +27,7 @@
     "timeGap": 0.5,
     "raceTime": 146.2,
     "final3F": 34.3,
-    "carriedWeight": 55.0
+    "carriedWeight": 55
   },
   {
     "raceId": "JRA-20251221-NAKAYAMA-11",
@@ -42,7 +42,7 @@
     "timeGap": 1.2,
     "raceTime": 108.6,
     "final3F": 35.5,
-    "carriedWeight": 57.0
+    "carriedWeight": 57
   },
   {
     "raceId": "JRA-20251115-KYOTO-10",
@@ -57,7 +57,7 @@
     "timeGap": 0.8,
     "raceTime": 119.7,
     "final3F": 35.3,
-    "carriedWeight": 57.0
+    "carriedWeight": 57
   },
   {
     "raceId": "JRA-20251025-KYOTO-11",
@@ -72,7 +72,7 @@
     "timeGap": 0.3,
     "raceTime": 105.3,
     "final3F": 33.5,
-    "carriedWeight": 57.0
+    "carriedWeight": 57
   },
   {
     "raceId": "JRA-20250913-HANSHIN-11",
@@ -87,6 +87,29 @@
     "timeGap": 1.2,
     "raceTime": 119.2,
     "final3F": 35.5,
-    "carriedWeight": 56.0
+    "carriedWeight": 56
+  },
+  {
+    "raceId": "JRA-20260411-HANSHIN-10",
+    "raceName": "大阪―ハンブルクカップ",
+    "raceDate": "2026-04-11",
+    "racecourse": "阪神",
+    "surface": "turf",
+    "distance": 2600,
+    "going": "良",
+    "raceNumber": 10,
+    "finishPosition": 4,
+    "timeGap": 0.7,
+    "raceTime": 157.6,
+    "final3F": 33.5,
+    "carriedWeight": 55,
+    "gate": 8,
+    "horseNumber": 12,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202609020510",
+    "sourceHorseId": "2020103025",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
   }
 ]
