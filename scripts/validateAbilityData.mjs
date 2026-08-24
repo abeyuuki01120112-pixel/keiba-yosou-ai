@@ -154,6 +154,29 @@ const raceFieldConditions = new Map(); // key: racecourse|surface|distance|going
 const horseDataIds = new Set();
 const allRaceIds = new Set(); // raceFieldAggregatesの整合性チェック用（全馬横断）
 
+// CHECKPOINT12.6: raceId単位で「比較母集団（同一レースを共有する他馬データ）が
+// 十分に揃っているか」を機械判定するための集計。raceScore算出時にfinal3FScore・
+// weightScore・memberLevel・raceTimeScoreが必要とする同一レース比較母集団
+// （buildRaceHistory()のgroup）の完全性を、実際にロードされたhorseId数・
+// fieldSize・finishPosition=1(勝ち馬)の有無から推定する。数式は一切変更せず、
+// あくまで「不完全な比較母集団で誤った検証をしていないか」を警告するのみ。
+const raceGroupInfoByRaceId = new Map(); // raceId -> { horseIds: Set, maxFieldSize: number|null, hasWinner: boolean }
+
+function recordRaceGroupInfo(raceId, horseId, fieldSize, finishPosition) {
+  let info = raceGroupInfoByRaceId.get(raceId);
+  if (!info) {
+    info = { horseIds: new Set(), maxFieldSize: null, hasWinner: false };
+    raceGroupInfoByRaceId.set(raceId, info);
+  }
+  info.horseIds.add(horseId);
+  if (typeof fieldSize === "number" && (info.maxFieldSize === null || fieldSize > info.maxFieldSize)) {
+    info.maxFieldSize = fieldSize;
+  }
+  if (finishPosition === 1) {
+    info.hasWinner = true;
+  }
+}
+
 if (!fs.existsSync(HORSES_DIR)) {
   error(`${path.relative(ROOT, HORSES_DIR)} が存在しません`);
 } else {
@@ -187,6 +210,12 @@ if (!fs.existsSync(HORSES_DIR)) {
         }
         seenRaceIds.add(race.raceId);
         allRaceIds.add(race.raceId);
+        recordRaceGroupInfo(
+          race.raceId,
+          horseId,
+          typeof race.fieldSize === "number" ? race.fieldSize : null,
+          typeof race.finishPosition === "number" ? race.finishPosition : null,
+        );
       }
       if (typeof race.raceDate === "string" && Number.isNaN(Date.parse(race.raceDate))) {
         error(`${label}: raceDate "${race.raceDate}" を日付として解釈できません`);
@@ -268,6 +297,8 @@ const RACE_FIELD_AGGREGATE_FIELDS = {
   source: { type: "string", nonEmpty: true },
 };
 
+const raceFieldAggregateRaceIds = new Set(); // CHECKPOINT12.6: 4-3で「上書き済みraceId」の除外に使う
+
 if (fs.existsSync(RACE_FIELD_AGGREGATE_PATH)) {
   const data = readJson(RACE_FIELD_AGGREGATE_PATH);
   if (data !== null) {
@@ -283,12 +314,54 @@ if (fs.existsSync(RACE_FIELD_AGGREGATE_PATH)) {
             error(`${label}: raceId "${a.raceId}" が重複しています`);
           }
           seenRaceIds.add(a.raceId);
+          raceFieldAggregateRaceIds.add(a.raceId);
           if (!allRaceIds.has(a.raceId)) {
             warn(`${label}: raceId "${a.raceId}" はdata/horses/内のどの馬の実績にも存在しません（上書きが適用されません）`);
           }
         }
       });
     }
+  }
+}
+
+// --- 4-3. 比較母集団の完全性チェック（CHECKPOINT12.6）---
+// raceScore算出時、final3FScore・weightScore・memberLevelは「同一raceIdを共有する
+// 実データ」を比較母集団として使う（raceHistoryPipeline.ts の group）。
+// raceFieldAggregatesByRaceId による上書きが無いraceIdについて、
+// 「data/horses/内で実際にロードされている頭数」がfieldSizeより少ない場合、
+// final3FScore/weightScore/memberLevelが自己参照的に中立化する（自分自身との
+// 比較になり、relativeDiffSeconds=0等の見かけ上妥当だが誤った値になる）リスクが
+// ある。除外・取消・中止による正当な差分もあり得るため、エラーではなく警告のみ
+// とする（CHECKPOINT12.5 STEP9の採用、CHECKPOINT12.6 STEP3）。
+//
+// また、raceTimeScoreは「そのレースの勝ち馬(finishPosition=1)のraceTime」を
+// 基準タイムとして使う（raceHistoryPipeline.ts の buildRaceHistory 内、
+// `group.find((e) => e.raw.finishPosition === 1) ?? group[0]`）。ロードされた
+// データの中に勝ち馬が1件も無い場合、暗黙に別の馬（group[0]）のタイムが
+// 「勝ち馬タイム」として扱われてしまい、final3F/weightの自己参照よりも
+// 気づきにくい形でraceTimeScoreが汚染されるおそれがある。これを検知するため
+// 勝ち馬の有無も別途チェックする。
+for (const [raceId, info] of raceGroupInfoByRaceId.entries()) {
+  if (raceFieldAggregateRaceIds.has(raceId)) {
+    // raceFieldAggregatesで実データの中央値に上書き済みのため、
+    // final3FScore/weightScoreの自己参照中央値リスクは既に回避されている。
+    continue;
+  }
+  const loadedCount = info.horseIds.size;
+  if (info.maxFieldSize !== null && loadedCount < info.maxFieldSize) {
+    warn(
+      `raceId "${raceId}": data/horses/内で実際にロードされている頭数(${loadedCount})が` +
+        `fieldSize(${info.maxFieldSize})より少ない可能性があります` +
+        `（除外・取消・中止馬がいた場合の正当な差の可能性もあります）。` +
+        `final3FScore/weightScore/memberLevelの比較母集団が不足し、自己参照的に` +
+        `中立化するリスクがあります。raceFieldAggregates.jsonでの実データ中央値上書きを検討してください。`,
+    );
+  }
+  if (!info.hasWinner) {
+    warn(
+      `raceId "${raceId}": finishPosition=1（勝ち馬）のデータがdata/horses/内に見当たりません。` +
+        `raceTimeScoreの基準タイムには本来の勝ち馬ではない馬のraceTimeが使われている可能性があります。`,
+    );
   }
 }
 
