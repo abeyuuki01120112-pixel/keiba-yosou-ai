@@ -28,7 +28,7 @@ import { resolveRunners, type ResolverStatus, type RunnerResolverContext } from 
 import type { RaceCardInput } from "./raceCardTypes";
 
 /** completenessFlags（predictionSnapshot.ts）→ Race Card Bridgeの人間向けreasonコードへの対応 */
-const COMPLETENESS_FLAG_TO_REASON: Record<string, string> = {
+export const COMPLETENESS_FLAG_TO_REASON: Record<string, string> = {
   placeholderDataExcluded: "placeholder_data",
   insufficientRecentHistory: "insufficientRecentHistory",
   memberLevelUnavailable: "memberLevelUnavailable",
@@ -100,7 +100,7 @@ function reasonsForAmbiguous(): string[] {
   return ["multiple name matches"];
 }
 
-function reasonsFromSnapshotEntry(entry: HorseSnapshotEntry, registryEntry: CanonicalHorseRegistryEntry | undefined): string[] {
+export function reasonsFromSnapshotEntry(entry: HorseSnapshotEntry, registryEntry: CanonicalHorseRegistryEntry | undefined): string[] {
   const reasons: string[] = [];
 
   // dataKindが馬単位で完全にplaceholder/fixtureの場合、Snapshot側のcompletenessFlagsに
