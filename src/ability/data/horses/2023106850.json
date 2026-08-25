@@ -15,12 +15,21 @@
     "carriedWeight": 55,
     "gate": 5,
     "horseNumber": 5,
-    "fieldSize": null,
+    "fieldSize": 6,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202504020202",
     "sourceHorseId": "2023106850",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        2,
+        2
+      ],
+      "fieldSize": 6,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20251011-TOKYO-11",
@@ -38,12 +47,21 @@
     "carriedWeight": 56,
     "gate": 5,
     "horseNumber": 5,
-    "fieldSize": null,
+    "fieldSize": 8,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202505040311",
     "sourceHorseId": "2023106850",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        5,
+        6
+      ],
+      "fieldSize": 8,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20251124-TOKYO-11",
@@ -61,12 +79,22 @@
     "carriedWeight": 56,
     "gate": 6,
     "horseNumber": 8,
-    "fieldSize": null,
+    "fieldSize": 12,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202505050611",
     "sourceHorseId": "2023106850",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        8,
+        9,
+        6
+      ],
+      "fieldSize": 12,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20260210-KYOTO-11",
@@ -84,12 +112,21 @@
     "carriedWeight": 57,
     "gate": 1,
     "horseNumber": 1,
-    "fieldSize": null,
+    "fieldSize": 9,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202608020411",
     "sourceHorseId": "2023106850",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        5,
+        4
+      ],
+      "fieldSize": 9,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20260419-NAKAYAMA-11",
@@ -107,11 +144,22 @@
     "carriedWeight": 57,
     "gate": 7,
     "horseNumber": 14,
-    "fieldSize": null,
+    "fieldSize": 18,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202606030811",
     "sourceHorseId": "2023106850",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        15,
+        14,
+        15,
+        15
+      ],
+      "fieldSize": 18,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   }
 ]

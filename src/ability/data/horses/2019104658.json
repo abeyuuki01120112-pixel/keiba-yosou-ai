@@ -38,12 +38,23 @@
     "carriedWeight": 57,
     "gate": 4,
     "horseNumber": 8,
-    "fieldSize": null,
+    "fieldSize": 18,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202505050211",
     "sourceHorseId": "2019104658",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        14,
+        15,
+        14,
+        12
+      ],
+      "fieldSize": 18,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20260221-TOKYO-11",
@@ -61,12 +72,23 @@
     "carriedWeight": 57,
     "gate": 8,
     "horseNumber": 15,
-    "fieldSize": null,
+    "fieldSize": 15,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202605010711",
     "sourceHorseId": "2019104658",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        11,
+        10,
+        10,
+        9
+      ],
+      "fieldSize": 15,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20260411-HANSHIN-10",
@@ -84,12 +106,23 @@
     "carriedWeight": 57,
     "gate": 3,
     "horseNumber": 3,
-    "fieldSize": null,
+    "fieldSize": 13,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202609020510",
     "sourceHorseId": "2019104658",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        6,
+        6,
+        5,
+        6
+      ],
+      "fieldSize": 13,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20260531-TOKYO-12",
@@ -107,12 +140,23 @@
     "carriedWeight": 57,
     "gate": 3,
     "horseNumber": 3,
-    "fieldSize": null,
+    "fieldSize": 14,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202605021212",
     "sourceHorseId": "2019104658",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        8,
+        11,
+        10,
+        11
+      ],
+      "fieldSize": 14,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20260712-FUKUSHIMA-11",
@@ -130,11 +174,22 @@
     "carriedWeight": 56,
     "gate": 1,
     "horseNumber": 1,
-    "fieldSize": null,
+    "fieldSize": 16,
     "source": "JRA_official_results",
     "sourceRaceId": "202603020611",
     "sourceHorseId": null,
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        11,
+        10,
+        10,
+        7
+      ],
+      "fieldSize": 16,
+      "source": "JRA_official_results",
+      "isReliable": true
+    }
   }
 ]
