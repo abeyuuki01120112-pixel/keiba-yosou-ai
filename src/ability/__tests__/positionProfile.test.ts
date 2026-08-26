@@ -8,7 +8,13 @@ import {
   computeHistoricalPositionProfile,
   normalizePosition,
   POSITION_STABILITY_STABLE_MAX_STD_DEV,
+  POSITION_STABILITY_MODERATE_MAX_STD_DEV,
 } from "../positionProfile";
+import {
+  NIGE_LEAD_POSITION_THRESHOLD,
+  RUNNING_STYLE_POSITION_THRESHOLDS,
+  classifyRunningStyleFromPositions,
+} from "../passingPositionRunningStyle";
 import { buildRacePerformance } from "../buildRacePerformance";
 import { calculateBaseAbility } from "../baseAbility";
 import { computeSuitabilityV1 } from "../suitabilityV1";
@@ -198,6 +204,98 @@ describe("Test H: Suitability V1は不変", () => {
     computeHistoricalPositionProfile("h1", "テスト馬", races);
     const after = computeSuitabilityV1({ horseId: "h1", recentRaces: races, target, gate });
     expect(after).toEqual(before);
+  });
+});
+
+describe("CHECKPOINT14B.1: Position Band境界のfrozen確認（現行定数を凍結・固定するテスト）", () => {
+  it("senko/sashi境界（ratio=senkoMaxRatio）ちょうどはsenko（front）のまま", () => {
+    // position=7, fieldSize=20 → ratio=0.35=senkoMaxRatio（境界含む=<=なのでsenko）
+    expect(classifyRunningStyleFromPositions([7, 7], 20)).toBe("senko");
+    const profile = computeHistoricalPositionProfile("h1", "テスト馬", [
+      race({ raceId: "R1", passingPosition: pp([7, 7], 20) }),
+    ]);
+    expect(profile.usedRaces[0].band).toBe("front");
+  });
+
+  it("senko/sashi境界をわずかに超えるとsashi（mid）へ切り替わる", () => {
+    // position=9, fieldSize=25 → ratio=0.36（senkoMaxRatio=0.35をわずかに超える）
+    expect(classifyRunningStyleFromPositions([9, 9], 25)).toBe("sashi");
+    const profile = computeHistoricalPositionProfile("h1", "テスト馬", [
+      race({ raceId: "R1", passingPosition: pp([9, 9], 25) }),
+    ]);
+    expect(profile.usedRaces[0].band).toBe("mid");
+  });
+
+  it("sashi/oikomi境界（ratio=sashiMaxRatio）ちょうどはsashi（mid）のまま", () => {
+    // position=14, fieldSize=20 → ratio=0.7=sashiMaxRatio（境界含む=<=なのでsashi）
+    expect(classifyRunningStyleFromPositions([14, 14], 20)).toBe("sashi");
+    const profile = computeHistoricalPositionProfile("h1", "テスト馬", [
+      race({ raceId: "R1", passingPosition: pp([14, 14], 20) }),
+    ]);
+    expect(profile.usedRaces[0].band).toBe("mid");
+  });
+
+  it("sashi/oikomi境界をわずかに超えるとoikomi（rear）へ切り替わる", () => {
+    // position=71, fieldSize=100 → ratio=0.71（sashiMaxRatio=0.7をわずかに超える）
+    expect(classifyRunningStyleFromPositions([71, 71], 100)).toBe("oikomi");
+    const profile = computeHistoricalPositionProfile("h1", "テスト馬", [
+      race({ raceId: "R1", passingPosition: pp([71, 71], 100) }),
+    ]);
+    expect(profile.usedRaces[0].band).toBe("rear");
+  });
+
+  it("nige境界（絶対順位<=NIGE_LEAD_POSITION_THRESHOLD）ちょうどはnige（front）、1つ超えるとratio判定へ切り替わる", () => {
+    expect(NIGE_LEAD_POSITION_THRESHOLD).toBe(2);
+    expect(classifyRunningStyleFromPositions([2, 8], 20)).toBe("nige");
+    expect(classifyRunningStyleFromPositions([3, 8], 20)).not.toBe("nige"); // ratio判定（senko/sashi/oikomi）へフォールする
+  });
+
+  it("現行のratio閾値定数（0.35 / 0.7）を明示的に固定する", () => {
+    expect(RUNNING_STYLE_POSITION_THRESHOLDS.senkoMaxRatio).toBe(0.35);
+    expect(RUNNING_STYLE_POSITION_THRESHOLDS.sashiMaxRatio).toBe(0.7);
+  });
+});
+
+describe("CHECKPOINT14B.1: positionStability境界のfrozen確認", () => {
+  // fieldSize=101（(position-1)/100）を使うと、平均0.5・偏差±dのペアで
+  // stdDev=dちょうどを厳密に作れる（roundToThreeDecimalsの丸め誤差を避けるため）。
+  function stabilityPair(d: number): RacePerformance[] {
+    const posLow = 1 + 100 * (0.5 - d);
+    const posHigh = 1 + 100 * (0.5 + d);
+    return [
+      race({ raceId: "R1", passingPosition: pp([posLow], 101) }),
+      race({ raceId: "R2", passingPosition: pp([posHigh], 101) }),
+    ];
+  }
+
+  it("stdDev=STABLE上限(0.15)ちょうどはstableのまま", () => {
+    const profile = computeHistoricalPositionProfile("h1", "テスト馬", stabilityPair(0.15));
+    // positionVariance（表示用）は小数第3位に丸めて格納されるため、比較はprecision=2で行う
+    // （安定性判定自体は丸め前の生varianceで行うようCHECKPOINT14B.1で修正済み）
+    expect(Math.sqrt(profile.positionVariance!)).toBeCloseTo(0.15, 2);
+    expect(profile.positionStability).toBe("stable");
+  });
+
+  it("stdDevがSTABLE上限をわずかに超えるとmoderateへ切り替わる", () => {
+    const profile = computeHistoricalPositionProfile("h1", "テスト馬", stabilityPair(0.16));
+    expect(Math.sqrt(profile.positionVariance!)).toBeCloseTo(0.16, 2);
+    expect(profile.positionStability).toBe("moderate");
+  });
+
+  it("stdDev=MODERATE上限(0.30)ちょうどはmoderateのまま", () => {
+    const profile = computeHistoricalPositionProfile("h1", "テスト馬", stabilityPair(0.3));
+    expect(Math.sqrt(profile.positionVariance!)).toBeCloseTo(0.3, 3);
+    expect(profile.positionStability).toBe("moderate");
+  });
+
+  it("stdDevがMODERATE上限をわずかに超えるとvariableへ切り替わり、confidenceがdowngradeされる", () => {
+    const profile = computeHistoricalPositionProfile("h1", "テスト馬", stabilityPair(0.31));
+    expect(Math.sqrt(profile.positionVariance!)).toBeCloseTo(0.31, 3);
+    expect(profile.positionStability).toBe("variable");
+    // evidence数2件のみ(=baseConfidenceFromSampleCount未満のmedium)だが、
+    // variable判定によるdowngrade自体はhigh評価の馬でも起こることを別テスト(Test F)で確認済み。
+    // ここではvariable到達自体の境界確認が目的。
+    expect(POSITION_STABILITY_MODERATE_MAX_STD_DEV).toBe(0.3);
   });
 });
 

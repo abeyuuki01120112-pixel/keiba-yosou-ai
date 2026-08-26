@@ -88,9 +88,16 @@ function populationVariance(values: number[]): number {
 export const POSITION_STABILITY_STABLE_MAX_STD_DEV = 0.15;
 export const POSITION_STABILITY_MODERATE_MAX_STD_DEV = 0.3;
 
+/**
+ * 浮動小数点演算の表現誤差（例: 数学的にはちょうど0.15のstdDevが、平方根計算の丸め誤差で
+ * 0.15000000000000002になる等）だけで境界判定が変わらないための微小許容値。
+ * CHECKPOINT14B.1のboundaryテストで実際に発生を確認したため導入（意味のある閾値変更ではない）。
+ */
+const STABILITY_BOUNDARY_EPSILON = 1e-9;
+
 function classifyStability(stdDev: number): PositionStability {
-  if (stdDev <= POSITION_STABILITY_STABLE_MAX_STD_DEV) return "stable";
-  if (stdDev <= POSITION_STABILITY_MODERATE_MAX_STD_DEV) return "moderate";
+  if (stdDev <= POSITION_STABILITY_STABLE_MAX_STD_DEV + STABILITY_BOUNDARY_EPSILON) return "stable";
+  if (stdDev <= POSITION_STABILITY_MODERATE_MAX_STD_DEV + STABILITY_BOUNDARY_EPSILON) return "moderate";
   return "variable";
 }
 
@@ -193,8 +200,12 @@ export function computeHistoricalPositionProfile(
   const rearRate = roundToOneDecimal((rearCount / positionEvidenceCount) * 100);
 
   const representativeValues = usedRaces.map((r) => r.representativeNormalizedPosition);
-  const positionVariance = roundToThreeDecimals(populationVariance(representativeValues));
-  const stdDev = Math.sqrt(positionVariance);
+  // stability判定は丸め前の生varianceのstdDevで行う（表示用にpositionVarianceを丸めた後の
+  // 値でstdDevを計算すると、境界ちょうど（例: stdDev=0.15）が丸め誤差で意図しない側へ
+  // 分類されてしまうため。CHECKPOINT14B.1のboundaryテストで実際に検出・修正）。
+  const rawVariance = populationVariance(representativeValues);
+  const positionVariance = roundToThreeDecimals(rawVariance);
+  const stdDev = Math.sqrt(rawVariance);
   const positionStability = classifyStability(stdDev);
 
   let positionConfidence: PositionConfidence = baseConfidenceFromSampleCount(positionEvidenceCount);
