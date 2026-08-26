@@ -1,0 +1,4 @@
+{
+  "note": "CHECKPOINT14C.1で新設したrace-level lap enrichmentのプレースホルダー（既存data/raceFieldAggregates.jsonと同じ、raceIdをキーにした別ファイル方式）。2026-08-26時点で実Lapデータは1件も存在しない（src/ability/data/horses/には lap/lapSequence/first3F/first600/first1000 に相当するフィールドが1件もない）。将来ChatGPT側でLap Data ZIPが提供された時点で、このファイルのlapsへrace単位のRaceLapSequenceRecordを追加する。他ファイル（race_performances.csv・data/horses/*.json）とは重複させない。まだraceHistoryPipeline.ts等の本番読み込み経路には接続していない。",
+  "laps": []
+}
