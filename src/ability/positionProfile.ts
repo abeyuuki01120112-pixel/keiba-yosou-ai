@@ -1,9 +1,39 @@
 /**
- * Historical Position Profile V1（CHECKPOINT14B）。
+ * Historical Position Profile V1（CHECKPOINT14B、CHECKPOINT14B.1/14B.2で改訂）。
  *
  * 「各馬が過去レースで通常どの位置を取っている馬なのか」を、通過順位（passingPosition）+
  * 出走頭数（fieldSize）の実データだけから数値化する。今回レースのPace/Position
  * Predictionはここでは行わない（CHECKPOINT14C以降のスコープ）。
+ *
+ * 【CHECKPOINT14B.2でのContract整理】
+ *   本モジュールの出力は、独立した2つのContractに分離される。CHECKPOINT14B.1で、
+ *   Position Band（front/mid/rear）がRunning Style分類から機械的に導出されており、
+ *   両者が実質的に結合している問題が発見されたため、以下の通り明確に分離した。
+ *
+ *   Contract A（Historical Position Profile、正式値）:
+ *     earlyNormalizedPositionMean・lateNormalizedPositionMean・positionStdDev・
+ *     positionVariance・positionEvidenceCount・positionDataCoverage・positionConfidence。
+ *     いずれも連続値または evidence品質のみに基づく値であり、CHECKPOINT14C（Race Pace
+ *     Prediction V1）が主要Featureとして参照するのはこちら側。
+ *
+ *   Contract B（Running Style Distribution）:
+ *     runningStyleDistribution・representativeRunningStyle。既存の
+ *     passingPositionRunningStyle.ts（4分類脚質、CHECKPOINT14A.1でREUSE_WITH_CHANGES
+ *     判定済み）をそのまま呼び出した結果であり、Contract Aの値から逆算しない
+ *     （逆にContract BからContract Aの値を逆算することもしない）。
+ *
+ *   Position Band（front/mid/rear、`usedRaces[].band`）は上記どちらのContractにも
+ *     属さない **diagnostic/表示専用のフィールド** である。CHECKPOINT14B.1で発見された
+ *     「Running Style分類からの流用によるscale不一致・境界不安定」を解消するため、
+ *     Contract Aと同じnormalizedPositionスケール上で完全に独立した閾値
+ *     （`POSITION_BAND_*`）から算出するよう改めた。Running Style分類には一切依存しない。
+ *     CHECKPOINT14C以降のPrediction入力としては使用しないこと。
+ *
+ *   positionStability（stable/moderate/variable）も同様にdiagnostic専用の区分であり、
+ *     positionConfidenceの算出には使用しない（9節「Confidenceとの分離」）。
+ *     Position Stability（馬の位置取り自体の安定性）とPosition Confidence
+ *     （Profileそのものの信頼度）は別概念であり、variance が大きい馬でも、evidence
+ *     件数・データ品質が十分であれば高いconfidenceを持ちうる。
  *
  * 【絶対に守ること】
  *   - Base Ability V1・raceScore・memberLevel・Suitability V1・Effective Ability・
@@ -15,10 +45,6 @@
  *     （runningStyle.ts・passingPositionRunningStyle.ts・baseAbility.tsと同じ既存の規約）。
  *   - passingPositionが無い/信頼できない走は無視する（存在しないコーナーを推測で
  *     補完しない、既存のclassifyRunningStyleFromPositions()の規約をそのまま踏襲）。
- *
- * 既存のpassingPositionRunningStyle.ts（CHECKPOINT14A.1でREUSE_WITH_CHANGES判定済み）を
- * そのまま呼び出し、脚質distribution・classifiedStyle・使用した走の一覧を再利用する。
- * 独自に脚質分類ロジックを複製しない。
  */
 
 import { RECENT_RACE_COUNT } from "./baseAbility";
@@ -30,19 +56,9 @@ import type { RacePerformance } from "./types";
 import type {
   HistoricalPositionProfile,
   PositionBand,
-  PositionConfidence,
   PositionProfileRaceRecord,
   PositionStability,
 } from "./positionProfileTypes";
-import type { RunningStyle } from "./raceContextTypes";
-
-/** 代表脚質→Position Bandの対応。既存classifyRunningStyleFromPositions()の分類をそのまま流用する（新規閾値を増やさない） */
-const STYLE_TO_BAND: Record<RunningStyle, PositionBand> = {
-  nige: "front",
-  senko: "front",
-  sashi: "mid",
-  oikomi: "rear",
-};
 
 /**
  * 0〜1スケールの値を小数第3位に丸める（normalizedPositionはgate suitability等より
@@ -80,7 +96,7 @@ function populationVariance(values: number[]): number {
 /**
  * position varianceのstability区分。V1の暫定閾値（未バックテスト、docs/step6-decisions.md
  * と同じ「将来のバックテストでのみ校正する」方針を踏襲。特定レースの結果に合わせて
- * 調整しない）。
+ * 調整しない）。**diagnostic専用**（9節）。positionConfidenceの算出には使用しない。
  *   stdDev<=0.15   … stable（頭数によらず概ね2〜3番手以内の変動）
  *   stdDev<=0.30   … moderate
  *   それ以外        … variable
@@ -101,10 +117,30 @@ function classifyStability(stdDev: number): PositionStability {
   return "variable";
 }
 
-/** high→medium→lowの1段階downgradeのみ（suitabilityConfidence.tsの同名の考え方をPosition Profile専用に再実装） */
-function downgradePositionConfidence(confidence: PositionConfidence): PositionConfidence {
-  if (confidence === "high") return "medium";
-  return "low";
+/**
+ * Position Band（front/mid/rear）の閾値。CHECKPOINT14B.1で発見された
+ * 「Running Style分類（position/fieldSize比率＋nigeのみ絶対順位）からの流用による
+ * scale不一致・境界不安定」を解消するため、CHECKPOINT14B.2でRunning Styleから完全に
+ * 独立させた。Contract A（earlyNormalizedPositionMean等）と同じnormalizedPosition
+ * スケール（(position-1)/(fieldSize-1)、0=最前方・1=最後方）上の単純な等分割であり、
+ * Running Style分類には一切依存しない。**diagnostic/表示専用**（UI・人間向け説明用）
+ * であり、CHECKPOINT14C以降のPrediction入力としては使用しないこと。
+ */
+export const POSITION_BAND_FRONT_MAX_NORMALIZED = 1 / 3;
+export const POSITION_BAND_MID_MAX_NORMALIZED = 2 / 3;
+
+/**
+ * positionStabilityと同じ理由（CHECKPOINT14B.1で発見した丸め順序バグ・浮動小数点表現誤差）で、
+ * Band判定も丸め前の生値＋微小許容値で行う必要がある。例: position=11/fieldSize=16は
+ * 数学的にちょうど2/3だが、表示用に小数第3位へ丸めると0.667となり、丸め前の閾値
+ * 2/3=0.6666...と比較すると誤ってrear側に分類されてしまう。
+ */
+const BAND_BOUNDARY_EPSILON = 1e-9;
+
+function classifyPositionBand(normalizedPosition: number): PositionBand {
+  if (normalizedPosition <= POSITION_BAND_FRONT_MAX_NORMALIZED + BAND_BOUNDARY_EPSILON) return "front";
+  if (normalizedPosition <= POSITION_BAND_MID_MAX_NORMALIZED + BAND_BOUNDARY_EPSILON) return "mid";
+  return "rear";
 }
 
 function emptyProfile(horseId: string, horseName: string, warnings: string[]): HistoricalPositionProfile {
@@ -112,11 +148,13 @@ function emptyProfile(horseId: string, horseName: string, warnings: string[]): H
     horseId,
     horseName,
     positionEvidenceCount: 0,
+    positionDataCoverage: null,
     earlyNormalizedPositionMean: null,
     lateNormalizedPositionMean: null,
     frontRate: null,
     midRate: null,
     rearRate: null,
+    positionStdDev: null,
     positionVariance: null,
     positionStability: null,
     runningStyleDistribution: null,
@@ -154,12 +192,15 @@ export function computeHistoricalPositionProfile(
     const lateNorm = normalizePosition(last, r.fieldSize);
     if (earlyNorm === null || lateNorm === null) continue; // 正規化不能なデータは安全側で除外（推測しない）
 
-    // classifyRunningStyleFromPositions()と同じ「代表区間」（3件以上なら最終コーナーを除く）
+    // classifyRunningStyleFromPositions()と同じ「代表区間」（3件以上なら最終コーナーを除く）。
+    // Position Bandの算出にのみ使う値であり、Running Style分類そのものとは無関係に
+    // このモジュール内で独自に計算する（Contract Bのclassifiedstyleとは分離）。
     const representative = r.cornerPositions.length <= 2 ? r.cornerPositions : r.cornerPositions.slice(0, -1);
     const repNormValues = representative
       .map((p) => normalizePosition(p, r.fieldSize))
       .filter((v): v is number => v !== null);
     const representativeNorm = repNormValues.length > 0 ? mean(repNormValues) : (earlyNorm + lateNorm) / 2;
+    const representativeNormRounded = roundToThreeDecimals(representativeNorm);
 
     usedRaces.push({
       raceId: r.raceId,
@@ -169,8 +210,10 @@ export function computeHistoricalPositionProfile(
       fieldSize: r.fieldSize,
       earlyNormalizedPosition: roundToThreeDecimals(earlyNorm),
       lateNormalizedPosition: roundToThreeDecimals(lateNorm),
-      representativeNormalizedPosition: roundToThreeDecimals(representativeNorm),
-      band: STYLE_TO_BAND[r.classifiedStyle],
+      representativeNormalizedPosition: representativeNormRounded,
+      // band判定は丸め前の生representativeNormで行う（丸め後の値だと境界ちょうどのケースで
+      // 誤分類が起きるため。positionStabilityと同じ理由、上記コメント参照）。
+      band: classifyPositionBand(representativeNorm),
       classifiedStyle: r.classifiedStyle,
     });
   }
@@ -182,6 +225,7 @@ export function computeHistoricalPositionProfile(
   }
 
   const positionEvidenceCount = usedRaces.length;
+  const positionDataCoverage = roundToThreeDecimals(positionEvidenceCount / pool.length);
   const warnings: string[] = [];
   if (positionEvidenceCount < RECENT_RACE_COUNT) {
     warnings.push(
@@ -192,6 +236,7 @@ export function computeHistoricalPositionProfile(
   const earlyNormalizedPositionMean = roundToThreeDecimals(mean(usedRaces.map((r) => r.earlyNormalizedPosition)));
   const lateNormalizedPositionMean = roundToThreeDecimals(mean(usedRaces.map((r) => r.lateNormalizedPosition)));
 
+  // frontRate/midRate/rearRateはdiagnostic専用のPosition Band集計（表示用）。
   const frontCount = usedRaces.filter((r) => r.band === "front").length;
   const midCount = usedRaces.filter((r) => r.band === "mid").length;
   const rearCount = usedRaces.filter((r) => r.band === "rear").length;
@@ -205,14 +250,19 @@ export function computeHistoricalPositionProfile(
   // 分類されてしまうため。CHECKPOINT14B.1のboundaryテストで実際に検出・修正）。
   const rawVariance = populationVariance(representativeValues);
   const positionVariance = roundToThreeDecimals(rawVariance);
-  const stdDev = Math.sqrt(rawVariance);
-  const positionStability = classifyStability(stdDev);
+  const rawStdDev = Math.sqrt(rawVariance);
+  const positionStdDev = roundToThreeDecimals(rawStdDev);
+  // diagnostic専用の区分。以下のpositionConfidenceの算出には使わない（9節）。
+  const positionStability = classifyStability(rawStdDev);
 
-  let positionConfidence: PositionConfidence = baseConfidenceFromSampleCount(positionEvidenceCount);
+  // positionConfidenceはevidence品質（件数）のみに基づく。variance/stabilityには依存しない
+  // （Position StabilityとPosition Confidenceを混同しない、CHECKPOINT14B.2 9節）。
+  const positionConfidence = baseConfidenceFromSampleCount(positionEvidenceCount);
   if (positionStability === "variable") {
-    positionConfidence = downgradePositionConfidence(positionConfidence);
     warnings.push(
-      "過去走間で位置取りの変動が大きい（positionStability=variable）ため、positionConfidenceを1段階引き下げました。",
+      "過去走間で位置取りの変動が大きい（positionStability=variableのdiagnostic区分）ですが、" +
+        "positionConfidenceはevidence件数のみに基づく値のため引き下げていません" +
+        "（Position StabilityとPosition Confidenceは別概念として分離、CHECKPOINT14B.2）。",
     );
   }
 
@@ -220,11 +270,13 @@ export function computeHistoricalPositionProfile(
     horseId,
     horseName,
     positionEvidenceCount,
+    positionDataCoverage,
     earlyNormalizedPositionMean,
     lateNormalizedPositionMean,
     frontRate,
     midRate,
     rearRate,
+    positionStdDev,
     positionVariance,
     positionStability,
     runningStyleDistribution: runningStyle.distribution,

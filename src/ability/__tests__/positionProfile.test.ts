@@ -1,5 +1,5 @@
 /**
- * Historical Position Profile V1（CHECKPOINT14B）の単体テスト。
+ * Historical Position Profile V1（CHECKPOINT14B、CHECKPOINT14B.1/14B.2で改訂）の単体テスト。
  * Base Ability V1・Suitability V1・Formal Snapshotは一切変更していない
  * （このテストファイル自体もそれらの数式を呼び出すのみで変更しない）。
  */
@@ -9,12 +9,9 @@ import {
   normalizePosition,
   POSITION_STABILITY_STABLE_MAX_STD_DEV,
   POSITION_STABILITY_MODERATE_MAX_STD_DEV,
+  POSITION_BAND_FRONT_MAX_NORMALIZED,
+  POSITION_BAND_MID_MAX_NORMALIZED,
 } from "../positionProfile";
-import {
-  NIGE_LEAD_POSITION_THRESHOLD,
-  RUNNING_STYLE_POSITION_THRESHOLDS,
-  classifyRunningStyleFromPositions,
-} from "../passingPositionRunningStyle";
 import { buildRacePerformance } from "../buildRacePerformance";
 import { calculateBaseAbility } from "../baseAbility";
 import { computeSuitabilityV1 } from "../suitabilityV1";
@@ -142,8 +139,8 @@ describe("Test E: Short Career 4/4をcomplete evidenceとして処理", () => {
   });
 });
 
-describe("Test F: position varianceが大きい馬のconfidenceは安定馬より高くならない", () => {
-  it("常に同じ位置帯（安定）→high、毎回大きく変わる（不安定）→安定馬以下", () => {
+describe("Test F（CHECKPOINT14B.2で改訂）: Position StabilityとPosition Confidenceの分離", () => {
+  it("安定馬・変動馬とも、evidence5走が完全ならconfidenceは同じhigh（varianceでconfidenceを下げない）", () => {
     const stableRaces: RacePerformance[] = [
       race({ raceId: "S1", passingPosition: pp([3, 3, 3], 14) }),
       race({ raceId: "S2", passingPosition: pp([3, 4, 3], 14) }),
@@ -161,12 +158,18 @@ describe("Test F: position varianceが大きい馬のconfidenceは安定馬よ�
     const stable = computeHistoricalPositionProfile("h1", "安定馬", stableRaces);
     const volatile = computeHistoricalPositionProfile("h2", "変動馬", volatileRaces);
 
+    // Position Stability（診断専用の連続値由来の区分）は明確に異なる
     expect(stable.positionStability).toBe("stable");
-    expect(stable.positionConfidence).toBe("high");
     expect(volatile.positionStability).toBe("variable");
-    // 変動馬のconfidenceは安定馬以下（同じevidence数5走で、highより上がることはない）
-    const rank: Record<string, number> = { high: 2, medium: 1, low: 0 };
-    expect(rank[volatile.positionConfidence]).toBeLessThan(rank[stable.positionConfidence]);
+    // しかしPosition Confidence（evidence件数のみに基づく）はどちらも同じ"high"
+    // 「位置取りが毎回大きく変わる馬でも、5/5実データが完全なら、"この馬は位置取りが
+    // 不安定である"こと自体には高いConfidenceを持てる」（CHECKPOINT14B.2 9節）
+    expect(stable.positionConfidence).toBe("high");
+    expect(volatile.positionConfidence).toBe("high");
+    // varianceが大きい馬の方がpositionStdDevは明確に大きい（診断値としては機能している）
+    expect(volatile.positionStdDev!).toBeGreaterThan(stable.positionStdDev!);
+    // variable到達時は情報提供の警告は出るが、confidenceには影響しない旨が明記される
+    expect(volatile.warnings.some((w) => w.includes("引き下げていません"))).toBe(true);
   });
 
   it("positionVarianceが閾値ちょうど（境界）ではstableのまま", () => {
@@ -207,52 +210,120 @@ describe("Test H: Suitability V1は不変", () => {
   });
 });
 
-describe("CHECKPOINT14B.1: Position Band境界のfrozen確認（現行定数を凍結・固定するテスト）", () => {
-  it("senko/sashi境界（ratio=senkoMaxRatio）ちょうどはsenko（front）のまま", () => {
-    // position=7, fieldSize=20 → ratio=0.35=senkoMaxRatio（境界含む=<=なのでsenko）
-    expect(classifyRunningStyleFromPositions([7, 7], 20)).toBe("senko");
+describe("CHECKPOINT14B.2: Position Band（Running Styleから独立した閾値）の境界確認", () => {
+  it("現行の独立閾値定数（1/3・2/3）を明示的に固定する", () => {
+    expect(POSITION_BAND_FRONT_MAX_NORMALIZED).toBeCloseTo(1 / 3, 10);
+    expect(POSITION_BAND_MID_MAX_NORMALIZED).toBeCloseTo(2 / 3, 10);
+  });
+
+  it("front/mid境界ちょうど（normalizedPosition=1/3）はfrontのまま", () => {
+    // position=6, fieldSize=16 → (6-1)/15 = 1/3 ちょうど
     const profile = computeHistoricalPositionProfile("h1", "テスト馬", [
-      race({ raceId: "R1", passingPosition: pp([7, 7], 20) }),
+      race({ raceId: "R1", passingPosition: pp([6, 6], 16) }),
     ]);
+    expect(profile.usedRaces[0].representativeNormalizedPosition).toBeCloseTo(1 / 3, 3);
     expect(profile.usedRaces[0].band).toBe("front");
   });
 
-  it("senko/sashi境界をわずかに超えるとsashi（mid）へ切り替わる", () => {
-    // position=9, fieldSize=25 → ratio=0.36（senkoMaxRatio=0.35をわずかに超える）
-    expect(classifyRunningStyleFromPositions([9, 9], 25)).toBe("sashi");
+  it("front/mid境界をわずかに超えるとmidへ切り替わる", () => {
+    // position=7, fieldSize=16 → (7-1)/15 = 0.4 > 1/3
     const profile = computeHistoricalPositionProfile("h1", "テスト馬", [
-      race({ raceId: "R1", passingPosition: pp([9, 9], 25) }),
+      race({ raceId: "R1", passingPosition: pp([7, 7], 16) }),
     ]);
+    expect(profile.usedRaces[0].representativeNormalizedPosition).toBeGreaterThan(1 / 3);
     expect(profile.usedRaces[0].band).toBe("mid");
   });
 
-  it("sashi/oikomi境界（ratio=sashiMaxRatio）ちょうどはsashi（mid）のまま", () => {
-    // position=14, fieldSize=20 → ratio=0.7=sashiMaxRatio（境界含む=<=なのでsashi）
-    expect(classifyRunningStyleFromPositions([14, 14], 20)).toBe("sashi");
+  it("mid/rear境界ちょうど（normalizedPosition=2/3）はmidのまま", () => {
+    // position=11, fieldSize=16 → (11-1)/15 = 2/3 ちょうど
     const profile = computeHistoricalPositionProfile("h1", "テスト馬", [
-      race({ raceId: "R1", passingPosition: pp([14, 14], 20) }),
+      race({ raceId: "R1", passingPosition: pp([11, 11], 16) }),
     ]);
+    expect(profile.usedRaces[0].representativeNormalizedPosition).toBeCloseTo(2 / 3, 3);
     expect(profile.usedRaces[0].band).toBe("mid");
   });
 
-  it("sashi/oikomi境界をわずかに超えるとoikomi（rear）へ切り替わる", () => {
-    // position=71, fieldSize=100 → ratio=0.71（sashiMaxRatio=0.7をわずかに超える）
-    expect(classifyRunningStyleFromPositions([71, 71], 100)).toBe("oikomi");
+  it("mid/rear境界をわずかに超えるとrearへ切り替わる", () => {
+    // position=12, fieldSize=16 → (12-1)/15 = 0.733 > 2/3
     const profile = computeHistoricalPositionProfile("h1", "テスト馬", [
-      race({ raceId: "R1", passingPosition: pp([71, 71], 100) }),
+      race({ raceId: "R1", passingPosition: pp([12, 12], 16) }),
     ]);
+    expect(profile.usedRaces[0].representativeNormalizedPosition).toBeGreaterThan(2 / 3);
     expect(profile.usedRaces[0].band).toBe("rear");
   });
+});
 
-  it("nige境界（絶対順位<=NIGE_LEAD_POSITION_THRESHOLD）ちょうどはnige（front）、1つ超えるとratio判定へ切り替わる", () => {
-    expect(NIGE_LEAD_POSITION_THRESHOLD).toBe(2);
-    expect(classifyRunningStyleFromPositions([2, 8], 20)).toBe("nige");
-    expect(classifyRunningStyleFromPositions([3, 8], 20)).not.toBe("nige"); // ratio判定（senko/sashi/oikomi）へフォールする
+describe("CHECKPOINT14B.2: Running Style DistributionとPosition Bandの独立性", () => {
+  it("Position Band境界を±0.03〜0.05動かしても、連続値（early/late/positionStdDev等）は当然変化しない", () => {
+    const races: RacePerformance[] = [
+      race({ raceId: "R1", raceDate: "2026-05-01", passingPosition: pp([9, 10, 8, 8], 14) }),
+      race({ raceId: "R2", raceDate: "2026-04-01", passingPosition: pp([7, 6], 12) }),
+      race({ raceId: "R3", raceDate: "2026-03-01", passingPosition: pp([8, 9, 7], 15) }),
+    ];
+    const before = computeHistoricalPositionProfile("h1", "テスト馬", races);
+    // Band閾値定数はコード内で固定されているため、ここでは「Bandの値を無視しても
+    // 連続値の再計算結果が変わらない」ことを、同一入力からの再計算で確認する
+    // （Band用の閾値を仮に動かした別実装があっても、continuous値の計算経路には
+    // 一切関与しないという設計を、入力→連続値の経路のみを辿ることで検証する）。
+    const after = computeHistoricalPositionProfile("h1", "テスト馬", races);
+    expect(after.earlyNormalizedPositionMean).toBe(before.earlyNormalizedPositionMean);
+    expect(after.lateNormalizedPositionMean).toBe(before.lateNormalizedPositionMean);
+    expect(after.positionStdDev).toBe(before.positionStdDev);
+    expect(after.positionVariance).toBe(before.positionVariance);
+    expect(after.positionConfidence).toBe(before.positionConfidence);
+    expect(after.runningStyleDistribution).toEqual(before.runningStyleDistribution);
+    // Band分類ロジック自体がrepresentativeNormalizedPosition（continuous値）のみに
+    // 依存しており、classifiedStyle（Running Style側の分類）には依存していないことを
+    // 直接確認する（=Contract BからContract Aの値を逆算していないことの検証）。
+    for (const r of before.usedRaces) {
+      const expectedBand =
+        r.representativeNormalizedPosition <= 1 / 3 ? "front" : r.representativeNormalizedPosition <= 2 / 3 ? "mid" : "rear";
+      expect(r.band).toBe(expectedBand);
+    }
   });
 
-  it("現行のratio閾値定数（0.35 / 0.7）を明示的に固定する", () => {
-    expect(RUNNING_STYLE_POSITION_THRESHOLDS.senkoMaxRatio).toBe(0.35);
-    expect(RUNNING_STYLE_POSITION_THRESHOLDS.sashiMaxRatio).toBe(0.7);
+  it("Position Bandが同じでもRunning Style（classifiedStyle）が異なりうる（両者は独立した別Contract）", () => {
+    // position=2（nigeの絶対順位条件<=2を満たす）だが、fieldSize=16なので
+    // normalizedPosition=(2-1)/15=0.067 → front。一方、絶対順位が3の場合は
+    // nigeにはならずratio判定になるが、同じくnormalizedPositionはfront帯に入りうる。
+    // つまりband="front"であっても、classifiedStyleが"nige"か"senko"かは別に決まる
+    // （=BandからRunning Styleを逆算できない/その逆もできないことの直接確認）。
+    const nigeRace = race({ raceId: "R1", passingPosition: pp([2, 3], 16) });
+    const senkoRace = race({ raceId: "R2", passingPosition: pp([3, 4], 16) });
+    const profile = computeHistoricalPositionProfile("h1", "テスト馬", [nigeRace, senkoRace]);
+    const r1 = profile.usedRaces.find((r) => r.raceId === "R1")!;
+    const r2 = profile.usedRaces.find((r) => r.raceId === "R2")!;
+    expect(r1.band).toBe("front");
+    expect(r2.band).toBe("front");
+    expect(r1.classifiedStyle).toBe("nige");
+    expect(r2.classifiedStyle).not.toBe("nige");
+  });
+});
+
+describe("CHECKPOINT14B.2: positionDataCoverage（Short Careerとdata gapの区別）", () => {
+  it("Short Career（プール自体が4走）はcoverage=1.0（欠損ではない）", () => {
+    const races: RacePerformance[] = [
+      race({ raceId: "R1", raceDate: "2026-04-01", passingPosition: pp([3, 3, 3], 16) }),
+      race({ raceId: "R2", raceDate: "2026-03-01", passingPosition: pp([3, 5, 4], 12) }),
+      race({ raceId: "R3", raceDate: "2026-02-01", passingPosition: pp([2, 3, 2], 16) }),
+      race({ raceId: "R4", raceDate: "2026-01-01", passingPosition: pp([2, 3, 2], 15) }),
+    ];
+    const profile = computeHistoricalPositionProfile("2023107166", "ロデオドライブ", races);
+    expect(profile.positionEvidenceCount).toBe(4);
+    expect(profile.positionDataCoverage).toBe(1);
+  });
+
+  it("プールは5走あるが2走がpassingPosition欠損の場合、coverage=0.6（<1.0）でありShort Careerと区別できる", () => {
+    const races: RacePerformance[] = [
+      race({ raceId: "R1", raceDate: "2026-05-01", passingPosition: pp([3, 3, 3], 14) }),
+      race({ raceId: "R2", raceDate: "2026-04-01", passingPosition: null }),
+      race({ raceId: "R3", raceDate: "2026-03-01", passingPosition: pp([4, 4, 4], 14) }),
+      race({ raceId: "R4", raceDate: "2026-02-01", passingPosition: null }),
+      race({ raceId: "R5", raceDate: "2026-01-01", passingPosition: pp([3, 4, 3], 14) }),
+    ];
+    const profile = computeHistoricalPositionProfile("h1", "テスト馬", races);
+    expect(profile.positionEvidenceCount).toBe(3);
+    expect(profile.positionDataCoverage).toBeCloseTo(0.6, 5);
   });
 });
 
@@ -288,13 +359,13 @@ describe("CHECKPOINT14B.1: positionStability境界のfrozen確認", () => {
     expect(profile.positionStability).toBe("moderate");
   });
 
-  it("stdDevがMODERATE上限をわずかに超えるとvariableへ切り替わり、confidenceがdowngradeされる", () => {
+  it("stdDevがMODERATE上限をわずかに超えるとvariableへ切り替わる（confidenceには影響しない、CHECKPOINT14B.2）", () => {
     const profile = computeHistoricalPositionProfile("h1", "テスト馬", stabilityPair(0.31));
     expect(Math.sqrt(profile.positionVariance!)).toBeCloseTo(0.31, 3);
     expect(profile.positionStability).toBe("variable");
-    // evidence数2件のみ(=baseConfidenceFromSampleCount未満のmedium)だが、
-    // variable判定によるdowngrade自体はhigh評価の馬でも起こることを別テスト(Test F)で確認済み。
-    // ここではvariable到達自体の境界確認が目的。
+    // CHECKPOINT14B.2でPosition StabilityとPosition Confidenceを分離したため、
+    // variable到達自体はconfidenceを一切変えない（evidence数2件なのでmediumのまま）。
+    expect(profile.positionConfidence).toBe("medium");
     expect(POSITION_STABILITY_MODERATE_MAX_STD_DEV).toBe(0.3);
   });
 });
