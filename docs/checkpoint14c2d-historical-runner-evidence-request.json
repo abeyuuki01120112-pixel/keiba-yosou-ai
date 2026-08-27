@@ -1,0 +1,199 @@
+{
+  "checkpoint": "14C.2D",
+  "purpose": "8つのReal Lap Pilot Raceを、そのレース当時に利用可能だった情報だけで再予測するために必要なHistorical Runner Evidenceを列挙する",
+  "generatedAt": "2026-08-27",
+  "pilotRacesFixed": [
+    { "raceId": "JRA-20260823-NIIGATA-10", "raceDate": "2026-08-23", "raceName": "3歳以上1勝クラス", "raceNumber": 10, "declaredFieldSize": 12 },
+    { "raceId": "JRA-20260809-NIIGATA-10", "raceDate": "2026-08-09", "raceName": "3歳以上1勝クラス", "raceNumber": 10, "declaredFieldSize": 7 },
+    { "raceId": "JRA-20260523-NIIGATA-10", "raceDate": "2026-05-23", "raceName": "尖閣湾特別", "raceNumber": 10, "declaredFieldSize": 15 },
+    { "raceId": "JRA-20260517-NIIGATA-10", "raceDate": "2026-05-17", "raceName": "信濃川特別", "raceNumber": 10, "declaredFieldSize": 16 },
+    { "raceId": "JRA-20260517-NIIGATA-07", "raceDate": "2026-05-17", "raceName": "4歳以上1勝クラス", "raceNumber": 7, "declaredFieldSize": 13 },
+    { "raceId": "JRA-20260516-NIIGATA-11", "raceDate": "2026-05-16", "raceName": "新潟大賞典", "raceNumber": 11, "declaredFieldSize": 15 },
+    { "raceId": "JRA-20251026-NIIGATA-10", "raceDate": "2025-10-26", "raceName": "村上特別", "raceNumber": 10, "declaredFieldSize": 16 },
+    { "raceId": "JRA-20251026-NIIGATA-07", "raceDate": "2025-10-26", "raceName": "3歳以上1勝クラス", "raceNumber": 7, "declaredFieldSize": 15 }
+  ],
+  "note": "対象race・順序はCHECKPOINT14C.2Cから一切変更していない。Actual Pace結果を見て入れ替えていない。",
+  "runnerRosterAudit": {
+    "JRA-20260823-NIIGATA-10": { "declaredFieldSize": 12, "knownRunnerCount": 0, "unresolvedRunnerCount": 12, "runners": [] },
+    "JRA-20260809-NIIGATA-10": { "declaredFieldSize": 7, "knownRunnerCount": 0, "unresolvedRunnerCount": 7, "runners": [] },
+    "JRA-20260523-NIIGATA-10": { "declaredFieldSize": 15, "knownRunnerCount": 0, "unresolvedRunnerCount": 15, "runners": [] },
+    "JRA-20260517-NIIGATA-10": { "declaredFieldSize": 16, "knownRunnerCount": 0, "unresolvedRunnerCount": 16, "runners": [] },
+    "JRA-20260517-NIIGATA-07": { "declaredFieldSize": 13, "knownRunnerCount": 0, "unresolvedRunnerCount": 13, "runners": [] },
+    "JRA-20251026-NIIGATA-10": { "declaredFieldSize": 16, "knownRunnerCount": 0, "unresolvedRunnerCount": 16, "runners": [] },
+    "JRA-20251026-NIIGATA-07": { "declaredFieldSize": 15, "knownRunnerCount": 0, "unresolvedRunnerCount": 15, "runners": [] },
+    "JRA-20260516-NIIGATA-11": {
+      "declaredFieldSize": 15,
+      "knownRunnerCount": 13,
+      "unresolvedRunnerCount": 2,
+      "runners": [
+        { "horseId": "2019104850", "horseName": "バレエマスター", "status": "READY", "priorRaceCountBeforeTarget": 3, "passingPositionCountBeforeTarget": 3 },
+        { "horseId": "2017105194", "horseName": "UNKNOWN(id only)", "status": "PARTIAL", "priorRaceCountBeforeTarget": 1, "passingPositionCountBeforeTarget": 0 },
+        { "horseId": "2019104447", "horseName": "UNKNOWN(id only)", "status": "PARTIAL", "priorRaceCountBeforeTarget": 4, "passingPositionCountBeforeTarget": 0 },
+        { "horseId": "2019105302", "horseName": "UNKNOWN(id only)", "status": "PARTIAL", "priorRaceCountBeforeTarget": 1, "passingPositionCountBeforeTarget": 0 },
+        { "horseId": "2020106234", "horseName": "UNKNOWN(id only)", "status": "PARTIAL", "priorRaceCountBeforeTarget": 2, "passingPositionCountBeforeTarget": 0 },
+        { "horseId": "2021103975", "horseName": "UNKNOWN(id only)", "status": "PARTIAL", "priorRaceCountBeforeTarget": 2, "passingPositionCountBeforeTarget": 0 },
+        { "horseId": "2021105574", "horseName": "UNKNOWN(id only)", "status": "PARTIAL", "priorRaceCountBeforeTarget": 1, "passingPositionCountBeforeTarget": 0 },
+        { "horseId": "2021105738", "horseName": "UNKNOWN(id only)", "status": "PARTIAL", "priorRaceCountBeforeTarget": 1, "passingPositionCountBeforeTarget": 0 },
+        { "horseId": "2019104711", "horseName": "UNKNOWN(id only)", "status": "NO_EVIDENCE", "priorRaceCountBeforeTarget": 0, "passingPositionCountBeforeTarget": 0 },
+        { "horseId": "2020110060", "horseName": "UNKNOWN(id only)", "status": "NO_EVIDENCE", "priorRaceCountBeforeTarget": 0, "passingPositionCountBeforeTarget": 0 },
+        { "horseId": "2021102224", "horseName": "UNKNOWN(id only)", "status": "NO_EVIDENCE", "priorRaceCountBeforeTarget": 0, "passingPositionCountBeforeTarget": 0 },
+        { "horseId": "2022101329", "horseName": "UNKNOWN(id only)", "status": "NO_EVIDENCE", "priorRaceCountBeforeTarget": 0, "passingPositionCountBeforeTarget": 0 },
+        { "horseId": "2022106611", "horseName": "UNKNOWN(id only)", "status": "NO_EVIDENCE", "priorRaceCountBeforeTarget": 0, "passingPositionCountBeforeTarget": 0 }
+      ],
+      "auditNote": "horseNameがrepository内のsapporoKinenロスター等に無いためUNKNOWN(id only)としている。ChatGPT側でJRA公式結果から実名を確認できる場合のみ補完可能（推測はしない）。"
+    }
+  },
+  "requiredPositionDataContract": {
+    "note": "既存のCSV取り込み契約（CHECKPOINT14A.3Bで確定済み、normalize.tsがsource of truth）をそのまま再利用する。新しいfield名は増やしていない。",
+    "columns": [
+      "raceId", "raceDate", "racecourse", "raceNumber", "raceName", "surface", "distance", "going",
+      "horseId", "horseName", "horseNumber", "gate",
+      "finishPosition", "carriedWeightKg", "actualRaceTimeSeconds", "final3FSeconds", "timeGapSeconds",
+      "fieldSize", "passingPosition",
+      "source", "sourceRaceId", "sourceHorseId"
+    ],
+    "minimumRequiredForPaceValidation": ["raceId", "raceDate", "racecourse", "surface", "distance", "going", "horseId", "horseName", "fieldSize", "passingPosition"],
+    "note2": "Pace Validationの目的に限定すると、finishPosition/carriedWeightKg/actualRaceTimeSeconds/final3FSeconds/timeGapSecondsはBase Ability再計算のためのfieldであり今回のPosition Evidence補完には必須ではないが、既存Importerの必須項目チェック（normalize.ts）を満たすためには依然として提供が必要（値が不明な場合の許容は既存Importer仕様に従う）。"
+  },
+  "targetRaceManifests": [
+    {
+      "targetRaceId": "JRA-20260516-NIIGATA-11",
+      "targetRaceDate": "2026-05-16",
+      "targetRaceName": "新潟大賞典",
+      "requestType": "ENRICHMENT",
+      "description": "既にrepositoryに存在する走に、passingPosition（と必要ならfieldSize）を追加するだけで良い（新しいraceId特定は不要）。CHECKPOINT14A.2のnon-destructive enrichment mergeで対応可能。",
+      "runners": [
+        { "runnerHorseId": "2017105194", "existingEvidenceCount": 0, "requiredAdditionalEvidenceCount": 1, "requiredPriorRaces": [{ "raceId": "JRA-20260412-FUKUSHIMA-11", "raceDate": "2026-04-12", "racecourse": "福島", "missingField": "passingPosition" }] },
+        { "runnerHorseId": "2019104447", "existingEvidenceCount": 0, "requiredAdditionalEvidenceCount": 4, "requiredPriorRaces": [
+          { "raceId": "JRA-20251109-TOKYO-11", "raceDate": "2025-11-09", "racecourse": "東京", "missingField": "passingPosition" },
+          { "raceId": "JRA-20250817-SAPPORO-11", "raceDate": "2025-08-17", "racecourse": "札幌", "missingField": "passingPosition" },
+          { "raceId": "JRA-20241222-NAKAYAMA-11", "raceDate": "2024-12-22", "racecourse": "中山", "missingField": "passingPosition" },
+          { "raceId": "JRA-20241124-TOKYO-12", "raceDate": "2024-11-24", "racecourse": "東京", "missingField": "passingPosition" }
+        ] },
+        { "runnerHorseId": "2019105302", "existingEvidenceCount": 0, "requiredAdditionalEvidenceCount": 1, "requiredPriorRaces": [{ "raceId": "JRA-20240714-HAKODATE-11", "raceDate": "2024-07-14", "racecourse": "函館", "missingField": "passingPosition" }] },
+        { "runnerHorseId": "2020106234", "existingEvidenceCount": 0, "requiredAdditionalEvidenceCount": 2, "requiredPriorRaces": [
+          { "raceId": "JRA-20260411-HANSHIN-10", "raceDate": "2026-04-11", "racecourse": "阪神", "missingField": "passingPosition" },
+          { "raceId": "JRA-20251129-TOKYO-11", "raceDate": "2025-11-29", "racecourse": "東京", "missingField": "passingPosition" }
+        ] },
+        { "runnerHorseId": "2021103975", "existingEvidenceCount": 0, "requiredAdditionalEvidenceCount": 2, "requiredPriorRaces": [
+          { "raceId": "JRA-20260315-CHUKYO-11", "raceDate": "2026-03-15", "racecourse": "中京", "missingField": "passingPosition" },
+          { "raceId": "JRA-20251116-KYOTO-11", "raceDate": "2025-11-16", "racecourse": "京都", "missingField": "passingPosition" }
+        ] },
+        { "runnerHorseId": "2021105574", "existingEvidenceCount": 0, "requiredAdditionalEvidenceCount": 1, "requiredPriorRaces": [{ "raceId": "JRA-20260131-TOKYO-11", "raceDate": "2026-01-31", "racecourse": "東京", "missingField": "passingPosition" }] },
+        { "runnerHorseId": "2021105738", "existingEvidenceCount": 0, "requiredAdditionalEvidenceCount": 1, "requiredPriorRaces": [{ "raceId": "JRA-20260307-NAKAYAMA-11", "raceDate": "2026-03-07", "racecourse": "中山", "missingField": "passingPosition" }] },
+        { "runnerHorseId": "2019104711", "existingEvidenceCount": 0, "requiredAdditionalEvidenceCount": "UNKNOWN（0〜5走、実際のキャリアに依存）", "requiredPriorRaces": "UNKNOWN — repository上に走歴が1件も無く、具体的なraceIdを推測できない。ChatGPT側でこの馬の対象日より前の実績（最大5走、Short Careerならそれ以下で可）を新規提供する必要がある。" },
+        { "runnerHorseId": "2020110060", "existingEvidenceCount": 0, "requiredAdditionalEvidenceCount": "UNKNOWN（0〜5走）", "requiredPriorRaces": "UNKNOWN — 同上" },
+        { "runnerHorseId": "2021102224", "existingEvidenceCount": 0, "requiredAdditionalEvidenceCount": "UNKNOWN（0〜5走）", "requiredPriorRaces": "UNKNOWN — 同上" },
+        { "runnerHorseId": "2022101329", "existingEvidenceCount": 0, "requiredAdditionalEvidenceCount": "UNKNOWN（0〜5走）", "requiredPriorRaces": "UNKNOWN — 同上" },
+        { "runnerHorseId": "2022106611", "existingEvidenceCount": 0, "requiredAdditionalEvidenceCount": "UNKNOWN（0〜5走）", "requiredPriorRaces": "UNKNOWN — 同上" },
+        { "runnerHorseId": "UNRESOLVED_RUNNER_1", "existingEvidenceCount": null, "requiredAdditionalEvidenceCount": "UNKNOWN", "requiredPriorRaces": "UNKNOWN — horseId/horseName自体が未解決。新潟大賞典15頭のうち13頭が既知、残り2頭の身元確認が先に必要。" },
+        { "runnerHorseId": "UNRESOLVED_RUNNER_2", "existingEvidenceCount": null, "requiredAdditionalEvidenceCount": "UNKNOWN", "requiredPriorRaces": "UNKNOWN — 同上" }
+      ]
+    },
+    {
+      "targetRaceId": "JRA-20260823-NIIGATA-10", "targetRaceDate": "2026-08-23", "targetRaceName": "3歳以上1勝クラス",
+      "requestType": "FULL_ROSTER_UNRESOLVED",
+      "description": "declared fieldSize=12。repository内に既知runnerが0頭。まずrunner roster（horseId/horseName、12頭分）の特定が必要。特定できた馬について、対象日より前の実績（最大5走）にpassingPositionが必要。",
+      "runners": []
+    },
+    {
+      "targetRaceId": "JRA-20260809-NIIGATA-10", "targetRaceDate": "2026-08-09", "targetRaceName": "3歳以上1勝クラス",
+      "requestType": "FULL_ROSTER_UNRESOLVED",
+      "description": "declared fieldSize=7。同上。",
+      "runners": []
+    },
+    {
+      "targetRaceId": "JRA-20260523-NIIGATA-10", "targetRaceDate": "2026-05-23", "targetRaceName": "尖閣湾特別",
+      "requestType": "FULL_ROSTER_UNRESOLVED",
+      "description": "declared fieldSize=15。同上。",
+      "runners": []
+    },
+    {
+      "targetRaceId": "JRA-20260517-NIIGATA-10", "targetRaceDate": "2026-05-17", "targetRaceName": "信濃川特別",
+      "requestType": "FULL_ROSTER_UNRESOLVED",
+      "description": "declared fieldSize=16。同上。",
+      "runners": []
+    },
+    {
+      "targetRaceId": "JRA-20260517-NIIGATA-07", "targetRaceDate": "2026-05-17", "targetRaceName": "4歳以上1勝クラス",
+      "requestType": "FULL_ROSTER_UNRESOLVED",
+      "description": "declared fieldSize=13。同上。",
+      "runners": []
+    },
+    {
+      "targetRaceId": "JRA-20251026-NIIGATA-10", "targetRaceDate": "2025-10-26", "targetRaceName": "村上特別",
+      "requestType": "FULL_ROSTER_UNRESOLVED",
+      "description": "declared fieldSize=16。同上。",
+      "runners": []
+    },
+    {
+      "targetRaceId": "JRA-20251026-NIIGATA-07", "targetRaceDate": "2025-10-26", "targetRaceName": "3歳以上1勝クラス",
+      "requestType": "FULL_ROSTER_UNRESOLVED",
+      "description": "declared fieldSize=15。同上。",
+      "runners": []
+    }
+  ],
+  "deduplicationResult": {
+    "note": "各PARTIAL horseの不足raceは、その馬自身の個別の実績行（horse-specific race-performance row）であり、他のtargetRace向けrequestとは重複しない（今回のPilotでは同一horseが複数targetRaceに重複出走しているケースは無かった）。したがって今回はdeduplicationによる削減は発生していない（12件の具体的enrichment行はいずれも一意）。"
+  },
+  "collectionSize": {
+    "pilotRaces": 8,
+    "uniqueKnownRunners": 13,
+    "readyRunners": 1,
+    "partialRunners": 8,
+    "noEvidenceRunners": 4,
+    "unresolvedRunnerSlots": 96,
+    "unresolvedRunnerSlotsBreakdown": "新潟大賞典2頭 + 他7レースの宣言fieldSize合計94頭（12+7+15+16+13+16+15）",
+    "uniquePriorRacesRequestedForEnrichment": 12,
+    "totalRequestedRacePerformanceRowsConcrete": 12,
+    "totalRequestedRacePerformanceRowsUnknownUpperBound": "4頭×最大5走=最大20行（NO_EVIDENCE horses、実際のキャリア長次第でこれより少ない可能性が高い）"
+  },
+  "phasedCollectionRecommendation": [
+    {
+      "phase": 1,
+      "target": "新潟大賞典の8頭（PARTIAL horses）へのpassingPositionエンリッチメント",
+      "rows": 12,
+      "rationale": "raceId・horseIdとも既知で、既存CHECKPOINT14A.2のenrichment merge経路をそのまま使える最小コスト・最高leverageの追加。成功すれば新潟大賞典1レースだけでもknown-evidence runner数が1→最大9まで改善しうる。"
+    },
+    {
+      "phase": 2,
+      "target": "新潟大賞典の未解決2頭の身元確認",
+      "rows": "身元確認のみ（race-performance行数は身元判明後に決まる）",
+      "rationale": "既に判明している13頭のrunner setを15頭フルフィールドへ近づける。"
+    },
+    {
+      "phase": 3,
+      "target": "新潟大賞典のNO_EVIDENCE 4頭の過去走新規追加",
+      "rows": "最大20行（未知数）",
+      "rationale": "身元は既知だが実績データが0件。新規raceIdの特定が必要なため、Phase1より工数が大きい。"
+    },
+    {
+      "phase": 4,
+      "target": "残り7レース（新潟大賞典以外）のrunner roster特定＋各馬の実績データ",
+      "rows": "94頭分のroster特定＋各馬最大5走分のraceIdと実績",
+      "rationale": "最も工数が大きい。raceDateの新しい順（決定論的）に着手するなら、JRA-20260823-NIIGATA-10（最新）から。Actual Pace結果を理由にした優先順位付けはしていない。"
+    }
+  ],
+  "predictionEligibilityProposal": {
+    "status": "B-SPEC（今回は確定しない、ChatGPTの判断を仰ぐ）",
+    "candidateCriteria": "例: knownRunnerCoverage(known/declaredFieldSize) >= 0.8 かつ evidenceCoverage(READY runners/known runners) >= 0.5 の場合のみ、そのレースを正式なPrediction評価対象とする",
+    "note": "上記は根拠のあるバックテストに基づかない、今回新規に考案した候補値であり、正式なmagic thresholdとして確定していない。採否はChatGPT側の判断に委ねる。"
+  },
+  "explicitlyOutOfScopeThisRound": [
+    "外部Web検索によるrunner識別",
+    "自動データ取得",
+    "推測によるraceId/horseNameの捏造",
+    "Race Pace Prediction formula/threshold/weightの変更",
+    "raceLapData.jsonの変更",
+    "Pilot Race対象の入替",
+    "Actual Paceを見た上でのrace選別",
+    "Current Race Position Prediction",
+    "Post-Frame Pace",
+    "Race Shape",
+    "Track Bias",
+    "Final Race Ability",
+    "Probability / Odds / EV",
+    "PRPS",
+    "UI実装"
+  ]
+}
