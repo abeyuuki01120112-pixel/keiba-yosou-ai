@@ -15,12 +15,23 @@
     "carriedWeight": 56,
     "gate": 5,
     "horseNumber": 10,
-    "fieldSize": null,
+    "fieldSize": 16,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202508040411",
     "sourceHorseId": "2021103975",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-27T05:33:40.754Z",
+    "passingPosition": {
+      "cornerPositions": [
+        4,
+        4,
+        3,
+        3
+      ],
+      "fieldSize": 16,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20260315-CHUKYO-11",
@@ -38,12 +49,23 @@
     "carriedWeight": 55,
     "gate": 6,
     "horseNumber": 10,
-    "fieldSize": null,
+    "fieldSize": 14,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202607010211",
     "sourceHorseId": "2021103975",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-27T05:33:40.754Z",
+    "passingPosition": {
+      "cornerPositions": [
+        3,
+        2,
+        2,
+        2
+      ],
+      "fieldSize": 14,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20260516-NIIGATA-11",

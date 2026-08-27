@@ -15,12 +15,23 @@
     "carriedWeight": 58,
     "gate": 4,
     "horseNumber": 5,
-    "fieldSize": null,
+    "fieldSize": 14,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202405050812",
     "sourceHorseId": "2019104447",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-27T05:33:40.754Z",
+    "passingPosition": {
+      "cornerPositions": [
+        14,
+        12,
+        12,
+        12
+      ],
+      "fieldSize": 14,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20241222-NAKAYAMA-11",
@@ -38,12 +49,23 @@
     "carriedWeight": 58,
     "gate": 6,
     "horseNumber": 12,
-    "fieldSize": null,
+    "fieldSize": 15,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202406050811",
     "sourceHorseId": "2019104447",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-27T05:33:40.754Z",
+    "passingPosition": {
+      "cornerPositions": [
+        12,
+        11,
+        9,
+        10
+      ],
+      "fieldSize": 15,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20250817-SAPPORO-11",
@@ -61,12 +83,23 @@
     "carriedWeight": 58,
     "gate": 2,
     "horseNumber": 3,
-    "fieldSize": null,
+    "fieldSize": 16,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202501010811",
     "sourceHorseId": "2019104447",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-27T05:33:40.754Z",
+    "passingPosition": {
+      "cornerPositions": [
+        9,
+        9,
+        10,
+        10
+      ],
+      "fieldSize": 16,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20251109-TOKYO-11",
@@ -84,12 +117,23 @@
     "carriedWeight": 59,
     "gate": 4,
     "horseNumber": 7,
-    "fieldSize": null,
+    "fieldSize": 18,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202505050211",
     "sourceHorseId": "2019104447",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-27T05:33:40.754Z",
+    "passingPosition": {
+      "cornerPositions": [
+        12,
+        13,
+        12,
+        14
+      ],
+      "fieldSize": 18,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20260516-NIIGATA-11",

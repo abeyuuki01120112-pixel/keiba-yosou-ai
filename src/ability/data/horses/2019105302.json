@@ -15,12 +15,23 @@
     "carriedWeight": 56,
     "gate": 2,
     "horseNumber": 4,
-    "fieldSize": null,
+    "fieldSize": 16,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202402011211",
     "sourceHorseId": "2019105302",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:55:04.948Z"
+    "importedAt": "2026-08-27T05:33:40.754Z",
+    "passingPosition": {
+      "cornerPositions": [
+        7,
+        7,
+        6,
+        5
+      ],
+      "fieldSize": 16,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20260516-NIIGATA-11",

@@ -15,12 +15,21 @@
     "carriedWeight": 57,
     "gate": 6,
     "horseNumber": 11,
-    "fieldSize": null,
+    "fieldSize": 18,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202505050711",
     "sourceHorseId": "2020106234",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-27T05:33:40.754Z",
+    "passingPosition": {
+      "cornerPositions": [
+        8,
+        8
+      ],
+      "fieldSize": 18,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20260411-HANSHIN-10",
@@ -38,12 +47,23 @@
     "carriedWeight": 54,
     "gate": 7,
     "horseNumber": 11,
-    "fieldSize": null,
+    "fieldSize": 13,
     "source": "keibamar_public_dataset",
     "sourceRaceId": "202609020510",
     "sourceHorseId": "2020106234",
     "dataKind": "real",
-    "importedAt": "2026-08-24T06:06:37.712Z"
+    "importedAt": "2026-08-27T05:33:40.754Z",
+    "passingPosition": {
+      "cornerPositions": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "fieldSize": 13,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
   },
   {
     "raceId": "JRA-20260516-NIIGATA-11",
