@@ -31,6 +31,18 @@ export interface SuitabilityComponentResultV1 {
   /** confidenceに応じてrawPercentを100側へ縮小した値。overallSuitability統合に使う値 */
   adjustedPercent: number;
   confidence: SuitabilityConfidenceV1;
+  /**
+   * 【CHECKPOINT14D.2/14D.3で確認済みの既知の注意点】distance/course/goingは
+   * `suitabilityV1.ts`の`wrapSystemAComponent()`が系統A（`distanceSuitability.ts`等）の
+   * `reason`文字列をそのまま転記しており、その文字列内の「confidence(...)」「adjusted=...%」は
+   * 系統A自身の3段階confidence（`baseConfidenceFromSampleCount`）で計算された値である。
+   * これは、このオブジェクトが実際に使う`confidence`/`adjustedPercent`（HorseEvidence側の
+   * 4段階基準`resolveHorseEvidenceConfidence`で再計算した値、Stage Aで採用される
+   * authoritativeな値）と数値が一致しない場合がある（サンプル数2・4件で判定が食い違う設計、
+   * `wrapSystemAComponent()`のdocstring参照）。UI等でreasonを表示する際は、この
+   * オブジェクト自身の`confidence`/`adjustedPercent`を正として扱い、reason文字列内の
+   * 数値を書き換えずにそのまま引用しない。
+   */
   reason: string;
   /** 本人実績（優先度1）。無ければnull（推測で埋めない） */
   horseEvidence: HorseEvidenceDetail | null;
