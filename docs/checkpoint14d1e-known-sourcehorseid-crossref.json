@@ -1,0 +1,1628 @@
+{
+  "generatedAt": "2026-08-29",
+  "purpose": "既存production data/horses/にcanonical horseIdとして存在する馬の、CSV import時に記録されたsourceHorseId（多くはnetkeiba馬ID）一覧。新規Historical Gate候補レースの出走馬と突き合わせ、Ability Control coverageを事前に見積もるための参考データ（Gate結果には一切依存しない選定補助）。",
+  "totalCanonicalHorseIdFiles": 447,
+  "horseIdsWithSourceHorseId": 405,
+  "entries": [
+    {
+      "horseId": "2016100752",
+      "sourceHorseId": "2016100752"
+    },
+    {
+      "horseId": "2016102175",
+      "sourceHorseId": "2016102175"
+    },
+    {
+      "horseId": "2016102229",
+      "sourceHorseId": "2016102229"
+    },
+    {
+      "horseId": "2016103387",
+      "sourceHorseId": "2016103387"
+    },
+    {
+      "horseId": "2016103730",
+      "sourceHorseId": "2016103730"
+    },
+    {
+      "horseId": "2016103884",
+      "sourceHorseId": "2016103884"
+    },
+    {
+      "horseId": "2016104624",
+      "sourceHorseId": "2016104624"
+    },
+    {
+      "horseId": "2016104946",
+      "sourceHorseId": "2016104946"
+    },
+    {
+      "horseId": "2016105681",
+      "sourceHorseId": "2016105681"
+    },
+    {
+      "horseId": "2016106606",
+      "sourceHorseId": "2016106606"
+    },
+    {
+      "horseId": "2017101707",
+      "sourceHorseId": "2017101707"
+    },
+    {
+      "horseId": "2017102170",
+      "sourceHorseId": "2017102170"
+    },
+    {
+      "horseId": "2017102537",
+      "sourceHorseId": "2017102537"
+    },
+    {
+      "horseId": "2017103000",
+      "sourceHorseId": "2017103000"
+    },
+    {
+      "horseId": "2017103751",
+      "sourceHorseId": "2017103751"
+    },
+    {
+      "horseId": "2017104172",
+      "sourceHorseId": "2017104172"
+    },
+    {
+      "horseId": "2017104756",
+      "sourceHorseId": "2017104756"
+    },
+    {
+      "horseId": "2017105074",
+      "sourceHorseId": "2017105074"
+    },
+    {
+      "horseId": "2017105194",
+      "sourceHorseId": "2017105194"
+    },
+    {
+      "horseId": "2017105214",
+      "sourceHorseId": "2017105214"
+    },
+    {
+      "horseId": "2018100382",
+      "sourceHorseId": "2018100382"
+    },
+    {
+      "horseId": "2018101010",
+      "sourceHorseId": "2018101010"
+    },
+    {
+      "horseId": "2018101343",
+      "sourceHorseId": "2018101343"
+    },
+    {
+      "horseId": "2018101348",
+      "sourceHorseId": "2018101348"
+    },
+    {
+      "horseId": "2018101615",
+      "sourceHorseId": "2018101615"
+    },
+    {
+      "horseId": "2018101660",
+      "sourceHorseId": "2018101660"
+    },
+    {
+      "horseId": "2018102020",
+      "sourceHorseId": "2018102020"
+    },
+    {
+      "horseId": "2018103499",
+      "sourceHorseId": "2018103499"
+    },
+    {
+      "horseId": "2018103507",
+      "sourceHorseId": "2018103507"
+    },
+    {
+      "horseId": "2018104261",
+      "sourceHorseId": "2018104261"
+    },
+    {
+      "horseId": "2018104475",
+      "sourceHorseId": "2018104475"
+    },
+    {
+      "horseId": "2018104541",
+      "sourceHorseId": "2018104541"
+    },
+    {
+      "horseId": "2018104609",
+      "sourceHorseId": "2018104609"
+    },
+    {
+      "horseId": "2018104638",
+      "sourceHorseId": "2018104638"
+    },
+    {
+      "horseId": "2018104708",
+      "sourceHorseId": "2018104708"
+    },
+    {
+      "horseId": "2018104895",
+      "sourceHorseId": "2018104895"
+    },
+    {
+      "horseId": "2018104913",
+      "sourceHorseId": "2018104913"
+    },
+    {
+      "horseId": "2018104942",
+      "sourceHorseId": "2018104942"
+    },
+    {
+      "horseId": "2018104980",
+      "sourceHorseId": "2018104980"
+    },
+    {
+      "horseId": "2018105012",
+      "sourceHorseId": "2018105012"
+    },
+    {
+      "horseId": "2018105165",
+      "sourceHorseId": "2018105165"
+    },
+    {
+      "horseId": "2018105308",
+      "sourceHorseId": "2018105308"
+    },
+    {
+      "horseId": "2018105343",
+      "sourceHorseId": "2018105343"
+    },
+    {
+      "horseId": "2018105454",
+      "sourceHorseId": "2018105454"
+    },
+    {
+      "horseId": "2018105610",
+      "sourceHorseId": "2018105610"
+    },
+    {
+      "horseId": "2018106318",
+      "sourceHorseId": "2018106318"
+    },
+    {
+      "horseId": "2018106545",
+      "sourceHorseId": "2018106545"
+    },
+    {
+      "horseId": "2018110137",
+      "sourceHorseId": "2018110137"
+    },
+    {
+      "horseId": "2019100109",
+      "sourceHorseId": "2019100109"
+    },
+    {
+      "horseId": "2019100213",
+      "sourceHorseId": "2019100213"
+    },
+    {
+      "horseId": "2019100318",
+      "sourceHorseId": "2019100318"
+    },
+    {
+      "horseId": "2019100596",
+      "sourceHorseId": "2019100596"
+    },
+    {
+      "horseId": "2019100628",
+      "sourceHorseId": "2019100628"
+    },
+    {
+      "horseId": "2019100684",
+      "sourceHorseId": "2019100684"
+    },
+    {
+      "horseId": "2019100792",
+      "sourceHorseId": "2019100792"
+    },
+    {
+      "horseId": "2019100965",
+      "sourceHorseId": "2019100965"
+    },
+    {
+      "horseId": "2019101408",
+      "sourceHorseId": "2019101408"
+    },
+    {
+      "horseId": "2019101422",
+      "sourceHorseId": "2019101422"
+    },
+    {
+      "horseId": "2019101782",
+      "sourceHorseId": "2019101782"
+    },
+    {
+      "horseId": "2019101847",
+      "sourceHorseId": "2019101847"
+    },
+    {
+      "horseId": "2019102632",
+      "sourceHorseId": "2019102632"
+    },
+    {
+      "horseId": "2019102879",
+      "sourceHorseId": "2019102879"
+    },
+    {
+      "horseId": "2019103586",
+      "sourceHorseId": "2019103586"
+    },
+    {
+      "horseId": "2019103588",
+      "sourceHorseId": "2019103588"
+    },
+    {
+      "horseId": "2019103823",
+      "sourceHorseId": "2019103823"
+    },
+    {
+      "horseId": "2019104091",
+      "sourceHorseId": "2019104091"
+    },
+    {
+      "horseId": "2019104126",
+      "sourceHorseId": "2019104126"
+    },
+    {
+      "horseId": "2019104447",
+      "sourceHorseId": "2019104447"
+    },
+    {
+      "horseId": "2019104476",
+      "sourceHorseId": "2019104476"
+    },
+    {
+      "horseId": "2019104658",
+      "sourceHorseId": "2019104658"
+    },
+    {
+      "horseId": "2019104711",
+      "sourceHorseId": "2019104711"
+    },
+    {
+      "horseId": "2019104740",
+      "sourceHorseId": "2019104740"
+    },
+    {
+      "horseId": "2019104742",
+      "sourceHorseId": "2019104742"
+    },
+    {
+      "horseId": "2019104756",
+      "sourceHorseId": "2019104756"
+    },
+    {
+      "horseId": "2019104828",
+      "sourceHorseId": "2019104828"
+    },
+    {
+      "horseId": "2019104838",
+      "sourceHorseId": "2019104838"
+    },
+    {
+      "horseId": "2019104850",
+      "sourceHorseId": "2019104850"
+    },
+    {
+      "horseId": "2019104878",
+      "sourceHorseId": "2019104878"
+    },
+    {
+      "horseId": "2019104909",
+      "sourceHorseId": "2019104909"
+    },
+    {
+      "horseId": "2019104998",
+      "sourceHorseId": "2019104998"
+    },
+    {
+      "horseId": "2019105118",
+      "sourceHorseId": "2019105118"
+    },
+    {
+      "horseId": "2019105155",
+      "sourceHorseId": "2019105155"
+    },
+    {
+      "horseId": "2019105168",
+      "sourceHorseId": "2019105168"
+    },
+    {
+      "horseId": "2019105195",
+      "sourceHorseId": "2019105195"
+    },
+    {
+      "horseId": "2019105207",
+      "sourceHorseId": "2019105207"
+    },
+    {
+      "horseId": "2019105239",
+      "sourceHorseId": "2019105239"
+    },
+    {
+      "horseId": "2019105252",
+      "sourceHorseId": "2019105252"
+    },
+    {
+      "horseId": "2019105283",
+      "sourceHorseId": "2019105283"
+    },
+    {
+      "horseId": "2019105293",
+      "sourceHorseId": "2019105293"
+    },
+    {
+      "horseId": "2019105302",
+      "sourceHorseId": "2019105302"
+    },
+    {
+      "horseId": "2019105312",
+      "sourceHorseId": "2019105312"
+    },
+    {
+      "horseId": "2019105330",
+      "sourceHorseId": "2019105330"
+    },
+    {
+      "horseId": "2019105346",
+      "sourceHorseId": "2019105346"
+    },
+    {
+      "horseId": "2019105366",
+      "sourceHorseId": "2019105366"
+    },
+    {
+      "horseId": "2019105482",
+      "sourceHorseId": "2019105482"
+    },
+    {
+      "horseId": "2019105532",
+      "sourceHorseId": "2019105532"
+    },
+    {
+      "horseId": "2019105552",
+      "sourceHorseId": "2019105552"
+    },
+    {
+      "horseId": "2019105565",
+      "sourceHorseId": "2019105565"
+    },
+    {
+      "horseId": "2019105571",
+      "sourceHorseId": "2019105571"
+    },
+    {
+      "horseId": "2019105748",
+      "sourceHorseId": "2019105748"
+    },
+    {
+      "horseId": "2019105768",
+      "sourceHorseId": "2019105768"
+    },
+    {
+      "horseId": "2019105775",
+      "sourceHorseId": "2019105775"
+    },
+    {
+      "horseId": "2019105792",
+      "sourceHorseId": "2019105792"
+    },
+    {
+      "horseId": "2019105806",
+      "sourceHorseId": "2019105806"
+    },
+    {
+      "horseId": "2019105877",
+      "sourceHorseId": "2019105877"
+    },
+    {
+      "horseId": "2019106335",
+      "sourceHorseId": "2019106335"
+    },
+    {
+      "horseId": "2019106526",
+      "sourceHorseId": "2019106526"
+    },
+    {
+      "horseId": "2019106698",
+      "sourceHorseId": "2019106698"
+    },
+    {
+      "horseId": "2020100157",
+      "sourceHorseId": "2020100157"
+    },
+    {
+      "horseId": "2020100254",
+      "sourceHorseId": "2020100254"
+    },
+    {
+      "horseId": "2020100593",
+      "sourceHorseId": "2020100593"
+    },
+    {
+      "horseId": "2020100680",
+      "sourceHorseId": "2020100680"
+    },
+    {
+      "horseId": "2020100734",
+      "sourceHorseId": "2020100734"
+    },
+    {
+      "horseId": "2020100761",
+      "sourceHorseId": "2020100761"
+    },
+    {
+      "horseId": "2020100792",
+      "sourceHorseId": "2020100792"
+    },
+    {
+      "horseId": "2020100976",
+      "sourceHorseId": "2020100976"
+    },
+    {
+      "horseId": "2020101025",
+      "sourceHorseId": "2020101025"
+    },
+    {
+      "horseId": "2020101503",
+      "sourceHorseId": "2020101503"
+    },
+    {
+      "horseId": "2020101607",
+      "sourceHorseId": "2020101607"
+    },
+    {
+      "horseId": "2020101608",
+      "sourceHorseId": "2020101608"
+    },
+    {
+      "horseId": "2020101772",
+      "sourceHorseId": "2020101772"
+    },
+    {
+      "horseId": "2020101784",
+      "sourceHorseId": "2020101784"
+    },
+    {
+      "horseId": "2020101813",
+      "sourceHorseId": "2020101813"
+    },
+    {
+      "horseId": "2020101967",
+      "sourceHorseId": "2020101967"
+    },
+    {
+      "horseId": "2020102078",
+      "sourceHorseId": "2020102078"
+    },
+    {
+      "horseId": "2020102095",
+      "sourceHorseId": "2020102095"
+    },
+    {
+      "horseId": "2020102194",
+      "sourceHorseId": "2020102194"
+    },
+    {
+      "horseId": "2020102625",
+      "sourceHorseId": "2020102625"
+    },
+    {
+      "horseId": "2020102740",
+      "sourceHorseId": "2020102740"
+    },
+    {
+      "horseId": "2020102781",
+      "sourceHorseId": "2020102781"
+    },
+    {
+      "horseId": "2020102836",
+      "sourceHorseId": "2020102836"
+    },
+    {
+      "horseId": "2020102853",
+      "sourceHorseId": "2020102853"
+    },
+    {
+      "horseId": "2020102870",
+      "sourceHorseId": "2020102870"
+    },
+    {
+      "horseId": "2020102899",
+      "sourceHorseId": "2020102899"
+    },
+    {
+      "horseId": "2020103025",
+      "sourceHorseId": "2020103025"
+    },
+    {
+      "horseId": "2020103043",
+      "sourceHorseId": "2020103043"
+    },
+    {
+      "horseId": "2020103060",
+      "sourceHorseId": "2020103060"
+    },
+    {
+      "horseId": "2020103061",
+      "sourceHorseId": "2020103061"
+    },
+    {
+      "horseId": "2020103066",
+      "sourceHorseId": "2020103066"
+    },
+    {
+      "horseId": "2020103075",
+      "sourceHorseId": "2020103075"
+    },
+    {
+      "horseId": "2020103082",
+      "sourceHorseId": "2020103082"
+    },
+    {
+      "horseId": "2020103099",
+      "sourceHorseId": "2020103099"
+    },
+    {
+      "horseId": "2020103102",
+      "sourceHorseId": "2020103102"
+    },
+    {
+      "horseId": "2020103111",
+      "sourceHorseId": "2020103111"
+    },
+    {
+      "horseId": "2020103132",
+      "sourceHorseId": "2020103132"
+    },
+    {
+      "horseId": "2020103242",
+      "sourceHorseId": "2020103242"
+    },
+    {
+      "horseId": "2020103275",
+      "sourceHorseId": "2020103275"
+    },
+    {
+      "horseId": "2020103304",
+      "sourceHorseId": "2020103304"
+    },
+    {
+      "horseId": "2020103331",
+      "sourceHorseId": "2020103331"
+    },
+    {
+      "horseId": "2020103333",
+      "sourceHorseId": "2020103333"
+    },
+    {
+      "horseId": "2020103369",
+      "sourceHorseId": "2020103369"
+    },
+    {
+      "horseId": "2020103439",
+      "sourceHorseId": "2020103439"
+    },
+    {
+      "horseId": "2020103472",
+      "sourceHorseId": "2020103472"
+    },
+    {
+      "horseId": "2020103482",
+      "sourceHorseId": "2020103482"
+    },
+    {
+      "horseId": "2020103532",
+      "sourceHorseId": "2020103532"
+    },
+    {
+      "horseId": "2020103577",
+      "sourceHorseId": "2020103577"
+    },
+    {
+      "horseId": "2020103640",
+      "sourceHorseId": "2020103640"
+    },
+    {
+      "horseId": "2020103650",
+      "sourceHorseId": "2020103650"
+    },
+    {
+      "horseId": "2020103666",
+      "sourceHorseId": "2020103666"
+    },
+    {
+      "horseId": "2020103672",
+      "sourceHorseId": "2020103672"
+    },
+    {
+      "horseId": "2020103674",
+      "sourceHorseId": "2020103674"
+    },
+    {
+      "horseId": "2020103713",
+      "sourceHorseId": "2020103713"
+    },
+    {
+      "horseId": "2020103941",
+      "sourceHorseId": "2020103941"
+    },
+    {
+      "horseId": "2020103945",
+      "sourceHorseId": "2020103945"
+    },
+    {
+      "horseId": "2020104302",
+      "sourceHorseId": "2020104302"
+    },
+    {
+      "horseId": "2020104564",
+      "sourceHorseId": "2020104564"
+    },
+    {
+      "horseId": "2020105018",
+      "sourceHorseId": "2020105018"
+    },
+    {
+      "horseId": "2020105206",
+      "sourceHorseId": "2020105206"
+    },
+    {
+      "horseId": "2020105295",
+      "sourceHorseId": "2020105295"
+    },
+    {
+      "horseId": "2020105424",
+      "sourceHorseId": "2020105424"
+    },
+    {
+      "horseId": "2020105626",
+      "sourceHorseId": "2020105626"
+    },
+    {
+      "horseId": "2020105631",
+      "sourceHorseId": "2020105631"
+    },
+    {
+      "horseId": "2020105642",
+      "sourceHorseId": "2020105642"
+    },
+    {
+      "horseId": "2020105681",
+      "sourceHorseId": "2020105681"
+    },
+    {
+      "horseId": "2020105749",
+      "sourceHorseId": "2020105749"
+    },
+    {
+      "horseId": "2020105750",
+      "sourceHorseId": "2020105750"
+    },
+    {
+      "horseId": "2020105781",
+      "sourceHorseId": "2020105781"
+    },
+    {
+      "horseId": "2020105786",
+      "sourceHorseId": "2020105786"
+    },
+    {
+      "horseId": "2020105795",
+      "sourceHorseId": "2020105795"
+    },
+    {
+      "horseId": "2020105798",
+      "sourceHorseId": "2020105798"
+    },
+    {
+      "horseId": "2020105834",
+      "sourceHorseId": "2020105834"
+    },
+    {
+      "horseId": "2020106234",
+      "sourceHorseId": "2020106234"
+    },
+    {
+      "horseId": "2020106402",
+      "sourceHorseId": "2020106402"
+    },
+    {
+      "horseId": "2020106667",
+      "sourceHorseId": "2020106667"
+    },
+    {
+      "horseId": "2020107001",
+      "sourceHorseId": "2020107001"
+    },
+    {
+      "horseId": "2020109107",
+      "sourceHorseId": "2020109107"
+    },
+    {
+      "horseId": "2020110060",
+      "sourceHorseId": "2020110060"
+    },
+    {
+      "horseId": "2020110133",
+      "sourceHorseId": "2020110133"
+    },
+    {
+      "horseId": "2020110155",
+      "sourceHorseId": "2020110155"
+    },
+    {
+      "horseId": "2020190003",
+      "sourceHorseId": "2020190003"
+    },
+    {
+      "horseId": "2020190004",
+      "sourceHorseId": "2020190004"
+    },
+    {
+      "horseId": "2020190005",
+      "sourceHorseId": "2020190005"
+    },
+    {
+      "horseId": "2020190006",
+      "sourceHorseId": "2020190006"
+    },
+    {
+      "horseId": "2021100139",
+      "sourceHorseId": "2021100139"
+    },
+    {
+      "horseId": "2021100244",
+      "sourceHorseId": "2021100244"
+    },
+    {
+      "horseId": "2021100651",
+      "sourceHorseId": "2021100651"
+    },
+    {
+      "horseId": "2021100953",
+      "sourceHorseId": "2021100953"
+    },
+    {
+      "horseId": "2021101134",
+      "sourceHorseId": "2021101134"
+    },
+    {
+      "horseId": "2021101387",
+      "sourceHorseId": "2021101387"
+    },
+    {
+      "horseId": "2021101436",
+      "sourceHorseId": "2021101436"
+    },
+    {
+      "horseId": "2021102224",
+      "sourceHorseId": "2021102224"
+    },
+    {
+      "horseId": "2021102895",
+      "sourceHorseId": "2021102895"
+    },
+    {
+      "horseId": "2021103975",
+      "sourceHorseId": "2021103975"
+    },
+    {
+      "horseId": "2021104073",
+      "sourceHorseId": "2021104073"
+    },
+    {
+      "horseId": "2021104094",
+      "sourceHorseId": "2021104094"
+    },
+    {
+      "horseId": "2021104324",
+      "sourceHorseId": "2021104324"
+    },
+    {
+      "horseId": "2021104434",
+      "sourceHorseId": "2021104434"
+    },
+    {
+      "horseId": "2021104751",
+      "sourceHorseId": "2021104751"
+    },
+    {
+      "horseId": "2021104791",
+      "sourceHorseId": "2021104791"
+    },
+    {
+      "horseId": "2021104830",
+      "sourceHorseId": "2021104830"
+    },
+    {
+      "horseId": "2021104855",
+      "sourceHorseId": "2021104855"
+    },
+    {
+      "horseId": "2021104893",
+      "sourceHorseId": "2021104893"
+    },
+    {
+      "horseId": "2021105066",
+      "sourceHorseId": "2021105066"
+    },
+    {
+      "horseId": "2021105104",
+      "sourceHorseId": "2021105104"
+    },
+    {
+      "horseId": "2021105117",
+      "sourceHorseId": "2021105117"
+    },
+    {
+      "horseId": "2021105119",
+      "sourceHorseId": "2021105119"
+    },
+    {
+      "horseId": "2021105138",
+      "sourceHorseId": "2021105138"
+    },
+    {
+      "horseId": "2021105143",
+      "sourceHorseId": "2021105143"
+    },
+    {
+      "horseId": "2021105160",
+      "sourceHorseId": "2021105160"
+    },
+    {
+      "horseId": "2021105195",
+      "sourceHorseId": "2021105195"
+    },
+    {
+      "horseId": "2021105228",
+      "sourceHorseId": "2021105228"
+    },
+    {
+      "horseId": "2021105283",
+      "sourceHorseId": "2021105283"
+    },
+    {
+      "horseId": "2021105285",
+      "sourceHorseId": "2021105285"
+    },
+    {
+      "horseId": "2021105354",
+      "sourceHorseId": "2021105354"
+    },
+    {
+      "horseId": "2021105369",
+      "sourceHorseId": "2021105369"
+    },
+    {
+      "horseId": "2021105399",
+      "sourceHorseId": "2021105399"
+    },
+    {
+      "horseId": "2021105414",
+      "sourceHorseId": "2021105414"
+    },
+    {
+      "horseId": "2021105423",
+      "sourceHorseId": "2021105423"
+    },
+    {
+      "horseId": "2021105433",
+      "sourceHorseId": "2021105433"
+    },
+    {
+      "horseId": "2021105436",
+      "sourceHorseId": "2021105436"
+    },
+    {
+      "horseId": "2021105438",
+      "sourceHorseId": "2021105438"
+    },
+    {
+      "horseId": "2021105454",
+      "sourceHorseId": "2021105454"
+    },
+    {
+      "horseId": "2021105557",
+      "sourceHorseId": "2021105557"
+    },
+    {
+      "horseId": "2021105559",
+      "sourceHorseId": "2021105559"
+    },
+    {
+      "horseId": "2021105560",
+      "sourceHorseId": "2021105560"
+    },
+    {
+      "horseId": "2021105574",
+      "sourceHorseId": "2021105574"
+    },
+    {
+      "horseId": "2021105581",
+      "sourceHorseId": "2021105581"
+    },
+    {
+      "horseId": "2021105609",
+      "sourceHorseId": "2021105609"
+    },
+    {
+      "horseId": "2021105623",
+      "sourceHorseId": "2021105623"
+    },
+    {
+      "horseId": "2021105639",
+      "sourceHorseId": "2021105639"
+    },
+    {
+      "horseId": "2021105643",
+      "sourceHorseId": "2021105643"
+    },
+    {
+      "horseId": "2021105661",
+      "sourceHorseId": "2021105661"
+    },
+    {
+      "horseId": "2021105724",
+      "sourceHorseId": "2021105724"
+    },
+    {
+      "horseId": "2021105738",
+      "sourceHorseId": "2021105738"
+    },
+    {
+      "horseId": "2021105743",
+      "sourceHorseId": "2021105743"
+    },
+    {
+      "horseId": "2021105788",
+      "sourceHorseId": "2021105788"
+    },
+    {
+      "horseId": "2021105796",
+      "sourceHorseId": "2021105796"
+    },
+    {
+      "horseId": "2021105808",
+      "sourceHorseId": "2021105808"
+    },
+    {
+      "horseId": "2021105817",
+      "sourceHorseId": "2021105817"
+    },
+    {
+      "horseId": "2021105829",
+      "sourceHorseId": "2021105829"
+    },
+    {
+      "horseId": "2021105864",
+      "sourceHorseId": "2021105864"
+    },
+    {
+      "horseId": "2021105867",
+      "sourceHorseId": "2021105867"
+    },
+    {
+      "horseId": "2021105910",
+      "sourceHorseId": "2021105910"
+    },
+    {
+      "horseId": "2021106193",
+      "sourceHorseId": "2021106193"
+    },
+    {
+      "horseId": "2021106194",
+      "sourceHorseId": "2021106194"
+    },
+    {
+      "horseId": "2021106449",
+      "sourceHorseId": "2021106449"
+    },
+    {
+      "horseId": "2021106550",
+      "sourceHorseId": "2021106550"
+    },
+    {
+      "horseId": "2021106635",
+      "sourceHorseId": "2021106635"
+    },
+    {
+      "horseId": "2021106645",
+      "sourceHorseId": "2021106645"
+    },
+    {
+      "horseId": "2021106738",
+      "sourceHorseId": "2021106738"
+    },
+    {
+      "horseId": "2021106787",
+      "sourceHorseId": "2021106787"
+    },
+    {
+      "horseId": "2021107098",
+      "sourceHorseId": "2021107098"
+    },
+    {
+      "horseId": "2021107171",
+      "sourceHorseId": "2021107171"
+    },
+    {
+      "horseId": "2021107179",
+      "sourceHorseId": "2021107179"
+    },
+    {
+      "horseId": "2021109070",
+      "sourceHorseId": "2021109070"
+    },
+    {
+      "horseId": "2021110031",
+      "sourceHorseId": "2021110031"
+    },
+    {
+      "horseId": "2021110048",
+      "sourceHorseId": "2021110048"
+    },
+    {
+      "horseId": "2022101250",
+      "sourceHorseId": "2022101250"
+    },
+    {
+      "horseId": "2022101329",
+      "sourceHorseId": "2022101329"
+    },
+    {
+      "horseId": "2022101420",
+      "sourceHorseId": "2022101420"
+    },
+    {
+      "horseId": "2022101648",
+      "sourceHorseId": "2022101648"
+    },
+    {
+      "horseId": "2022101669",
+      "sourceHorseId": "2022101669"
+    },
+    {
+      "horseId": "2022101732",
+      "sourceHorseId": "2022101732"
+    },
+    {
+      "horseId": "2022102296",
+      "sourceHorseId": "2022102296"
+    },
+    {
+      "horseId": "2022103205",
+      "sourceHorseId": "2022103205"
+    },
+    {
+      "horseId": "2022103304",
+      "sourceHorseId": "2022103304"
+    },
+    {
+      "horseId": "2022103546",
+      "sourceHorseId": "2022103546"
+    },
+    {
+      "horseId": "2022103875",
+      "sourceHorseId": "2022103875"
+    },
+    {
+      "horseId": "2022104094",
+      "sourceHorseId": "2022104094"
+    },
+    {
+      "horseId": "2022104207",
+      "sourceHorseId": "2022104207"
+    },
+    {
+      "horseId": "2022104218",
+      "sourceHorseId": "2022104218"
+    },
+    {
+      "horseId": "2022104416",
+      "sourceHorseId": "2022104416"
+    },
+    {
+      "horseId": "2022104615",
+      "sourceHorseId": "2022104615"
+    },
+    {
+      "horseId": "2022104645",
+      "sourceHorseId": "2022104645"
+    },
+    {
+      "horseId": "2022104655",
+      "sourceHorseId": "2022104655"
+    },
+    {
+      "horseId": "2022104697",
+      "sourceHorseId": "2022104697"
+    },
+    {
+      "horseId": "2022104720",
+      "sourceHorseId": "2022104720"
+    },
+    {
+      "horseId": "2022104767",
+      "sourceHorseId": "2022104767"
+    },
+    {
+      "horseId": "2022104772",
+      "sourceHorseId": "2022104772"
+    },
+    {
+      "horseId": "2022104813",
+      "sourceHorseId": "2022104813"
+    },
+    {
+      "horseId": "2022104839",
+      "sourceHorseId": "2022104839"
+    },
+    {
+      "horseId": "2022104896",
+      "sourceHorseId": "2022104896"
+    },
+    {
+      "horseId": "2022104922",
+      "sourceHorseId": "2022104922"
+    },
+    {
+      "horseId": "2022104971",
+      "sourceHorseId": "2022104971"
+    },
+    {
+      "horseId": "2022105071",
+      "sourceHorseId": "2022105071"
+    },
+    {
+      "horseId": "2022105109",
+      "sourceHorseId": "2022105109"
+    },
+    {
+      "horseId": "2022105185",
+      "sourceHorseId": "2022105185"
+    },
+    {
+      "horseId": "2022105192",
+      "sourceHorseId": "2022105192"
+    },
+    {
+      "horseId": "2022105202",
+      "sourceHorseId": "2022105202"
+    },
+    {
+      "horseId": "2022105230",
+      "sourceHorseId": "2022105230"
+    },
+    {
+      "horseId": "2022105346",
+      "sourceHorseId": "2022105346"
+    },
+    {
+      "horseId": "2022105402",
+      "sourceHorseId": "2022105402"
+    },
+    {
+      "horseId": "2022105466",
+      "sourceHorseId": "2022105466"
+    },
+    {
+      "horseId": "2022105467",
+      "sourceHorseId": "2022105467"
+    },
+    {
+      "horseId": "2022105519",
+      "sourceHorseId": "2022105519"
+    },
+    {
+      "horseId": "2022105815",
+      "sourceHorseId": "2022105815"
+    },
+    {
+      "horseId": "2022105891",
+      "sourceHorseId": "2022105891"
+    },
+    {
+      "horseId": "2022106155",
+      "sourceHorseId": "2022106155"
+    },
+    {
+      "horseId": "2022106611",
+      "sourceHorseId": "2022106611"
+    },
+    {
+      "horseId": "2022106633",
+      "sourceHorseId": "2022106633"
+    },
+    {
+      "horseId": "2022106691",
+      "sourceHorseId": "2022106691"
+    },
+    {
+      "horseId": "2022106768",
+      "sourceHorseId": "2022106768"
+    },
+    {
+      "horseId": "2022106940",
+      "sourceHorseId": "2022106940"
+    },
+    {
+      "horseId": "2022110083",
+      "sourceHorseId": "2022110083"
+    },
+    {
+      "horseId": "2023100002",
+      "sourceHorseId": "2023100002"
+    },
+    {
+      "horseId": "2023100627",
+      "sourceHorseId": "2023100627"
+    },
+    {
+      "horseId": "2023100681",
+      "sourceHorseId": "2023100681"
+    },
+    {
+      "horseId": "2023100724",
+      "sourceHorseId": "2023100724"
+    },
+    {
+      "horseId": "2023100728",
+      "sourceHorseId": "2023100728"
+    },
+    {
+      "horseId": "2023100767",
+      "sourceHorseId": "2023100767"
+    },
+    {
+      "horseId": "2023100772",
+      "sourceHorseId": "2023100772"
+    },
+    {
+      "horseId": "2023100797",
+      "sourceHorseId": "2023100797"
+    },
+    {
+      "horseId": "2023100840",
+      "sourceHorseId": "2023100840"
+    },
+    {
+      "horseId": "2023100940",
+      "sourceHorseId": "2023100940"
+    },
+    {
+      "horseId": "2023100946",
+      "sourceHorseId": "2023100946"
+    },
+    {
+      "horseId": "2023101449",
+      "sourceHorseId": "2023101449"
+    },
+    {
+      "horseId": "2023102039",
+      "sourceHorseId": "2023102039"
+    },
+    {
+      "horseId": "2023102083",
+      "sourceHorseId": "2023102083"
+    },
+    {
+      "horseId": "2023102163",
+      "sourceHorseId": "2023102163"
+    },
+    {
+      "horseId": "2023102224",
+      "sourceHorseId": "2023102224"
+    },
+    {
+      "horseId": "2023102504",
+      "sourceHorseId": "2023102504"
+    },
+    {
+      "horseId": "2023102677",
+      "sourceHorseId": "2023102677"
+    },
+    {
+      "horseId": "2023102743",
+      "sourceHorseId": "2023102743"
+    },
+    {
+      "horseId": "2023103184",
+      "sourceHorseId": "2023103184"
+    },
+    {
+      "horseId": "2023103225",
+      "sourceHorseId": "2023103225"
+    },
+    {
+      "horseId": "2023103268",
+      "sourceHorseId": "2023103268"
+    },
+    {
+      "horseId": "2023103326",
+      "sourceHorseId": "2023103326"
+    },
+    {
+      "horseId": "2023103418",
+      "sourceHorseId": "2023103418"
+    },
+    {
+      "horseId": "2023103480",
+      "sourceHorseId": "2023103480"
+    },
+    {
+      "horseId": "2023103604",
+      "sourceHorseId": "2023103604"
+    },
+    {
+      "horseId": "2023103687",
+      "sourceHorseId": "2023103687"
+    },
+    {
+      "horseId": "2023103752",
+      "sourceHorseId": "2023103752"
+    },
+    {
+      "horseId": "2023103860",
+      "sourceHorseId": "2023103860"
+    },
+    {
+      "horseId": "2023103895",
+      "sourceHorseId": "2023103895"
+    },
+    {
+      "horseId": "2023104005",
+      "sourceHorseId": "2023104005"
+    },
+    {
+      "horseId": "2023104450",
+      "sourceHorseId": "2023104450"
+    },
+    {
+      "horseId": "2023104602",
+      "sourceHorseId": "2023104602"
+    },
+    {
+      "horseId": "2023104650",
+      "sourceHorseId": "2023104650"
+    },
+    {
+      "horseId": "2023104883",
+      "sourceHorseId": "2023104883"
+    },
+    {
+      "horseId": "2023104885",
+      "sourceHorseId": "2023104885"
+    },
+    {
+      "horseId": "2023105003",
+      "sourceHorseId": "2023105003"
+    },
+    {
+      "horseId": "2023105097",
+      "sourceHorseId": "2023105097"
+    },
+    {
+      "horseId": "2023105106",
+      "sourceHorseId": "2023105106"
+    },
+    {
+      "horseId": "2023105267",
+      "sourceHorseId": "2023105267"
+    },
+    {
+      "horseId": "2023105311",
+      "sourceHorseId": "2023105311"
+    },
+    {
+      "horseId": "2023105332",
+      "sourceHorseId": "2023105332"
+    },
+    {
+      "horseId": "2023105356",
+      "sourceHorseId": "2023105356"
+    },
+    {
+      "horseId": "2023105378",
+      "sourceHorseId": "2023105378"
+    },
+    {
+      "horseId": "2023105380",
+      "sourceHorseId": "2023105380"
+    },
+    {
+      "horseId": "2023105456",
+      "sourceHorseId": "2023105456"
+    },
+    {
+      "horseId": "2023105553",
+      "sourceHorseId": "2023105553"
+    },
+    {
+      "horseId": "2023105560",
+      "sourceHorseId": "2023105560"
+    },
+    {
+      "horseId": "2023105685",
+      "sourceHorseId": "2023105685"
+    },
+    {
+      "horseId": "2023105714",
+      "sourceHorseId": "2023105714"
+    },
+    {
+      "horseId": "2023105818",
+      "sourceHorseId": "2023105818"
+    },
+    {
+      "horseId": "2023105965",
+      "sourceHorseId": "2023105965"
+    },
+    {
+      "horseId": "2023106048",
+      "sourceHorseId": "2023106048"
+    },
+    {
+      "horseId": "2023106076",
+      "sourceHorseId": "2023106076"
+    },
+    {
+      "horseId": "2023106104",
+      "sourceHorseId": "2023106104"
+    },
+    {
+      "horseId": "2023106197",
+      "sourceHorseId": "2023106197"
+    },
+    {
+      "horseId": "2023106277",
+      "sourceHorseId": "2023106277"
+    },
+    {
+      "horseId": "2023106317",
+      "sourceHorseId": "2023106317"
+    },
+    {
+      "horseId": "2023106400",
+      "sourceHorseId": "2023106400"
+    },
+    {
+      "horseId": "2023106589",
+      "sourceHorseId": "2023106589"
+    },
+    {
+      "horseId": "2023106718",
+      "sourceHorseId": "2023106718"
+    },
+    {
+      "horseId": "2023106846",
+      "sourceHorseId": "2023106846"
+    },
+    {
+      "horseId": "2023106850",
+      "sourceHorseId": "2023106850"
+    },
+    {
+      "horseId": "2023106916",
+      "sourceHorseId": "2023106916"
+    },
+    {
+      "horseId": "2023106978",
+      "sourceHorseId": "2023106978"
+    },
+    {
+      "horseId": "2023106997",
+      "sourceHorseId": "2023106997"
+    },
+    {
+      "horseId": "2023107005",
+      "sourceHorseId": "2023107005"
+    },
+    {
+      "horseId": "2023107014",
+      "sourceHorseId": "2023107014"
+    },
+    {
+      "horseId": "2023107053",
+      "sourceHorseId": "2023107053"
+    },
+    {
+      "horseId": "2023107056",
+      "sourceHorseId": "2023107056"
+    },
+    {
+      "horseId": "2023107078",
+      "sourceHorseId": "2023107078"
+    },
+    {
+      "horseId": "2023107089",
+      "sourceHorseId": "2023107089"
+    },
+    {
+      "horseId": "2023107127",
+      "sourceHorseId": "2023107127"
+    },
+    {
+      "horseId": "2023107145",
+      "sourceHorseId": "2023107145"
+    },
+    {
+      "horseId": "2023107151",
+      "sourceHorseId": "2023107151"
+    },
+    {
+      "horseId": "2023107153",
+      "sourceHorseId": "2023107153"
+    },
+    {
+      "horseId": "2023107154",
+      "sourceHorseId": "2023107154"
+    },
+    {
+      "horseId": "2023107166",
+      "sourceHorseId": "2023107166"
+    },
+    {
+      "horseId": "2023107187",
+      "sourceHorseId": "2023107187"
+    },
+    {
+      "horseId": "2023107188",
+      "sourceHorseId": "2023107188"
+    },
+    {
+      "horseId": "2023107199",
+      "sourceHorseId": "2023107199"
+    },
+    {
+      "horseId": "2023107235",
+      "sourceHorseId": "2023107235"
+    },
+    {
+      "horseId": "2023107241",
+      "sourceHorseId": "2023107241"
+    },
+    {
+      "horseId": "2023107247",
+      "sourceHorseId": "2023107247"
+    },
+    {
+      "horseId": "2023107288",
+      "sourceHorseId": "2023107288"
+    },
+    {
+      "horseId": "2023107296",
+      "sourceHorseId": "2023107296"
+    },
+    {
+      "horseId": "2023107339",
+      "sourceHorseId": "2023107339"
+    },
+    {
+      "horseId": "2023107345",
+      "sourceHorseId": "2023107345"
+    },
+    {
+      "horseId": "2023107352",
+      "sourceHorseId": "2023107352"
+    },
+    {
+      "horseId": "2023107377",
+      "sourceHorseId": "2023107377"
+    },
+    {
+      "horseId": "2023110065",
+      "sourceHorseId": "2023110065"
+    }
+  ]
+}
