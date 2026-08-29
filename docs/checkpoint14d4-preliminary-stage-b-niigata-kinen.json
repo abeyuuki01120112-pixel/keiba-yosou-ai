@@ -1,0 +1,1063 @@
+{
+  "recordType": "PRELIMINARY_STAGE_B_BOARD",
+  "checkpoint": "CHECKPOINT14D.4",
+  "raceId": "JRA-20260830-NIIGATA-08",
+  "raceDate": "2026-08-30",
+  "generatedAt": "2026-08-29",
+  "sourceStageASnapshotId": "JRA-20260830-NIIGATA-08__gateConfirmed__2026-08-28T03-03-03.357Z",
+  "externalInputManifest": "stage_b_preliminary_external_inputs_2026-08-29_1757.json（ユーザー提供）",
+  "stageAImmutable": true,
+  "note": "全11頭でpreliminaryStageBScore = stageAScore（rankChange=0）。理由は本文参照（predictedPace=average、trackBias観測なし、いずれも既存コードの正当なneutral挙動）。",
+  "racePacePredictionV1Diagnostic": {
+    "paceStage": "pre_frame",
+    "status": "DIAGNOSTIC_PRE_FRAME",
+    "runnerCount": 11,
+    "continuousPacePressure": 2.75,
+    "frontPressure": 0.65,
+    "expectedPaceClass": "average",
+    "paceConfidence": "high",
+    "frontRunnerCandidateCount": 0,
+    "likelyFrontGroup": [
+      "ロデオドライブ",
+      "ドゥレッツァ",
+      "サヴォーナ",
+      "ダノンシーマ",
+      "ゾロアストロ",
+      "チェルヴィニア",
+      "ステレンボッシュ"
+    ],
+    "horses": [
+      {
+        "horseId": "2019104658",
+        "horseName": "ボーンディスウェイ",
+        "earlyNormalizedPositionMean": 0.62,
+        "positionStdDev": 0.13,
+        "runningStyleDistribution": {
+          "nige": 0,
+          "senko": 0,
+          "sashi": 80,
+          "oikomi": 20
+        },
+        "positionEvidenceCount": 5,
+        "positionConfidence": "high",
+        "nigeProbability": 0,
+        "contributionToPacePressure": 0
+      },
+      {
+        "horseId": "2020100734",
+        "horseName": "サヴォーナ",
+        "earlyNormalizedPositionMean": 0.31,
+        "positionStdDev": 0.171,
+        "runningStyleDistribution": {
+          "nige": 0,
+          "senko": 40,
+          "sashi": 60,
+          "oikomi": 0
+        },
+        "positionEvidenceCount": 5,
+        "positionConfidence": "high",
+        "nigeProbability": 0,
+        "contributionToPacePressure": 0.4
+      },
+      {
+        "horseId": "2023107166",
+        "horseName": "ロデオドライブ",
+        "earlyNormalizedPositionMean": 0.289,
+        "positionStdDev": 0.265,
+        "runningStyleDistribution": {
+          "nige": 25,
+          "senko": 50,
+          "sashi": 0,
+          "oikomi": 25
+        },
+        "positionEvidenceCount": 4,
+        "positionConfidence": "high",
+        "nigeProbability": 0.25,
+        "contributionToPacePressure": 0.75
+      },
+      {
+        "horseId": "2020103650",
+        "horseName": "ドゥレッツァ",
+        "earlyNormalizedPositionMean": 0.382,
+        "positionStdDev": 0.147,
+        "runningStyleDistribution": {
+          "nige": 0,
+          "senko": 60,
+          "sashi": 40,
+          "oikomi": 0
+        },
+        "positionEvidenceCount": 5,
+        "positionConfidence": "high",
+        "nigeProbability": 0,
+        "contributionToPacePressure": 0.6
+      },
+      {
+        "horseId": "2023106850",
+        "horseName": "ゾロアストロ",
+        "earlyNormalizedPositionMean": 0.546,
+        "positionStdDev": 0.212,
+        "runningStyleDistribution": {
+          "nige": 20,
+          "senko": 0,
+          "sashi": 40,
+          "oikomi": 40
+        },
+        "positionEvidenceCount": 5,
+        "positionConfidence": "high",
+        "nigeProbability": 0.2,
+        "contributionToPacePressure": 0.2
+      },
+      {
+        "horseId": "2021105643",
+        "horseName": "チェルヴィニア",
+        "earlyNormalizedPositionMean": 0.496,
+        "positionStdDev": 0.204,
+        "runningStyleDistribution": {
+          "nige": 0,
+          "senko": 20,
+          "sashi": 60,
+          "oikomi": 20
+        },
+        "positionEvidenceCount": 5,
+        "positionConfidence": "high",
+        "nigeProbability": 0,
+        "contributionToPacePressure": 0.2
+      },
+      {
+        "horseId": "2019105118",
+        "horseName": "ジュンブロッサム",
+        "earlyNormalizedPositionMean": 0.755,
+        "positionStdDev": 0.076,
+        "runningStyleDistribution": {
+          "nige": 0,
+          "senko": 0,
+          "sashi": 20,
+          "oikomi": 80
+        },
+        "positionEvidenceCount": 5,
+        "positionConfidence": "high",
+        "nigeProbability": 0,
+        "contributionToPacePressure": 0
+      },
+      {
+        "horseId": "2022104645",
+        "horseName": "ダノンシーマ",
+        "earlyNormalizedPositionMean": 0.377,
+        "positionStdDev": 0.171,
+        "runningStyleDistribution": {
+          "nige": 20,
+          "senko": 20,
+          "sashi": 60,
+          "oikomi": 0
+        },
+        "positionEvidenceCount": 5,
+        "positionConfidence": "high",
+        "nigeProbability": 0.2,
+        "contributionToPacePressure": 0.4
+      },
+      {
+        "horseId": "2021105436",
+        "horseName": "アーバンシック",
+        "earlyNormalizedPositionMean": 0.655,
+        "positionStdDev": 0.106,
+        "runningStyleDistribution": {
+          "nige": 0,
+          "senko": 0,
+          "sashi": 60,
+          "oikomi": 40
+        },
+        "positionEvidenceCount": 5,
+        "positionConfidence": "high",
+        "nigeProbability": 0,
+        "contributionToPacePressure": 0
+      },
+      {
+        "horseId": "2019104850",
+        "horseName": "バレエマスター",
+        "earlyNormalizedPositionMean": 0.8,
+        "positionStdDev": 0.149,
+        "runningStyleDistribution": {
+          "nige": 0,
+          "senko": 0,
+          "sashi": 20,
+          "oikomi": 80
+        },
+        "positionEvidenceCount": 5,
+        "positionConfidence": "high",
+        "nigeProbability": 0,
+        "contributionToPacePressure": 0
+      },
+      {
+        "horseId": "2021105743",
+        "horseName": "ステレンボッシュ",
+        "earlyNormalizedPositionMean": 0.46,
+        "positionStdDev": 0.208,
+        "runningStyleDistribution": {
+          "nige": 0,
+          "senko": 20,
+          "sashi": 60,
+          "oikomi": 20
+        },
+        "positionEvidenceCount": 5,
+        "positionConfidence": "high",
+        "nigeProbability": 0,
+        "contributionToPacePressure": 0.2
+      }
+    ],
+    "warnings": []
+  },
+  "board": [
+    {
+      "horseId": "2022104645",
+      "horseName": "ダノンシーマ",
+      "frame": 7,
+      "horseNumber": 8,
+      "stageAScore": 80,
+      "stageAScoreInternal": 79.8,
+      "stageARank": 1,
+      "preliminaryStageBScore": 80,
+      "preliminaryStageBScoreInternal": 79.8,
+      "rankChange": 0,
+      "paceFit": {
+        "predictedPaceLevel": "average",
+        "paceScenarioFactorAdjusted": 100,
+        "reason": "想定ペースが平均のため、脚質による有利不利はほぼ無い（中立100%付近）。"
+      },
+      "positionProjection": {
+        "representativeRunningStyle": "sashi",
+        "runningStyleDistribution": {
+          "nige": 20,
+          "senko": 20,
+          "sashi": 60,
+          "oikomi": 0
+        },
+        "earlyNormalizedPositionMean": 0.377,
+        "positionStdDev": 0.171,
+        "positionConfidence": "high",
+        "frontRate": 40,
+        "midRate": 60,
+        "rearRate": 0
+      },
+      "weatherDiagnostic": {
+        "status": "DATA_EXISTS_NOT_CONNECTED_TO_SCORE",
+        "rainLikely": true,
+        "rainIntensityUncertain": true,
+        "note": "8/30 15時台は降水確率50-60%・南西風5m/s前後の予報（forecast、実況ではない）。Stage Bのweather入力経路は未実装のためScoreへは反映していない。"
+      },
+      "wetDiagnostic": {
+        "status": "DIAGNOSTIC_ONLY",
+        "wetEvidenceAvailable": false,
+        "wetEvidenceCount": 0,
+        "wetPerformanceEvidence": [],
+        "wetConfidence": "low"
+      },
+      "windDiagnostic": {
+        "status": "NOT_EVALUATED",
+        "reason": "repositoryにコース方向（course geometry）データが存在しないため、向かい風/追い風/横風の客観判定が不能。"
+      },
+      "trackBiasDiagnostic": {
+        "status": "MIXED_INCONCLUSIVE",
+        "usedInScore": false,
+        "reason": "8/29赤倉特別（同条件）は1着4-4(前寄り)・2着1-1(先頭)・3着11-11(後方)と、前・中団・後方の全てから上位馬が出ており、単一のFRONT_BIAS/CLOSER_BIASへ固定できない。既存trackBiasFactor.tsのauto観測は未実装、manual観測も今回は入力していないため、Scoreはneutral(100%)のまま。"
+      },
+      "confidence": "medium",
+      "confidenceNote": "Preliminary Stage Bはofficial going・当日Track Bias・馬体重が未確定のため、Final Stage Bより確信度が低いことを明示する。",
+      "positiveFactors": [
+        "距離適性: adjustedPercent=101.9%（sampleCount=4, confidence=medium）"
+      ],
+      "negativeFactors": [],
+      "notEvaluatedFactors": [
+        "コース(新潟)適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "Weather(Score反映なし)",
+        "Wind(NOT_EVALUATED)",
+        "TrackBias(MIXED、Score反映なし)",
+        "OfficialGoing(未確定)",
+        "HorseWeight(未確定)"
+      ]
+    },
+    {
+      "horseId": "2023107166",
+      "horseName": "ロデオドライブ",
+      "frame": 3,
+      "horseNumber": 3,
+      "stageAScore": 77,
+      "stageAScoreInternal": 76.7,
+      "stageARank": 2,
+      "preliminaryStageBScore": 77,
+      "preliminaryStageBScoreInternal": 76.7,
+      "rankChange": 0,
+      "paceFit": {
+        "predictedPaceLevel": "average",
+        "paceScenarioFactorAdjusted": 100,
+        "reason": "想定ペースが平均のため、脚質による有利不利はほぼ無い（中立100%付近）。"
+      },
+      "positionProjection": {
+        "representativeRunningStyle": "senko",
+        "runningStyleDistribution": {
+          "nige": 25,
+          "senko": 50,
+          "sashi": 0,
+          "oikomi": 25
+        },
+        "earlyNormalizedPositionMean": 0.289,
+        "positionStdDev": 0.265,
+        "positionConfidence": "high",
+        "frontRate": 75,
+        "midRate": 0,
+        "rearRate": 25
+      },
+      "weatherDiagnostic": {
+        "status": "DATA_EXISTS_NOT_CONNECTED_TO_SCORE",
+        "rainLikely": true,
+        "rainIntensityUncertain": true,
+        "note": "8/30 15時台は降水確率50-60%・南西風5m/s前後の予報（forecast、実況ではない）。Stage Bのweather入力経路は未実装のためScoreへは反映していない。"
+      },
+      "wetDiagnostic": {
+        "status": "DIAGNOSTIC_ONLY",
+        "wetEvidenceAvailable": true,
+        "wetEvidenceCount": 1,
+        "wetPerformanceEvidence": [
+          [
+            "2025-12-21",
+            "2歳新馬",
+            "重",
+            1,
+            72.4
+          ]
+        ],
+        "wetConfidence": "low"
+      },
+      "windDiagnostic": {
+        "status": "NOT_EVALUATED",
+        "reason": "repositoryにコース方向（course geometry）データが存在しないため、向かい風/追い風/横風の客観判定が不能。"
+      },
+      "trackBiasDiagnostic": {
+        "status": "MIXED_INCONCLUSIVE",
+        "usedInScore": false,
+        "reason": "8/29赤倉特別（同条件）は1着4-4(前寄り)・2着1-1(先頭)・3着11-11(後方)と、前・中団・後方の全てから上位馬が出ており、単一のFRONT_BIAS/CLOSER_BIASへ固定できない。既存trackBiasFactor.tsのauto観測は未実装、manual観測も今回は入力していないため、Scoreはneutral(100%)のまま。"
+      },
+      "confidence": "medium",
+      "confidenceNote": "Preliminary Stage Bはofficial going・当日Track Bias・馬体重が未確定のため、Final Stage Bより確信度が低いことを明示する。",
+      "positiveFactors": [],
+      "negativeFactors": [],
+      "notEvaluatedFactors": [
+        "コース(新潟)適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "Weather(Score反映なし)",
+        "Wind(NOT_EVALUATED)",
+        "TrackBias(MIXED、Score反映なし)",
+        "OfficialGoing(未確定)",
+        "HorseWeight(未確定)"
+      ]
+    },
+    {
+      "horseId": "2023106850",
+      "horseName": "ゾロアストロ",
+      "frame": 5,
+      "horseNumber": 5,
+      "stageAScore": 74,
+      "stageAScoreInternal": 74.4,
+      "stageARank": 3,
+      "preliminaryStageBScore": 74,
+      "preliminaryStageBScoreInternal": 74.4,
+      "rankChange": 0,
+      "paceFit": {
+        "predictedPaceLevel": "average",
+        "paceScenarioFactorAdjusted": 100,
+        "reason": "想定ペースが平均のため、脚質による有利不利はほぼ無い（中立100%付近）。"
+      },
+      "positionProjection": {
+        "representativeRunningStyle": "sashi",
+        "runningStyleDistribution": {
+          "nige": 20,
+          "senko": 0,
+          "sashi": 40,
+          "oikomi": 40
+        },
+        "earlyNormalizedPositionMean": 0.546,
+        "positionStdDev": 0.212,
+        "positionConfidence": "high",
+        "frontRate": 20,
+        "midRate": 40,
+        "rearRate": 40
+      },
+      "weatherDiagnostic": {
+        "status": "DATA_EXISTS_NOT_CONNECTED_TO_SCORE",
+        "rainLikely": true,
+        "rainIntensityUncertain": true,
+        "note": "8/30 15時台は降水確率50-60%・南西風5m/s前後の予報（forecast、実況ではない）。Stage Bのweather入力経路は未実装のためScoreへは反映していない。"
+      },
+      "wetDiagnostic": {
+        "status": "DIAGNOSTIC_ONLY",
+        "wetEvidenceAvailable": false,
+        "wetEvidenceCount": 0,
+        "wetPerformanceEvidence": [],
+        "wetConfidence": "low"
+      },
+      "windDiagnostic": {
+        "status": "NOT_EVALUATED",
+        "reason": "repositoryにコース方向（course geometry）データが存在しないため、向かい風/追い風/横風の客観判定が不能。"
+      },
+      "trackBiasDiagnostic": {
+        "status": "MIXED_INCONCLUSIVE",
+        "usedInScore": false,
+        "reason": "8/29赤倉特別（同条件）は1着4-4(前寄り)・2着1-1(先頭)・3着11-11(後方)と、前・中団・後方の全てから上位馬が出ており、単一のFRONT_BIAS/CLOSER_BIASへ固定できない。既存trackBiasFactor.tsのauto観測は未実装、manual観測も今回は入力していないため、Scoreはneutral(100%)のまま。"
+      },
+      "confidence": "low",
+      "confidenceNote": "Preliminary Stage Bはofficial going・当日Track Bias・馬体重が未確定のため、Final Stage Bより確信度が低いことを明示する。",
+      "positiveFactors": [],
+      "negativeFactors": [
+        "距離適性: adjustedPercent=99.2%（sampleCount=5, confidence=high）",
+        "コース(新潟)適性: adjustedPercent=99.6%（sampleCount=1, confidence=low）"
+      ],
+      "notEvaluatedFactors": [
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "Weather(Score反映なし)",
+        "Wind(NOT_EVALUATED)",
+        "TrackBias(MIXED、Score反映なし)",
+        "OfficialGoing(未確定)",
+        "HorseWeight(未確定)"
+      ]
+    },
+    {
+      "horseId": "2019104850",
+      "horseName": "バレエマスター",
+      "frame": 8,
+      "horseNumber": 10,
+      "stageAScore": 74,
+      "stageAScoreInternal": 73.6,
+      "stageARank": 4,
+      "preliminaryStageBScore": 74,
+      "preliminaryStageBScoreInternal": 73.6,
+      "rankChange": 0,
+      "paceFit": {
+        "predictedPaceLevel": "average",
+        "paceScenarioFactorAdjusted": 100,
+        "reason": "想定ペースが平均のため、脚質による有利不利はほぼ無い（中立100%付近）。"
+      },
+      "positionProjection": {
+        "representativeRunningStyle": "oikomi",
+        "runningStyleDistribution": {
+          "nige": 0,
+          "senko": 0,
+          "sashi": 20,
+          "oikomi": 80
+        },
+        "earlyNormalizedPositionMean": 0.8,
+        "positionStdDev": 0.149,
+        "positionConfidence": "high",
+        "frontRate": 0,
+        "midRate": 20,
+        "rearRate": 80
+      },
+      "weatherDiagnostic": {
+        "status": "DATA_EXISTS_NOT_CONNECTED_TO_SCORE",
+        "rainLikely": true,
+        "rainIntensityUncertain": true,
+        "note": "8/30 15時台は降水確率50-60%・南西風5m/s前後の予報（forecast、実況ではない）。Stage Bのweather入力経路は未実装のためScoreへは反映していない。"
+      },
+      "wetDiagnostic": {
+        "status": "DIAGNOSTIC_ONLY",
+        "wetEvidenceAvailable": false,
+        "wetEvidenceCount": 0,
+        "wetPerformanceEvidence": [],
+        "wetConfidence": "low"
+      },
+      "windDiagnostic": {
+        "status": "NOT_EVALUATED",
+        "reason": "repositoryにコース方向（course geometry）データが存在しないため、向かい風/追い風/横風の客観判定が不能。"
+      },
+      "trackBiasDiagnostic": {
+        "status": "MIXED_INCONCLUSIVE",
+        "usedInScore": false,
+        "reason": "8/29赤倉特別（同条件）は1着4-4(前寄り)・2着1-1(先頭)・3着11-11(後方)と、前・中団・後方の全てから上位馬が出ており、単一のFRONT_BIAS/CLOSER_BIASへ固定できない。既存trackBiasFactor.tsのauto観測は未実装、manual観測も今回は入力していないため、Scoreはneutral(100%)のまま。"
+      },
+      "confidence": "low",
+      "confidenceNote": "Preliminary Stage Bはofficial going・当日Track Bias・馬体重が未確定のため、Final Stage Bより確信度が低いことを明示する。",
+      "positiveFactors": [
+        "距離適性: adjustedPercent=101.8%（sampleCount=5, confidence=high）",
+        "コース(新潟)適性: adjustedPercent=102%（sampleCount=1, confidence=low）",
+        "枠適性: adjustedPercent=101.4%（sampleCount=1, confidence=low）"
+      ],
+      "negativeFactors": [],
+      "notEvaluatedFactors": [
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "Weather(Score反映なし)",
+        "Wind(NOT_EVALUATED)",
+        "TrackBias(MIXED、Score反映なし)",
+        "OfficialGoing(未確定)",
+        "HorseWeight(未確定)"
+      ]
+    },
+    {
+      "horseId": "2019105118",
+      "horseName": "ジュンブロッサム",
+      "frame": 6,
+      "horseNumber": 7,
+      "stageAScore": 73,
+      "stageAScoreInternal": 73.1,
+      "stageARank": 5,
+      "preliminaryStageBScore": 73,
+      "preliminaryStageBScoreInternal": 73.1,
+      "rankChange": 0,
+      "paceFit": {
+        "predictedPaceLevel": "average",
+        "paceScenarioFactorAdjusted": 100,
+        "reason": "想定ペースが平均のため、脚質による有利不利はほぼ無い（中立100%付近）。"
+      },
+      "positionProjection": {
+        "representativeRunningStyle": "oikomi",
+        "runningStyleDistribution": {
+          "nige": 0,
+          "senko": 0,
+          "sashi": 20,
+          "oikomi": 80
+        },
+        "earlyNormalizedPositionMean": 0.755,
+        "positionStdDev": 0.076,
+        "positionConfidence": "high",
+        "frontRate": 0,
+        "midRate": 20,
+        "rearRate": 80
+      },
+      "weatherDiagnostic": {
+        "status": "DATA_EXISTS_NOT_CONNECTED_TO_SCORE",
+        "rainLikely": true,
+        "rainIntensityUncertain": true,
+        "note": "8/30 15時台は降水確率50-60%・南西風5m/s前後の予報（forecast、実況ではない）。Stage Bのweather入力経路は未実装のためScoreへは反映していない。"
+      },
+      "wetDiagnostic": {
+        "status": "DIAGNOSTIC_ONLY",
+        "wetEvidenceAvailable": true,
+        "wetEvidenceCount": 1,
+        "wetPerformanceEvidence": [
+          [
+            "2026-04-04",
+            "ダービー卿チャレンジトロフィー",
+            "稍重",
+            11,
+            67.3
+          ]
+        ],
+        "wetConfidence": "low"
+      },
+      "windDiagnostic": {
+        "status": "NOT_EVALUATED",
+        "reason": "repositoryにコース方向（course geometry）データが存在しないため、向かい風/追い風/横風の客観判定が不能。"
+      },
+      "trackBiasDiagnostic": {
+        "status": "MIXED_INCONCLUSIVE",
+        "usedInScore": false,
+        "reason": "8/29赤倉特別（同条件）は1着4-4(前寄り)・2着1-1(先頭)・3着11-11(後方)と、前・中団・後方の全てから上位馬が出ており、単一のFRONT_BIAS/CLOSER_BIASへ固定できない。既存trackBiasFactor.tsのauto観測は未実装、manual観測も今回は入力していないため、Scoreはneutral(100%)のまま。"
+      },
+      "confidence": "low",
+      "confidenceNote": "Preliminary Stage Bはofficial going・当日Track Bias・馬体重が未確定のため、Final Stage Bより確信度が低いことを明示する。",
+      "positiveFactors": [
+        "距離適性: adjustedPercent=100.4%（sampleCount=5, confidence=high）",
+        "コース(新潟)適性: adjustedPercent=100.7%（sampleCount=1, confidence=low）"
+      ],
+      "negativeFactors": [],
+      "notEvaluatedFactors": [
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "Weather(Score反映なし)",
+        "Wind(NOT_EVALUATED)",
+        "TrackBias(MIXED、Score反映なし)",
+        "OfficialGoing(未確定)",
+        "HorseWeight(未確定)"
+      ]
+    },
+    {
+      "horseId": "2019104658",
+      "horseName": "ボーンディスウェイ",
+      "frame": 1,
+      "horseNumber": 1,
+      "stageAScore": 73,
+      "stageAScoreInternal": 73,
+      "stageARank": 6,
+      "preliminaryStageBScore": 73,
+      "preliminaryStageBScoreInternal": 73,
+      "rankChange": 0,
+      "paceFit": {
+        "predictedPaceLevel": "average",
+        "paceScenarioFactorAdjusted": 100,
+        "reason": "想定ペースが平均のため、脚質による有利不利はほぼ無い（中立100%付近）。"
+      },
+      "positionProjection": {
+        "representativeRunningStyle": "sashi",
+        "runningStyleDistribution": {
+          "nige": 0,
+          "senko": 0,
+          "sashi": 80,
+          "oikomi": 20
+        },
+        "earlyNormalizedPositionMean": 0.62,
+        "positionStdDev": 0.13,
+        "positionConfidence": "high",
+        "frontRate": 0,
+        "midRate": 80,
+        "rearRate": 20
+      },
+      "weatherDiagnostic": {
+        "status": "DATA_EXISTS_NOT_CONNECTED_TO_SCORE",
+        "rainLikely": true,
+        "rainIntensityUncertain": true,
+        "note": "8/30 15時台は降水確率50-60%・南西風5m/s前後の予報（forecast、実況ではない）。Stage Bのweather入力経路は未実装のためScoreへは反映していない。"
+      },
+      "wetDiagnostic": {
+        "status": "DIAGNOSTIC_ONLY",
+        "wetEvidenceAvailable": true,
+        "wetEvidenceCount": 2,
+        "wetPerformanceEvidence": [
+          [
+            "2026-07-12",
+            "七夕賞",
+            "稍重",
+            5,
+            72.4
+          ],
+          [
+            "2025-08-17",
+            "札幌記念",
+            "稍重",
+            9,
+            69.1
+          ]
+        ],
+        "wetConfidence": "medium"
+      },
+      "windDiagnostic": {
+        "status": "NOT_EVALUATED",
+        "reason": "repositoryにコース方向（course geometry）データが存在しないため、向かい風/追い風/横風の客観判定が不能。"
+      },
+      "trackBiasDiagnostic": {
+        "status": "MIXED_INCONCLUSIVE",
+        "usedInScore": false,
+        "reason": "8/29赤倉特別（同条件）は1着4-4(前寄り)・2着1-1(先頭)・3着11-11(後方)と、前・中団・後方の全てから上位馬が出ており、単一のFRONT_BIAS/CLOSER_BIASへ固定できない。既存trackBiasFactor.tsのauto観測は未実装、manual観測も今回は入力していないため、Scoreはneutral(100%)のまま。"
+      },
+      "confidence": "medium",
+      "confidenceNote": "Preliminary Stage Bはofficial going・当日Track Bias・馬体重が未確定のため、Final Stage Bより確信度が低いことを明示する。",
+      "positiveFactors": [],
+      "negativeFactors": [
+        "距離適性: adjustedPercent=99.9%（sampleCount=4, confidence=medium）"
+      ],
+      "notEvaluatedFactors": [
+        "コース(新潟)適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "Weather(Score反映なし)",
+        "Wind(NOT_EVALUATED)",
+        "TrackBias(MIXED、Score反映なし)",
+        "OfficialGoing(未確定)",
+        "HorseWeight(未確定)"
+      ]
+    },
+    {
+      "horseId": "2021105436",
+      "horseName": "アーバンシック",
+      "frame": 7,
+      "horseNumber": 9,
+      "stageAScore": 72,
+      "stageAScoreInternal": 72.2,
+      "stageARank": 7,
+      "preliminaryStageBScore": 72,
+      "preliminaryStageBScoreInternal": 72.2,
+      "rankChange": 0,
+      "paceFit": {
+        "predictedPaceLevel": "average",
+        "paceScenarioFactorAdjusted": 100,
+        "reason": "想定ペースが平均のため、脚質による有利不利はほぼ無い（中立100%付近）。"
+      },
+      "positionProjection": {
+        "representativeRunningStyle": "sashi",
+        "runningStyleDistribution": {
+          "nige": 0,
+          "senko": 0,
+          "sashi": 60,
+          "oikomi": 40
+        },
+        "earlyNormalizedPositionMean": 0.655,
+        "positionStdDev": 0.106,
+        "positionConfidence": "high",
+        "frontRate": 0,
+        "midRate": 60,
+        "rearRate": 40
+      },
+      "weatherDiagnostic": {
+        "status": "DATA_EXISTS_NOT_CONNECTED_TO_SCORE",
+        "rainLikely": true,
+        "rainIntensityUncertain": true,
+        "note": "8/30 15時台は降水確率50-60%・南西風5m/s前後の予報（forecast、実況ではない）。Stage Bのweather入力経路は未実装のためScoreへは反映していない。"
+      },
+      "wetDiagnostic": {
+        "status": "DIAGNOSTIC_ONLY",
+        "wetEvidenceAvailable": true,
+        "wetEvidenceCount": 2,
+        "wetPerformanceEvidence": [
+          [
+            "2025-06-15",
+            "宝塚記念",
+            "稍重",
+            14,
+            64.5
+          ],
+          [
+            "2025-03-29",
+            "日経賞",
+            "稍重",
+            3,
+            74.6
+          ]
+        ],
+        "wetConfidence": "medium"
+      },
+      "windDiagnostic": {
+        "status": "NOT_EVALUATED",
+        "reason": "repositoryにコース方向（course geometry）データが存在しないため、向かい風/追い風/横風の客観判定が不能。"
+      },
+      "trackBiasDiagnostic": {
+        "status": "MIXED_INCONCLUSIVE",
+        "usedInScore": false,
+        "reason": "8/29赤倉特別（同条件）は1着4-4(前寄り)・2着1-1(先頭)・3着11-11(後方)と、前・中団・後方の全てから上位馬が出ており、単一のFRONT_BIAS/CLOSER_BIASへ固定できない。既存trackBiasFactor.tsのauto観測は未実装、manual観測も今回は入力していないため、Scoreはneutral(100%)のまま。"
+      },
+      "confidence": "high",
+      "confidenceNote": "Preliminary Stage Bはofficial going・当日Track Bias・馬体重が未確定のため、Final Stage Bより確信度が低いことを明示する。",
+      "positiveFactors": [
+        "距離適性: adjustedPercent=100.1%（sampleCount=5, confidence=high）"
+      ],
+      "negativeFactors": [],
+      "notEvaluatedFactors": [
+        "コース(新潟)適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "Weather(Score反映なし)",
+        "Wind(NOT_EVALUATED)",
+        "TrackBias(MIXED、Score反映なし)",
+        "OfficialGoing(未確定)",
+        "HorseWeight(未確定)"
+      ]
+    },
+    {
+      "horseId": "2020100734",
+      "horseName": "サヴォーナ",
+      "frame": 2,
+      "horseNumber": 2,
+      "stageAScore": 70,
+      "stageAScoreInternal": 69.9,
+      "stageARank": 8,
+      "preliminaryStageBScore": 70,
+      "preliminaryStageBScoreInternal": 69.9,
+      "rankChange": 0,
+      "paceFit": {
+        "predictedPaceLevel": "average",
+        "paceScenarioFactorAdjusted": 100,
+        "reason": "想定ペースが平均のため、脚質による有利不利はほぼ無い（中立100%付近）。"
+      },
+      "positionProjection": {
+        "representativeRunningStyle": "sashi",
+        "runningStyleDistribution": {
+          "nige": 0,
+          "senko": 40,
+          "sashi": 60,
+          "oikomi": 0
+        },
+        "earlyNormalizedPositionMean": 0.31,
+        "positionStdDev": 0.171,
+        "positionConfidence": "high",
+        "frontRate": 60,
+        "midRate": 40,
+        "rearRate": 0
+      },
+      "weatherDiagnostic": {
+        "status": "DATA_EXISTS_NOT_CONNECTED_TO_SCORE",
+        "rainLikely": true,
+        "rainIntensityUncertain": true,
+        "note": "8/30 15時台は降水確率50-60%・南西風5m/s前後の予報（forecast、実況ではない）。Stage Bのweather入力経路は未実装のためScoreへは反映していない。"
+      },
+      "wetDiagnostic": {
+        "status": "DIAGNOSTIC_ONLY",
+        "wetEvidenceAvailable": true,
+        "wetEvidenceCount": 1,
+        "wetPerformanceEvidence": [
+          [
+            "2026-07-12",
+            "七夕賞",
+            "稍重",
+            10,
+            62.0
+          ]
+        ],
+        "wetConfidence": "low"
+      },
+      "windDiagnostic": {
+        "status": "NOT_EVALUATED",
+        "reason": "repositoryにコース方向（course geometry）データが存在しないため、向かい風/追い風/横風の客観判定が不能。"
+      },
+      "trackBiasDiagnostic": {
+        "status": "MIXED_INCONCLUSIVE",
+        "usedInScore": false,
+        "reason": "8/29赤倉特別（同条件）は1着4-4(前寄り)・2着1-1(先頭)・3着11-11(後方)と、前・中団・後方の全てから上位馬が出ており、単一のFRONT_BIAS/CLOSER_BIASへ固定できない。既存trackBiasFactor.tsのauto観測は未実装、manual観測も今回は入力していないため、Scoreはneutral(100%)のまま。"
+      },
+      "confidence": "high",
+      "confidenceNote": "Preliminary Stage Bはofficial going・当日Track Bias・馬体重が未確定のため、Final Stage Bより確信度が低いことを明示する。",
+      "positiveFactors": [],
+      "negativeFactors": [
+        "距離適性: adjustedPercent=99.6%（sampleCount=5, confidence=high）"
+      ],
+      "notEvaluatedFactors": [
+        "コース(新潟)適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "Weather(Score反映なし)",
+        "Wind(NOT_EVALUATED)",
+        "TrackBias(MIXED、Score反映なし)",
+        "OfficialGoing(未確定)",
+        "HorseWeight(未確定)"
+      ]
+    },
+    {
+      "horseId": "2020103650",
+      "horseName": "ドゥレッツァ",
+      "frame": 4,
+      "horseNumber": 4,
+      "stageAScore": 70,
+      "stageAScoreInternal": 69.9,
+      "stageARank": 9,
+      "preliminaryStageBScore": 70,
+      "preliminaryStageBScoreInternal": 69.9,
+      "rankChange": 0,
+      "paceFit": {
+        "predictedPaceLevel": "average",
+        "paceScenarioFactorAdjusted": 100,
+        "reason": "想定ペースが平均のため、脚質による有利不利はほぼ無い（中立100%付近）。"
+      },
+      "positionProjection": {
+        "representativeRunningStyle": "senko",
+        "runningStyleDistribution": {
+          "nige": 0,
+          "senko": 60,
+          "sashi": 40,
+          "oikomi": 0
+        },
+        "earlyNormalizedPositionMean": 0.382,
+        "positionStdDev": 0.147,
+        "positionConfidence": "high",
+        "frontRate": 80,
+        "midRate": 20,
+        "rearRate": 0
+      },
+      "weatherDiagnostic": {
+        "status": "DATA_EXISTS_NOT_CONNECTED_TO_SCORE",
+        "rainLikely": true,
+        "rainIntensityUncertain": true,
+        "note": "8/30 15時台は降水確率50-60%・南西風5m/s前後の予報（forecast、実況ではない）。Stage Bのweather入力経路は未実装のためScoreへは反映していない。"
+      },
+      "wetDiagnostic": {
+        "status": "DIAGNOSTIC_ONLY",
+        "wetEvidenceAvailable": true,
+        "wetEvidenceCount": 2,
+        "wetPerformanceEvidence": [
+          [
+            "2025-10-05",
+            "京都大賞典",
+            "稍重",
+            8,
+            71.4
+          ],
+          [
+            "2025-06-15",
+            "宝塚記念",
+            "稍重",
+            9,
+            73.0
+          ]
+        ],
+        "wetConfidence": "medium"
+      },
+      "windDiagnostic": {
+        "status": "NOT_EVALUATED",
+        "reason": "repositoryにコース方向（course geometry）データが存在しないため、向かい風/追い風/横風の客観判定が不能。"
+      },
+      "trackBiasDiagnostic": {
+        "status": "MIXED_INCONCLUSIVE",
+        "usedInScore": false,
+        "reason": "8/29赤倉特別（同条件）は1着4-4(前寄り)・2着1-1(先頭)・3着11-11(後方)と、前・中団・後方の全てから上位馬が出ており、単一のFRONT_BIAS/CLOSER_BIASへ固定できない。既存trackBiasFactor.tsのauto観測は未実装、manual観測も今回は入力していないため、Scoreはneutral(100%)のまま。"
+      },
+      "confidence": "medium",
+      "confidenceNote": "Preliminary Stage Bはofficial going・当日Track Bias・馬体重が未確定のため、Final Stage Bより確信度が低いことを明示する。",
+      "positiveFactors": [
+        "距離適性: adjustedPercent=103.7%（sampleCount=4, confidence=medium）"
+      ],
+      "negativeFactors": [],
+      "notEvaluatedFactors": [
+        "コース(新潟)適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "Weather(Score反映なし)",
+        "Wind(NOT_EVALUATED)",
+        "TrackBias(MIXED、Score反映なし)",
+        "OfficialGoing(未確定)",
+        "HorseWeight(未確定)"
+      ]
+    },
+    {
+      "horseId": "2021105643",
+      "horseName": "チェルヴィニア",
+      "frame": 6,
+      "horseNumber": 6,
+      "stageAScore": 70,
+      "stageAScoreInternal": 69.7,
+      "stageARank": 10,
+      "preliminaryStageBScore": 70,
+      "preliminaryStageBScoreInternal": 69.7,
+      "rankChange": 0,
+      "paceFit": {
+        "predictedPaceLevel": "average",
+        "paceScenarioFactorAdjusted": 100,
+        "reason": "想定ペースが平均のため、脚質による有利不利はほぼ無い（中立100%付近）。"
+      },
+      "positionProjection": {
+        "representativeRunningStyle": "sashi",
+        "runningStyleDistribution": {
+          "nige": 0,
+          "senko": 20,
+          "sashi": 60,
+          "oikomi": 20
+        },
+        "earlyNormalizedPositionMean": 0.496,
+        "positionStdDev": 0.204,
+        "positionConfidence": "high",
+        "frontRate": 20,
+        "midRate": 60,
+        "rearRate": 20
+      },
+      "weatherDiagnostic": {
+        "status": "DATA_EXISTS_NOT_CONNECTED_TO_SCORE",
+        "rainLikely": true,
+        "rainIntensityUncertain": true,
+        "note": "8/30 15時台は降水確率50-60%・南西風5m/s前後の予報（forecast、実況ではない）。Stage Bのweather入力経路は未実装のためScoreへは反映していない。"
+      },
+      "wetDiagnostic": {
+        "status": "DIAGNOSTIC_ONLY",
+        "wetEvidenceAvailable": false,
+        "wetEvidenceCount": 0,
+        "wetPerformanceEvidence": [],
+        "wetConfidence": "low"
+      },
+      "windDiagnostic": {
+        "status": "NOT_EVALUATED",
+        "reason": "repositoryにコース方向（course geometry）データが存在しないため、向かい風/追い風/横風の客観判定が不能。"
+      },
+      "trackBiasDiagnostic": {
+        "status": "MIXED_INCONCLUSIVE",
+        "usedInScore": false,
+        "reason": "8/29赤倉特別（同条件）は1着4-4(前寄り)・2着1-1(先頭)・3着11-11(後方)と、前・中団・後方の全てから上位馬が出ており、単一のFRONT_BIAS/CLOSER_BIASへ固定できない。既存trackBiasFactor.tsのauto観測は未実装、manual観測も今回は入力していないため、Scoreはneutral(100%)のまま。"
+      },
+      "confidence": "high",
+      "confidenceNote": "Preliminary Stage Bはofficial going・当日Track Bias・馬体重が未確定のため、Final Stage Bより確信度が低いことを明示する。",
+      "positiveFactors": [
+        "距離適性: adjustedPercent=100.9%（sampleCount=5, confidence=high）"
+      ],
+      "negativeFactors": [],
+      "notEvaluatedFactors": [
+        "コース(新潟)適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "Weather(Score反映なし)",
+        "Wind(NOT_EVALUATED)",
+        "TrackBias(MIXED、Score反映なし)",
+        "OfficialGoing(未確定)",
+        "HorseWeight(未確定)"
+      ]
+    },
+    {
+      "horseId": "2021105743",
+      "horseName": "ステレンボッシュ",
+      "frame": 8,
+      "horseNumber": 11,
+      "stageAScore": 68,
+      "stageAScoreInternal": 68.2,
+      "stageARank": 11,
+      "preliminaryStageBScore": 68,
+      "preliminaryStageBScoreInternal": 68.2,
+      "rankChange": 0,
+      "paceFit": {
+        "predictedPaceLevel": "average",
+        "paceScenarioFactorAdjusted": 100,
+        "reason": "想定ペースが平均のため、脚質による有利不利はほぼ無い（中立100%付近）。"
+      },
+      "positionProjection": {
+        "representativeRunningStyle": "sashi",
+        "runningStyleDistribution": {
+          "nige": 0,
+          "senko": 20,
+          "sashi": 60,
+          "oikomi": 20
+        },
+        "earlyNormalizedPositionMean": 0.46,
+        "positionStdDev": 0.208,
+        "positionConfidence": "high",
+        "frontRate": 20,
+        "midRate": 60,
+        "rearRate": 20
+      },
+      "weatherDiagnostic": {
+        "status": "DATA_EXISTS_NOT_CONNECTED_TO_SCORE",
+        "rainLikely": true,
+        "rainIntensityUncertain": true,
+        "note": "8/30 15時台は降水確率50-60%・南西風5m/s前後の予報（forecast、実況ではない）。Stage Bのweather入力経路は未実装のためScoreへは反映していない。"
+      },
+      "wetDiagnostic": {
+        "status": "DIAGNOSTIC_ONLY",
+        "wetEvidenceAvailable": true,
+        "wetEvidenceCount": 2,
+        "wetPerformanceEvidence": [
+          [
+            "2026-03-07",
+            "中山牝馬ステークス",
+            "稍重",
+            7,
+            71.6
+          ],
+          [
+            "2025-08-17",
+            "札幌記念",
+            "稍重",
+            15,
+            59.2
+          ]
+        ],
+        "wetConfidence": "medium"
+      },
+      "windDiagnostic": {
+        "status": "NOT_EVALUATED",
+        "reason": "repositoryにコース方向（course geometry）データが存在しないため、向かい風/追い風/横風の客観判定が不能。"
+      },
+      "trackBiasDiagnostic": {
+        "status": "MIXED_INCONCLUSIVE",
+        "usedInScore": false,
+        "reason": "8/29赤倉特別（同条件）は1着4-4(前寄り)・2着1-1(先頭)・3着11-11(後方)と、前・中団・後方の全てから上位馬が出ており、単一のFRONT_BIAS/CLOSER_BIASへ固定できない。既存trackBiasFactor.tsのauto観測は未実装、manual観測も今回は入力していないため、Scoreはneutral(100%)のまま。"
+      },
+      "confidence": "high",
+      "confidenceNote": "Preliminary Stage Bはofficial going・当日Track Bias・馬体重が未確定のため、Final Stage Bより確信度が低いことを明示する。",
+      "positiveFactors": [],
+      "negativeFactors": [
+        "距離適性: adjustedPercent=98.3%（sampleCount=5, confidence=high）"
+      ],
+      "notEvaluatedFactors": [
+        "コース(新潟)適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "Weather(Score反映なし)",
+        "Wind(NOT_EVALUATED)",
+        "TrackBias(MIXED、Score反映なし)",
+        "OfficialGoing(未確定)",
+        "HorseWeight(未確定)"
+      ]
+    }
+  ]
+}
