@@ -1,9 +1,10 @@
-# 東京ダート1600m gate suitability 実データ検証セット（CHECKPOINT 10.1〜10.2）
+# Gate Suitability 実データ検証セット（CHECKPOINT 10.1〜14D.1D）
 
-**このデータはAbility Model V1の一部ではない。** `data/horses/*.json`とは完全に独立した、
-CourseContextPrior / gate suitability の実データ検証専用データセットであり、
-baseAbility/raceScore/memberLevel等の能力計算には一切使われない
-（`gateValidationV1.ts`参照）。
+**このディレクトリ配下のデータはAbility Model V1の一部ではない。** `data/horses/*.json`
+とは完全に独立した、CourseContextPrior / gate suitability の実データ検証専用データセットで
+あり、baseAbility/raceScore/memberLevel等のproduction能力計算には一切使われない。
+`horseAbilityData.ts`のproduction glob（`import.meta.glob("./data/horses/*.json")`）は
+このディレクトリを走査しないため、混入する経路は構造的に存在しない。
 
 ## tokyoDirt1600RealRaces10.json（CHECKPOINT 10.1）
 
@@ -32,3 +33,26 @@ baseAbility/raceScore/memberLevel等の能力計算には一切使われない
   推測せず安全にnullを返す（CHECKPOINT10.1のエーデル同様の既知の構造的パターン）
 - `horseName`は10races版と同じく一時的な照合キー。既存`data/horses/*.json`のhorseIdへは
   変換・統合していない
+
+## niigataTurf2000GateHistoryV1.json（CHECKPOINT 14D.1C〜14D.1D）
+
+- 出典: `niigata_turf2000_gate_history_v1.zip`（ユーザー提供、2026-08-29。checksum検証済み）
+- 10レース・153スターター。racecourse=新潟・surface=turf・distance=2000m・
+  courseLayout=outerのみ（2021〜2025年の新潟大賞典・新潟記念、各年2レース）
+- 一次ソース: netkeiba（db.netkeiba.com）の個別レース結果ページ
+- **`horseId`は実在するproduction canonical horseId**（東京ダート1600m版と異なり、
+  horseName一時照合キーではない）。ただしこのファイル自体は`data/horses/*.json`へは
+  一切merge/importされていない（`niigataGateHistoryV1.ts`のみが読み込む）
+- courseVariant（A/Bコース区分）は、過去各レースのA/B使用が信頼できるソースから
+  独立確認できていないため全行null（推測補完なし）
+- 出走取消2頭（2025新潟記念クイーンズウォーク・2024新潟記念ライトバック）はCSV本体から
+  除外済み。この結果、該当2レースで1頭ずつhorseNumber > fieldSizeになるが、これは
+  JRAが出走取消後に馬番を振り直さない実務上の帰結であり、データ欠陥ではない
+  （CHECKPOINT14D.1Cで検証済み）
+- **CHECKPOINT14D.1Cで一度production `data/horses/`へ実際にimportしたところ、
+  MemberLevel機構経由でCURRENT TARGET（2026新潟記念）11頭中9頭のbaseAbilityが
+  変動する（Stage A Rank入れ替え・整数表示変化を伴う）ことが判明し、即座にrevertした。**
+  CHECKPOINT14D.1Dで`niigataGateHistoryV1.ts`による構造的分離
+  （production glob対象外ディレクトリ＋isolated `buildRaceHistory()`実行＋
+  production read-only参照によるAbility Control）を実装し、Zero Drift Contract
+  （テストで検証済み）を満たすようにした
