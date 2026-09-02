@@ -1,5 +1,13 @@
 # CHECKPOINT 14D.2 — Stage A Explainability / Freeze Readiness
 
+> **【正誤表・2026-08-30追記】** 6節「ゾロアストロ」カードの「プラス要因: course
+> （n=1,+微増）」および説明文「新潟での1走実績...によりcourse適性がわずかに
+> プラス（99.6%）」は**誤り。** 実コード出力は`adjustedPercent=99.6%`であり、
+> これは中立100%を**下回る値（マイナス）**である。正しくは「distance・course
+> 両方がマイナスのネットマイナス補正（overallSuitabilityPercent=99.4%）」。
+> 詳細な訂正・再分析は`docs/2026-niigata-kinen-prediction-error-analysis.md`
+> 2-2節を参照。本文（以下）は当時の記録としてそのまま残す。
+
 2026新潟記念のGate追加研究（30レース拡張・Historical Ability Support）は
 一旦DEFER。本ラウンドは**既存のProvisional Stage Aを一切変更せず**、
 production codeを実際に実行して11頭全馬の点数・順位を完全にトレース・説明
