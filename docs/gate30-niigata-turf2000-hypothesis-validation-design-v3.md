@@ -142,18 +142,36 @@ Ranking）にオッズを混入させない**という目的のための除外�
 Calibration検証にのみ使う」という利用範囲を明示した上で、新規に収集する。**
 
 ```
-raceId,horseId,winOdds,winOddsObservedAt,actualFinishPosition,actualWin,source
+raceId,horseId,winOddsType,winOdds,winOddsObservedAt,actualFinishPosition,actualWin,source
 ```
 
 | フィールド | 型 | 必須/任意 | 備考 |
 |---|---|---|---|
 | raceId | string | 必須 | |
 | horseId | string | 必須 | |
-| winOdds | number | 必須 | 単勝最終オッズ（確定後） |
-| winOddsObservedAt | string | 必須 | "final"固定でよい（過去レースのため発走前スナップショットは通常入手不可） |
+| winOddsType | enum(prediction_time/final) | 必須 | **新規追加（2026-09-03、ユーザー指示7節）。** どちらのスナップショットかを明示する。過去レースで発走前スナップショットが確認できない場合、`final`のみ収集し`prediction_time`は行ごと省略する（後述の代替禁止ルール参照）。 |
+| winOdds | number | 必須 | winOddsTypeに対応する単勝オッズ値 |
+| winOddsObservedAt | string | 必須 | 取得時刻（`winOddsType=final`の場合は確定時刻、`prediction_time`の場合はその時点のタイムスタンプ） |
 | actualFinishPosition | integer | 必須 | 既存`race_gate_history.csv`のfinishPositionと重複するが、Calibration専用ファイル単体で完結させるため冗長に持つ |
 | actualWin | boolean | 必須 | actualFinishPosition===1 |
 | source | string | 必須 | |
+
+**予測時点オッズと確定オッズの分離ルール（絶対厳守、2026-09-03ユーザー指示7節）**:
+
+- 勝率Calibration検証で本来必要なのは「その予測時点で取得可能だったオッズ
+  （`winOddsType=prediction_time`）」である。**過去レースでprediction-time
+  オッズが取得できない場合、確定オッズ（`winOddsType=final`）を代替値として
+  使用してはいけない。** その場合、そのレース・その馬の
+  `prediction_time`行は作成せず、`missing`/`unavailable`として扱う
+  （Calibration検証の対象からは除外、または明示的にlow-confidenceの
+  参考値として扱う——係数化・穴埋めはしない）。
+- 確定オッズ（`winOddsType=final`）は、**市場との参考比較専用**として
+  別行（別レコード）で保存することは可能。ただし
+  `prediction_time`オッズの代用として扱わない——2つのwinOddsTypeは
+  常に明確に区別し、混同・合算しない。
+- この区別は、将来の30レース実行ラウンドで`race_odds_result.csv`を
+  本格収集する際（Phase 2）に適用する。今回（Phase 1）は本格収集を
+  行っていないため、実データへの適用はまだ発生していない。
 
 **Isolation要件（絶対厳守）**: `race_odds_result.csv`は
 `data/gateValidation/`配下でも**さらに独立したサブディレクトリ**
