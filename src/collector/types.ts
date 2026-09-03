@@ -17,6 +17,8 @@
  * アクセスが可能な環境で実装される別のProviderへ差し替え可能な設計にしている。
  */
 
+import type { RacePerformance } from "../ability/types";
+
 export type CollectorFieldStatus = "available" | "missing" | "unavailable" | "not_supported";
 
 export interface SourceProvenance {
@@ -91,16 +93,17 @@ export interface CollectedRunnerRow {
   sourceHorseId: string | null;
 }
 
-export interface PriorHistoryRace {
-  raceId: string;
-  raceDate: string;
-  raceScore: number;
-}
-
+/**
+ * 対象馬の予測時点以前の過去走。Integration Layer（Base Ability V1・
+ * Suitability V1）が直接読める形にするため、raceScoreだけの縮約形ではなく
+ * `RacePerformance`（既存`src/ability/types.ts`）をそのまま保持する
+ * （course/going/gate componentの照合にはracecourse/surface/distance/going
+ * すべてが必要なため）。
+ */
 export interface PriorHistoryEntry {
   horseId: string;
   status: CollectorFieldStatus;
-  races: PriorHistoryRace[];
+  races: RacePerformance[];
   provenance: SourceProvenance;
 }
 
@@ -127,7 +130,8 @@ export interface CollectedRaceIdentity {
   raceId: string;
   raceDate: string;
   racecourse: string;
-  raceNumber: number;
+  /** 不明な場合はnull（Formal Prediction Snapshot経由等、raceNumberが未確定な場合がある） */
+  raceNumber: number | null;
   raceName: string;
   surface: "turf" | "dirt";
   distance: number;

@@ -1,5 +1,5 @@
 import { getHorseRecentRaces } from "../../ability/horseAbilityData";
-import type { PriorHistoryEntry, PriorHistoryRace, SourceProvenance } from "../types";
+import type { PriorHistoryEntry, SourceProvenance } from "../types";
 
 export const PRODUCTION_HISTORY_PROVIDER_VERSION = "0.1.0-v0";
 
@@ -23,9 +23,9 @@ export function fetchPriorHistoryFromProduction(
   targetRaceDateIso: string,
 ): PriorHistoryEntry {
   const cutoffMs = Date.parse(targetRaceDateIso);
-  const priorRaces = getHorseRecentRaces(horseId)
-    .filter((r) => (r.dataKind == null || r.dataKind === "real") && Date.parse(r.raceDate) < cutoffMs)
-    .map((r): PriorHistoryRace => ({ raceId: r.raceId, raceDate: r.raceDate, raceScore: r.raceScore }));
+  const priorRaces = getHorseRecentRaces(horseId).filter(
+    (r) => (r.dataKind == null || r.dataKind === "real") && Date.parse(r.raceDate) < cutoffMs,
+  );
 
   const provenance: SourceProvenance = {
     source: "production_data_horses",

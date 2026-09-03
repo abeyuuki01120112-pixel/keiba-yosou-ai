@@ -1,6 +1,6 @@
 {
   "raceId": "JRA-20230507-NIIGATA-11",
-  "collectedAt": "2026-09-03T00:24:24.904Z",
+  "collectedAt": "2026-09-03T06:58:09.699Z",
   "runners": [
     {
       "raceId": "JRA-20230507-NIIGATA-11",
@@ -428,7 +428,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2016106606",
         "targetRaceId": "JRA-20230507-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:24.904Z",
+        "retrievedAt": "2026-09-03T06:58:09.698Z",
         "targetAsOf": "2023-05-07",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -442,7 +442,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019102632",
         "targetRaceId": "JRA-20230507-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:24.904Z",
+        "retrievedAt": "2026-09-03T06:58:09.698Z",
         "targetAsOf": "2023-05-07",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -456,7 +456,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2018105215",
         "targetRaceId": "JRA-20230507-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:24.904Z",
+        "retrievedAt": "2026-09-03T06:58:09.698Z",
         "targetAsOf": "2023-05-07",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -470,7 +470,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2016100915",
         "targetRaceId": "JRA-20230507-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:24.904Z",
+        "retrievedAt": "2026-09-03T06:58:09.698Z",
         "targetAsOf": "2023-05-07",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -484,7 +484,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019105155",
         "targetRaceId": "JRA-20230507-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:24.904Z",
+        "retrievedAt": "2026-09-03T06:58:09.698Z",
         "targetAsOf": "2023-05-07",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -498,7 +498,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2016104624",
         "targetRaceId": "JRA-20230507-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:24.904Z",
+        "retrievedAt": "2026-09-03T06:58:09.698Z",
         "targetAsOf": "2023-05-07",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -512,7 +512,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019100596",
         "targetRaceId": "JRA-20230507-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:24.904Z",
+        "retrievedAt": "2026-09-03T06:58:09.698Z",
         "targetAsOf": "2023-05-07",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -526,7 +526,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2016103250",
         "targetRaceId": "JRA-20230507-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:24.904Z",
+        "retrievedAt": "2026-09-03T06:58:09.698Z",
         "targetAsOf": "2023-05-07",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -540,7 +540,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2018100401",
         "targetRaceId": "JRA-20230507-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:24.904Z",
+        "retrievedAt": "2026-09-03T06:58:09.698Z",
         "targetAsOf": "2023-05-07",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -554,7 +554,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2018104579",
         "targetRaceId": "JRA-20230507-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:24.904Z",
+        "retrievedAt": "2026-09-03T06:58:09.698Z",
         "targetAsOf": "2023-05-07",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -568,7 +568,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2018104708",
         "targetRaceId": "JRA-20230507-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:24.904Z",
+        "retrievedAt": "2026-09-03T06:58:09.698Z",
         "targetAsOf": "2023-05-07",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -582,7 +582,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019104981",
         "targetRaceId": "JRA-20230507-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:24.904Z",
+        "retrievedAt": "2026-09-03T06:58:09.698Z",
         "targetAsOf": "2023-05-07",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -596,7 +596,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019104998",
         "targetRaceId": "JRA-20230507-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:24.904Z",
+        "retrievedAt": "2026-09-03T06:58:09.698Z",
         "targetAsOf": "2023-05-07",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -610,7 +610,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2016104729",
         "targetRaceId": "JRA-20230507-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:24.904Z",
+        "retrievedAt": "2026-09-03T06:58:09.698Z",
         "targetAsOf": "2023-05-07",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -624,7 +624,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2016106518",
         "targetRaceId": "JRA-20230507-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:24.904Z",
+        "retrievedAt": "2026-09-03T06:58:09.698Z",
         "targetAsOf": "2023-05-07",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -638,7 +638,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019105225",
         "targetRaceId": "JRA-20230507-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:24.904Z",
+        "retrievedAt": "2026-09-03T06:58:09.698Z",
         "targetAsOf": "2023-05-07",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"

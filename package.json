@@ -16,7 +16,8 @@
     "import:final3f-baselines": "tsx scripts/importCourseFinal3FBaselinesCsv.ts",
     "racecard:check": "vite-node scripts/raceCardCheck.ts --",
     "provisional:check": "vite-node scripts/provisionalRunnerCheck.ts --",
-    "collect:race": "vite-node scripts/collectRace.ts --"
+    "collect:race": "vite-node scripts/collectRace.ts --",
+    "generate:derived": "vite-node scripts/generateDerivedPredictions.ts --"
   },
   "dependencies": {
     "react": "^19.2.8",

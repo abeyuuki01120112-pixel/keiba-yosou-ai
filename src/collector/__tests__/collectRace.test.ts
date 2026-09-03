@@ -7,8 +7,39 @@ import { auditFutureLeakage } from "../leakageGuard";
 import { normalizeRaceBundle, validateNormalizedRunners } from "../normalize";
 import { DEFAULT_RAW_DIR } from "../providers/manualRawFileProvider";
 import type { PriorHistoryEntry, RawRaceBundle } from "../types";
+import type { RacePerformance } from "../../ability/types";
 
 const REAL_FIXTURE_RACE_ID = "JRA-20230507-NIIGATA-11";
+
+/** テスト専用の最小RacePerformance fixture（実データではない、Future Leakage Guard単体テスト用） */
+function makeFixtureRace(raceId: string, raceDate: string, raceScore: number): RacePerformance {
+  return {
+    raceId,
+    raceName: "テストレース",
+    raceDate,
+    racecourse: "新潟",
+    surface: "turf",
+    distance: 2000,
+    going: "良",
+    finishPosition: 1,
+    timeGap: 0,
+    raceTime: 120,
+    final3F: 34,
+    carriedWeight: 56,
+    memberLevelScoreAtRace: 70,
+    retrospectiveMemberLevelScore: null,
+    memberLevelBreakdown: null,
+    timeGapScore: 90,
+    raceTimeScore: 70,
+    raceTimeBreakdown: null,
+    final3FScore: 70,
+    final3FBreakdown: { relativeScore: 70, absoluteScore: null, blendedScore: 70, reason: "test fixture" } as unknown as RacePerformance["final3FBreakdown"],
+    weightScore: 70,
+    weightBreakdown: { reason: "test fixture" } as unknown as RacePerformance["weightBreakdown"],
+    raceScore,
+    dataKind: "real",
+  };
+}
 
 const tmpDirs: string[] = [];
 function makeTmpDir(prefix: string): string {
@@ -69,8 +100,8 @@ describe("Future Leakage Guard — FAIL（warningではない）", () => {
         horseId: "TESTHORSE1",
         status: "available",
         races: [
-          { raceId: "PAST-RACE", raceDate: "2023-01-01", raceScore: 70 },
-          { raceId: "FUTURE-RACE", raceDate: "2023-06-01", raceScore: 80 }, // targetより後
+          makeFixtureRace("PAST-RACE", "2023-01-01", 70),
+          makeFixtureRace("FUTURE-RACE", "2023-06-01", 80), // targetより後
         ],
         provenance: {
           source: "test",
@@ -95,7 +126,7 @@ describe("Future Leakage Guard — FAIL（warningではない）", () => {
       {
         horseId: "TESTHORSE2",
         status: "available",
-        races: [{ raceId: "SAME-DAY-RACE", raceDate: "2023-05-07", raceScore: 75 }],
+        races: [makeFixtureRace("SAME-DAY-RACE", "2023-05-07", 75)],
         provenance: {
           source: "test",
           sourceIdentifier: "TESTHORSE2",
@@ -116,7 +147,7 @@ describe("Future Leakage Guard — FAIL（warningではない）", () => {
       {
         horseId: "TESTHORSE3",
         status: "available",
-        races: [{ raceId: "PAST-RACE", raceDate: "2023-01-01", raceScore: 70 }],
+        races: [makeFixtureRace("PAST-RACE", "2023-01-01", 70)],
         provenance: {
           source: "test",
           sourceIdentifier: "TESTHORSE3",

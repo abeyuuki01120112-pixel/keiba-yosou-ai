@@ -1,11 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import type { RaceDataProvider } from "./RaceDataProvider";
 import type { RawRaceBundle } from "../types";
+import { keibaDataSubdir } from "../../config/keibaDataDir";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-export const DEFAULT_RAW_DIR = path.join(__dirname, "..", "data", "raw");
+/**
+ * PRE-WINDOWS INTEGRATION + UI V0で`KEIBA_DATA_DIR`環境変数対応に変更。
+ * 未設定時は従来通り`src/collector/data/raw/`（repository内、既存fixture群の場所）を指す。
+ */
+export const DEFAULT_RAW_DIR = keibaDataSubdir("raw");
 
 export const MANUAL_RAW_FILE_PROVIDER_VERSION = "0.1.0-v0";
 

@@ -1,6 +1,6 @@
 {
   "raceId": "JRA-20250517-NIIGATA-11",
-  "collectedAt": "2026-09-03T00:24:53.254Z",
+  "collectedAt": "2026-09-03T06:58:11.014Z",
   "runners": [
     {
       "raceId": "JRA-20250517-NIIGATA-11",
@@ -428,7 +428,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2021104094",
         "targetRaceId": "JRA-20250517-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:53.253Z",
+        "retrievedAt": "2026-09-03T06:58:11.013Z",
         "targetAsOf": "2025-05-17",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -442,7 +442,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2021106449",
         "targetRaceId": "JRA-20250517-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:53.253Z",
+        "retrievedAt": "2026-09-03T06:58:11.014Z",
         "targetAsOf": "2025-05-17",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -456,7 +456,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019100630",
         "targetRaceId": "JRA-20250517-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:53.253Z",
+        "retrievedAt": "2026-09-03T06:58:11.014Z",
         "targetAsOf": "2025-05-17",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -470,7 +470,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2020106234",
         "targetRaceId": "JRA-20250517-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:53.253Z",
+        "retrievedAt": "2026-09-03T06:58:11.014Z",
         "targetAsOf": "2025-05-17",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -484,7 +484,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019104658",
         "targetRaceId": "JRA-20250517-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:53.253Z",
+        "retrievedAt": "2026-09-03T06:58:11.014Z",
         "targetAsOf": "2025-05-17",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -498,7 +498,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2021104846",
         "targetRaceId": "JRA-20250517-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:53.253Z",
+        "retrievedAt": "2026-09-03T06:58:11.014Z",
         "targetAsOf": "2025-05-17",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -512,7 +512,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2020103082",
         "targetRaceId": "JRA-20250517-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:53.253Z",
+        "retrievedAt": "2026-09-03T06:58:11.014Z",
         "targetAsOf": "2025-05-17",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -526,7 +526,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2021104324",
         "targetRaceId": "JRA-20250517-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:53.253Z",
+        "retrievedAt": "2026-09-03T06:58:11.014Z",
         "targetAsOf": "2025-05-17",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -538,7 +538,100 @@
       "races": [
         {
           "raceId": "JRA-20241103-TOKYO-11",
+          "raceName": "アルゼンチン共和国杯",
           "raceDate": "2024-11-03",
+          "racecourse": "東京",
+          "surface": "turf",
+          "distance": 2500,
+          "going": "良",
+          "raceNumber": 11,
+          "finishPosition": 5,
+          "timeGap": 0.4,
+          "raceTime": 149.4,
+          "final3F": 35.4,
+          "carriedWeight": 55,
+          "gate": 3,
+          "horseNumber": 6,
+          "fieldSize": null,
+          "source": "keibamar_public_dataset",
+          "sourceRaceId": "202405050211",
+          "sourceHorseId": "2020105750",
+          "dataKind": "real",
+          "importedAt": "2026-08-24T06:06:37.712Z",
+          "memberLevelScoreAtRace": 69.4,
+          "retrospectiveMemberLevelScore": null,
+          "memberLevelBreakdown": {
+            "candidates": [
+              {
+                "horseId": "2019104091",
+                "ability": 72,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2020100734",
+                "ability": 71.4,
+                "sampleCount": 3,
+                "confidence": "medium",
+                "weight": 0.6
+              },
+              {
+                "horseId": "2019101782",
+                "ability": 70.9,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2019101847",
+                "ability": 69.8,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2016104624",
+                "ability": 65.3,
+                "sampleCount": 3,
+                "confidence": "medium",
+                "weight": 0.6
+              }
+            ],
+            "weightedMean": 69.4,
+            "simpleTop5Average": 69.9,
+            "participantCount": 5
+          },
+          "timeGapScore": 81.03999999999999,
+          "raceTimeScore": 70,
+          "raceTimeBreakdown": null,
+          "final3FScore": 84.6,
+          "final3FBreakdown": {
+            "horseFinal3FSeconds": 35.4,
+            "raceFinal3FMedianSeconds": 36.2,
+            "relativeDiffSeconds": 0.8,
+            "courseBaselineSeconds": null,
+            "trackAdjustment": null,
+            "absoluteDiffSeconds": null,
+            "baselineMeta": {
+              "baselineSource": "defaultFallback",
+              "sampleCount": null,
+              "isReliable": false,
+              "dataSource": null
+            },
+            "sampleReliabilityWeight": null,
+            "absoluteConfidence": null
+          },
+          "weightScore": 60.1,
+          "weightBreakdown": {
+            "horseCarriedWeightKg": 55,
+            "raceMedianWeightKg": 57,
+            "weightDiffKg": -2,
+            "distance": 2500,
+            "secondsPerKg": 0.25,
+            "weightAdjustmentSeconds": -0.5,
+            "isReliable": true
+          },
           "raceScore": 74.3
         }
       ],
@@ -546,7 +639,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2020105750",
         "targetRaceId": "JRA-20250517-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:53.253Z",
+        "retrievedAt": "2026-09-03T06:58:11.014Z",
         "targetAsOf": "2025-05-17",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -560,7 +653,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2021105661",
         "targetRaceId": "JRA-20250517-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:53.253Z",
+        "retrievedAt": "2026-09-03T06:58:11.014Z",
         "targetAsOf": "2025-05-17",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -574,7 +667,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019105065",
         "targetRaceId": "JRA-20250517-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:53.253Z",
+        "retrievedAt": "2026-09-03T06:58:11.014Z",
         "targetAsOf": "2025-05-17",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -588,7 +681,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019104838",
         "targetRaceId": "JRA-20250517-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:53.253Z",
+        "retrievedAt": "2026-09-03T06:58:11.014Z",
         "targetAsOf": "2025-05-17",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -602,7 +695,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019105239",
         "targetRaceId": "JRA-20250517-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:53.253Z",
+        "retrievedAt": "2026-09-03T06:58:11.014Z",
         "targetAsOf": "2025-05-17",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -616,7 +709,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019100965",
         "targetRaceId": "JRA-20250517-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:53.253Z",
+        "retrievedAt": "2026-09-03T06:58:11.014Z",
         "targetAsOf": "2025-05-17",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -630,7 +723,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019105532",
         "targetRaceId": "JRA-20250517-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:53.253Z",
+        "retrievedAt": "2026-09-03T06:58:11.014Z",
         "targetAsOf": "2025-05-17",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -644,7 +737,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2017105109",
         "targetRaceId": "JRA-20250517-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:53.253Z",
+        "retrievedAt": "2026-09-03T06:58:11.014Z",
         "targetAsOf": "2025-05-17",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"

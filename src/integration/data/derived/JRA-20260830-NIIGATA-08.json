@@ -1,0 +1,6279 @@
+{
+  "race": {
+    "raceId": "JRA-20260830-NIIGATA-08",
+    "raceDate": "2026-08-30",
+    "racecourse": "新潟",
+    "raceNumber": 8,
+    "raceName": "新潟記念",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "unknown",
+    "courseLayout": null,
+    "courseVariant": null
+  },
+  "generatedAt": "2026-08-28T03:03:03.357Z",
+  "modelVersion": "ability-model-v1+suitability-v1",
+  "predicted": true,
+  "hasResult": true,
+  "horses": [
+    {
+      "horseId": "2019104658",
+      "horseName": "ボーンディスウェイ",
+      "horseNumber": 1,
+      "gate": 1,
+      "scratched": false,
+      "baseAbility": 73.1,
+      "overallSuitabilityPercent": 99.9,
+      "distanceSuitability": 99.9,
+      "courseSuitability": 100,
+      "goingSuitability": 100,
+      "gateSuitability": 100,
+      "effectiveAbility": 73,
+      "finalRaceAbility": 73,
+      "rankByEffectiveAbility": 6,
+      "rankByFinalRaceAbility": 6,
+      "winProbability": 8.8,
+      "top2Probability": 17.8,
+      "top3Probability": 26.9,
+      "confidence": "medium",
+      "warnings": [
+        "馬場状態が未確定のため、going適性はevaluated=falseとして扱っています（推測で「良」等を補完していません）。"
+      ],
+      "actualFinishPosition": 7,
+      "winOdds": null,
+      "ev": null
+    },
+    {
+      "horseId": "2020100734",
+      "horseName": "サヴォーナ",
+      "horseNumber": 2,
+      "gate": 2,
+      "scratched": false,
+      "baseAbility": 70.2,
+      "overallSuitabilityPercent": 99.6,
+      "distanceSuitability": 99.6,
+      "courseSuitability": 100,
+      "goingSuitability": 100,
+      "gateSuitability": 100,
+      "effectiveAbility": 69.9,
+      "finalRaceAbility": 69.9,
+      "rankByEffectiveAbility": 8,
+      "rankByFinalRaceAbility": 8,
+      "winProbability": 6.4,
+      "top2Probability": 13.2,
+      "top3Probability": 20.3,
+      "confidence": "high",
+      "warnings": [
+        "馬場状態が未確定のため、going適性はevaluated=falseとして扱っています（推測で「良」等を補完していません）。"
+      ],
+      "actualFinishPosition": 4,
+      "winOdds": null,
+      "ev": null
+    },
+    {
+      "horseId": "2023107166",
+      "horseName": "ロデオドライブ",
+      "horseNumber": 3,
+      "gate": 3,
+      "scratched": false,
+      "baseAbility": 76.7,
+      "overallSuitabilityPercent": 100,
+      "distanceSuitability": 100,
+      "courseSuitability": 100,
+      "goingSuitability": 100,
+      "gateSuitability": 100,
+      "effectiveAbility": 76.7,
+      "finalRaceAbility": 76.7,
+      "rankByEffectiveAbility": 2,
+      "rankByFinalRaceAbility": 2,
+      "winProbability": 12.7,
+      "top2Probability": 25.1,
+      "top3Probability": 37,
+      "confidence": "medium",
+      "warnings": [
+        "baseAbility算出に使える実データ過去走が4走のみです（Base Ability V1の既存仕様どおり直近最大5走の均等平均だが、今回はそれ未満）。（キャリア全体を把握済みの短キャリア馬として扱っています。baseAbilityの数値自体は減点していません）",
+        "baseAbility算出に使った走のうち少なくとも1走は、対戦馬全員がキャリア初戦（新馬戦等）であることが確認できたため、memberLevelはフォールバック値（FALLBACK_MEMBER_LEVEL_SCORE）のままです。これはデータ欠損ではなく、Evidenceが構造的に存在しないケースです。",
+        "馬場状態が未確定のため、going適性はevaluated=falseとして扱っています（推測で「良」等を補完していません）。"
+      ],
+      "actualFinishPosition": 2,
+      "winOdds": null,
+      "ev": null
+    },
+    {
+      "horseId": "2020103650",
+      "horseName": "ドゥレッツァ",
+      "horseNumber": 4,
+      "gate": 4,
+      "scratched": false,
+      "baseAbility": 67.4,
+      "overallSuitabilityPercent": 103.7,
+      "distanceSuitability": 103.7,
+      "courseSuitability": 100,
+      "goingSuitability": 100,
+      "gateSuitability": 100,
+      "effectiveAbility": 69.9,
+      "finalRaceAbility": 69.9,
+      "rankByEffectiveAbility": 9,
+      "rankByFinalRaceAbility": 9,
+      "winProbability": 6.4,
+      "top2Probability": 13.2,
+      "top3Probability": 20.3,
+      "confidence": "medium",
+      "warnings": [
+        "馬場状態が未確定のため、going適性はevaluated=falseとして扱っています（推測で「良」等を補完していません）。"
+      ],
+      "actualFinishPosition": 6,
+      "winOdds": null,
+      "ev": null
+    },
+    {
+      "horseId": "2023106850",
+      "horseName": "ゾロアストロ",
+      "horseNumber": 5,
+      "gate": 5,
+      "scratched": false,
+      "baseAbility": 74.8,
+      "overallSuitabilityPercent": 99.4,
+      "distanceSuitability": 99.2,
+      "courseSuitability": 99.6,
+      "goingSuitability": 100,
+      "gateSuitability": 100,
+      "effectiveAbility": 74.4,
+      "finalRaceAbility": 74.4,
+      "rankByEffectiveAbility": 3,
+      "rankByFinalRaceAbility": 3,
+      "winProbability": 10.1,
+      "top2Probability": 20.3,
+      "top3Probability": 30.4,
+      "confidence": "low",
+      "warnings": [
+        "馬場状態が未確定のため、going適性はevaluated=falseとして扱っています（推測で「良」等を補完していません）。"
+      ],
+      "actualFinishPosition": 1,
+      "winOdds": null,
+      "ev": null
+    },
+    {
+      "horseId": "2021105643",
+      "horseName": "チェルヴィニア",
+      "horseNumber": 6,
+      "gate": 6,
+      "scratched": false,
+      "baseAbility": 69.1,
+      "overallSuitabilityPercent": 100.9,
+      "distanceSuitability": 100.9,
+      "courseSuitability": 100,
+      "goingSuitability": 100,
+      "gateSuitability": 100,
+      "effectiveAbility": 69.7,
+      "finalRaceAbility": 69.7,
+      "rankByEffectiveAbility": 10,
+      "rankByFinalRaceAbility": 10,
+      "winProbability": 6.3,
+      "top2Probability": 13,
+      "top3Probability": 19.9,
+      "confidence": "high",
+      "warnings": [
+        "馬場状態が未確定のため、going適性はevaluated=falseとして扱っています（推測で「良」等を補完していません）。"
+      ],
+      "actualFinishPosition": 8,
+      "winOdds": null,
+      "ev": null
+    },
+    {
+      "horseId": "2019105118",
+      "horseName": "ジュンブロッサム",
+      "horseNumber": 7,
+      "gate": 6,
+      "scratched": false,
+      "baseAbility": 72.7,
+      "overallSuitabilityPercent": 100.6,
+      "distanceSuitability": 100.4,
+      "courseSuitability": 100.7,
+      "goingSuitability": 100,
+      "gateSuitability": 100,
+      "effectiveAbility": 73.1,
+      "finalRaceAbility": 73.1,
+      "rankByEffectiveAbility": 5,
+      "rankByFinalRaceAbility": 5,
+      "winProbability": 8.9,
+      "top2Probability": 17.9,
+      "top3Probability": 27.2,
+      "confidence": "low",
+      "warnings": [
+        "馬場状態が未確定のため、going適性はevaluated=falseとして扱っています（推測で「良」等を補完していません）。"
+      ],
+      "actualFinishPosition": 9,
+      "winOdds": null,
+      "ev": null
+    },
+    {
+      "horseId": "2022104645",
+      "horseName": "ダノンシーマ",
+      "horseNumber": 8,
+      "gate": 7,
+      "scratched": false,
+      "baseAbility": 78.3,
+      "overallSuitabilityPercent": 101.9,
+      "distanceSuitability": 101.9,
+      "courseSuitability": 100,
+      "goingSuitability": 100,
+      "gateSuitability": 100,
+      "effectiveAbility": 79.8,
+      "finalRaceAbility": 79.8,
+      "rankByEffectiveAbility": 1,
+      "rankByFinalRaceAbility": 1,
+      "winProbability": 17.4,
+      "top2Probability": 33.1,
+      "top3Probability": 47.2,
+      "confidence": "medium",
+      "warnings": [
+        "馬場状態が未確定のため、going適性はevaluated=falseとして扱っています（推測で「良」等を補完していません）。"
+      ],
+      "actualFinishPosition": 3,
+      "winOdds": null,
+      "ev": null
+    },
+    {
+      "horseId": "2021105436",
+      "horseName": "アーバンシック",
+      "horseNumber": 9,
+      "gate": 7,
+      "scratched": false,
+      "baseAbility": 72.1,
+      "overallSuitabilityPercent": 100.1,
+      "distanceSuitability": 100.1,
+      "courseSuitability": 100,
+      "goingSuitability": 100,
+      "gateSuitability": 100,
+      "effectiveAbility": 72.2,
+      "finalRaceAbility": 72.2,
+      "rankByEffectiveAbility": 7,
+      "rankByFinalRaceAbility": 7,
+      "winProbability": 8.1,
+      "top2Probability": 16.5,
+      "top3Probability": 25.1,
+      "confidence": "high",
+      "warnings": [
+        "馬場状態が未確定のため、going適性はevaluated=falseとして扱っています（推測で「良」等を補完していません）。"
+      ],
+      "actualFinishPosition": 5,
+      "winOdds": null,
+      "ev": null
+    },
+    {
+      "horseId": "2019104850",
+      "horseName": "バレエマスター",
+      "horseNumber": 10,
+      "gate": 8,
+      "scratched": false,
+      "baseAbility": 72.4,
+      "overallSuitabilityPercent": 101.7,
+      "distanceSuitability": 101.8,
+      "courseSuitability": 102,
+      "goingSuitability": 100,
+      "gateSuitability": 101.4,
+      "effectiveAbility": 73.6,
+      "finalRaceAbility": 73.6,
+      "rankByEffectiveAbility": 4,
+      "rankByFinalRaceAbility": 4,
+      "winProbability": 9.3,
+      "top2Probability": 18.8,
+      "top3Probability": 28.4,
+      "confidence": "low",
+      "warnings": [
+        "馬場状態が未確定のため、going適性はevaluated=falseとして扱っています（推測で「良」等を補完していません）。"
+      ],
+      "actualFinishPosition": 10,
+      "winOdds": null,
+      "ev": null
+    },
+    {
+      "horseId": "2021105743",
+      "horseName": "ステレンボッシュ",
+      "horseNumber": 11,
+      "gate": 8,
+      "scratched": false,
+      "baseAbility": 69.4,
+      "overallSuitabilityPercent": 98.3,
+      "distanceSuitability": 98.3,
+      "courseSuitability": 100,
+      "goingSuitability": 100,
+      "gateSuitability": 100,
+      "effectiveAbility": 68.2,
+      "finalRaceAbility": 68.2,
+      "rankByEffectiveAbility": 11,
+      "rankByFinalRaceAbility": 11,
+      "winProbability": 5.4,
+      "top2Probability": 11.2,
+      "top3Probability": 17.3,
+      "confidence": "high",
+      "warnings": [
+        "馬場状態が未確定のため、going適性はevaluated=falseとして扱っています（推測で「良」等を補完していません）。"
+      ],
+      "actualFinishPosition": 11,
+      "winOdds": null,
+      "ev": null
+    }
+  ],
+  "priorHistoriesByHorseId": {
+    "2019104658": [
+      {
+        "raceId": "JRA-20260712-FUKUSHIMA-11",
+        "raceName": "七夕賞",
+        "raceDate": "2026-07-12",
+        "racecourse": "福島",
+        "surface": "turf",
+        "distance": 2000,
+        "going": "稍重",
+        "raceNumber": 11,
+        "finishPosition": 5,
+        "timeGap": 0.8,
+        "raceTime": 118.7,
+        "final3F": 35.8,
+        "carriedWeight": 56,
+        "gate": 1,
+        "horseNumber": 1,
+        "fieldSize": 16,
+        "source": "JRA_official_results",
+        "sourceRaceId": "202603020611",
+        "sourceHorseId": null,
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            11,
+            10,
+            10,
+            7
+          ],
+          "fieldSize": 16,
+          "source": "JRA_official_results",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 72.2,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2022104896",
+              "ability": 73.1,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2019104658",
+              "ability": 72.5,
+              "sampleCount": 5,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2020100734",
+              "ability": 72.2,
+              "sampleCount": 5,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2020102740",
+              "ability": 71.9,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020105749",
+              "ability": 71.4,
+              "sampleCount": 4,
+              "confidence": "high",
+              "weight": 1
+            }
+          ],
+          "weightedMean": 72.2,
+          "simpleTop5Average": 72.2,
+          "participantCount": 12
+        },
+        "timeGapScore": 67.6,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 85.9,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 35.8,
+          "raceFinal3FMedianSeconds": 36.7,
+          "relativeDiffSeconds": 0.9,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 56,
+          "raceMedianWeightKg": 56,
+          "weightDiffKg": 0,
+          "distance": 2000,
+          "secondsPerKg": 0.2,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 72.4
+      },
+      {
+        "raceId": "JRA-20260531-TOKYO-12",
+        "raceName": "目黒記念",
+        "raceDate": "2026-05-31",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 2500,
+        "going": "良",
+        "raceNumber": 12,
+        "finishPosition": 11,
+        "timeGap": 0.6,
+        "raceTime": 150.4,
+        "final3F": 33.7,
+        "carriedWeight": 57,
+        "gate": 3,
+        "horseNumber": 3,
+        "fieldSize": 14,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202605021212",
+        "sourceHorseId": "2019104658",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            8,
+            11,
+            10,
+            11
+          ],
+          "fieldSize": 14,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 77,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2022104655",
+              "ability": 79.6,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2022104645",
+              "ability": 78.1,
+              "sampleCount": 4,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2022104720",
+              "ability": 76.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020103945",
+              "ability": 75,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2019104828",
+              "ability": 74.6,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 77,
+          "simpleTop5Average": 76.8,
+          "participantCount": 10
+        },
+        "timeGapScore": 76.56,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 71,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.7,
+          "raceFinal3FMedianSeconds": 33.75,
+          "relativeDiffSeconds": 0,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 76.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57,
+          "raceMedianWeightKg": 56,
+          "weightDiffKg": 1,
+          "distance": 2500,
+          "secondsPerKg": 0.25,
+          "weightAdjustmentSeconds": 0.3,
+          "isReliable": true
+        },
+        "raceScore": 74.2
+      },
+      {
+        "raceId": "JRA-20260411-HANSHIN-10",
+        "raceName": "大阪―ハンブルクカップ",
+        "raceDate": "2026-04-11",
+        "racecourse": "阪神",
+        "surface": "turf",
+        "distance": 2600,
+        "going": "良",
+        "raceNumber": 10,
+        "finishPosition": 6,
+        "timeGap": 0.9,
+        "raceTime": 157.8,
+        "final3F": 34,
+        "carriedWeight": 57,
+        "gate": 3,
+        "horseNumber": 3,
+        "fieldSize": 13,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202609020510",
+        "sourceHorseId": "2019104658",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            6,
+            6,
+            5,
+            6
+          ],
+          "fieldSize": 13,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 73.4,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2022104655",
+              "ability": 80.7,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020105750",
+              "ability": 74.3,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019104658",
+              "ability": 72.2,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2020103082",
+              "ability": 72.1,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021105104",
+              "ability": 71,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 73.4,
+          "simpleTop5Average": 74.1,
+          "participantCount": 10
+        },
+        "timeGapScore": 70.61538461538461,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 70,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 34,
+          "raceFinal3FMedianSeconds": 34,
+          "relativeDiffSeconds": 0,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 76.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57,
+          "raceMedianWeightKg": 56,
+          "weightDiffKg": 1,
+          "distance": 2600,
+          "secondsPerKg": 0.26,
+          "weightAdjustmentSeconds": 0.3,
+          "isReliable": true
+        },
+        "raceScore": 71.5
+      },
+      {
+        "raceId": "JRA-20260221-TOKYO-11",
+        "raceName": "ダイヤモンドステークス",
+        "raceDate": "2026-02-21",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 3400,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 9,
+        "timeGap": 1.1,
+        "raceTime": 213.1,
+        "final3F": 35.2,
+        "carriedWeight": 57,
+        "gate": 8,
+        "horseNumber": 15,
+        "fieldSize": 15,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202605010711",
+        "sourceHorseId": "2019104658",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            11,
+            10,
+            10,
+            9
+          ],
+          "fieldSize": 15,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 73.7,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2021105829",
+              "ability": 75.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020103060",
+              "ability": 74.4,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020105798",
+              "ability": 73.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021104855",
+              "ability": 73.4,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019104658",
+              "ability": 72.4,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 73.7,
+          "simpleTop5Average": 73.9,
+          "participantCount": 9
+        },
+        "timeGapScore": 71.88235294117646,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 70,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 35.2,
+          "raceFinal3FMedianSeconds": 35.2,
+          "relativeDiffSeconds": 0,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 76.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57,
+          "raceMedianWeightKg": 56,
+          "weightDiffKg": 1,
+          "distance": 3400,
+          "secondsPerKg": 0.34,
+          "weightAdjustmentSeconds": 0.3,
+          "isReliable": true
+        },
+        "raceScore": 71.9
+      },
+      {
+        "raceId": "JRA-20251109-TOKYO-11",
+        "raceName": "アルゼンチン共和国杯",
+        "raceDate": "2025-11-09",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 2500,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 8,
+        "timeGap": 0.2,
+        "raceTime": 150.4,
+        "final3F": 34.1,
+        "carriedWeight": 57,
+        "gate": 4,
+        "horseNumber": 8,
+        "fieldSize": 18,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202505050211",
+        "sourceHorseId": "2019104658",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            14,
+            15,
+            14,
+            12
+          ],
+          "fieldSize": 18,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 72.6,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2021104324",
+              "ability": 74,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019104909",
+              "ability": 73.9,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2019105168",
+              "ability": 71.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019104091",
+              "ability": 71.6,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2020100254",
+              "ability": 71.4,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 72.6,
+          "simpleTop5Average": 72.5,
+          "participantCount": 11
+        },
+        "timeGapScore": 85.52,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 74.1,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 34.1,
+          "raceFinal3FMedianSeconds": 34.3,
+          "relativeDiffSeconds": 0.2,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 76.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57,
+          "raceMedianWeightKg": 56,
+          "weightDiffKg": 1,
+          "distance": 2500,
+          "secondsPerKg": 0.25,
+          "weightAdjustmentSeconds": 0.3,
+          "isReliable": true
+        },
+        "raceScore": 75.6
+      },
+      {
+        "raceId": "JRA-20250817-SAPPORO-11",
+        "raceName": "札幌記念",
+        "raceDate": "2025-08-17",
+        "racecourse": "札幌",
+        "surface": "turf",
+        "distance": 2000,
+        "going": "稍重",
+        "raceNumber": 11,
+        "finishPosition": 9,
+        "timeGap": 0.9,
+        "raceTime": 122.4,
+        "final3F": 36.7,
+        "carriedWeight": 58,
+        "gate": 1,
+        "horseNumber": 2,
+        "fieldSize": null,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202501010811",
+        "sourceHorseId": "2019104658",
+        "dataKind": "real",
+        "importedAt": "2026-08-24T06:06:37.712Z",
+        "memberLevelScoreAtRace": 71.4,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2020103941",
+              "ability": 74.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020105633",
+              "ability": 74.6,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2018104942",
+              "ability": 72,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2019104447",
+              "ability": 70,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2018101010",
+              "ability": 69.1,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 71.4,
+          "simpleTop5Average": 72.1,
+          "participantCount": 7
+        },
+        "timeGapScore": 64.8,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 70,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 36.7,
+          "raceFinal3FMedianSeconds": 36.7,
+          "relativeDiffSeconds": 0,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 58,
+          "weightDiffKg": 0,
+          "distance": 2000,
+          "secondsPerKg": 0.2,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 69.1
+      }
+    ],
+    "2019104850": [
+      {
+        "raceId": "JRA-20260613-TOKYO-11",
+        "raceName": "ジューンステークス",
+        "raceDate": "2026-06-13",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 1800,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 6,
+        "timeGap": 0.5,
+        "raceTime": 106.5,
+        "final3F": 33.8,
+        "carriedWeight": 58,
+        "gate": 6,
+        "horseNumber": 8,
+        "fieldSize": 13,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202605030311",
+        "sourceHorseId": "2019104850",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            8,
+            7,
+            7
+          ],
+          "fieldSize": 13,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 73.2,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2021105661",
+              "ability": 76.4,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021104324",
+              "ability": 74.6,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2019104711",
+              "ability": 72.9,
+              "sampleCount": 5,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2019104850",
+              "ability": 72.4,
+              "sampleCount": 4,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2018102020",
+              "ability": 70.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 73.2,
+          "simpleTop5Average": 73.4,
+          "participantCount": 6
+        },
+        "timeGapScore": 74.44444444444444,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 70,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.8,
+          "raceFinal3FMedianSeconds": 33.8,
+          "relativeDiffSeconds": 0,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 74.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 1,
+          "distance": 1800,
+          "secondsPerKg": 0.18000000000000002,
+          "weightAdjustmentSeconds": 0.2,
+          "isReliable": true
+        },
+        "raceScore": 72.3
+      },
+      {
+        "raceId": "JRA-20260516-NIIGATA-11",
+        "raceName": "新潟大賞典",
+        "raceDate": "2026-05-16",
+        "racecourse": "新潟",
+        "surface": "turf",
+        "distance": 2000,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 2,
+        "timeGap": 0.1,
+        "raceTime": 119,
+        "final3F": 33.4,
+        "carriedWeight": 55,
+        "gate": 6,
+        "horseNumber": 11,
+        "fieldSize": 15,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202604010511",
+        "sourceHorseId": "2019104850",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            12,
+            12
+          ],
+          "fieldSize": 15,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 72.7,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2021102224",
+              "ability": 74.6,
+              "sampleCount": 5,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2021105574",
+              "ability": 72.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2017105194",
+              "ability": 71.9,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019104711",
+              "ability": 71.9,
+              "sampleCount": 5,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2019104447",
+              "ability": 71.7,
+              "sampleCount": 4,
+              "confidence": "high",
+              "weight": 1
+            }
+          ],
+          "weightedMean": 72.7,
+          "simpleTop5Average": 72.6,
+          "participantCount": 13
+        },
+        "timeGapScore": 87.2,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 85.9,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.4,
+          "raceFinal3FMedianSeconds": 34.3,
+          "relativeDiffSeconds": 0.9,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 65.9,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 55,
+          "raceMedianWeightKg": 56,
+          "weightDiffKg": -1,
+          "distance": 2000,
+          "secondsPerKg": 0.2,
+          "weightAdjustmentSeconds": -0.2,
+          "isReliable": true
+        },
+        "raceScore": 77.3
+      },
+      {
+        "raceId": "JRA-20260412-FUKUSHIMA-11",
+        "raceName": "福島民報杯",
+        "raceDate": "2026-04-12",
+        "racecourse": "福島",
+        "surface": "turf",
+        "distance": 2000,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 7,
+        "timeGap": 0.5,
+        "raceTime": 118.9,
+        "final3F": 34.6,
+        "carriedWeight": 57,
+        "gate": 4,
+        "horseNumber": 7,
+        "fieldSize": 15,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202603010211",
+        "sourceHorseId": "2019104850",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            12,
+            10,
+            12,
+            11
+          ],
+          "fieldSize": 15,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 70.7,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2021101134",
+              "ability": 74.6,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020100734",
+              "ability": 71.2,
+              "sampleCount": 4,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2020105749",
+              "ability": 70.2,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2019104850",
+              "ability": 69.3,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2020105424",
+              "ability": 68.9,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 70.7,
+          "simpleTop5Average": 70.8,
+          "participantCount": 7
+        },
+        "timeGapScore": 76,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 83.1,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 34.6,
+          "raceFinal3FMedianSeconds": 35.3,
+          "relativeDiffSeconds": 0.7,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 0,
+          "distance": 2000,
+          "secondsPerKg": 0.2,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 73.7
+      },
+      {
+        "raceId": "JRA-20260329-HANSHIN-11",
+        "raceName": "六甲ステークス",
+        "raceDate": "2026-03-29",
+        "racecourse": "阪神",
+        "surface": "turf",
+        "distance": 1600,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 8,
+        "timeGap": 0.8,
+        "raceTime": 92.8,
+        "final3F": 33.8,
+        "carriedWeight": 57,
+        "gate": 8,
+        "horseNumber": 13,
+        "fieldSize": 13,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202609020211",
+        "sourceHorseId": "2019104850",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            13,
+            13
+          ],
+          "fieldSize": 13,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 65.5,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2019104850",
+              "ability": 67,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021100139",
+              "ability": 66.9,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019104756",
+              "ability": 64,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 65.5,
+          "simpleTop5Average": 66,
+          "participantCount": 3
+        },
+        "timeGapScore": 62,
+        "raceTimeScore": 83.9,
+        "raceTimeBreakdown": {
+          "baselineTimeSeconds": 92.75,
+          "actualTimeSeconds": 92,
+          "baseDiffSeconds": 0.8,
+          "trackAdjustment": {
+            "adjustmentSeconds": 0,
+            "sampleCount": 0,
+            "isReliable": false
+          },
+          "trackAdjustedDiffSeconds": 0.8,
+          "baselineMeta": {
+            "baselineSource": "exact",
+            "sampleCount": 8,
+            "isReliable": false,
+            "dataSource": "JRA確認済みサンプル(n=8;対象年:2021;2022;2023;2024;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [2026-06-14当日データを誤って別年サンプルとして混入していたため除外]"
+          }
+        },
+        "final3FScore": 79.9,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.8,
+          "raceFinal3FMedianSeconds": 34.3,
+          "relativeDiffSeconds": 0.5,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 0,
+          "distance": 1600,
+          "secondsPerKg": 0.16000000000000003,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 71.6
+      },
+      {
+        "raceId": "JRA-20260124-KYOTO-11",
+        "raceName": "睦月ステークス",
+        "raceDate": "2026-01-24",
+        "racecourse": "京都",
+        "surface": "turf",
+        "distance": 1600,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 13,
+        "timeGap": 0.9,
+        "raceTime": 95,
+        "final3F": 33.2,
+        "carriedWeight": 57,
+        "gate": 3,
+        "horseNumber": 3,
+        "fieldSize": 14,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202608010811",
+        "sourceHorseId": "2019104850",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            12,
+            12
+          ],
+          "fieldSize": 14,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 67,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2020102836",
+              "ability": 73.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021105423",
+              "ability": 69.8,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2020105018",
+              "ability": 67.7,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020104564",
+              "ability": 63.4,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020110155",
+              "ability": 62.2,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 67,
+          "simpleTop5Average": 67.4,
+          "participantCount": 5
+        },
+        "timeGapScore": 58.5,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 75.1,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.2,
+          "raceFinal3FMedianSeconds": 33.45,
+          "relativeDiffSeconds": 0.3,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 0,
+          "distance": 1600,
+          "secondsPerKg": 0.16000000000000003,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 67
+      }
+    ],
+    "2019105118": [
+      {
+        "raceId": "JRA-20260808-NIIGATA-07",
+        "raceName": "関越ステークス",
+        "raceDate": "2026-08-08",
+        "racecourse": "新潟",
+        "surface": "turf",
+        "distance": 1800,
+        "going": "良",
+        "raceNumber": 7,
+        "finishPosition": 9,
+        "timeGap": 0.4,
+        "raceTime": 105.4,
+        "final3F": 32,
+        "carriedWeight": 58,
+        "gate": 5,
+        "horseNumber": 9,
+        "fieldSize": 16,
+        "source": "JRA_official_results",
+        "sourceRaceId": "202604020507",
+        "sourceHorseId": null,
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            14,
+            14
+          ],
+          "fieldSize": 16,
+          "source": "JRA_official_results",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 72.3,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2021105661",
+              "ability": 75.2,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2019105118",
+              "ability": 72.3,
+              "sampleCount": 4,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2018102020",
+              "ability": 72.2,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2021104324",
+              "ability": 72.2,
+              "sampleCount": 4,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2017105194",
+              "ability": 69.9,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 72.3,
+          "simpleTop5Average": 72.4,
+          "participantCount": 7
+        },
+        "timeGapScore": 77.55555555555556,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 78,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 32,
+          "raceFinal3FMedianSeconds": 32.4,
+          "relativeDiffSeconds": 0.4,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 79.9,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 55.5,
+          "weightDiffKg": 2.5,
+          "distance": 1800,
+          "secondsPerKg": 0.18000000000000002,
+          "weightAdjustmentSeconds": 0.5,
+          "isReliable": true
+        },
+        "raceScore": 74.3
+      },
+      {
+        "raceId": "JRA-20260509-TOKYO-11",
+        "raceName": "エプソムカップ",
+        "raceDate": "2026-05-09",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 1800,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 9,
+        "timeGap": 0.5,
+        "raceTime": 105.8,
+        "final3F": 33.2,
+        "carriedWeight": 58,
+        "gate": 3,
+        "horseNumber": 5,
+        "fieldSize": 17,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202605020511",
+        "sourceHorseId": "2019105118",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            12,
+            13,
+            13
+          ],
+          "fieldSize": 17,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 70.8,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2022104896",
+              "ability": 73,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019105118",
+              "ability": 72,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2020105749",
+              "ability": 71.4,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2020105424",
+              "ability": 70.3,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2022104772",
+              "ability": 68.3,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 70.8,
+          "simpleTop5Average": 71,
+          "participantCount": 9
+        },
+        "timeGapScore": 74.44444444444444,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 79.9,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.2,
+          "raceFinal3FMedianSeconds": 33.7,
+          "relativeDiffSeconds": 0.5,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 74.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 1,
+          "distance": 1800,
+          "secondsPerKg": 0.18000000000000002,
+          "weightAdjustmentSeconds": 0.2,
+          "isReliable": true
+        },
+        "raceScore": 73
+      },
+      {
+        "raceId": "JRA-20260404-NAKAYAMA-11",
+        "raceName": "ダービー卿チャレンジトロフィー",
+        "raceDate": "2026-04-04",
+        "racecourse": "中山",
+        "surface": "turf",
+        "distance": 1600,
+        "going": "稍重",
+        "raceNumber": 11,
+        "finishPosition": 11,
+        "timeGap": 1.1,
+        "raceTime": 94.5,
+        "final3F": 35.3,
+        "carriedWeight": 58.5,
+        "gate": 7,
+        "horseNumber": 14,
+        "fieldSize": 15,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202606030311",
+        "sourceHorseId": "2019105118",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            12,
+            12,
+            14
+          ],
+          "fieldSize": 15,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 72.6,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2021105454",
+              "ability": 74.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019105118",
+              "ability": 74.4,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2019100318",
+              "ability": 72.4,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019104838",
+              "ability": 71.6,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019100965",
+              "ability": 70.3,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 72.6,
+          "simpleTop5Average": 72.7,
+          "participantCount": 10
+        },
+        "timeGapScore": 51.5,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 76.1,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 35.3,
+          "raceFinal3FMedianSeconds": 35.6,
+          "relativeDiffSeconds": 0.3,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 74.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58.5,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 1.5,
+          "distance": 1600,
+          "secondsPerKg": 0.16000000000000003,
+          "weightAdjustmentSeconds": 0.2,
+          "isReliable": true
+        },
+        "raceScore": 67.3
+      },
+      {
+        "raceId": "JRA-20251129-TOKYO-11",
+        "raceName": "キャピタルステークス",
+        "raceDate": "2025-11-29",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 1600,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 7,
+        "timeGap": 0.3,
+        "raceTime": 92.2,
+        "final3F": 33.5,
+        "carriedWeight": 58,
+        "gate": 5,
+        "horseNumber": 9,
+        "fieldSize": 18,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202505050711",
+        "sourceHorseId": "2019105118",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            11,
+            13
+          ],
+          "fieldSize": 18,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 68.7,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2019105118",
+              "ability": 74.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019100965",
+              "ability": 68.9,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020101967",
+              "ability": 68.9,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020101784",
+              "ability": 66.9,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021105423",
+              "ability": 64.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 68.7,
+          "simpleTop5Average": 68.7,
+          "participantCount": 6
+        },
+        "timeGapScore": 79.5,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 83.9,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.5,
+          "raceFinal3FMedianSeconds": 34.25,
+          "relativeDiffSeconds": 0.8,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 74.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 1,
+          "distance": 1600,
+          "secondsPerKg": 0.16000000000000003,
+          "weightAdjustmentSeconds": 0.2,
+          "isReliable": true
+        },
+        "raceScore": 74.3
+      },
+      {
+        "raceId": "JRA-20251018-TOKYO-11",
+        "raceName": "富士ステークス",
+        "raceDate": "2025-10-18",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 1600,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 4,
+        "timeGap": 0.4,
+        "raceTime": 92.1,
+        "final3F": 32.8,
+        "carriedWeight": 58,
+        "gate": 5,
+        "horseNumber": 8,
+        "fieldSize": 14,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202505040611",
+        "sourceHorseId": "2019105118",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            12,
+            11
+          ],
+          "fieldSize": 14,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 74,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2021105119",
+              "ability": 74,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 74,
+          "simpleTop5Average": 74,
+          "participantCount": 1
+        },
+        "timeGapScore": 76,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 80.7,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 32.8,
+          "raceFinal3FMedianSeconds": 33.349999999999994,
+          "relativeDiffSeconds": 0.5,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 74.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 1,
+          "distance": 1600,
+          "secondsPerKg": 0.16000000000000003,
+          "weightAdjustmentSeconds": 0.2,
+          "isReliable": true
+        },
+        "raceScore": 74.5
+      }
+    ],
+    "2020100734": [
+      {
+        "raceId": "JRA-20260712-FUKUSHIMA-11",
+        "raceName": "七夕賞",
+        "raceDate": "2026-07-12",
+        "racecourse": "福島",
+        "surface": "turf",
+        "distance": 2000,
+        "going": "稍重",
+        "raceNumber": 11,
+        "finishPosition": 10,
+        "timeGap": 1.8,
+        "raceTime": 119.7,
+        "final3F": 37.2,
+        "carriedWeight": 58,
+        "gate": 8,
+        "horseNumber": 16,
+        "fieldSize": 16,
+        "source": "JRA_official_results",
+        "sourceRaceId": "202603020611",
+        "sourceHorseId": null,
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            6,
+            6,
+            6,
+            7
+          ],
+          "fieldSize": 16,
+          "source": "JRA_official_results",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 72.2,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2022104896",
+              "ability": 73.1,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2019104658",
+              "ability": 72.5,
+              "sampleCount": 5,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2020100734",
+              "ability": 72.2,
+              "sampleCount": 5,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2020102740",
+              "ability": 71.9,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020105749",
+              "ability": 71.4,
+              "sampleCount": 4,
+              "confidence": "high",
+              "weight": 1
+            }
+          ],
+          "weightedMean": 72.2,
+          "simpleTop5Average": 72.2,
+          "participantCount": 12
+        },
+        "timeGapScore": 39.6,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 60.1,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 37.2,
+          "raceFinal3FMedianSeconds": 36.7,
+          "relativeDiffSeconds": -0.5,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 78,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 56,
+          "weightDiffKg": 2,
+          "distance": 2000,
+          "secondsPerKg": 0.2,
+          "weightAdjustmentSeconds": 0.4,
+          "isReliable": true
+        },
+        "raceScore": 62
+      },
+      {
+        "raceId": "JRA-20260412-FUKUSHIMA-11",
+        "raceName": "福島民報杯",
+        "raceDate": "2026-04-12",
+        "racecourse": "福島",
+        "surface": "turf",
+        "distance": 2000,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 1,
+        "timeGap": 0,
+        "raceTime": 118.4,
+        "final3F": 35.1,
+        "carriedWeight": 58,
+        "gate": 6,
+        "horseNumber": 11,
+        "fieldSize": 15,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202603010211",
+        "sourceHorseId": "2020100734",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            3,
+            4,
+            3,
+            2
+          ],
+          "fieldSize": 15,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 70.7,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2021101134",
+              "ability": 74.6,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020100734",
+              "ability": 71.2,
+              "sampleCount": 4,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2020105749",
+              "ability": 70.2,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2019104850",
+              "ability": 69.3,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2020105424",
+              "ability": 68.9,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 70.7,
+          "simpleTop5Average": 70.8,
+          "participantCount": 7
+        },
+        "timeGapScore": 90,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 74.1,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 35.1,
+          "raceFinal3FMedianSeconds": 35.3,
+          "relativeDiffSeconds": 0.2,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 74.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 1,
+          "distance": 2000,
+          "secondsPerKg": 0.2,
+          "weightAdjustmentSeconds": 0.2,
+          "isReliable": true
+        },
+        "raceScore": 76
+      },
+      {
+        "raceId": "JRA-20241103-TOKYO-11",
+        "raceName": "アルゼンチン共和国杯",
+        "raceDate": "2024-11-03",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 2500,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 8,
+        "timeGap": 0.7,
+        "raceTime": 149.7,
+        "final3F": 36.3,
+        "carriedWeight": 57.5,
+        "gate": 7,
+        "horseNumber": 13,
+        "fieldSize": 16,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202405050211",
+        "sourceHorseId": "2020100734",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            6,
+            7,
+            7,
+            6
+          ],
+          "fieldSize": 16,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 69.4,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2019104091",
+              "ability": 72,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020100734",
+              "ability": 71.4,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2019101782",
+              "ability": 70.9,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019101847",
+              "ability": 69.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2016104624",
+              "ability": 65.3,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 69.4,
+          "simpleTop5Average": 69.9,
+          "participantCount": 5
+        },
+        "timeGapScore": 74.32000000000001,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 67.9,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 36.3,
+          "raceFinal3FMedianSeconds": 36.2,
+          "relativeDiffSeconds": -0.1,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 72.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57.5,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 0.5,
+          "distance": 2500,
+          "secondsPerKg": 0.25,
+          "weightAdjustmentSeconds": 0.1,
+          "isReliable": true
+        },
+        "raceScore": 70.7
+      },
+      {
+        "raceId": "JRA-20240922-NAKAYAMA-11",
+        "raceName": "オールカマー",
+        "raceDate": "2024-09-22",
+        "racecourse": "中山",
+        "surface": "turf",
+        "distance": 2200,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 4,
+        "timeGap": 0.2,
+        "raceTime": 132,
+        "final3F": 34.6,
+        "carriedWeight": 57,
+        "gate": 6,
+        "horseNumber": 11,
+        "fieldSize": 15,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202406040711",
+        "sourceHorseId": "2020100734",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            3,
+            3,
+            2,
+            3
+          ],
+          "fieldSize": 15,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 65.8,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2020100734",
+              "ability": 71,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2018101010",
+              "ability": 66,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019103823",
+              "ability": 65.7,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019105207",
+              "ability": 55.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 65.8,
+          "simpleTop5Average": 64.6,
+          "participantCount": 4
+        },
+        "timeGapScore": 84.9090909090909,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 67.9,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 34.6,
+          "raceFinal3FMedianSeconds": 34.5,
+          "relativeDiffSeconds": -0.1,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 0,
+          "distance": 2200,
+          "secondsPerKg": 0.22000000000000003,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 72.2
+      },
+      {
+        "raceId": "JRA-20240714-HAKODATE-11",
+        "raceName": "函館記念",
+        "raceDate": "2024-07-14",
+        "racecourse": "函館",
+        "surface": "turf",
+        "distance": 2000,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 4,
+        "timeGap": 0.7,
+        "raceTime": 119.9,
+        "final3F": 35.2,
+        "carriedWeight": 57.5,
+        "gate": 1,
+        "horseNumber": 1,
+        "fieldSize": 16,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202402011211",
+        "sourceHorseId": "2020100734",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            10,
+            9,
+            11,
+            9
+          ],
+          "fieldSize": 16,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 63.4,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2020100734",
+              "ability": 71.7,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2016104624",
+              "ability": 65.7,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2018104609",
+              "ability": 50.4,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 63.4,
+          "simpleTop5Average": 62.6,
+          "participantCount": 3
+        },
+        "timeGapScore": 70.4,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 81.6,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 35.2,
+          "raceFinal3FMedianSeconds": 35.8,
+          "relativeDiffSeconds": 0.6,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 76.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57.5,
+          "raceMedianWeightKg": 56,
+          "weightDiffKg": 1.5,
+          "distance": 2000,
+          "secondsPerKg": 0.2,
+          "weightAdjustmentSeconds": 0.3,
+          "isReliable": true
+        },
+        "raceScore": 70.2
+      },
+      {
+        "raceId": "JRA-20240428-KYOTO-11",
+        "raceName": "天皇賞(春)",
+        "raceDate": "2024-04-28",
+        "racecourse": "京都",
+        "surface": "turf",
+        "distance": 3200,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 6,
+        "timeGap": 0.7,
+        "raceTime": 194.9,
+        "final3F": 35.8,
+        "carriedWeight": 58,
+        "gate": 5,
+        "horseNumber": 10,
+        "fieldSize": null,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202408030411",
+        "sourceHorseId": "2020100734",
+        "dataKind": "real",
+        "importedAt": "2026-08-24T06:06:37.712Z",
+        "memberLevelScoreAtRace": 70.3,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2020103650",
+              "ability": 70.3,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 70.3,
+          "simpleTop5Average": 70.3,
+          "participantCount": 1
+        },
+        "timeGapScore": 77.75,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 67.9,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 35.8,
+          "raceFinal3FMedianSeconds": 35.7,
+          "relativeDiffSeconds": -0.1,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 58,
+          "weightDiffKg": 0,
+          "distance": 3200,
+          "secondsPerKg": 0.32000000000000006,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 71.7
+      }
+    ],
+    "2020103650": [
+      {
+        "raceId": "JRA-20251005-KYOTO-11",
+        "raceName": "京都大賞典",
+        "raceDate": "2025-10-05",
+        "racecourse": "京都",
+        "surface": "turf",
+        "distance": 2400,
+        "going": "稍重",
+        "raceNumber": 11,
+        "finishPosition": 8,
+        "timeGap": 0.6,
+        "raceTime": 144.5,
+        "final3F": 35.4,
+        "carriedWeight": 58,
+        "gate": 4,
+        "horseNumber": 7,
+        "fieldSize": 18,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202508030211",
+        "sourceHorseId": "2020103650",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            8,
+            8,
+            2,
+            2
+          ],
+          "fieldSize": 18,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 74.2,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2021105195",
+              "ability": 79.2,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019104909",
+              "ability": 74.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019105312",
+              "ability": 73.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020103945",
+              "ability": 73.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019104091",
+              "ability": 72.2,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 74.2,
+          "simpleTop5Average": 74.6,
+          "participantCount": 11
+        },
+        "timeGapScore": 76,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 59.3,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 35.4,
+          "raceFinal3FMedianSeconds": 34.849999999999994,
+          "relativeDiffSeconds": -0.6,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 74.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 1,
+          "distance": 2400,
+          "secondsPerKg": 0.24,
+          "weightAdjustmentSeconds": 0.2,
+          "isReliable": true
+        },
+        "raceScore": 71.4
+      },
+      {
+        "raceId": "JRA-20250615-HANSHIN-11",
+        "raceName": "宝塚記念",
+        "raceDate": "2025-06-15",
+        "racecourse": "阪神",
+        "surface": "turf",
+        "distance": 2200,
+        "going": "稍重",
+        "raceNumber": 11,
+        "finishPosition": 9,
+        "timeGap": 1.3,
+        "raceTime": 132.4,
+        "final3F": 36.7,
+        "carriedWeight": 58,
+        "gate": 1,
+        "horseNumber": 2,
+        "fieldSize": 17,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202509030411",
+        "sourceHorseId": "2020103650",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            6,
+            6,
+            6,
+            7
+          ],
+          "fieldSize": 17,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 74,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2021105898",
+              "ability": 76.3,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021105436",
+              "ability": 73.9,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2020102781",
+              "ability": 73.7,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019105552",
+              "ability": 73.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2018104942",
+              "ability": 72.7,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 74,
+          "simpleTop5Average": 74,
+          "participantCount": 11
+        },
+        "timeGapScore": 56.90909090909091,
+        "raceTimeScore": 93.9,
+        "raceTimeBreakdown": {
+          "baselineTimeSeconds": 133.4,
+          "actualTimeSeconds": 131.1,
+          "baseDiffSeconds": 2.3,
+          "trackAdjustment": {
+            "adjustmentSeconds": 0,
+            "sampleCount": 0,
+            "isReliable": false
+          },
+          "trackAdjustedDiffSeconds": 2.3,
+          "baselineMeta": {
+            "baselineSource": "exact",
+            "sampleCount": 2,
+            "isReliable": false,
+            "dataSource": "JRA確認済みサンプル(n=2;対象年:2022;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [第9実装で「誤日付データ」として除外した2025-06-15宝塚記念(稍重,131.1)を、複数の独立した実在確認（レース結果サイト横断検索でメイショウタバル1着・武豊騎手・2:11.1・3馬身差・7番人気を確認）に基づき再監査し、誤除外と判断して再追加。中央値135.7→133.4]"
+          }
+        },
+        "final3FScore": 63.9,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 36.7,
+          "raceFinal3FMedianSeconds": 36.4,
+          "relativeDiffSeconds": -0.3,
+          "courseBaselineSeconds": 36.4,
+          "trackAdjustment": {
+            "adjustmentSeconds": 0,
+            "sampleCount": 0,
+            "isReliable": false
+          },
+          "absoluteDiffSeconds": -0.3,
+          "baselineMeta": {
+            "baselineSource": "exact",
+            "sampleCount": 1,
+            "isReliable": false,
+            "dataSource": "JRA確認済みサンプル(n=1レース;対象年:2025) verified_full_finisher_final3f 全17完走馬final3F中央値(median-of-race-medians、単一レースのため実質そのレースの中央値) 暫定candidate [2025-06-15宝塚記念。第9実装で「誤日付データ」として除外されていたが再監査の上、誤除外と判断し新規追加]"
+          },
+          "sampleReliabilityWeight": 0.1,
+          "absoluteConfidence": "low"
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 58,
+          "weightDiffKg": 0,
+          "distance": 2200,
+          "secondsPerKg": 0.22000000000000003,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 73
+      },
+      {
+        "raceId": "JRA-20241124-TOKYO-12",
+        "raceName": "ジャパンカップ",
+        "raceDate": "2024-11-24",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 2400,
+        "going": "良",
+        "raceNumber": 12,
+        "finishPosition": 2,
+        "timeGap": 0,
+        "raceTime": 145.5,
+        "final3F": 33.4,
+        "carriedWeight": 58,
+        "gate": 6,
+        "horseNumber": 10,
+        "fieldSize": 14,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202405050812",
+        "sourceHorseId": "2020103650",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            6,
+            3,
+            1,
+            1
+          ],
+          "fieldSize": 14,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 65.2,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2019105748",
+              "ability": 76.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020103650",
+              "ability": 59.6,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 65.2,
+          "simpleTop5Average": 68.1,
+          "participantCount": 2
+        },
+        "timeGapScore": 90,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 71,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.4,
+          "raceFinal3FMedianSeconds": 33.45,
+          "relativeDiffSeconds": 0.1,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 58,
+          "weightDiffKg": 0,
+          "distance": 2400,
+          "secondsPerKg": 0.24,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 73.7
+      },
+      {
+        "raceId": "JRA-20240428-KYOTO-11",
+        "raceName": "天皇賞(春)",
+        "raceDate": "2024-04-28",
+        "racecourse": "京都",
+        "surface": "turf",
+        "distance": 3200,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 15,
+        "timeGap": 5.6,
+        "raceTime": 199.8,
+        "final3F": 40.5,
+        "carriedWeight": 58,
+        "gate": 6,
+        "horseNumber": 12,
+        "fieldSize": 16,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202408030411",
+        "sourceHorseId": "2020103650",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            3,
+            3,
+            3,
+            5
+          ],
+          "fieldSize": 16,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 70.3,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2020103650",
+              "ability": 70.3,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 70.3,
+          "simpleTop5Average": 70.3,
+          "participantCount": 1
+        },
+        "timeGapScore": 0,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 45,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 40.5,
+          "raceFinal3FMedianSeconds": 35.7,
+          "relativeDiffSeconds": -4.8,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 58,
+          "weightDiffKg": 0,
+          "distance": 3200,
+          "secondsPerKg": 0.32000000000000006,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 48.8
+      },
+      {
+        "raceId": "JRA-20240310-CHUKYO-11",
+        "raceName": "金鯱賞",
+        "raceDate": "2024-03-10",
+        "racecourse": "中京",
+        "surface": "turf",
+        "distance": 2000,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 2,
+        "timeGap": 0.8,
+        "raceTime": 118.4,
+        "final3F": 35,
+        "carriedWeight": 59,
+        "gate": 3,
+        "horseNumber": 3,
+        "fieldSize": 13,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202407010211",
+        "sourceHorseId": "2020103650",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            9,
+            8,
+            6,
+            5
+          ],
+          "fieldSize": 13,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 66,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2018104541",
+              "ability": 71.1,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2018105012",
+              "ability": 69.6,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2017104756",
+              "ability": 64.1,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2016104624",
+              "ability": 63.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2018101660",
+              "ability": 61.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 66,
+          "simpleTop5Average": 66,
+          "participantCount": 5
+        },
+        "timeGapScore": 67.6,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": {
+          "baselineTimeSeconds": 117.6,
+          "actualTimeSeconds": 117.6,
+          "baseDiffSeconds": 0,
+          "trackAdjustment": {
+            "adjustmentSeconds": 0,
+            "sampleCount": 0,
+            "isReliable": false
+          },
+          "trackAdjustedDiffSeconds": 0,
+          "baselineMeta": {
+            "baselineSource": "exact",
+            "sampleCount": 3,
+            "isReliable": false,
+            "dataSource": "JRA確認済みサンプル(n=3;対象年:2022;2023;2024) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。金鯱賞2021-2025の5件から良のみ抽出]"
+          }
+        },
+        "final3FScore": 81.2,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 35,
+          "raceFinal3FMedianSeconds": 35.6,
+          "relativeDiffSeconds": 0.6,
+          "courseBaselineSeconds": 35.15,
+          "trackAdjustment": {
+            "adjustmentSeconds": 0,
+            "sampleCount": 0,
+            "isReliable": false
+          },
+          "absoluteDiffSeconds": 0.1,
+          "baselineMeta": {
+            "baselineSource": "exact",
+            "sampleCount": 2,
+            "isReliable": false,
+            "dataSource": "JRA確認済みサンプル(n=2レース;対象年:2023;2024) verified_full_finisher_final3f 各レース全完走馬final3F中央値のレース間等重み中央値(median-of-race-medians) 暫定candidate [batch4]"
+          },
+          "sampleReliabilityWeight": 0.1,
+          "absoluteConfidence": "low"
+        },
+        "weightScore": 78,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 59,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 2,
+          "distance": 2000,
+          "secondsPerKg": 0.2,
+          "weightAdjustmentSeconds": 0.4,
+          "isReliable": true
+        },
+        "raceScore": 70.3
+      }
+    ],
+    "2021105436": [
+      {
+        "raceId": "JRA-20260315-CHUKYO-11",
+        "raceName": "金鯱賞",
+        "raceDate": "2026-03-15",
+        "racecourse": "中京",
+        "surface": "turf",
+        "distance": 2000,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 14,
+        "timeGap": 1,
+        "raceTime": 119.1,
+        "final3F": 34.7,
+        "carriedWeight": 58,
+        "gate": 3,
+        "horseNumber": 4,
+        "fieldSize": 14,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202607010211",
+        "sourceHorseId": "2021105436",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            9,
+            10,
+            8,
+            8
+          ],
+          "fieldSize": 14,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 76.7,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2021106738",
+              "ability": 82.1,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021105414",
+              "ability": 78,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019104828",
+              "ability": 76.4,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021104324",
+              "ability": 74.9,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2021103975",
+              "ability": 74,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 76.7,
+          "simpleTop5Average": 77.1,
+          "participantCount": 14
+        },
+        "timeGapScore": 62,
+        "raceTimeScore": 60.1,
+        "raceTimeBreakdown": {
+          "baselineTimeSeconds": 117.6,
+          "actualTimeSeconds": 118.1,
+          "baseDiffSeconds": -0.5,
+          "trackAdjustment": {
+            "adjustmentSeconds": 0,
+            "sampleCount": 0,
+            "isReliable": false
+          },
+          "trackAdjustedDiffSeconds": -0.5,
+          "baselineMeta": {
+            "baselineSource": "exact",
+            "sampleCount": 3,
+            "isReliable": false,
+            "dataSource": "JRA確認済みサンプル(n=3;対象年:2022;2023;2024) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。金鯱賞2021-2025の5件から良のみ抽出]"
+          }
+        },
+        "final3FScore": 61.9,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 34.7,
+          "raceFinal3FMedianSeconds": 34.25,
+          "relativeDiffSeconds": -0.5,
+          "courseBaselineSeconds": 35.15,
+          "trackAdjustment": {
+            "adjustmentSeconds": 0,
+            "sampleCount": 0,
+            "isReliable": false
+          },
+          "absoluteDiffSeconds": 0.4,
+          "baselineMeta": {
+            "baselineSource": "exact",
+            "sampleCount": 2,
+            "isReliable": false,
+            "dataSource": "JRA確認済みサンプル(n=2レース;対象年:2023;2024) verified_full_finisher_final3f 各レース全完走馬final3F中央値のレース間等重み中央値(median-of-race-medians) 暫定candidate [batch4]"
+          },
+          "sampleReliabilityWeight": 0.1,
+          "absoluteConfidence": "low"
+        },
+        "weightScore": 74.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 1,
+          "distance": 2000,
+          "secondsPerKg": 0.2,
+          "weightAdjustmentSeconds": 0.2,
+          "isReliable": true
+        },
+        "raceScore": 66.5
+      },
+      {
+        "raceId": "JRA-20251102-TOKYO-11",
+        "raceName": "天皇賞(秋)",
+        "raceDate": "2025-11-02",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 2000,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 5,
+        "timeGap": 0.2,
+        "raceTime": 118.8,
+        "final3F": 32.2,
+        "carriedWeight": 58,
+        "gate": 2,
+        "horseNumber": 2,
+        "fieldSize": 14,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202505041111",
+        "sourceHorseId": "2021105436",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            12,
+            11,
+            11
+          ],
+          "fieldSize": 14,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 72.7,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2019105346",
+              "ability": 75.6,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2020103941",
+              "ability": 72.7,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2020103532",
+              "ability": 72.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2022105081",
+              "ability": 71.6,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2021105436",
+              "ability": 70.8,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 72.7,
+          "simpleTop5Average": 72.6,
+          "participantCount": 7
+        },
+        "timeGapScore": 84.4,
+        "raceTimeScore": 94.1,
+        "raceTimeBreakdown": {
+          "baselineTimeSeconds": 121,
+          "actualTimeSeconds": 118.6,
+          "baseDiffSeconds": 2.4,
+          "trackAdjustment": {
+            "adjustmentSeconds": 0,
+            "sampleCount": 0,
+            "isReliable": false
+          },
+          "trackAdjustedDiffSeconds": 2.4,
+          "baselineMeta": {
+            "baselineSource": "exact",
+            "sampleCount": 30,
+            "isReliable": false,
+            "dataSource": "V0テスト用仮データ（実データ未投入）"
+          }
+        },
+        "final3FScore": 78,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 32.2,
+          "raceFinal3FMedianSeconds": 32.6,
+          "relativeDiffSeconds": 0.4,
+          "courseBaselineSeconds": 34,
+          "trackAdjustment": {
+            "adjustmentSeconds": 0,
+            "sampleCount": 0,
+            "isReliable": false
+          },
+          "absoluteDiffSeconds": 1.8,
+          "baselineMeta": {
+            "baselineSource": "exact",
+            "sampleCount": 30,
+            "isReliable": false,
+            "dataSource": "V0テスト用仮データ（実データ未投入）"
+          },
+          "sampleReliabilityWeight": 0,
+          "absoluteConfidence": "low"
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 58,
+          "weightDiffKg": 0,
+          "distance": 2000,
+          "secondsPerKg": 0.2,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 81.6
+      },
+      {
+        "raceId": "JRA-20250615-HANSHIN-11",
+        "raceName": "宝塚記念",
+        "raceDate": "2025-06-15",
+        "racecourse": "阪神",
+        "surface": "turf",
+        "distance": 2200,
+        "going": "稍重",
+        "raceNumber": 11,
+        "finishPosition": 14,
+        "timeGap": 2.4,
+        "raceTime": 133.5,
+        "final3F": 37.3,
+        "carriedWeight": 58,
+        "gate": 7,
+        "horseNumber": 13,
+        "fieldSize": 17,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202509030411",
+        "sourceHorseId": "2021105436",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            14,
+            14,
+            12,
+            10
+          ],
+          "fieldSize": 17,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 74,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2021105898",
+              "ability": 76.3,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021105436",
+              "ability": 73.9,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2020102781",
+              "ability": 73.7,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019105552",
+              "ability": 73.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2018104942",
+              "ability": 72.7,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 74,
+          "simpleTop5Average": 74,
+          "participantCount": 11
+        },
+        "timeGapScore": 28.909090909090914,
+        "raceTimeScore": 93.9,
+        "raceTimeBreakdown": {
+          "baselineTimeSeconds": 133.4,
+          "actualTimeSeconds": 131.1,
+          "baseDiffSeconds": 2.3,
+          "trackAdjustment": {
+            "adjustmentSeconds": 0,
+            "sampleCount": 0,
+            "isReliable": false
+          },
+          "trackAdjustedDiffSeconds": 2.3,
+          "baselineMeta": {
+            "baselineSource": "exact",
+            "sampleCount": 2,
+            "isReliable": false,
+            "dataSource": "JRA確認済みサンプル(n=2;対象年:2022;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [第9実装で「誤日付データ」として除外した2025-06-15宝塚記念(稍重,131.1)を、複数の独立した実在確認（レース結果サイト横断検索でメイショウタバル1着・武豊騎手・2:11.1・3馬身差・7番人気を確認）に基づき再監査し、誤除外と判断して再追加。中央値135.7→133.4]"
+          }
+        },
+        "final3FScore": 54.1,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 37.3,
+          "raceFinal3FMedianSeconds": 36.4,
+          "relativeDiffSeconds": -0.9,
+          "courseBaselineSeconds": 36.4,
+          "trackAdjustment": {
+            "adjustmentSeconds": 0,
+            "sampleCount": 0,
+            "isReliable": false
+          },
+          "absoluteDiffSeconds": -0.9,
+          "baselineMeta": {
+            "baselineSource": "exact",
+            "sampleCount": 1,
+            "isReliable": false,
+            "dataSource": "JRA確認済みサンプル(n=1レース;対象年:2025) verified_full_finisher_final3f 全17完走馬final3F中央値(median-of-race-medians、単一レースのため実質そのレースの中央値) 暫定candidate [2025-06-15宝塚記念。第9実装で「誤日付データ」として除外されていたが再監査の上、誤除外と判断し新規追加]"
+          },
+          "sampleReliabilityWeight": 0.1,
+          "absoluteConfidence": "low"
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 58,
+          "weightDiffKg": 0,
+          "distance": 2200,
+          "secondsPerKg": 0.22000000000000003,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 64.5
+      },
+      {
+        "raceId": "JRA-20250329-NAKAYAMA-11",
+        "raceName": "日経賞",
+        "raceDate": "2025-03-29",
+        "racecourse": "中山",
+        "surface": "turf",
+        "distance": 2500,
+        "going": "稍重",
+        "raceNumber": 11,
+        "finishPosition": 3,
+        "timeGap": 0.1,
+        "raceTime": 156.2,
+        "final3F": 36.6,
+        "carriedWeight": 58,
+        "gate": 4,
+        "horseNumber": 7,
+        "fieldSize": 15,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202506030111",
+        "sourceHorseId": "2021105436",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            9,
+            10,
+            8,
+            7
+          ],
+          "fieldSize": 15,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 67.5,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2021105436",
+              "ability": 73.3,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2016100752",
+              "ability": 68.1,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2016104624",
+              "ability": 67.2,
+              "sampleCount": 5,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2017104756",
+              "ability": 65.9,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2019100792",
+              "ability": 65.3,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 67.5,
+          "simpleTop5Average": 68,
+          "participantCount": 8
+        },
+        "timeGapScore": 87.76,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 74.1,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 36.6,
+          "raceFinal3FMedianSeconds": 36.8,
+          "relativeDiffSeconds": 0.2,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 76.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 58,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 1,
+          "distance": 2500,
+          "secondsPerKg": 0.25,
+          "weightAdjustmentSeconds": 0.3,
+          "isReliable": true
+        },
+        "raceScore": 74.6
+      },
+      {
+        "raceId": "JRA-20241222-NAKAYAMA-11",
+        "raceName": "有馬記念",
+        "raceDate": "2024-12-22",
+        "racecourse": "中山",
+        "surface": "turf",
+        "distance": 2500,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 6,
+        "timeGap": 0.5,
+        "raceTime": 152.3,
+        "final3F": 35.1,
+        "carriedWeight": 56,
+        "gate": 2,
+        "horseNumber": 3,
+        "fieldSize": 15,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202406050811",
+        "sourceHorseId": "2021105436",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            7,
+            8,
+            11,
+            8
+          ],
+          "fieldSize": 15,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 72.2,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2018104541",
+              "ability": 74.1,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2017102170",
+              "ability": 73.7,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019105748",
+              "ability": 71.3,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2019105346",
+              "ability": 71.1,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019105195",
+              "ability": 69.6,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 72.2,
+          "simpleTop5Average": 72,
+          "participantCount": 8
+        },
+        "timeGapScore": 78.8,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 76.1,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 35.1,
+          "raceFinal3FMedianSeconds": 35.4,
+          "relativeDiffSeconds": 0.3,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 60.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 56,
+          "raceMedianWeightKg": 58,
+          "weightDiffKg": -2,
+          "distance": 2500,
+          "secondsPerKg": 0.25,
+          "weightAdjustmentSeconds": -0.5,
+          "isReliable": true
+        },
+        "raceScore": 73.3
+      }
+    ],
+    "2021105643": [
+      {
+        "raceId": "JRA-20260517-TOKYO-11",
+        "raceName": "ヴィクトリアマイル",
+        "raceDate": "2026-05-17",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 1600,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 16,
+        "timeGap": 1.1,
+        "raceTime": 92,
+        "final3F": 34.4,
+        "carriedWeight": 56,
+        "gate": 8,
+        "horseNumber": 18,
+        "fieldSize": 18,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202605020811",
+        "sourceHorseId": "2021105643",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            3,
+            3
+          ],
+          "fieldSize": 18,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 75,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2020101607",
+              "ability": 76.6,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2021105414",
+              "ability": 76.1,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2022103546",
+              "ability": 75.9,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2021100244",
+              "ability": 75,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021107179",
+              "ability": 71.4,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 75,
+          "simpleTop5Average": 75,
+          "participantCount": 12
+        },
+        "timeGapScore": 51.5,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 51,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 34.4,
+          "raceFinal3FMedianSeconds": 33.2,
+          "relativeDiffSeconds": -1.2,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 56,
+          "raceMedianWeightKg": 56,
+          "weightDiffKg": 0,
+          "distance": 1600,
+          "secondsPerKg": 0.16000000000000003,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 64
+      },
+      {
+        "raceId": "JRA-20260301-NAKAYAMA-11",
+        "raceName": "中山記念",
+        "raceDate": "2026-03-01",
+        "racecourse": "中山",
+        "surface": "turf",
+        "distance": 1800,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 5,
+        "timeGap": 0.4,
+        "raceTime": 105.5,
+        "final3F": 33.7,
+        "carriedWeight": 55,
+        "gate": 4,
+        "horseNumber": 6,
+        "fieldSize": 14,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202606020211",
+        "sourceHorseId": "2021105643",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            11,
+            10,
+            10,
+            11
+          ],
+          "fieldSize": 14,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 71.7,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2019102632",
+              "ability": 79.6,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021101436",
+              "ability": 75.7,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020102078",
+              "ability": 71.3,
+              "sampleCount": 4,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2021105643",
+              "ability": 69.8,
+              "sampleCount": 4,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2020105749",
+              "ability": 67.6,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 71.7,
+          "simpleTop5Average": 72.8,
+          "participantCount": 9
+        },
+        "timeGapScore": 77.55555555555556,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 76.1,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.7,
+          "raceFinal3FMedianSeconds": 34,
+          "relativeDiffSeconds": 0.3,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 62,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 55,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": -2,
+          "distance": 1800,
+          "secondsPerKg": 0.18000000000000002,
+          "weightAdjustmentSeconds": -0.4,
+          "isReliable": true
+        },
+        "raceScore": 72.9
+      },
+      {
+        "raceId": "JRA-20251123-KYOTO-11",
+        "raceName": "マイルチャンピオンシップ",
+        "raceDate": "2025-11-23",
+        "racecourse": "京都",
+        "surface": "turf",
+        "distance": 1600,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 10,
+        "timeGap": 0.9,
+        "raceTime": 92.2,
+        "final3F": 33.3,
+        "carriedWeight": 56,
+        "gate": 4,
+        "horseNumber": 7,
+        "fieldSize": 18,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202508040611",
+        "sourceHorseId": "2021105643",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            10,
+            12
+          ],
+          "fieldSize": 18,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 73.9,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2019104476",
+              "ability": 76.4,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021107171",
+              "ability": 75.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020102078",
+              "ability": 73.3,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2018100382",
+              "ability": 72.9,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2018104708",
+              "ability": 71.6,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 73.9,
+          "simpleTop5Average": 74,
+          "participantCount": 10
+        },
+        "timeGapScore": 58.5,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 69,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.3,
+          "raceFinal3FMedianSeconds": 33.25,
+          "relativeDiffSeconds": 0,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 63.9,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 56,
+          "raceMedianWeightKg": 58,
+          "weightDiffKg": -2,
+          "distance": 1600,
+          "secondsPerKg": 0.16000000000000003,
+          "weightAdjustmentSeconds": -0.3,
+          "isReliable": true
+        },
+        "raceScore": 67.8
+      },
+      {
+        "raceId": "JRA-20251005-TOKYO-11",
+        "raceName": "毎日王冠",
+        "raceDate": "2025-10-05",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 1800,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 7,
+        "timeGap": 0.7,
+        "raceTime": 104.7,
+        "final3F": 33.8,
+        "carriedWeight": 56,
+        "gate": 6,
+        "horseNumber": 6,
+        "fieldSize": 11,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202505040211",
+        "sourceHorseId": "2021105643",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            7,
+            6,
+            6
+          ],
+          "fieldSize": 11,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 71.3,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2020103941",
+              "ability": 71.7,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2020102078",
+              "ability": 71.5,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2021105643",
+              "ability": 70.8,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 71.3,
+          "simpleTop5Average": 71.3,
+          "participantCount": 3
+        },
+        "timeGapScore": 68.22222222222223,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 70,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.8,
+          "raceFinal3FMedianSeconds": 33.8,
+          "relativeDiffSeconds": 0,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 65.9,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 56,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": -1,
+          "distance": 1800,
+          "secondsPerKg": 0.18000000000000002,
+          "weightAdjustmentSeconds": -0.2,
+          "isReliable": true
+        },
+        "raceScore": 69.7
+      },
+      {
+        "raceId": "JRA-20250622-HANSHIN-11",
+        "raceName": "しらさぎステークス",
+        "raceDate": "2025-06-22",
+        "racecourse": "阪神",
+        "surface": "turf",
+        "distance": 1600,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 2,
+        "timeGap": 0.2,
+        "raceTime": 93.2,
+        "final3F": 33.9,
+        "carriedWeight": 57,
+        "gate": 5,
+        "horseNumber": 7,
+        "fieldSize": 14,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202509030611",
+        "sourceHorseId": "2021105643",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            7,
+            6
+          ],
+          "fieldSize": 14,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 64.1,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2020102078",
+              "ability": 74.9,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021105643",
+              "ability": 70.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019104878",
+              "ability": 46.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 64.1,
+          "simpleTop5Average": 64.1,
+          "participantCount": 3
+        },
+        "timeGapScore": 83,
+        "raceTimeScore": 64.9,
+        "raceTimeBreakdown": {
+          "baselineTimeSeconds": 92.75,
+          "actualTimeSeconds": 93,
+          "baseDiffSeconds": -0.2,
+          "trackAdjustment": {
+            "adjustmentSeconds": 0,
+            "sampleCount": 0,
+            "isReliable": false
+          },
+          "trackAdjustedDiffSeconds": -0.2,
+          "baselineMeta": {
+            "baselineSource": "exact",
+            "sampleCount": 8,
+            "isReliable": false,
+            "dataSource": "JRA確認済みサンプル(n=8;対象年:2021;2022;2023;2024;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [2026-06-14当日データを誤って別年サンプルとして混入していたため除外]"
+          }
+        },
+        "final3FScore": 75.1,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.9,
+          "raceFinal3FMedianSeconds": 34.150000000000006,
+          "relativeDiffSeconds": 0.3,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 0,
+          "distance": 1600,
+          "secondsPerKg": 0.16000000000000003,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 71
+      },
+      {
+        "raceId": "JRA-20241124-TOKYO-12",
+        "raceName": "ジャパンカップ",
+        "raceDate": "2024-11-24",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 2400,
+        "going": "良",
+        "raceNumber": 12,
+        "finishPosition": 4,
+        "timeGap": 0.4,
+        "raceTime": 145.9,
+        "final3F": 33.4,
+        "carriedWeight": 54,
+        "gate": 6,
+        "horseNumber": 9,
+        "fieldSize": null,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202405050812",
+        "sourceHorseId": "2021105643",
+        "dataKind": "real",
+        "importedAt": "2026-08-24T06:06:37.712Z",
+        "memberLevelScoreAtRace": 65.2,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2019105748",
+              "ability": 76.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020103650",
+              "ability": 59.6,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 65.2,
+          "simpleTop5Average": 68.1,
+          "participantCount": 2
+        },
+        "timeGapScore": 80.66666666666667,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 71,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.4,
+          "raceFinal3FMedianSeconds": 33.45,
+          "relativeDiffSeconds": 0.1,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 52.9,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 54,
+          "raceMedianWeightKg": 58,
+          "weightDiffKg": -4,
+          "distance": 2400,
+          "secondsPerKg": 0.24,
+          "weightAdjustmentSeconds": -1,
+          "isReliable": true
+        },
+        "raceScore": 70.5
+      }
+    ],
+    "2021105743": [
+      {
+        "raceId": "JRA-20260607-TOKYO-11",
+        "raceName": "安田記念",
+        "raceDate": "2026-06-07",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 1600,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 10,
+        "timeGap": 0.8,
+        "raceTime": 92.9,
+        "final3F": 33.9,
+        "carriedWeight": 56,
+        "gate": 3,
+        "horseNumber": 6,
+        "fieldSize": 17,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202605030211",
+        "sourceHorseId": "2021105743",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            7,
+            7
+          ],
+          "fieldSize": 17,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 74.3,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2021105557",
+              "ability": 77.4,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019104476",
+              "ability": 75.1,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2021110031",
+              "ability": 74.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020105018",
+              "ability": 73.1,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2019102632",
+              "ability": 73,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 74.3,
+          "simpleTop5Average": 74.6,
+          "participantCount": 11
+        },
+        "timeGapScore": 62,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 63.9,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.9,
+          "raceFinal3FMedianSeconds": 33.6,
+          "relativeDiffSeconds": -0.3,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 63.9,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 56,
+          "raceMedianWeightKg": 58,
+          "weightDiffKg": -2,
+          "distance": 1600,
+          "secondsPerKg": 0.16000000000000003,
+          "weightAdjustmentSeconds": -0.3,
+          "isReliable": true
+        },
+        "raceScore": 68.1
+      },
+      {
+        "raceId": "JRA-20260509-TOKYO-11",
+        "raceName": "エプソムカップ",
+        "raceDate": "2026-05-09",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 1800,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 2,
+        "timeGap": 0,
+        "raceTime": 105.3,
+        "final3F": 33.1,
+        "carriedWeight": 56,
+        "gate": 8,
+        "horseNumber": 16,
+        "fieldSize": 17,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202605020511",
+        "sourceHorseId": "2021105743",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            3,
+            7,
+            7
+          ],
+          "fieldSize": 17,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 70.8,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2022104896",
+              "ability": 73,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019105118",
+              "ability": 72,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2020105749",
+              "ability": 71.4,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2020105424",
+              "ability": 70.3,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2022104772",
+              "ability": 68.3,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 70.8,
+          "simpleTop5Average": 71,
+          "participantCount": 9
+        },
+        "timeGapScore": 90,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 81.6,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.1,
+          "raceFinal3FMedianSeconds": 33.7,
+          "relativeDiffSeconds": 0.6,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 65.9,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 56,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": -1,
+          "distance": 1800,
+          "secondsPerKg": 0.18000000000000002,
+          "weightAdjustmentSeconds": -0.2,
+          "isReliable": true
+        },
+        "raceScore": 76.8
+      },
+      {
+        "raceId": "JRA-20260307-NAKAYAMA-11",
+        "raceName": "中山牝馬ステークス",
+        "raceDate": "2026-03-07",
+        "racecourse": "中山",
+        "surface": "turf",
+        "distance": 1800,
+        "going": "稍重",
+        "raceNumber": 11,
+        "finishPosition": 7,
+        "timeGap": 0.6,
+        "raceTime": 107.7,
+        "final3F": 35.3,
+        "carriedWeight": 57.5,
+        "gate": 5,
+        "horseNumber": 9,
+        "fieldSize": 16,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202606020311",
+        "sourceHorseId": "2021105743",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            14,
+            15,
+            13,
+            13
+          ],
+          "fieldSize": 16,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 69.1,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2022103546",
+              "ability": 77.3,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021107179",
+              "ability": 71.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2022103205",
+              "ability": 68.6,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2022102296",
+              "ability": 66.9,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021105743",
+              "ability": 65.2,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 69.1,
+          "simpleTop5Average": 69.9,
+          "participantCount": 5
+        },
+        "timeGapScore": 71.33333333333334,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 77.1,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 35.3,
+          "raceFinal3FMedianSeconds": 35.650000000000006,
+          "relativeDiffSeconds": 0.4,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 79.9,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57.5,
+          "raceMedianWeightKg": 55,
+          "weightDiffKg": 2.5,
+          "distance": 1800,
+          "secondsPerKg": 0.18000000000000002,
+          "weightAdjustmentSeconds": 0.5,
+          "isReliable": true
+        },
+        "raceScore": 71.6
+      },
+      {
+        "raceId": "JRA-20251116-KYOTO-11",
+        "raceName": "エリザベス女王杯",
+        "raceDate": "2025-11-16",
+        "racecourse": "京都",
+        "surface": "turf",
+        "distance": 2200,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 10,
+        "timeGap": 1,
+        "raceTime": 132,
+        "final3F": 35.4,
+        "carriedWeight": 56,
+        "gate": 1,
+        "horseNumber": 2,
+        "fieldSize": 16,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202508040411",
+        "sourceHorseId": "2021105743",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            9,
+            9,
+            7,
+            8
+          ],
+          "fieldSize": 16,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 71.3,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2020101607",
+              "ability": 76.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020103945",
+              "ability": 74.9,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2021105898",
+              "ability": 74.6,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2021105541",
+              "ability": 67.8,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2021105743",
+              "ability": 59.2,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 71.3,
+          "simpleTop5Average": 70.6,
+          "participantCount": 5
+        },
+        "timeGapScore": 64.54545454545455,
+        "raceTimeScore": 81.6,
+        "raceTimeBreakdown": {
+          "baselineTimeSeconds": 131.6,
+          "actualTimeSeconds": 131,
+          "baseDiffSeconds": 0.6,
+          "trackAdjustment": {
+            "adjustmentSeconds": 0,
+            "sampleCount": 0,
+            "isReliable": false
+          },
+          "trackAdjustedDiffSeconds": 0.6,
+          "baselineMeta": {
+            "baselineSource": "exact",
+            "sampleCount": 4,
+            "isReliable": false,
+            "dataSource": "JRA確認済みサンプル(n=4;対象年:2023;2024;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。エリザベス女王杯2023-2025+京都記念2024から良のみ抽出。2023京都記念は阪神開催のため対象外]"
+          }
+        },
+        "final3FScore": 64.9,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 35.4,
+          "raceFinal3FMedianSeconds": 35.150000000000006,
+          "relativeDiffSeconds": -0.2,
+          "courseBaselineSeconds": 35.3,
+          "trackAdjustment": {
+            "adjustmentSeconds": 0,
+            "sampleCount": 0,
+            "isReliable": false
+          },
+          "absoluteDiffSeconds": -0.1,
+          "baselineMeta": {
+            "baselineSource": "exact",
+            "sampleCount": 1,
+            "isReliable": false,
+            "dataSource": "JRA確認済みサンプル(n=1レース;対象年:2024) verified_full_finisher_final3f 各レース全完走馬final3F中央値のレース間等重み中央値(median-of-race-medians) 暫定candidate [batch5。添付のsampleYears=2は収集対象期間の年数と解釈し1に補正（このgoingに寄与したのは2024年の1レースのみ）]"
+          },
+          "sampleReliabilityWeight": 0.1,
+          "absoluteConfidence": "low"
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 56,
+          "raceMedianWeightKg": 56,
+          "weightDiffKg": 0,
+          "distance": 2200,
+          "secondsPerKg": 0.22000000000000003,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 71.2
+      },
+      {
+        "raceId": "JRA-20250817-SAPPORO-11",
+        "raceName": "札幌記念",
+        "raceDate": "2025-08-17",
+        "racecourse": "札幌",
+        "surface": "turf",
+        "distance": 2000,
+        "going": "稍重",
+        "raceNumber": 11,
+        "finishPosition": 15,
+        "timeGap": 1.9,
+        "raceTime": 123.4,
+        "final3F": 37.7,
+        "carriedWeight": 56,
+        "gate": 4,
+        "horseNumber": 8,
+        "fieldSize": 16,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202501010811",
+        "sourceHorseId": "2021105743",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            7,
+            7,
+            8,
+            7
+          ],
+          "fieldSize": 16,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 71.4,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2020103941",
+              "ability": 74.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020105633",
+              "ability": 74.6,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2018104942",
+              "ability": 72,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2019104447",
+              "ability": 70,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2018101010",
+              "ability": 69.1,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 71.4,
+          "simpleTop5Average": 72.1,
+          "participantCount": 7
+        },
+        "timeGapScore": 36.800000000000004,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 52.9,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 37.7,
+          "raceFinal3FMedianSeconds": 36.7,
+          "relativeDiffSeconds": -1,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 62,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 56,
+          "raceMedianWeightKg": 58,
+          "weightDiffKg": -2,
+          "distance": 2000,
+          "secondsPerKg": 0.2,
+          "weightAdjustmentSeconds": -0.4,
+          "isReliable": true
+        },
+        "raceScore": 59.2
+      }
+    ],
+    "2022104645": [
+      {
+        "raceId": "JRA-20260531-TOKYO-12",
+        "raceName": "目黒記念",
+        "raceDate": "2026-05-31",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 2500,
+        "going": "良",
+        "raceNumber": 12,
+        "finishPosition": 3,
+        "timeGap": 0,
+        "raceTime": 149.8,
+        "final3F": 33.3,
+        "carriedWeight": 57.5,
+        "gate": 7,
+        "horseNumber": 11,
+        "fieldSize": 14,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202605021212",
+        "sourceHorseId": "2022104645",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            8,
+            8,
+            10,
+            9
+          ],
+          "fieldSize": 14,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 77,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2022104655",
+              "ability": 79.6,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2022104645",
+              "ability": 78.1,
+              "sampleCount": 4,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2022104720",
+              "ability": 76.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020103945",
+              "ability": 75,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2019104828",
+              "ability": 74.6,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 77,
+          "simpleTop5Average": 76.8,
+          "participantCount": 10
+        },
+        "timeGapScore": 90,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 79,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.3,
+          "raceFinal3FMedianSeconds": 33.75,
+          "relativeDiffSeconds": 0.5,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 78,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57.5,
+          "raceMedianWeightKg": 56,
+          "weightDiffKg": 1.5,
+          "distance": 2500,
+          "secondsPerKg": 0.25,
+          "weightAdjustmentSeconds": 0.4,
+          "isReliable": true
+        },
+        "raceScore": 78.9
+      },
+      {
+        "raceId": "JRA-20260322-HANSHIN-11",
+        "raceName": "阪神大賞典",
+        "raceDate": "2026-03-22",
+        "racecourse": "阪神",
+        "surface": "turf",
+        "distance": 3000,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 3,
+        "timeGap": 0.7,
+        "raceTime": 182.7,
+        "final3F": 34.7,
+        "carriedWeight": 56,
+        "gate": 5,
+        "horseNumber": 5,
+        "fieldSize": 10,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202609011011",
+        "sourceHorseId": "2022104645",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            6,
+            6,
+            5,
+            6
+          ],
+          "fieldSize": 10,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 75,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2022104645",
+              "ability": 79.1,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2021105433",
+              "ability": 75.2,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021105369",
+              "ability": 74.9,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020105786",
+              "ability": 72.6,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2021105104",
+              "ability": 71.7,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 75,
+          "simpleTop5Average": 74.7,
+          "participantCount": 8
+        },
+        "timeGapScore": 76.93333333333334,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 84.6,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 34.7,
+          "raceFinal3FMedianSeconds": 35.5,
+          "relativeDiffSeconds": 0.8,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 63.9,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 56,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": -1,
+          "distance": 3000,
+          "secondsPerKg": 0.30000000000000004,
+          "weightAdjustmentSeconds": -0.3,
+          "isReliable": true
+        },
+        "raceScore": 75.1
+      },
+      {
+        "raceId": "JRA-20260131-TOKYO-11",
+        "raceName": "白富士ステークス",
+        "raceDate": "2026-01-31",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 2000,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 1,
+        "timeGap": 0,
+        "raceTime": 117,
+        "final3F": 32.7,
+        "carriedWeight": 56,
+        "gate": 4,
+        "horseNumber": 4,
+        "fieldSize": 9,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202605010111",
+        "sourceHorseId": "2022104645",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            5,
+            5,
+            5
+          ],
+          "fieldSize": 9,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 72.3,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2022104645",
+              "ability": 76.7,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2021101387",
+              "ability": 63.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 72.3,
+          "simpleTop5Average": 70.1,
+          "participantCount": 2
+        },
+        "timeGapScore": 90,
+        "raceTimeScore": 94.9,
+        "raceTimeBreakdown": {
+          "baselineTimeSeconds": 121,
+          "actualTimeSeconds": 117,
+          "baseDiffSeconds": 4,
+          "trackAdjustment": {
+            "adjustmentSeconds": 0,
+            "sampleCount": 0,
+            "isReliable": false
+          },
+          "trackAdjustedDiffSeconds": 4,
+          "baselineMeta": {
+            "baselineSource": "exact",
+            "sampleCount": 30,
+            "isReliable": false,
+            "dataSource": "V0テスト用仮データ（実データ未投入）"
+          }
+        },
+        "final3FScore": 84.6,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 32.7,
+          "raceFinal3FMedianSeconds": 33.5,
+          "relativeDiffSeconds": 0.8,
+          "courseBaselineSeconds": 34,
+          "trackAdjustment": {
+            "adjustmentSeconds": 0,
+            "sampleCount": 0,
+            "isReliable": false
+          },
+          "absoluteDiffSeconds": 1.3,
+          "baselineMeta": {
+            "baselineSource": "exact",
+            "sampleCount": 30,
+            "isReliable": false,
+            "dataSource": "V0テスト用仮データ（実データ未投入）"
+          },
+          "sampleReliabilityWeight": 0,
+          "absoluteConfidence": "low"
+        },
+        "weightScore": 65.9,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 56,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": -1,
+          "distance": 2000,
+          "secondsPerKg": 0.2,
+          "weightAdjustmentSeconds": -0.2,
+          "isReliable": true
+        },
+        "raceScore": 83.9
+      },
+      {
+        "raceId": "JRA-20251122-KYOTO-10",
+        "raceName": "比叡ステークス",
+        "raceDate": "2025-11-22",
+        "racecourse": "京都",
+        "surface": "turf",
+        "distance": 2400,
+        "going": "良",
+        "raceNumber": 10,
+        "finishPosition": 1,
+        "timeGap": 0,
+        "raceTime": 144.9,
+        "final3F": 34.1,
+        "carriedWeight": 56,
+        "gate": 3,
+        "horseNumber": 5,
+        "fieldSize": 16,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202508040510",
+        "sourceHorseId": "2022104645",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            4,
+            5,
+            5,
+            4
+          ],
+          "fieldSize": 16,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 75.7,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2020103713",
+              "ability": 76,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2022104645",
+              "ability": 75.3,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 75.7,
+          "simpleTop5Average": 75.7,
+          "participantCount": 2
+        },
+        "timeGapScore": 90,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 82.4,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 34.1,
+          "raceFinal3FMedianSeconds": 34.75,
+          "relativeDiffSeconds": 0.6,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 60.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 56,
+          "raceMedianWeightKg": 58,
+          "weightDiffKg": -2,
+          "distance": 2400,
+          "secondsPerKg": 0.24,
+          "weightAdjustmentSeconds": -0.5,
+          "isReliable": true
+        },
+        "raceScore": 78.1
+      },
+      {
+        "raceId": "JRA-20250928-HANSHIN-09",
+        "raceName": "兵庫特別",
+        "raceDate": "2025-09-28",
+        "racecourse": "阪神",
+        "surface": "turf",
+        "distance": 2400,
+        "going": "良",
+        "raceNumber": 9,
+        "finishPosition": 1,
+        "timeGap": 0,
+        "raceTime": 145.8,
+        "final3F": 33.5,
+        "carriedWeight": 54,
+        "gate": 3,
+        "horseNumber": 3,
+        "fieldSize": 12,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202509040909",
+        "sourceHorseId": "2022104645",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            2,
+            3,
+            3,
+            3
+          ],
+          "fieldSize": 12,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 63.9,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2021105160",
+              "ability": 70.1,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2021105796",
+              "ability": 67.9,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2020103369",
+              "ability": 65.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019105877",
+              "ability": 58.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2019105330",
+              "ability": 57.2,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 63.9,
+          "simpleTop5Average": 63.9,
+          "participantCount": 5
+        },
+        "timeGapScore": 90,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 85.2,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.5,
+          "raceFinal3FMedianSeconds": 34.35,
+          "relativeDiffSeconds": 0.9,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 67.9,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 54,
+          "raceMedianWeightKg": 54.5,
+          "weightDiffKg": -0.5,
+          "distance": 2400,
+          "secondsPerKg": 0.24,
+          "weightAdjustmentSeconds": -0.1,
+          "isReliable": true
+        },
+        "raceScore": 75.3
+      }
+    ],
+    "2023106850": [
+      {
+        "raceId": "JRA-20260419-NAKAYAMA-11",
+        "raceName": "皐月賞",
+        "raceDate": "2026-04-19",
+        "racecourse": "中山",
+        "surface": "turf",
+        "distance": 2000,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 12,
+        "timeGap": 1,
+        "raceTime": 117.5,
+        "final3F": 34,
+        "carriedWeight": 57,
+        "gate": 7,
+        "horseNumber": 14,
+        "fieldSize": 18,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202606030811",
+        "sourceHorseId": "2023106850",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            15,
+            14,
+            15,
+            15
+          ],
+          "fieldSize": 18,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 75.3,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2023107377",
+              "ability": 78.1,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2023103687",
+              "ability": 76.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2023106850",
+              "ability": 76,
+              "sampleCount": 4,
+              "confidence": "high",
+              "weight": 1
+            },
+            {
+              "horseId": "2023106400",
+              "ability": 69,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 75.3,
+          "simpleTop5Average": 74.9,
+          "participantCount": 4
+        },
+        "timeGapScore": 62,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 74.1,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 34,
+          "raceFinal3FMedianSeconds": 34.2,
+          "relativeDiffSeconds": 0.2,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 0,
+          "distance": 2000,
+          "secondsPerKg": 0.2,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 70.2
+      },
+      {
+        "raceId": "JRA-20260210-KYOTO-11",
+        "raceName": "きさらぎ賞",
+        "raceDate": "2026-02-10",
+        "racecourse": "京都",
+        "surface": "turf",
+        "distance": 1800,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 1,
+        "timeGap": 0,
+        "raceTime": 108,
+        "final3F": 33.3,
+        "carriedWeight": 57,
+        "gate": 1,
+        "horseNumber": 1,
+        "fieldSize": 9,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202608020411",
+        "sourceHorseId": "2023106850",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            5,
+            4
+          ],
+          "fieldSize": 9,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 73.1,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2023106850",
+              "ability": 75.8,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2023107199",
+              "ability": 67.7,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 73.1,
+          "simpleTop5Average": 71.8,
+          "participantCount": 2
+        },
+        "timeGapScore": 90,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 74.1,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.3,
+          "raceFinal3FMedianSeconds": 33.5,
+          "relativeDiffSeconds": 0.2,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 0,
+          "distance": 1800,
+          "secondsPerKg": 0.18000000000000002,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 76.5
+      },
+      {
+        "raceId": "JRA-20251124-TOKYO-11",
+        "raceName": "東京スポーツ杯2歳ステークス",
+        "raceDate": "2025-11-24",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 1800,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 2,
+        "timeGap": 0,
+        "raceTime": 106,
+        "final3F": 32.7,
+        "carriedWeight": 56,
+        "gate": 6,
+        "horseNumber": 8,
+        "fieldSize": 12,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202505050611",
+        "sourceHorseId": "2023106850",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            8,
+            9,
+            6
+          ],
+          "fieldSize": 12,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 73.3,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2023106850",
+              "ability": 74.4,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2023103895",
+              "ability": 71.1,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 73.3,
+          "simpleTop5Average": 72.8,
+          "participantCount": 2
+        },
+        "timeGapScore": 90,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 86.5,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 32.7,
+          "raceFinal3FMedianSeconds": 33.65,
+          "relativeDiffSeconds": 0.9,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 56,
+          "raceMedianWeightKg": 56,
+          "weightDiffKg": 0,
+          "distance": 1800,
+          "secondsPerKg": 0.18000000000000002,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 78.5
+      },
+      {
+        "raceId": "JRA-20251011-TOKYO-11",
+        "raceName": "サウジアラビアロイヤルカップ",
+        "raceDate": "2025-10-11",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 1600,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 3,
+        "timeGap": 0.3,
+        "raceTime": 94.1,
+        "final3F": 33.8,
+        "carriedWeight": 56,
+        "gate": 5,
+        "horseNumber": 5,
+        "fieldSize": 8,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202505040311",
+        "sourceHorseId": "2023106850",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            5,
+            6
+          ],
+          "fieldSize": 8,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 73.9,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2023106850",
+              "ability": 73.9,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 73.9,
+          "simpleTop5Average": 73.9,
+          "participantCount": 1
+        },
+        "timeGapScore": 79.5,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 79,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.8,
+          "raceFinal3FMedianSeconds": 34.25,
+          "relativeDiffSeconds": 0.5,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 56,
+          "raceMedianWeightKg": 56,
+          "weightDiffKg": 0,
+          "distance": 1600,
+          "secondsPerKg": 0.16000000000000003,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 74.9
+      },
+      {
+        "raceId": "JRA-20250727-NIIGATA-02",
+        "raceName": "2歳未勝利",
+        "raceDate": "2025-07-27",
+        "racecourse": "新潟",
+        "surface": "turf",
+        "distance": 1800,
+        "going": "良",
+        "raceNumber": 2,
+        "finishPosition": 1,
+        "timeGap": 0,
+        "raceTime": 107.4,
+        "final3F": 32.9,
+        "carriedWeight": 55,
+        "gate": 5,
+        "horseNumber": 5,
+        "fieldSize": 6,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202504020202",
+        "sourceHorseId": "2023106850",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            2,
+            2
+          ],
+          "fieldSize": 6,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 54.9,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2023104885",
+              "ability": 65.1,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2023106048",
+              "ability": 54.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2023102163",
+              "ability": 54.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2023102677",
+              "ability": 52.7,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2023106589",
+              "ability": 47.2,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 54.9,
+          "simpleTop5Average": 54.9,
+          "participantCount": 5
+        },
+        "timeGapScore": 90,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 93.1,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 32.9,
+          "raceFinal3FMedianSeconds": 34.849999999999994,
+          "relativeDiffSeconds": 1.9,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 55,
+          "raceMedianWeightKg": 55,
+          "weightDiffKg": 0,
+          "distance": 1800,
+          "secondsPerKg": 0.18000000000000002,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 73.9
+      }
+    ],
+    "2023107166": [
+      {
+        "raceId": "JRA-20260510-TOKYO-11",
+        "raceName": "NHKマイルカップ",
+        "raceDate": "2026-05-10",
+        "racecourse": "東京",
+        "surface": "turf",
+        "distance": 1600,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 1,
+        "timeGap": 0,
+        "raceTime": 91.5,
+        "final3F": 33.3,
+        "carriedWeight": 57,
+        "gate": 8,
+        "horseNumber": 17,
+        "fieldSize": 18,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202605020611",
+        "sourceHorseId": "2023107166",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            14,
+            14
+          ],
+          "fieldSize": 18,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 74.1,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2023103184",
+              "ability": 78.8,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2023103268",
+              "ability": 76.5,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2023107166",
+              "ability": 75.9,
+              "sampleCount": 3,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2023107199",
+              "ability": 70.6,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2023110065",
+              "ability": 70.2,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 74.1,
+          "simpleTop5Average": 74.4,
+          "participantCount": 8
+        },
+        "timeGapScore": 90,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 88.6,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.3,
+          "raceFinal3FMedianSeconds": 34.45,
+          "relativeDiffSeconds": 1.2,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 0,
+          "distance": 1600,
+          "secondsPerKg": 0.16000000000000003,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 79
+      },
+      {
+        "raceId": "JRA-20260411-NAKAYAMA-11",
+        "raceName": "ニュージーランドトロフィー",
+        "raceDate": "2026-04-11",
+        "racecourse": "中山",
+        "surface": "turf",
+        "distance": 1600,
+        "going": "良",
+        "raceNumber": 11,
+        "finishPosition": 2,
+        "timeGap": 0,
+        "raceTime": 93.3,
+        "final3F": 33.9,
+        "carriedWeight": 57,
+        "gate": 4,
+        "horseNumber": 7,
+        "fieldSize": 15,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202606030511",
+        "sourceHorseId": "2023107166",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            3,
+            3,
+            3
+          ],
+          "fieldSize": 15,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 72.1,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2023107166",
+              "ability": 75.2,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            },
+            {
+              "horseId": "2023100681",
+              "ability": 74.3,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2023104885",
+              "ability": 67.8,
+              "sampleCount": 2,
+              "confidence": "medium",
+              "weight": 0.6
+            }
+          ],
+          "weightedMean": 72.1,
+          "simpleTop5Average": 72.4,
+          "participantCount": 3
+        },
+        "timeGapScore": 90,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 81.6,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.9,
+          "raceFinal3FMedianSeconds": 34.5,
+          "relativeDiffSeconds": 0.6,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 0,
+          "distance": 1600,
+          "secondsPerKg": 0.16000000000000003,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 77.4
+      },
+      {
+        "raceId": "JRA-20260301-NAKAYAMA-07",
+        "raceName": "3歳1勝クラス",
+        "raceDate": "2026-03-01",
+        "racecourse": "中山",
+        "surface": "turf",
+        "distance": 1600,
+        "going": "良",
+        "raceNumber": 7,
+        "finishPosition": 1,
+        "timeGap": 0,
+        "raceTime": 92.1,
+        "final3F": 33.5,
+        "carriedWeight": 57,
+        "gate": 7,
+        "horseNumber": 10,
+        "fieldSize": 12,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202606020207",
+        "sourceHorseId": "2023107166",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            3,
+            5,
+            4
+          ],
+          "fieldSize": 12,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 69.8,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": {
+          "candidates": [
+            {
+              "horseId": "2023107166",
+              "ability": 72.4,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2023105356",
+              "ability": 72.2,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            },
+            {
+              "horseId": "2023106277",
+              "ability": 64.7,
+              "sampleCount": 1,
+              "confidence": "low",
+              "weight": 0.3
+            }
+          ],
+          "weightedMean": 69.8,
+          "simpleTop5Average": 69.8,
+          "participantCount": 3
+        },
+        "timeGapScore": 90,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 89.9,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 33.5,
+          "raceFinal3FMedianSeconds": 34.8,
+          "relativeDiffSeconds": 1.3,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 70,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 57,
+          "raceMedianWeightKg": 57,
+          "weightDiffKg": 0,
+          "distance": 1600,
+          "secondsPerKg": 0.16000000000000003,
+          "weightAdjustmentSeconds": 0,
+          "isReliable": true
+        },
+        "raceScore": 77.9
+      },
+      {
+        "raceId": "JRA-20251221-NAKAYAMA-05",
+        "raceName": "2歳新馬",
+        "raceDate": "2025-12-21",
+        "racecourse": "中山",
+        "surface": "turf",
+        "distance": 1600,
+        "going": "重",
+        "raceNumber": 5,
+        "finishPosition": 1,
+        "timeGap": 0,
+        "raceTime": 95.1,
+        "final3F": 35.4,
+        "carriedWeight": 56,
+        "gate": 8,
+        "horseNumber": 16,
+        "fieldSize": 16,
+        "source": "keibamar_public_dataset",
+        "sourceRaceId": "202506050605",
+        "sourceHorseId": "2023107166",
+        "dataKind": "real",
+        "importedAt": "2026-08-25T14:53:00.954Z",
+        "passingPosition": {
+          "cornerPositions": [
+            2,
+            3,
+            2
+          ],
+          "fieldSize": 16,
+          "source": "keibamar_public_dataset",
+          "isReliable": true
+        },
+        "memberLevelScoreAtRace": 50,
+        "retrospectiveMemberLevelScore": null,
+        "memberLevelBreakdown": null,
+        "timeGapScore": 90,
+        "raceTimeScore": 70,
+        "raceTimeBreakdown": null,
+        "final3FScore": 91.2,
+        "final3FBreakdown": {
+          "horseFinal3FSeconds": 35.4,
+          "raceFinal3FMedianSeconds": 36.9,
+          "relativeDiffSeconds": 1.5,
+          "courseBaselineSeconds": null,
+          "trackAdjustment": null,
+          "absoluteDiffSeconds": null,
+          "baselineMeta": {
+            "baselineSource": "defaultFallback",
+            "sampleCount": null,
+            "isReliable": false,
+            "dataSource": null
+          },
+          "sampleReliabilityWeight": null,
+          "absoluteConfidence": null
+        },
+        "weightScore": 74.1,
+        "weightBreakdown": {
+          "horseCarriedWeightKg": 56,
+          "raceMedianWeightKg": 55,
+          "weightDiffKg": 1,
+          "distance": 1600,
+          "secondsPerKg": 0.16000000000000003,
+          "weightAdjustmentSeconds": 0.2,
+          "isReliable": true
+        },
+        "raceScore": 72.4
+      }
+    ]
+  }
+}

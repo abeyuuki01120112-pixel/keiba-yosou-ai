@@ -1,10 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import type { CollectedRunnerRow, PriorHistoryEntry } from "./types";
+import { keibaDataSubdir } from "../config/keibaDataDir";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-export const DEFAULT_NORMALIZED_DIR = path.join(__dirname, "data", "normalized");
+/**
+ * PRE-WINDOWS INTEGRATION + UI V0で`KEIBA_DATA_DIR`環境変数対応に変更。
+ * 未設定時は従来通り`src/collector/data/normalized/`を指す。
+ */
+export const DEFAULT_NORMALIZED_DIR = keibaDataSubdir("normalized");
 
 export interface NormalizedCacheEntry {
   raceId: string;

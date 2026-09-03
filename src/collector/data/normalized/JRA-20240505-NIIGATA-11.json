@@ -1,6 +1,6 @@
 {
   "raceId": "JRA-20240505-NIIGATA-11",
-  "collectedAt": "2026-09-03T00:24:56.342Z",
+  "collectedAt": "2026-09-03T06:58:13.627Z",
   "runners": [
     {
       "raceId": "JRA-20240505-NIIGATA-11",
@@ -426,7 +426,120 @@
       "races": [
         {
           "raceId": "JRA-20240310-CHUKYO-11",
+          "raceName": "金鯱賞",
           "raceDate": "2024-03-10",
+          "racecourse": "中京",
+          "surface": "turf",
+          "distance": 2000,
+          "going": "良",
+          "raceNumber": 11,
+          "finishPosition": 10,
+          "timeGap": 2.4,
+          "raceTime": 120,
+          "final3F": 36.8,
+          "carriedWeight": 57,
+          "gate": 5,
+          "horseNumber": 7,
+          "fieldSize": null,
+          "source": "keibamar_public_dataset",
+          "sourceRaceId": "202407010211",
+          "sourceHorseId": "2019100596",
+          "dataKind": "real",
+          "importedAt": "2026-08-24T06:06:37.712Z",
+          "memberLevelScoreAtRace": 66,
+          "retrospectiveMemberLevelScore": null,
+          "memberLevelBreakdown": {
+            "candidates": [
+              {
+                "horseId": "2018104541",
+                "ability": 71.1,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2018105012",
+                "ability": 69.6,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2017104756",
+                "ability": 64.1,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2016104624",
+                "ability": 63.5,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2018101660",
+                "ability": 61.5,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              }
+            ],
+            "weightedMean": 66,
+            "simpleTop5Average": 66,
+            "participantCount": 5
+          },
+          "timeGapScore": 22.799999999999997,
+          "raceTimeScore": 70,
+          "raceTimeBreakdown": {
+            "baselineTimeSeconds": 117.6,
+            "actualTimeSeconds": 117.6,
+            "baseDiffSeconds": 0,
+            "trackAdjustment": {
+              "adjustmentSeconds": 0,
+              "sampleCount": 0,
+              "isReliable": false
+            },
+            "trackAdjustedDiffSeconds": 0,
+            "baselineMeta": {
+              "baselineSource": "exact",
+              "sampleCount": 3,
+              "isReliable": false,
+              "dataSource": "JRA確認済みサンプル(n=3;対象年:2022;2023;2024) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。金鯱賞2021-2025の5件から良のみ抽出]"
+            }
+          },
+          "final3FScore": 50.8,
+          "final3FBreakdown": {
+            "horseFinal3FSeconds": 36.8,
+            "raceFinal3FMedianSeconds": 35.6,
+            "relativeDiffSeconds": -1.2,
+            "courseBaselineSeconds": 35.15,
+            "trackAdjustment": {
+              "adjustmentSeconds": 0,
+              "sampleCount": 0,
+              "isReliable": false
+            },
+            "absoluteDiffSeconds": -1.6,
+            "baselineMeta": {
+              "baselineSource": "exact",
+              "sampleCount": 2,
+              "isReliable": false,
+              "dataSource": "JRA確認済みサンプル(n=2レース;対象年:2023;2024) verified_full_finisher_final3f 各レース全完走馬final3F中央値のレース間等重み中央値(median-of-race-medians) 暫定candidate [batch4]"
+            },
+            "sampleReliabilityWeight": 0.1,
+            "absoluteConfidence": "low"
+          },
+          "weightScore": 70,
+          "weightBreakdown": {
+            "horseCarriedWeightKg": 57,
+            "raceMedianWeightKg": 57,
+            "weightDiffKg": 0,
+            "distance": 2000,
+            "secondsPerKg": 0.2,
+            "weightAdjustmentSeconds": 0,
+            "isReliable": true
+          },
           "raceScore": 54.1
         }
       ],
@@ -434,7 +547,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019100596",
         "targetRaceId": "JRA-20240505-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:56.342Z",
+        "retrievedAt": "2026-09-03T06:58:13.627Z",
         "targetAsOf": "2024-05-05",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -448,7 +561,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019104828",
         "targetRaceId": "JRA-20240505-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:56.342Z",
+        "retrievedAt": "2026-09-03T06:58:13.627Z",
         "targetAsOf": "2024-05-05",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -460,12 +573,177 @@
       "races": [
         {
           "raceId": "JRA-20240310-CHUKYO-11",
+          "raceName": "金鯱賞",
           "raceDate": "2024-03-10",
+          "racecourse": "中京",
+          "surface": "turf",
+          "distance": 2000,
+          "going": "良",
+          "raceNumber": 11,
+          "finishPosition": 3,
+          "timeGap": 0.9,
+          "raceTime": 118.5,
+          "final3F": 35.4,
+          "carriedWeight": 57,
+          "gate": 5,
+          "horseNumber": 6,
+          "fieldSize": null,
+          "source": "keibamar_public_dataset",
+          "sourceRaceId": "202407010211",
+          "sourceHorseId": "2018105012",
+          "dataKind": "real",
+          "importedAt": "2026-08-24T06:06:37.712Z",
+          "memberLevelScoreAtRace": 66,
+          "retrospectiveMemberLevelScore": null,
+          "memberLevelBreakdown": {
+            "candidates": [
+              {
+                "horseId": "2018104541",
+                "ability": 71.1,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2018105012",
+                "ability": 69.6,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2017104756",
+                "ability": 64.1,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2016104624",
+                "ability": 63.5,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2018101660",
+                "ability": 61.5,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              }
+            ],
+            "weightedMean": 66,
+            "simpleTop5Average": 66,
+            "participantCount": 5
+          },
+          "timeGapScore": 64.8,
+          "raceTimeScore": 70,
+          "raceTimeBreakdown": {
+            "baselineTimeSeconds": 117.6,
+            "actualTimeSeconds": 117.6,
+            "baseDiffSeconds": 0,
+            "trackAdjustment": {
+              "adjustmentSeconds": 0,
+              "sampleCount": 0,
+              "isReliable": false
+            },
+            "trackAdjustedDiffSeconds": 0,
+            "baselineMeta": {
+              "baselineSource": "exact",
+              "sampleCount": 3,
+              "isReliable": false,
+              "dataSource": "JRA確認済みサンプル(n=3;対象年:2022;2023;2024) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。金鯱賞2021-2025の5件から良のみ抽出]"
+            }
+          },
+          "final3FScore": 73.6,
+          "final3FBreakdown": {
+            "horseFinal3FSeconds": 35.4,
+            "raceFinal3FMedianSeconds": 35.6,
+            "relativeDiffSeconds": 0.2,
+            "courseBaselineSeconds": 35.15,
+            "trackAdjustment": {
+              "adjustmentSeconds": 0,
+              "sampleCount": 0,
+              "isReliable": false
+            },
+            "absoluteDiffSeconds": -0.2,
+            "baselineMeta": {
+              "baselineSource": "exact",
+              "sampleCount": 2,
+              "isReliable": false,
+              "dataSource": "JRA確認済みサンプル(n=2レース;対象年:2023;2024) verified_full_finisher_final3f 各レース全完走馬final3F中央値のレース間等重み中央値(median-of-race-medians) 暫定candidate [batch4]"
+            },
+            "sampleReliabilityWeight": 0.1,
+            "absoluteConfidence": "low"
+          },
+          "weightScore": 70,
+          "weightBreakdown": {
+            "horseCarriedWeightKg": 57,
+            "raceMedianWeightKg": 57,
+            "weightDiffKg": 0,
+            "distance": 2000,
+            "secondsPerKg": 0.2,
+            "weightAdjustmentSeconds": 0,
+            "isReliable": true
+          },
           "raceScore": 68
         },
         {
           "raceId": "JRA-20220116-CHUKYO-11",
+          "raceName": "日経新春杯",
           "raceDate": "2022-01-16",
+          "racecourse": "中京",
+          "surface": "turf",
+          "distance": 2200,
+          "going": "良",
+          "raceNumber": 11,
+          "finishPosition": 1,
+          "timeGap": -0.1,
+          "raceTime": 131.7,
+          "final3F": 34.4,
+          "carriedWeight": 55,
+          "gate": 5,
+          "horseNumber": 10,
+          "fieldSize": null,
+          "source": "netkeiba_web_reference",
+          "sourceRaceId": null,
+          "sourceHorseId": "2018105012",
+          "dataKind": "real",
+          "importedAt": "2026-08-24T07:55:21.674Z",
+          "memberLevelScoreAtRace": 50,
+          "retrospectiveMemberLevelScore": null,
+          "memberLevelBreakdown": null,
+          "timeGapScore": 92.54545454545455,
+          "raceTimeScore": 70,
+          "raceTimeBreakdown": null,
+          "final3FScore": 70,
+          "final3FBreakdown": {
+            "horseFinal3FSeconds": 34.4,
+            "raceFinal3FMedianSeconds": 34.4,
+            "relativeDiffSeconds": 0,
+            "courseBaselineSeconds": null,
+            "trackAdjustment": null,
+            "absoluteDiffSeconds": null,
+            "baselineMeta": {
+              "baselineSource": "defaultFallback",
+              "sampleCount": null,
+              "isReliable": false,
+              "dataSource": null
+            },
+            "sampleReliabilityWeight": null,
+            "absoluteConfidence": null
+          },
+          "weightScore": 70,
+          "weightBreakdown": {
+            "horseCarriedWeightKg": 55,
+            "raceMedianWeightKg": 55,
+            "weightDiffKg": 0,
+            "distance": 2200,
+            "secondsPerKg": 0.22000000000000003,
+            "weightAdjustmentSeconds": 0,
+            "isReliable": true
+          },
           "raceScore": 69.6
         }
       ],
@@ -473,7 +751,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2018105012",
         "targetRaceId": "JRA-20240505-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:56.342Z",
+        "retrievedAt": "2026-09-03T06:58:13.627Z",
         "targetAsOf": "2024-05-05",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -487,7 +765,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019104878",
         "targetRaceId": "JRA-20240505-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:56.342Z",
+        "retrievedAt": "2026-09-03T06:58:13.627Z",
         "targetAsOf": "2024-05-05",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -501,7 +779,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2018104225",
         "targetRaceId": "JRA-20240505-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:56.342Z",
+        "retrievedAt": "2026-09-03T06:58:13.627Z",
         "targetAsOf": "2024-05-05",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -515,7 +793,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2018104011",
         "targetRaceId": "JRA-20240505-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:56.342Z",
+        "retrievedAt": "2026-09-03T06:58:13.627Z",
         "targetAsOf": "2024-05-05",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -529,7 +807,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019100792",
         "targetRaceId": "JRA-20240505-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:56.342Z",
+        "retrievedAt": "2026-09-03T06:58:13.627Z",
         "targetAsOf": "2024-05-05",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -541,7 +819,120 @@
       "races": [
         {
           "raceId": "JRA-20240310-CHUKYO-11",
+          "raceName": "金鯱賞",
           "raceDate": "2024-03-10",
+          "racecourse": "中京",
+          "surface": "turf",
+          "distance": 2000,
+          "going": "良",
+          "raceNumber": 11,
+          "finishPosition": 12,
+          "timeGap": 2.7,
+          "raceTime": 120.3,
+          "final3F": 36.8,
+          "carriedWeight": 57,
+          "gate": 6,
+          "horseNumber": 9,
+          "fieldSize": null,
+          "source": "keibamar_public_dataset",
+          "sourceRaceId": "202407010211",
+          "sourceHorseId": "2020103472",
+          "dataKind": "real",
+          "importedAt": "2026-08-24T06:06:37.712Z",
+          "memberLevelScoreAtRace": 66,
+          "retrospectiveMemberLevelScore": null,
+          "memberLevelBreakdown": {
+            "candidates": [
+              {
+                "horseId": "2018104541",
+                "ability": 71.1,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2018105012",
+                "ability": 69.6,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2017104756",
+                "ability": 64.1,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2016104624",
+                "ability": 63.5,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2018101660",
+                "ability": 61.5,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              }
+            ],
+            "weightedMean": 66,
+            "simpleTop5Average": 66,
+            "participantCount": 5
+          },
+          "timeGapScore": 14.399999999999991,
+          "raceTimeScore": 70,
+          "raceTimeBreakdown": {
+            "baselineTimeSeconds": 117.6,
+            "actualTimeSeconds": 117.6,
+            "baseDiffSeconds": 0,
+            "trackAdjustment": {
+              "adjustmentSeconds": 0,
+              "sampleCount": 0,
+              "isReliable": false
+            },
+            "trackAdjustedDiffSeconds": 0,
+            "baselineMeta": {
+              "baselineSource": "exact",
+              "sampleCount": 3,
+              "isReliable": false,
+              "dataSource": "JRA確認済みサンプル(n=3;対象年:2022;2023;2024) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。金鯱賞2021-2025の5件から良のみ抽出]"
+            }
+          },
+          "final3FScore": 50.8,
+          "final3FBreakdown": {
+            "horseFinal3FSeconds": 36.8,
+            "raceFinal3FMedianSeconds": 35.6,
+            "relativeDiffSeconds": -1.2,
+            "courseBaselineSeconds": 35.15,
+            "trackAdjustment": {
+              "adjustmentSeconds": 0,
+              "sampleCount": 0,
+              "isReliable": false
+            },
+            "absoluteDiffSeconds": -1.6,
+            "baselineMeta": {
+              "baselineSource": "exact",
+              "sampleCount": 2,
+              "isReliable": false,
+              "dataSource": "JRA確認済みサンプル(n=2レース;対象年:2023;2024) verified_full_finisher_final3f 各レース全完走馬final3F中央値のレース間等重み中央値(median-of-race-medians) 暫定candidate [batch4]"
+            },
+            "sampleReliabilityWeight": 0.1,
+            "absoluteConfidence": "low"
+          },
+          "weightScore": 70,
+          "weightBreakdown": {
+            "horseCarriedWeightKg": 57,
+            "raceMedianWeightKg": 57,
+            "weightDiffKg": 0,
+            "distance": 2000,
+            "secondsPerKg": 0.2,
+            "weightAdjustmentSeconds": 0,
+            "isReliable": true
+          },
           "raceScore": 52
         }
       ],
@@ -549,7 +940,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2020103472",
         "targetRaceId": "JRA-20240505-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:56.342Z",
+        "retrievedAt": "2026-09-03T06:58:13.627Z",
         "targetAsOf": "2024-05-05",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -561,7 +952,120 @@
       "races": [
         {
           "raceId": "JRA-20240310-CHUKYO-11",
+          "raceName": "金鯱賞",
           "raceDate": "2024-03-10",
+          "racecourse": "中京",
+          "surface": "turf",
+          "distance": 2000,
+          "going": "良",
+          "raceNumber": 11,
+          "finishPosition": 7,
+          "timeGap": 1.3,
+          "raceTime": 118.9,
+          "final3F": 35.6,
+          "carriedWeight": 57,
+          "gate": 4,
+          "horseNumber": 5,
+          "fieldSize": null,
+          "source": "keibamar_public_dataset",
+          "sourceRaceId": "202407010211",
+          "sourceHorseId": "2020102870",
+          "dataKind": "real",
+          "importedAt": "2026-08-24T06:06:37.712Z",
+          "memberLevelScoreAtRace": 66,
+          "retrospectiveMemberLevelScore": null,
+          "memberLevelBreakdown": {
+            "candidates": [
+              {
+                "horseId": "2018104541",
+                "ability": 71.1,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2018105012",
+                "ability": 69.6,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2017104756",
+                "ability": 64.1,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2016104624",
+                "ability": 63.5,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2018101660",
+                "ability": 61.5,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              }
+            ],
+            "weightedMean": 66,
+            "simpleTop5Average": 66,
+            "participantCount": 5
+          },
+          "timeGapScore": 53.6,
+          "raceTimeScore": 70,
+          "raceTimeBreakdown": {
+            "baselineTimeSeconds": 117.6,
+            "actualTimeSeconds": 117.6,
+            "baseDiffSeconds": 0,
+            "trackAdjustment": {
+              "adjustmentSeconds": 0,
+              "sampleCount": 0,
+              "isReliable": false
+            },
+            "trackAdjustedDiffSeconds": 0,
+            "baselineMeta": {
+              "baselineSource": "exact",
+              "sampleCount": 3,
+              "isReliable": false,
+              "dataSource": "JRA確認済みサンプル(n=3;対象年:2022;2023;2024) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。金鯱賞2021-2025の5件から良のみ抽出]"
+            }
+          },
+          "final3FScore": 69.5,
+          "final3FBreakdown": {
+            "horseFinal3FSeconds": 35.6,
+            "raceFinal3FMedianSeconds": 35.6,
+            "relativeDiffSeconds": 0,
+            "courseBaselineSeconds": 35.15,
+            "trackAdjustment": {
+              "adjustmentSeconds": 0,
+              "sampleCount": 0,
+              "isReliable": false
+            },
+            "absoluteDiffSeconds": -0.5,
+            "baselineMeta": {
+              "baselineSource": "exact",
+              "sampleCount": 2,
+              "isReliable": false,
+              "dataSource": "JRA確認済みサンプル(n=2レース;対象年:2023;2024) verified_full_finisher_final3f 各レース全完走馬final3F中央値のレース間等重み中央値(median-of-race-medians) 暫定candidate [batch4]"
+            },
+            "sampleReliabilityWeight": 0.1,
+            "absoluteConfidence": "low"
+          },
+          "weightScore": 70,
+          "weightBreakdown": {
+            "horseCarriedWeightKg": 57,
+            "raceMedianWeightKg": 57,
+            "weightDiffKg": 0,
+            "distance": 2000,
+            "secondsPerKg": 0.2,
+            "weightAdjustmentSeconds": 0,
+            "isReliable": true
+          },
           "raceScore": 64.6
         }
       ],
@@ -569,7 +1073,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2020102870",
         "targetRaceId": "JRA-20240505-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:56.342Z",
+        "retrievedAt": "2026-09-03T06:58:13.627Z",
         "targetAsOf": "2024-05-05",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -583,7 +1087,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2016102175",
         "targetRaceId": "JRA-20240505-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:56.342Z",
+        "retrievedAt": "2026-09-03T06:58:13.627Z",
         "targetAsOf": "2024-05-05",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -597,7 +1101,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2020102078",
         "targetRaceId": "JRA-20240505-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:56.342Z",
+        "retrievedAt": "2026-09-03T06:58:13.627Z",
         "targetAsOf": "2024-05-05",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -611,7 +1115,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2019106670",
         "targetRaceId": "JRA-20240505-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:56.342Z",
+        "retrievedAt": "2026-09-03T06:58:13.627Z",
         "targetAsOf": "2024-05-05",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -623,7 +1127,120 @@
       "races": [
         {
           "raceId": "JRA-20240310-CHUKYO-11",
+          "raceName": "金鯱賞",
           "raceDate": "2024-03-10",
+          "racecourse": "中京",
+          "surface": "turf",
+          "distance": 2000,
+          "going": "良",
+          "raceNumber": 11,
+          "finishPosition": 13,
+          "timeGap": 3.7,
+          "raceTime": 121.3,
+          "final3F": 38.2,
+          "carriedWeight": 57,
+          "gate": 1,
+          "horseNumber": 1,
+          "fieldSize": null,
+          "source": "keibamar_public_dataset",
+          "sourceRaceId": "202407010211",
+          "sourceHorseId": "2020103275",
+          "dataKind": "real",
+          "importedAt": "2026-08-24T06:06:37.712Z",
+          "memberLevelScoreAtRace": 66,
+          "retrospectiveMemberLevelScore": null,
+          "memberLevelBreakdown": {
+            "candidates": [
+              {
+                "horseId": "2018104541",
+                "ability": 71.1,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2018105012",
+                "ability": 69.6,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2017104756",
+                "ability": 64.1,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2016104624",
+                "ability": 63.5,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              },
+              {
+                "horseId": "2018101660",
+                "ability": 61.5,
+                "sampleCount": 1,
+                "confidence": "low",
+                "weight": 0.3
+              }
+            ],
+            "weightedMean": 66,
+            "simpleTop5Average": 66,
+            "participantCount": 5
+          },
+          "timeGapScore": 0,
+          "raceTimeScore": 70,
+          "raceTimeBreakdown": {
+            "baselineTimeSeconds": 117.6,
+            "actualTimeSeconds": 117.6,
+            "baseDiffSeconds": 0,
+            "trackAdjustment": {
+              "adjustmentSeconds": 0,
+              "sampleCount": 0,
+              "isReliable": false
+            },
+            "trackAdjustedDiffSeconds": 0,
+            "baselineMeta": {
+              "baselineSource": "exact",
+              "sampleCount": 3,
+              "isReliable": false,
+              "dataSource": "JRA確認済みサンプル(n=3;対象年:2022;2023;2024) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。金鯱賞2021-2025の5件から良のみ抽出]"
+            }
+          },
+          "final3FScore": 45.6,
+          "final3FBreakdown": {
+            "horseFinal3FSeconds": 38.2,
+            "raceFinal3FMedianSeconds": 35.6,
+            "relativeDiffSeconds": -2.6,
+            "courseBaselineSeconds": 35.15,
+            "trackAdjustment": {
+              "adjustmentSeconds": 0,
+              "sampleCount": 0,
+              "isReliable": false
+            },
+            "absoluteDiffSeconds": -3.1,
+            "baselineMeta": {
+              "baselineSource": "exact",
+              "sampleCount": 2,
+              "isReliable": false,
+              "dataSource": "JRA確認済みサンプル(n=2レース;対象年:2023;2024) verified_full_finisher_final3f 各レース全完走馬final3F中央値のレース間等重み中央値(median-of-race-medians) 暫定candidate [batch4]"
+            },
+            "sampleReliabilityWeight": 0.1,
+            "absoluteConfidence": "low"
+          },
+          "weightScore": 70,
+          "weightBreakdown": {
+            "horseCarriedWeightKg": 57,
+            "raceMedianWeightKg": 57,
+            "weightDiffKg": 0,
+            "distance": 2000,
+            "secondsPerKg": 0.2,
+            "weightAdjustmentSeconds": 0,
+            "isReliable": true
+          },
           "raceScore": 47.6
         }
       ],
@@ -631,7 +1248,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2020103275",
         "targetRaceId": "JRA-20240505-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:56.342Z",
+        "retrievedAt": "2026-09-03T06:58:13.627Z",
         "targetAsOf": "2024-05-05",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -645,7 +1262,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2016106606",
         "targetRaceId": "JRA-20240505-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:56.342Z",
+        "retrievedAt": "2026-09-03T06:58:13.627Z",
         "targetAsOf": "2024-05-05",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -659,7 +1276,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2016100272",
         "targetRaceId": "JRA-20240505-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:56.342Z",
+        "retrievedAt": "2026-09-03T06:58:13.627Z",
         "targetAsOf": "2024-05-05",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
@@ -673,7 +1290,7 @@
         "source": "production_data_horses",
         "sourceIdentifier": "2018105192",
         "targetRaceId": "JRA-20240505-NIIGATA-11",
-        "retrievedAt": "2026-09-03T00:24:56.342Z",
+        "retrievedAt": "2026-09-03T06:58:13.627Z",
         "targetAsOf": "2024-05-05",
         "method": "production_history_reference",
         "collectorVersion": "0.1.0-v0"
