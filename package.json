@@ -15,7 +15,8 @@
     "import:time-baselines": "tsx scripts/importCourseTimeBaselinesCsv.ts",
     "import:final3f-baselines": "tsx scripts/importCourseFinal3FBaselinesCsv.ts",
     "racecard:check": "vite-node scripts/raceCardCheck.ts --",
-    "provisional:check": "vite-node scripts/provisionalRunnerCheck.ts --"
+    "provisional:check": "vite-node scripts/provisionalRunnerCheck.ts --",
+    "collect:race": "vite-node scripts/collectRace.ts --"
   },
   "dependencies": {
     "react": "^19.2.8",
