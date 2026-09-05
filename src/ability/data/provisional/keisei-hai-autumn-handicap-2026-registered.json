@@ -1,0 +1,31 @@
+{
+  "raceLabel": "京成杯オータムハンデキャップ 2026（第71回 京成杯オータムハンデキャップ GIII）",
+  "raceId": "JRA-20260905-NAKAYAMA-11",
+  "sourceRaceId": "202606040111",
+  "raceDate": "2026-09-05",
+  "racecourse": "中山",
+  "surface": "turf",
+  "distance": 1600,
+  "courseVariant": "外回り",
+  "going": null,
+  "source": "chatgpt_relayed_official_program_20260903",
+  "note": "枠番・馬番・馬場は未確定のためPROVISIONAL ENTRY LISTとして登録する。Formal Stage Aへは未移行（枠順確定後に再確認する）。raceNumber=11はsourceRaceId末尾2桁からの推定であり、公式番組表で個別に確認したものではない。courseVariant（外回り）は既存CourseTimeBaseline/CourseFinal3FBaselineの型には無いフィールドであり、参考記録として保持するのみで既存のlookup（racecourse×surface×distance×going）には使われない。sourceHorseIdはproduction data/horses/内で実際に該当ファイルが確認できた馬のみ設定し、それ以外はnull（推測で埋めない）。",
+  "runners": [
+    { "horseName": "ヴァルキリーバース", "sex": "牝", "age": 4, "carriedWeightKg": 55.5, "sourceHorseId": null },
+    { "horseName": "エコロブルーム", "sex": "牡", "age": 5, "carriedWeightKg": 58.0, "sourceHorseId": null },
+    { "horseName": "クランフォード", "sex": "牝", "age": 5, "carriedWeightKg": 55.0, "sourceHorseId": null },
+    { "horseName": "クルゼイロドスル", "sex": "牡", "age": 6, "carriedWeightKg": 57.0, "sourceHorseId": null },
+    { "horseName": "サイルーン", "sex": "せん", "age": 7, "carriedWeightKg": 57.0, "sourceHorseId": "2019104838", "identityMatchSource": "docs/checkpoint14d1f-niigata-turf2000-v2-collection-manifest.json（既存クロスリファレンス）、production data/horses/2019104838.jsonの実在確認済み" },
+    { "horseName": "ディールメーカー", "sex": "牡", "age": 3, "carriedWeightKg": 54.0, "sourceHorseId": null },
+    { "horseName": "テレサ", "sex": "牝", "age": 4, "carriedWeightKg": 55.0, "sourceHorseId": null },
+    { "horseName": "ドロップオブライト", "sex": "牝", "age": 7, "carriedWeightKg": 56.5, "sourceHorseId": null },
+    { "horseName": "ピコローズ", "sex": "牝", "age": 4, "carriedWeightKg": 53.0, "sourceHorseId": null },
+    { "horseName": "ファンダム", "sex": "牡", "age": 4, "carriedWeightKg": 57.0, "sourceHorseId": null },
+    { "horseName": "フォルテアンジェロ", "sex": "牡", "age": 3, "carriedWeightKg": 55.0, "sourceHorseId": null },
+    { "horseName": "ミナデオロ", "sex": "牡", "age": 5, "carriedWeightKg": 56.0, "sourceHorseId": null },
+    { "horseName": "メタルスピード", "sex": "牡", "age": 6, "carriedWeightKg": 55.0, "sourceHorseId": null },
+    { "horseName": "ラケマーダ", "sex": "牡", "age": 6, "carriedWeightKg": 56.0, "sourceHorseId": null },
+    { "horseName": "リラボニート", "sex": "牝", "age": 5, "carriedWeightKg": 54.0, "sourceHorseId": null },
+    { "horseName": "レザベーション", "sex": "牡", "age": 3, "carriedWeightKg": 55.0, "sourceHorseId": null }
+  ]
+}

@@ -1,0 +1,1366 @@
+{
+  "manifestId": "NIIGATA_TURF_2000_GATE_V2_COLLECTION_MANIFEST",
+  "checkpoint": "CHECKPOINT14D.1F",
+  "generatedAt": "2026-08-29",
+  "packageName": "niigata_turf2000_gate_history_v2_30r.zip",
+  "status": "PARTIAL — additionalRaces未確定（10節参照）",
+  "existingRaces": {
+    "count": 10,
+    "note": "再収集しない。niigataTurf2000GateHistoryV1.jsonと完全同一内容のまま新ZIPへ再掲する。",
+    "races": [
+      {
+        "selectionOrder": 1,
+        "raceId": "JRA-20210509-NIIGATA-11",
+        "sourceRaceId": "202104020211",
+        "raceDate": "2021-05-09",
+        "raceName": "新潟大賞典",
+        "raceNumber": 11,
+        "racecourse": "新潟",
+        "surface": "turf",
+        "distance": 2000,
+        "courseLayout": "outer",
+        "fieldSize": 14,
+        "productionKnownHorseCount": 0,
+        "productionKnownHorseRate": 0
+      },
+      {
+        "selectionOrder": 2,
+        "raceId": "JRA-20210905-NIIGATA-11",
+        "sourceRaceId": "202104040811",
+        "raceDate": "2021-09-05",
+        "raceName": "新潟記念",
+        "raceNumber": 11,
+        "racecourse": "新潟",
+        "surface": "turf",
+        "distance": 2000,
+        "courseLayout": "outer",
+        "fieldSize": 17,
+        "productionKnownHorseCount": 1,
+        "productionKnownHorseRate": 0.059
+      },
+      {
+        "selectionOrder": 3,
+        "raceId": "JRA-20220508-NIIGATA-11",
+        "sourceRaceId": "202204010211",
+        "raceDate": "2022-05-08",
+        "raceName": "新潟大賞典",
+        "raceNumber": 11,
+        "racecourse": "新潟",
+        "surface": "turf",
+        "distance": 2000,
+        "courseLayout": "outer",
+        "fieldSize": 15,
+        "productionKnownHorseCount": 2,
+        "productionKnownHorseRate": 0.133
+      },
+      {
+        "selectionOrder": 4,
+        "raceId": "JRA-20220904-NIIGATA-11",
+        "sourceRaceId": "202204030811",
+        "raceDate": "2022-09-04",
+        "raceName": "新潟記念",
+        "raceNumber": 11,
+        "racecourse": "新潟",
+        "surface": "turf",
+        "distance": 2000,
+        "courseLayout": "outer",
+        "fieldSize": 18,
+        "productionKnownHorseCount": 5,
+        "productionKnownHorseRate": 0.278
+      },
+      {
+        "selectionOrder": 5,
+        "raceId": "JRA-20230507-NIIGATA-11",
+        "sourceRaceId": "202304010411",
+        "raceDate": "2023-05-07",
+        "raceName": "新潟大賞典",
+        "raceNumber": 11,
+        "racecourse": "新潟",
+        "surface": "turf",
+        "distance": 2000,
+        "courseLayout": "outer",
+        "fieldSize": 16,
+        "productionKnownHorseCount": 7,
+        "productionKnownHorseRate": 0.438
+      },
+      {
+        "selectionOrder": 6,
+        "raceId": "JRA-20230903-NIIGATA-11",
+        "sourceRaceId": "202304030811",
+        "raceDate": "2023-09-03",
+        "raceName": "新潟記念",
+        "raceNumber": 11,
+        "racecourse": "新潟",
+        "surface": "turf",
+        "distance": 2000,
+        "courseLayout": "outer",
+        "fieldSize": 14,
+        "productionKnownHorseCount": 5,
+        "productionKnownHorseRate": 0.357
+      },
+      {
+        "selectionOrder": 7,
+        "raceId": "JRA-20240505-NIIGATA-11",
+        "sourceRaceId": "202404010411",
+        "raceDate": "2024-05-05",
+        "raceName": "新潟大賞典",
+        "raceNumber": 11,
+        "racecourse": "新潟",
+        "surface": "turf",
+        "distance": 2000,
+        "courseLayout": "outer",
+        "fieldSize": 16,
+        "productionKnownHorseCount": 11,
+        "productionKnownHorseRate": 0.688
+      },
+      {
+        "selectionOrder": 8,
+        "raceId": "JRA-20240901-NIIGATA-11",
+        "sourceRaceId": "202404030811",
+        "raceDate": "2024-09-01",
+        "raceName": "新潟記念",
+        "raceNumber": 11,
+        "racecourse": "新潟",
+        "surface": "turf",
+        "distance": 2000,
+        "courseLayout": "outer",
+        "fieldSize": 11,
+        "productionKnownHorseCount": 5,
+        "productionKnownHorseRate": 0.455
+      },
+      {
+        "selectionOrder": 9,
+        "raceId": "JRA-20250517-NIIGATA-11",
+        "sourceRaceId": "202504010511",
+        "raceDate": "2025-05-17",
+        "raceName": "新潟大賞典",
+        "raceNumber": 11,
+        "racecourse": "新潟",
+        "surface": "turf",
+        "distance": 2000,
+        "courseLayout": "outer",
+        "fieldSize": 16,
+        "productionKnownHorseCount": 13,
+        "productionKnownHorseRate": 0.813
+      },
+      {
+        "selectionOrder": 10,
+        "raceId": "JRA-20250831-NIIGATA-11",
+        "sourceRaceId": "202504030411",
+        "raceDate": "2025-08-31",
+        "raceName": "新潟記念",
+        "raceNumber": 11,
+        "racecourse": "新潟",
+        "surface": "turf",
+        "distance": 2000,
+        "courseLayout": "outer",
+        "fieldSize": 16,
+        "productionKnownHorseCount": 11,
+        "productionKnownHorseRate": 0.688
+      }
+    ]
+  },
+  "additionalRaces": {
+    "targetCount": 20,
+    "status": "EXTERNAL_DISCOVERY_REQUIRED",
+    "reason": "本ラウンド（CHECKPOINT14D.1F）はWeb検索・外部データ取得が明示的に禁止されており、Claude側は新潟芝2000m outer条件を満たす具体的な追加レース（10節に無いもの）の実在raceId/日付を検証可能な形で保持していない。架空raceIdの生成は絶対原則5（実データ以外を使わない）に反するため行わない。",
+    "races": [],
+    "selectionRuleForExternalExecution": {
+      "description": "ChatGPT側（外部レースデータベースへアクセス可能な側）がこの手順どおりに実行することを想定した、決定的・再現可能な選定アルゴリズム（CHECKPOINT14D.1E 3節で確定、今回は変更なし）。",
+      "mandatoryFilters": [
+        "racecourse = 新潟",
+        "surface = turf",
+        "distance = 2000",
+        "courseLayout = outer",
+        "raceDate < 2026-08-30",
+        "既存10レース（下記raceIdリスト）を除外",
+        "レースクラス（G1/G2/G3/Listed/OP/条件戦）による限定はしない"
+      ],
+      "excludeRaceIds": [
+        "JRA-20210509-NIIGATA-11",
+        "JRA-20210905-NIIGATA-11",
+        "JRA-20220508-NIIGATA-11",
+        "JRA-20220904-NIIGATA-11",
+        "JRA-20230507-NIIGATA-11",
+        "JRA-20230903-NIIGATA-11",
+        "JRA-20240505-NIIGATA-11",
+        "JRA-20240901-NIIGATA-11",
+        "JRA-20250517-NIIGATA-11",
+        "JRA-20250831-NIIGATA-11"
+      ],
+      "tieBreakRule": [
+        "1. 上記必須条件を満たす候補レースを全て列挙する",
+        "2. 各候補レースについて、docs/checkpoint14d1e-known-sourcehorseid-crossref.json（405件）と一致するsourceHorseIdを持つ出走馬の数を数える（productionKnownHorseCount）",
+        "3. productionKnownHorseCountが多い順にソートする",
+        "4. 同数の場合はraceDateが新しい順でタイブレークする",
+        "5. 上位20レースを選択する（20件に満たない場合は実際に収集できた件数をそのまま報告し、無理に20へ合わせない）"
+      ],
+      "prohibitedCriteria": [
+        "finishPosition・着順を選定基準に使わない",
+        "frame（枠番）の結果を選定基準に使わない",
+        "Gate Effectの見た目が良くなるようにレースを選ばない"
+      ]
+    }
+  },
+  "priorHistoryRequests": {
+    "categoryB": {
+      "count": 44,
+      "rowCount": 50,
+      "definition": "production data/horses/<horseId>.json は存在するが、target raceの日付より前の実データが1件も無い馬。対象馬の識別（horseId/horseName）は既に確定済みだが、target race以前の実際の出走歴はrepository側に一切情報が無い。",
+      "requiredPriorRaceCountPolicy": "最低1走（calculateAbilityBeforeRaceの入力条件、Ability Model V1凍結仕様）。最大5走（MAX_PRIOR_RACES_FOR_ABILITY、既存RECENT_RACE_COUNT仕様。新規magic numberではない）。",
+      "horses": [
+        {
+          "horseId": "2016100752",
+          "sourceHorseId": "2016100752",
+          "horseName": "マイネルウィルトス",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20230903-NIIGATA-11",
+              "raceDate": "2023-09-03",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20230903-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2023-09-03",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2023-09-03",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2016102175",
+          "sourceHorseId": "2016102175",
+          "horseName": "ダンディズム",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20240505-NIIGATA-11",
+              "raceDate": "2024-05-05",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20240505-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2024-05-05",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2024-05-05",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2016104624",
+          "sourceHorseId": "2016104624",
+          "horseName": "ハヤヤッコ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20230507-NIIGATA-11",
+              "raceDate": "2023-05-07",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20230507-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2023-05-07",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2023-05-07",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2016105681",
+          "sourceHorseId": "2016105681",
+          "horseName": "スカーフェイス",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20220904-NIIGATA-11",
+              "raceDate": "2022-09-04",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20220904-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2022-09-04",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2022-09-04",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2016106606",
+          "sourceHorseId": "2016106606",
+          "horseName": "カラテ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20220904-NIIGATA-11",
+              "raceDate": "2022-09-04",
+              "raceName": "新潟記念"
+            },
+            {
+              "raceId": "JRA-20230507-NIIGATA-11",
+              "raceDate": "2023-05-07",
+              "raceName": "新潟大賞典"
+            },
+            {
+              "raceId": "JRA-20240505-NIIGATA-11",
+              "raceDate": "2024-05-05",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20220904-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2022-09-04",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2022-09-04",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2017102537",
+          "sourceHorseId": "2017102537",
+          "horseName": "フォワードアゲン",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20220904-NIIGATA-11",
+              "raceDate": "2022-09-04",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20220904-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2022-09-04",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2022-09-04",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2017105194",
+          "sourceHorseId": "2017105194",
+          "horseName": "ラインベック",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20210905-NIIGATA-11",
+              "raceDate": "2021-09-05",
+              "raceName": "新潟記念"
+            },
+            {
+              "raceId": "JRA-20220508-NIIGATA-11",
+              "raceDate": "2022-05-08",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20210905-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2021-09-05",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2021-09-05",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2018104475",
+          "sourceHorseId": "2018104475",
+          "horseName": "ディープモンスター",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250831-NIIGATA-11",
+              "raceDate": "2025-08-31",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250831-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-08-31",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-08-31",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2018104708",
+          "sourceHorseId": "2018104708",
+          "horseName": "ロングラン",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20230507-NIIGATA-11",
+              "raceDate": "2023-05-07",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20230507-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2023-05-07",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2023-05-07",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2018104942",
+          "sourceHorseId": "2018104942",
+          "horseName": "シュヴァリエローズ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20220508-NIIGATA-11",
+              "raceDate": "2022-05-08",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20220508-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2022-05-08",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2022-05-08",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2018105343",
+          "sourceHorseId": "2018105343",
+          "horseName": "レッドジェネシス",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20220904-NIIGATA-11",
+              "raceDate": "2022-09-04",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20220904-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2022-09-04",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2022-09-04",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019100109",
+          "sourceHorseId": "2019100109",
+          "horseName": "プラダリア",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20230903-NIIGATA-11",
+              "raceDate": "2023-09-03",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20230903-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2023-09-03",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2023-09-03",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019100596",
+          "sourceHorseId": "2019100596",
+          "horseName": "ヤマニンサルバム",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20230507-NIIGATA-11",
+              "raceDate": "2023-05-07",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20230507-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2023-05-07",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2023-05-07",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019100792",
+          "sourceHorseId": "2019100792",
+          "horseName": "マイネルクリソーラ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20240505-NIIGATA-11",
+              "raceDate": "2024-05-05",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20240505-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2024-05-05",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2024-05-05",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019100965",
+          "sourceHorseId": "2019100965",
+          "horseName": "マテンロウオリオン",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250517-NIIGATA-11",
+              "raceDate": "2025-05-17",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250517-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-05-17",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-05-17",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019102632",
+          "sourceHorseId": "2019102632",
+          "horseName": "セイウンハーデス",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20230507-NIIGATA-11",
+              "raceDate": "2023-05-07",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20230507-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2023-05-07",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2023-05-07",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019104658",
+          "sourceHorseId": "2019104658",
+          "horseName": "ボーンディスウェイ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250517-NIIGATA-11",
+              "raceDate": "2025-05-17",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250517-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-05-17",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-05-17",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019104828",
+          "sourceHorseId": "2019104828",
+          "horseName": "キングズパレス",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20240505-NIIGATA-11",
+              "raceDate": "2024-05-05",
+              "raceName": "新潟大賞典"
+            },
+            {
+              "raceId": "JRA-20240901-NIIGATA-11",
+              "raceDate": "2024-09-01",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20240505-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2024-05-05",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2024-05-05",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019104838",
+          "sourceHorseId": "2019104838",
+          "horseName": "サイルーン",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250517-NIIGATA-11",
+              "raceDate": "2025-05-17",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250517-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-05-17",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-05-17",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019104850",
+          "sourceHorseId": "2019104850",
+          "horseName": "バレエマスター",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250831-NIIGATA-11",
+              "raceDate": "2025-08-31",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250831-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-08-31",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-08-31",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019104878",
+          "sourceHorseId": "2019104878",
+          "horseName": "デビットバローズ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20240505-NIIGATA-11",
+              "raceDate": "2024-05-05",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20240505-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2024-05-05",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2024-05-05",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019104998",
+          "sourceHorseId": "2019104998",
+          "horseName": "ショウナンマグマ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20230507-NIIGATA-11",
+              "raceDate": "2023-05-07",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20230507-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2023-05-07",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2023-05-07",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019105155",
+          "sourceHorseId": "2019105155",
+          "horseName": "キラーアビリティ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20230507-NIIGATA-11",
+              "raceDate": "2023-05-07",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20230507-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2023-05-07",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2023-05-07",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019105168",
+          "sourceHorseId": "2019105168",
+          "horseName": "セレシオン",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20240901-NIIGATA-11",
+              "raceDate": "2024-09-01",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20240901-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2024-09-01",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2024-09-01",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019105207",
+          "sourceHorseId": "2019105207",
+          "horseName": "サリエラ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20230903-NIIGATA-11",
+              "raceDate": "2023-09-03",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20230903-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2023-09-03",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2023-09-03",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019105239",
+          "sourceHorseId": "2019105239",
+          "horseName": "ショウナンアデイブ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250517-NIIGATA-11",
+              "raceDate": "2025-05-17",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250517-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-05-17",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-05-17",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019105366",
+          "sourceHorseId": "2019105366",
+          "horseName": "フェーングロッテン",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20220904-NIIGATA-11",
+              "raceDate": "2022-09-04",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20220904-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2022-09-04",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2022-09-04",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019105532",
+          "sourceHorseId": "2019105532",
+          "horseName": "エピファニー",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250517-NIIGATA-11",
+              "raceDate": "2025-05-17",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250517-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-05-17",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-05-17",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2019106698",
+          "sourceHorseId": "2019106698",
+          "horseName": "バラジ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20230903-NIIGATA-11",
+              "raceDate": "2023-09-03",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20230903-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2023-09-03",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2023-09-03",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2020101025",
+          "sourceHorseId": "2020101025",
+          "horseName": "アスクドゥポルテ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250831-NIIGATA-11",
+              "raceDate": "2025-08-31",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250831-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-08-31",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-08-31",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2020101608",
+          "sourceHorseId": "2020101608",
+          "horseName": "シンリョクカ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20240901-NIIGATA-11",
+              "raceDate": "2024-09-01",
+              "raceName": "新潟記念"
+            },
+            {
+              "raceId": "JRA-20250831-NIIGATA-11",
+              "raceDate": "2025-08-31",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20240901-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2024-09-01",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2024-09-01",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2020102078",
+          "sourceHorseId": "2020102078",
+          "horseName": "レーベンスティール",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20240505-NIIGATA-11",
+              "raceDate": "2024-05-05",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20240505-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2024-05-05",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2024-05-05",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2020103082",
+          "sourceHorseId": "2020103082",
+          "horseName": "カネフラ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250517-NIIGATA-11",
+              "raceDate": "2025-05-17",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250517-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-05-17",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-05-17",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2020103242",
+          "sourceHorseId": "2020103242",
+          "horseName": "ブレイディヴェーグ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250831-NIIGATA-11",
+              "raceDate": "2025-08-31",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250831-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-08-31",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-08-31",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2020103439",
+          "sourceHorseId": "2020103439",
+          "horseName": "サスツルギ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250831-NIIGATA-11",
+              "raceDate": "2025-08-31",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250831-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-08-31",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-08-31",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2020103472",
+          "sourceHorseId": "2020103472",
+          "horseName": "ノッキングポイント",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20230903-NIIGATA-11",
+              "raceDate": "2023-09-03",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20230903-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2023-09-03",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2023-09-03",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2020106234",
+          "sourceHorseId": "2020106234",
+          "horseName": "グランドカリナン",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250517-NIIGATA-11",
+              "raceDate": "2025-05-17",
+              "raceName": "新潟大賞典"
+            },
+            {
+              "raceId": "JRA-20250831-NIIGATA-11",
+              "raceDate": "2025-08-31",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250517-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-05-17",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-05-17",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2020109107",
+          "sourceHorseId": "2020109107",
+          "horseName": "シランケド",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250831-NIIGATA-11",
+              "raceDate": "2025-08-31",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250831-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-08-31",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-08-31",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2021102895",
+          "sourceHorseId": "2021102895",
+          "horseName": "ナムラエイハブ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250831-NIIGATA-11",
+              "raceDate": "2025-08-31",
+              "raceName": "新潟記念"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250831-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-08-31",
+          "earliestGateTargetRaceName": "新潟記念",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-08-31",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2021104094",
+          "sourceHorseId": "2021104094",
+          "horseName": "シリウスコルト",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250517-NIIGATA-11",
+              "raceDate": "2025-05-17",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250517-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-05-17",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-05-17",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2021104324",
+          "sourceHorseId": "2021104324",
+          "horseName": "ディマイザキッド",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250517-NIIGATA-11",
+              "raceDate": "2025-05-17",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250517-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-05-17",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-05-17",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2021104846",
+          "sourceHorseId": "2021104846",
+          "horseName": "オールナット",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250517-NIIGATA-11",
+              "raceDate": "2025-05-17",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250517-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-05-17",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-05-17",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2021105661",
+          "sourceHorseId": "2021105661",
+          "horseName": "レガーロデルシエロ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250517-NIIGATA-11",
+              "raceDate": "2025-05-17",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250517-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-05-17",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-05-17",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        },
+        {
+          "horseId": "2021106449",
+          "sourceHorseId": "2021106449",
+          "horseName": "サブマリーナ",
+          "existingProductionFile": true,
+          "gateTargetRaces": [
+            {
+              "raceId": "JRA-20250517-NIIGATA-11",
+              "raceDate": "2025-05-17",
+              "raceName": "新潟大賞典"
+            }
+          ],
+          "earliestGateTargetRaceId": "JRA-20250517-NIIGATA-11",
+          "earliestGateTargetRaceDate": "2025-05-17",
+          "earliestGateTargetRaceName": "新潟大賞典",
+          "priorHistoryBeforeEarliestTarget": 0,
+          "requiredPriorRaceCountMin": 1,
+          "requiredPriorRaceCountMax": 5,
+          "requiredPriorRaceBeforeDate": "2025-05-17",
+          "requiredPriorRaceId": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceDate": "EXTERNAL_DISCOVERY_REQUIRED",
+          "requiredPriorRaceName": "EXTERNAL_DISCOVERY_REQUIRED",
+          "collectionStatus": "EXTERNAL_DISCOVERY_REQUIRED"
+        }
+      ]
+    },
+    "categoryA": {
+      "count": 78,
+      "rowCount": 93,
+      "definition": "production data/horses/<horseId>.jsonが一切存在しない馬（identity自体が未確定）。",
+      "handlingPolicyThisRound": "DEFERRED",
+      "handlingPolicyRationale": "「最小コストでAbility Control Coverageを高める」原則（CHECKPOINT14D.1E）に従い、既にhorseId/horseNameが確定済みのB分類44頭のprior history収集を優先する。A分類78頭はhorseId自体の新規確立（identity resolution）が必要でありB分類より収集コストが高いため、本V2ラウンドでは対象外とし、B分類の収集結果を見た上で将来ラウンドで扱うかどうかを別途判断することを推奨する。結果を見てから対象を選ぶという意味ではなく、識別コストの構造的な違いに基づく優先順位付けである。"
+    }
+  },
+  "packageContract": {
+    "zipName": "niigata_turf2000_gate_history_v2_30r.zip",
+    "files": [
+      {
+        "name": "race_gate_history.csv",
+        "required": true,
+        "purpose": "Gate Race runner-levelデータ（既存10レース＋追加レース、24列契約）"
+      },
+      {
+        "name": "runner_prior_history.csv",
+        "required": "optional（推奨）",
+        "purpose": "Category-B/A対象馬のtarget race以前の実績データ（21列契約）"
+      },
+      {
+        "name": "PACKAGE_MANIFEST.json",
+        "required": true,
+        "purpose": "レース件数・行数・selection rule適用結果の集計値"
+      },
+      {
+        "name": "SOURCE_MANIFEST.csv",
+        "required": true,
+        "purpose": "各raceIdの出典URL一覧"
+      },
+      {
+        "name": "README.md",
+        "required": true,
+        "purpose": "収録内容・既知の欠損・Selection Rule適用結果の説明"
+      },
+      {
+        "name": "CHECKSUMS.sha256",
+        "required": true,
+        "purpose": "全ファイルのchecksum"
+      }
+    ],
+    "raceGateHistoryCsvHeader": "raceId,raceDate,racecourse,raceNumber,raceName,surface,distance,going,courseLayout,courseVariant,horseId,horseName,horseNumber,gate,finishPosition,carriedWeightKg,actualRaceTimeSeconds,final3FSeconds,timeGapSeconds,fieldSize,passingPosition,source,sourceRaceId,sourceHorseId",
+    "runnerPriorHistoryCsvHeader": "raceId,raceDate,racecourse,raceNumber,raceName,surface,distance,going,horseId,horseName,horseNumber,gate,finishPosition,carriedWeightKg,actualRaceTimeSeconds,final3FSeconds,timeGapSeconds,fieldSize,passingPosition,source,sourceRaceId,sourceHorseId"
+  },
+  "futureLeakageRules": [
+    "Gate Race自体: raceDate < 2026-08-30（CURRENT TARGET基準）",
+    "Prior History行: priorRaceDate < 対象Gate Raceの個別raceDate（2026-08-30固定ではなく、行ごとに個別判定）"
+  ],
+  "dedupRules": [
+    "(horseId, raceId) の組み合わせで重複禁止（既存niigataGateHistoryV1.tsのテストと同一契約）",
+    "既存10レースのraceIdと新規追加レースのraceIdは重複禁止"
+  ],
+  "expectedAbilityCoverage": {
+    "lowerBound": "10/153（6.5%、既存分。変更しない限り維持される）",
+    "ifAllCategoryBCollected": "最大60/153（39.2%）— 既存10（controlled）+ 44頭分の新規controlled行。ただし対象馬が複数gate target raceを持つ場合は複数行がcontrolledになるため、実際の増分行数は44〜50の範囲。",
+    "additionalRacesPortion": "unknown — 追加20レースの出走馬構成が未確定のため、Claude側からは事前に算出できない。"
+  },
+  "regressionAtManifestTime": {
+    "frozenBenchmark": 70.3,
+    "baseAbilityV1": "不変",
+    "suitabilityV1": "不変",
+    "provisionalStageA": "不変",
+    "gate10RaceDataset": "不変（niigataTurf2000GateHistoryV1.json未変更）",
+    "gateEffectVerdict": "INSUFFICIENT（CHECKPOINT14D.1C、維持）"
+  }
+}

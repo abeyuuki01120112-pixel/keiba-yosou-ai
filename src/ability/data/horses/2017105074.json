@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20241103-TOKYO-11",
+    "raceName": "アルゼンチン共和国杯",
+    "raceDate": "2024-11-03",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 2500,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 2,
+    "timeGap": 0.1,
+    "raceTime": 149.1,
+    "final3F": 35.3,
+    "carriedWeight": 58,
+    "gate": 2,
+    "horseNumber": 4,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202405050211",
+    "sourceHorseId": "2017105074",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

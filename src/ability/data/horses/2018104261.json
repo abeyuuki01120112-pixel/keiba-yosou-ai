@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20240714-HAKODATE-11",
+    "raceName": "函館記念",
+    "raceDate": "2024-07-14",
+    "racecourse": "函館",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 5,
+    "timeGap": 0.9,
+    "raceTime": 120.1,
+    "final3F": 35.3,
+    "carriedWeight": 55,
+    "gate": 4,
+    "horseNumber": 8,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202402011211",
+    "sourceHorseId": "2018104261",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

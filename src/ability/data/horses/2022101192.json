@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20260808-NIIGATA-07",
+    "raceName": "関越ステークス",
+    "raceDate": "2026-08-08",
+    "racecourse": "新潟",
+    "surface": "turf",
+    "distance": 1800,
+    "going": "良",
+    "raceNumber": 7,
+    "finishPosition": 1,
+    "timeGap": 0,
+    "raceTime": 105,
+    "final3F": 32.1,
+    "carriedWeight": 54,
+    "gate": 2,
+    "horseNumber": 4,
+    "fieldSize": null,
+    "source": "JRA_official_results",
+    "sourceRaceId": "202604020507",
+    "sourceHorseId": null,
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

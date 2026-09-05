@@ -1,0 +1,181 @@
+.prediction-dashboard {
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 16px 24px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.dashboard-table th:nth-child(2),
+.dashboard-table td:nth-child(2),
+.race-name-cell,
+.horse-name-cell {
+  text-align: left;
+}
+
+.dashboard-table th {
+  background: var(--code-bg);
+  color: var(--text-h);
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+}
+
+.race-row,
+.horse-row {
+  cursor: pointer;
+}
+
+.race-row:hover,
+.horse-row:hover {
+  background: var(--accent-bg);
+}
+
+.horse-row-winner {
+  font-weight: 700;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.badge-ok {
+  background: var(--accent-bg);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.badge-none {
+  background: var(--code-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.back-button {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  color: var(--text-h);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.race-meta {
+  font-size: 12px;
+  color: var(--text);
+  margin-bottom: 12px;
+  word-break: break-all;
+}
+
+.empty-state {
+  color: var(--text);
+  font-size: 13px;
+  padding: 16px 0;
+}
+
+.horse-detail-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(480px, 100vw);
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--bg);
+  border-left: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  box-sizing: border-box;
+  z-index: 50;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.drawer-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--text-h);
+}
+
+.drawer-close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.drawer-section {
+  margin-bottom: 20px;
+}
+
+.drawer-section h4 {
+  font-size: 13px;
+  color: var(--text-h);
+  margin: 0 0 8px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 4px;
+}
+
+.ability-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.ability-summary-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--code-bg);
+  border-radius: 6px;
+  padding: 8px;
+}
+
+.ability-summary-grid .label {
+  font-size: 11px;
+  color: var(--text);
+}
+
+.ability-summary-grid .value {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.warning-list {
+  font-size: 12px;
+  color: var(--text);
+  padding-left: 16px;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .horse-detail-drawer {
+    width: 100vw;
+  }
+}

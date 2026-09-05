@@ -1,0 +1,91 @@
+[
+  {
+    "raceId": "JRA-20251129-TOKYO-11",
+    "raceName": "キャピタルステークス",
+    "raceDate": "2025-11-29",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 12,
+    "timeGap": 0.8,
+    "raceTime": 92.7,
+    "final3F": 34.4,
+    "carriedWeight": 57,
+    "gate": 6,
+    "horseNumber": 11,
+    "fieldSize": 18,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202505050711",
+    "sourceHorseId": "2020106234",
+    "dataKind": "real",
+    "importedAt": "2026-08-27T05:33:40.754Z",
+    "passingPosition": {
+      "cornerPositions": [
+        8,
+        8
+      ],
+      "fieldSize": 18,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
+  },
+  {
+    "raceId": "JRA-20260411-HANSHIN-10",
+    "raceName": "大阪―ハンブルクカップ",
+    "raceDate": "2026-04-11",
+    "racecourse": "阪神",
+    "surface": "turf",
+    "distance": 2600,
+    "going": "良",
+    "raceNumber": 10,
+    "finishPosition": 5,
+    "timeGap": 0.8,
+    "raceTime": 157.7,
+    "final3F": 34.5,
+    "carriedWeight": 54,
+    "gate": 7,
+    "horseNumber": 11,
+    "fieldSize": 13,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202609020510",
+    "sourceHorseId": "2020106234",
+    "dataKind": "real",
+    "importedAt": "2026-08-27T05:33:40.754Z",
+    "passingPosition": {
+      "cornerPositions": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "fieldSize": 13,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
+  },
+  {
+    "raceId": "JRA-20260516-NIIGATA-11",
+    "raceName": "新潟大賞典",
+    "raceDate": "2026-05-16",
+    "racecourse": "新潟",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 9,
+    "timeGap": 0.7,
+    "raceTime": 119.6,
+    "final3F": 34,
+    "carriedWeight": 54,
+    "gate": 3,
+    "horseNumber": 5,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202604010511",
+    "sourceHorseId": "2020106234",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

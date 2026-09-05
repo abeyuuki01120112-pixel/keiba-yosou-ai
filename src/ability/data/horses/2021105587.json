@@ -1,0 +1,16 @@
+[
+  {
+    "raceId": "JRA-20260614-HANSHIN-11",
+    "raceName": "宝塚記念",
+    "raceDate": "2026-06-14",
+    "racecourse": "阪神",
+    "surface": "turf",
+    "distance": 2200,
+    "going": "重",
+    "finishPosition": 15,
+    "timeGap": 3,
+    "raceTime": 135.1,
+    "final3F": 37.1,
+    "carriedWeight": 58
+  }
+]

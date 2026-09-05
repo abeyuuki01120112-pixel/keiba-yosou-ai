@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20251124-TOKYO-11",
+    "raceName": "東京スポーツ杯2歳ステークス",
+    "raceDate": "2025-11-24",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 1800,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 12,
+    "timeGap": 2.7,
+    "raceTime": 108.7,
+    "final3F": 34.8,
+    "carriedWeight": 56,
+    "gate": 8,
+    "horseNumber": 11,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202505050611",
+    "sourceHorseId": "2023100772",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

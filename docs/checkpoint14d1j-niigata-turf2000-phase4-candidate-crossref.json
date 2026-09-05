@@ -1,0 +1,813 @@
+{
+  "manifestId": "NIIGATA_TURF_2000_GATE_PHASE4_CANDIDATE_CROSSREF",
+  "checkpoint": "CHECKPOINT14D.1J",
+  "generatedAt": "2026-08-29",
+  "sourceManifest": "niigata_turf2000_candidate_rosters_phase4_2022.json",
+  "attachmentIntegrity": {
+    "candidateRaceCount": {
+      "expected": 8,
+      "actual": 8,
+      "match": true
+    },
+    "runnerRowCount": {
+      "expected": 96,
+      "actual": 96,
+      "match": true
+    },
+    "combinedCandidateCountAfterThisPhase": {
+      "expected": 24,
+      "actual": 24,
+      "match": true
+    },
+    "jsonCsvDiff": "none（96行、sourceRaceId/raceId/raceDate/raceName/horseName/sourceHorseId完全一致）",
+    "perRaceFieldSizeCheck": [
+      {
+        "raceId": "JRA-20220514-NIIGATA-09",
+        "fieldSize": 8,
+        "runnerCount": 8,
+        "declaredFieldSize": null,
+        "excludedRunnerCount": 0,
+        "match": true
+      },
+      {
+        "raceId": "JRA-20220529-NIIGATA-09",
+        "fieldSize": 13,
+        "runnerCount": 13,
+        "declaredFieldSize": null,
+        "excludedRunnerCount": 0,
+        "match": true
+      },
+      {
+        "raceId": "JRA-20220807-NIIGATA-10",
+        "fieldSize": 9,
+        "runnerCount": 9,
+        "declaredFieldSize": null,
+        "excludedRunnerCount": 0,
+        "match": true
+      },
+      {
+        "raceId": "JRA-20220813-NIIGATA-09",
+        "fieldSize": 13,
+        "runnerCount": 13,
+        "declaredFieldSize": null,
+        "excludedRunnerCount": 0,
+        "match": true
+      },
+      {
+        "raceId": "JRA-20220903-NIIGATA-10",
+        "fieldSize": 13,
+        "runnerCount": 13,
+        "declaredFieldSize": null,
+        "excludedRunnerCount": 0,
+        "match": true
+      },
+      {
+        "raceId": "JRA-20221015-NIIGATA-07",
+        "fieldSize": 14,
+        "runnerCount": 14,
+        "declaredFieldSize": null,
+        "excludedRunnerCount": 0,
+        "match": true
+      },
+      {
+        "raceId": "JRA-20221015-NIIGATA-09",
+        "fieldSize": 13,
+        "runnerCount": 13,
+        "declaredFieldSize": null,
+        "excludedRunnerCount": 0,
+        "match": true
+      },
+      {
+        "raceId": "JRA-20221029-NIIGATA-11",
+        "fieldSize": 13,
+        "runnerCount": 13,
+        "declaredFieldSize": 14,
+        "excludedRunnerCount": 1,
+        "match": true
+      }
+    ],
+    "actualStarterVerification": {
+      "raceId": "JRA-20221029-NIIGATA-11",
+      "raceName": "魚沼ステークス",
+      "declaredFieldSize": 14,
+      "actualFieldSize": 13,
+      "excludedHorse": {
+        "horseName": "ドンアルゴス",
+        "sourceHorseId": "2015100533",
+        "status": "excluded_before_start"
+      },
+      "note": "CSVにもドンアルゴスの行は存在せず、fieldSize=13・runner rows=13で一致。productionKnownHorseCountには含めていない。"
+    }
+  },
+  "phase4CandidateRaceBoard": [
+    {
+      "rank": 1,
+      "raceId": "JRA-20220903-NIIGATA-10",
+      "sourceRaceId": "202204030710",
+      "raceDate": "2022-09-03",
+      "raceName": "赤倉特別",
+      "fieldSize": 13,
+      "productionKnownHorseCount": 1,
+      "productionUnknownHorseCount": 12,
+      "productionKnownHorseRate": 0.077
+    },
+    {
+      "rank": 2,
+      "raceId": "JRA-20220813-NIIGATA-09",
+      "sourceRaceId": "202204030109",
+      "raceDate": "2022-08-13",
+      "raceName": "湯沢特別",
+      "fieldSize": 13,
+      "productionKnownHorseCount": 1,
+      "productionUnknownHorseCount": 12,
+      "productionKnownHorseRate": 0.077
+    },
+    {
+      "rank": 3,
+      "raceId": "JRA-20220807-NIIGATA-10",
+      "sourceRaceId": "202204020410",
+      "raceDate": "2022-08-07",
+      "raceName": "月岡温泉特別",
+      "fieldSize": 9,
+      "productionKnownHorseCount": 1,
+      "productionUnknownHorseCount": 8,
+      "productionKnownHorseRate": 0.111
+    },
+    {
+      "rank": 4,
+      "raceId": "JRA-20221029-NIIGATA-11",
+      "sourceRaceId": "202204040511",
+      "raceDate": "2022-10-29",
+      "raceName": "魚沼ステークス",
+      "fieldSize": 13,
+      "productionKnownHorseCount": 0,
+      "productionUnknownHorseCount": 13,
+      "productionKnownHorseRate": 0
+    },
+    {
+      "rank": 5,
+      "raceId": "JRA-20221015-NIIGATA-07",
+      "sourceRaceId": "202204040107",
+      "raceDate": "2022-10-15",
+      "raceName": "3歳以上1勝クラス",
+      "fieldSize": 14,
+      "productionKnownHorseCount": 0,
+      "productionUnknownHorseCount": 14,
+      "productionKnownHorseRate": 0
+    },
+    {
+      "rank": 6,
+      "raceId": "JRA-20221015-NIIGATA-09",
+      "sourceRaceId": "202204040109",
+      "raceDate": "2022-10-15",
+      "raceName": "松浜特別",
+      "fieldSize": 13,
+      "productionKnownHorseCount": 0,
+      "productionUnknownHorseCount": 13,
+      "productionKnownHorseRate": 0
+    },
+    {
+      "rank": 7,
+      "raceId": "JRA-20220529-NIIGATA-09",
+      "sourceRaceId": "202204010809",
+      "raceDate": "2022-05-29",
+      "raceName": "石打特別",
+      "fieldSize": 13,
+      "productionKnownHorseCount": 0,
+      "productionUnknownHorseCount": 13,
+      "productionKnownHorseRate": 0
+    },
+    {
+      "rank": 8,
+      "raceId": "JRA-20220514-NIIGATA-09",
+      "sourceRaceId": "202204010309",
+      "raceDate": "2022-05-14",
+      "raceName": "尖閣湾特別",
+      "fieldSize": 8,
+      "productionKnownHorseCount": 0,
+      "productionUnknownHorseCount": 8,
+      "productionKnownHorseRate": 0
+    }
+  ],
+  "categoryBOverlap": {
+    "categoryBTotal": 44,
+    "overlapCount": 0,
+    "overlaps": [],
+    "note": "Phase4の96頭中、Category B（44頭）との重複は0件。"
+  },
+  "existingV1RaceOverlap": {
+    "raceIdOverlap": [],
+    "note": "既存10レース（2022新潟大賞典・新潟記念含む）とのraceId重複なし。"
+  },
+  "officialSelectionRule": {
+    "rule": "productionKnownHorseCount desc → raceDate desc → raceNumber asc",
+    "note": "今回も新しいthreshold・weight・tie-breakは発明していない。"
+  },
+  "combinedCandidateBoard": {
+    "totalCandidateRaceCount": 24,
+    "races": [
+      {
+        "phase": 1,
+        "sourceRaceId": "202604010511",
+        "raceId": "JRA-20260516-NIIGATA-11",
+        "raceDate": "2026-05-16",
+        "raceName": "新潟大賞典",
+        "raceNumber": 11,
+        "fieldSize": 15,
+        "knownCount": 13,
+        "unknownCount": 2,
+        "knownRate": 0.867
+      },
+      {
+        "phase": 2,
+        "sourceRaceId": "202404010511",
+        "raceId": "JRA-20240511-NIIGATA-11",
+        "raceDate": "2024-05-11",
+        "raceName": "信濃川特別",
+        "raceNumber": 11,
+        "fieldSize": 11,
+        "knownCount": 2,
+        "unknownCount": 9,
+        "knownRate": 0.182
+      },
+      {
+        "phase": 3,
+        "sourceRaceId": "202304030710",
+        "raceId": "JRA-20230902-NIIGATA-10",
+        "raceDate": "2023-09-02",
+        "raceName": "赤倉特別",
+        "raceNumber": 10,
+        "fieldSize": 9,
+        "knownCount": 2,
+        "unknownCount": 7,
+        "knownRate": 0.222
+      },
+      {
+        "phase": 3,
+        "sourceRaceId": "202304020309",
+        "raceId": "JRA-20230805-NIIGATA-09",
+        "raceDate": "2023-08-05",
+        "raceName": "月岡温泉特別",
+        "raceNumber": 9,
+        "fieldSize": 13,
+        "knownCount": 2,
+        "unknownCount": 11,
+        "knownRate": 0.154
+      },
+      {
+        "phase": 2,
+        "sourceRaceId": "202504010610",
+        "raceId": "JRA-20250518-NIIGATA-10",
+        "raceDate": "2025-05-18",
+        "raceName": "信濃川特別",
+        "raceNumber": 10,
+        "fieldSize": 10,
+        "knownCount": 1,
+        "unknownCount": 9,
+        "knownRate": 0.1
+      },
+      {
+        "phase": 2,
+        "sourceRaceId": "202404030710",
+        "raceId": "JRA-20240831-NIIGATA-10",
+        "raceDate": "2024-08-31",
+        "raceName": "赤倉特別",
+        "raceNumber": 10,
+        "fieldSize": 12,
+        "knownCount": 1,
+        "unknownCount": 11,
+        "knownRate": 0.083
+      },
+      {
+        "phase": 2,
+        "sourceRaceId": "202404020311",
+        "raceId": "JRA-20240803-NIIGATA-11",
+        "raceDate": "2024-08-03",
+        "raceName": "月岡温泉特別",
+        "raceNumber": 11,
+        "fieldSize": 8,
+        "knownCount": 1,
+        "unknownCount": 7,
+        "knownRate": 0.125
+      },
+      {
+        "phase": 4,
+        "sourceRaceId": "202204030710",
+        "raceId": "JRA-20220903-NIIGATA-10",
+        "raceDate": "2022-09-03",
+        "raceName": "赤倉特別",
+        "raceNumber": 10,
+        "fieldSize": 13,
+        "knownCount": 1,
+        "unknownCount": 12,
+        "knownRate": 0.077
+      },
+      {
+        "phase": 4,
+        "sourceRaceId": "202204030109",
+        "raceId": "JRA-20220813-NIIGATA-09",
+        "raceDate": "2022-08-13",
+        "raceName": "湯沢特別",
+        "raceNumber": 9,
+        "fieldSize": 13,
+        "knownCount": 1,
+        "unknownCount": 12,
+        "knownRate": 0.077
+      },
+      {
+        "phase": 4,
+        "sourceRaceId": "202204020410",
+        "raceId": "JRA-20220807-NIIGATA-10",
+        "raceDate": "2022-08-07",
+        "raceName": "月岡温泉特別",
+        "raceNumber": 10,
+        "fieldSize": 9,
+        "knownCount": 1,
+        "unknownCount": 8,
+        "knownRate": 0.111
+      },
+      {
+        "phase": 1,
+        "sourceRaceId": "202604030210",
+        "raceId": "JRA-20260823-NIIGATA-10",
+        "raceDate": "2026-08-23",
+        "raceName": "3歳以上1勝クラス",
+        "raceNumber": 10,
+        "fieldSize": 12,
+        "knownCount": 0,
+        "unknownCount": 12,
+        "knownRate": 0
+      },
+      {
+        "phase": 1,
+        "sourceRaceId": "202604020610",
+        "raceId": "JRA-20260809-NIIGATA-10",
+        "raceDate": "2026-08-09",
+        "raceName": "3歳以上1勝クラス",
+        "raceNumber": 10,
+        "fieldSize": 7,
+        "knownCount": 0,
+        "unknownCount": 7,
+        "knownRate": 0
+      },
+      {
+        "phase": 1,
+        "sourceRaceId": "202604010710",
+        "raceId": "JRA-20260523-NIIGATA-10",
+        "raceDate": "2026-05-23",
+        "raceName": "尖閣湾特別",
+        "raceNumber": 10,
+        "fieldSize": 15,
+        "knownCount": 0,
+        "unknownCount": 15,
+        "knownRate": 0
+      },
+      {
+        "phase": 1,
+        "sourceRaceId": "202604010607",
+        "raceId": "JRA-20260517-NIIGATA-07",
+        "raceDate": "2026-05-17",
+        "raceName": "4歳以上1勝クラス",
+        "raceNumber": 7,
+        "fieldSize": 13,
+        "knownCount": 0,
+        "unknownCount": 13,
+        "knownRate": 0
+      },
+      {
+        "phase": 1,
+        "sourceRaceId": "202604010610",
+        "raceId": "JRA-20260517-NIIGATA-10",
+        "raceDate": "2026-05-17",
+        "raceName": "信濃川特別",
+        "raceNumber": 10,
+        "fieldSize": 16,
+        "knownCount": 0,
+        "unknownCount": 16,
+        "knownRate": 0
+      },
+      {
+        "phase": 2,
+        "sourceRaceId": "202504020406",
+        "raceId": "JRA-20250803-NIIGATA-06",
+        "raceDate": "2025-08-03",
+        "raceName": "月岡温泉特別",
+        "raceNumber": 6,
+        "fieldSize": 5,
+        "knownCount": 0,
+        "unknownCount": 5,
+        "knownRate": 0
+      },
+      {
+        "phase": 3,
+        "sourceRaceId": "202304040107",
+        "raceId": "JRA-20231014-NIIGATA-07",
+        "raceDate": "2023-10-14",
+        "raceName": "3歳以上1勝クラス",
+        "raceNumber": 7,
+        "fieldSize": 16,
+        "knownCount": 0,
+        "unknownCount": 16,
+        "knownRate": 0
+      },
+      {
+        "phase": 3,
+        "sourceRaceId": "202304040110",
+        "raceId": "JRA-20231014-NIIGATA-10",
+        "raceDate": "2023-10-14",
+        "raceName": "松浜特別",
+        "raceNumber": 10,
+        "fieldSize": 15,
+        "knownCount": 0,
+        "unknownCount": 15,
+        "knownRate": 0
+      },
+      {
+        "phase": 3,
+        "sourceRaceId": "202304010511",
+        "raceId": "JRA-20230513-NIIGATA-11",
+        "raceDate": "2023-05-13",
+        "raceName": "信濃川特別",
+        "raceNumber": 11,
+        "fieldSize": 11,
+        "knownCount": 0,
+        "unknownCount": 11,
+        "knownRate": 0
+      },
+      {
+        "phase": 4,
+        "sourceRaceId": "202204040511",
+        "raceId": "JRA-20221029-NIIGATA-11",
+        "raceDate": "2022-10-29",
+        "raceName": "魚沼ステークス",
+        "raceNumber": 11,
+        "fieldSize": 13,
+        "knownCount": 0,
+        "unknownCount": 13,
+        "knownRate": 0
+      },
+      {
+        "phase": 4,
+        "sourceRaceId": "202204040107",
+        "raceId": "JRA-20221015-NIIGATA-07",
+        "raceDate": "2022-10-15",
+        "raceName": "3歳以上1勝クラス",
+        "raceNumber": 7,
+        "fieldSize": 14,
+        "knownCount": 0,
+        "unknownCount": 14,
+        "knownRate": 0
+      },
+      {
+        "phase": 4,
+        "sourceRaceId": "202204040109",
+        "raceId": "JRA-20221015-NIIGATA-09",
+        "raceDate": "2022-10-15",
+        "raceName": "松浜特別",
+        "raceNumber": 9,
+        "fieldSize": 13,
+        "knownCount": 0,
+        "unknownCount": 13,
+        "knownRate": 0
+      },
+      {
+        "phase": 4,
+        "sourceRaceId": "202204010809",
+        "raceId": "JRA-20220529-NIIGATA-09",
+        "raceDate": "2022-05-29",
+        "raceName": "石打特別",
+        "raceNumber": 9,
+        "fieldSize": 13,
+        "knownCount": 0,
+        "unknownCount": 13,
+        "knownRate": 0
+      },
+      {
+        "phase": 4,
+        "sourceRaceId": "202204010309",
+        "raceId": "JRA-20220514-NIIGATA-09",
+        "raceDate": "2022-05-14",
+        "raceName": "尖閣湾特別",
+        "raceNumber": 9,
+        "fieldSize": 8,
+        "knownCount": 0,
+        "unknownCount": 8,
+        "knownRate": 0
+      }
+    ]
+  },
+  "selectionPreview": {
+    "isFormalFreeze": false,
+    "note": "正式Freezeではなく、既存正式Selection Ruleを24候補へ機械的に適用した場合のDiagnostic表示。",
+    "top20": [
+      {
+        "phase": 1,
+        "sourceRaceId": "202604010511",
+        "raceId": "JRA-20260516-NIIGATA-11",
+        "raceDate": "2026-05-16",
+        "raceName": "新潟大賞典",
+        "raceNumber": 11,
+        "fieldSize": 15,
+        "knownCount": 13,
+        "unknownCount": 2,
+        "knownRate": 0.867
+      },
+      {
+        "phase": 2,
+        "sourceRaceId": "202404010511",
+        "raceId": "JRA-20240511-NIIGATA-11",
+        "raceDate": "2024-05-11",
+        "raceName": "信濃川特別",
+        "raceNumber": 11,
+        "fieldSize": 11,
+        "knownCount": 2,
+        "unknownCount": 9,
+        "knownRate": 0.182
+      },
+      {
+        "phase": 3,
+        "sourceRaceId": "202304030710",
+        "raceId": "JRA-20230902-NIIGATA-10",
+        "raceDate": "2023-09-02",
+        "raceName": "赤倉特別",
+        "raceNumber": 10,
+        "fieldSize": 9,
+        "knownCount": 2,
+        "unknownCount": 7,
+        "knownRate": 0.222
+      },
+      {
+        "phase": 3,
+        "sourceRaceId": "202304020309",
+        "raceId": "JRA-20230805-NIIGATA-09",
+        "raceDate": "2023-08-05",
+        "raceName": "月岡温泉特別",
+        "raceNumber": 9,
+        "fieldSize": 13,
+        "knownCount": 2,
+        "unknownCount": 11,
+        "knownRate": 0.154
+      },
+      {
+        "phase": 2,
+        "sourceRaceId": "202504010610",
+        "raceId": "JRA-20250518-NIIGATA-10",
+        "raceDate": "2025-05-18",
+        "raceName": "信濃川特別",
+        "raceNumber": 10,
+        "fieldSize": 10,
+        "knownCount": 1,
+        "unknownCount": 9,
+        "knownRate": 0.1
+      },
+      {
+        "phase": 2,
+        "sourceRaceId": "202404030710",
+        "raceId": "JRA-20240831-NIIGATA-10",
+        "raceDate": "2024-08-31",
+        "raceName": "赤倉特別",
+        "raceNumber": 10,
+        "fieldSize": 12,
+        "knownCount": 1,
+        "unknownCount": 11,
+        "knownRate": 0.083
+      },
+      {
+        "phase": 2,
+        "sourceRaceId": "202404020311",
+        "raceId": "JRA-20240803-NIIGATA-11",
+        "raceDate": "2024-08-03",
+        "raceName": "月岡温泉特別",
+        "raceNumber": 11,
+        "fieldSize": 8,
+        "knownCount": 1,
+        "unknownCount": 7,
+        "knownRate": 0.125
+      },
+      {
+        "phase": 4,
+        "sourceRaceId": "202204030710",
+        "raceId": "JRA-20220903-NIIGATA-10",
+        "raceDate": "2022-09-03",
+        "raceName": "赤倉特別",
+        "raceNumber": 10,
+        "fieldSize": 13,
+        "knownCount": 1,
+        "unknownCount": 12,
+        "knownRate": 0.077
+      },
+      {
+        "phase": 4,
+        "sourceRaceId": "202204030109",
+        "raceId": "JRA-20220813-NIIGATA-09",
+        "raceDate": "2022-08-13",
+        "raceName": "湯沢特別",
+        "raceNumber": 9,
+        "fieldSize": 13,
+        "knownCount": 1,
+        "unknownCount": 12,
+        "knownRate": 0.077
+      },
+      {
+        "phase": 4,
+        "sourceRaceId": "202204020410",
+        "raceId": "JRA-20220807-NIIGATA-10",
+        "raceDate": "2022-08-07",
+        "raceName": "月岡温泉特別",
+        "raceNumber": 10,
+        "fieldSize": 9,
+        "knownCount": 1,
+        "unknownCount": 8,
+        "knownRate": 0.111
+      },
+      {
+        "phase": 1,
+        "sourceRaceId": "202604030210",
+        "raceId": "JRA-20260823-NIIGATA-10",
+        "raceDate": "2026-08-23",
+        "raceName": "3歳以上1勝クラス",
+        "raceNumber": 10,
+        "fieldSize": 12,
+        "knownCount": 0,
+        "unknownCount": 12,
+        "knownRate": 0
+      },
+      {
+        "phase": 1,
+        "sourceRaceId": "202604020610",
+        "raceId": "JRA-20260809-NIIGATA-10",
+        "raceDate": "2026-08-09",
+        "raceName": "3歳以上1勝クラス",
+        "raceNumber": 10,
+        "fieldSize": 7,
+        "knownCount": 0,
+        "unknownCount": 7,
+        "knownRate": 0
+      },
+      {
+        "phase": 1,
+        "sourceRaceId": "202604010710",
+        "raceId": "JRA-20260523-NIIGATA-10",
+        "raceDate": "2026-05-23",
+        "raceName": "尖閣湾特別",
+        "raceNumber": 10,
+        "fieldSize": 15,
+        "knownCount": 0,
+        "unknownCount": 15,
+        "knownRate": 0
+      },
+      {
+        "phase": 1,
+        "sourceRaceId": "202604010607",
+        "raceId": "JRA-20260517-NIIGATA-07",
+        "raceDate": "2026-05-17",
+        "raceName": "4歳以上1勝クラス",
+        "raceNumber": 7,
+        "fieldSize": 13,
+        "knownCount": 0,
+        "unknownCount": 13,
+        "knownRate": 0
+      },
+      {
+        "phase": 1,
+        "sourceRaceId": "202604010610",
+        "raceId": "JRA-20260517-NIIGATA-10",
+        "raceDate": "2026-05-17",
+        "raceName": "信濃川特別",
+        "raceNumber": 10,
+        "fieldSize": 16,
+        "knownCount": 0,
+        "unknownCount": 16,
+        "knownRate": 0
+      },
+      {
+        "phase": 2,
+        "sourceRaceId": "202504020406",
+        "raceId": "JRA-20250803-NIIGATA-06",
+        "raceDate": "2025-08-03",
+        "raceName": "月岡温泉特別",
+        "raceNumber": 6,
+        "fieldSize": 5,
+        "knownCount": 0,
+        "unknownCount": 5,
+        "knownRate": 0
+      },
+      {
+        "phase": 3,
+        "sourceRaceId": "202304040107",
+        "raceId": "JRA-20231014-NIIGATA-07",
+        "raceDate": "2023-10-14",
+        "raceName": "3歳以上1勝クラス",
+        "raceNumber": 7,
+        "fieldSize": 16,
+        "knownCount": 0,
+        "unknownCount": 16,
+        "knownRate": 0
+      },
+      {
+        "phase": 3,
+        "sourceRaceId": "202304040110",
+        "raceId": "JRA-20231014-NIIGATA-10",
+        "raceDate": "2023-10-14",
+        "raceName": "松浜特別",
+        "raceNumber": 10,
+        "fieldSize": 15,
+        "knownCount": 0,
+        "unknownCount": 15,
+        "knownRate": 0
+      },
+      {
+        "phase": 3,
+        "sourceRaceId": "202304010511",
+        "raceId": "JRA-20230513-NIIGATA-11",
+        "raceDate": "2023-05-13",
+        "raceName": "信濃川特別",
+        "raceNumber": 11,
+        "fieldSize": 11,
+        "knownCount": 0,
+        "unknownCount": 11,
+        "knownRate": 0
+      },
+      {
+        "phase": 4,
+        "sourceRaceId": "202204040511",
+        "raceId": "JRA-20221029-NIIGATA-11",
+        "raceDate": "2022-10-29",
+        "raceName": "魚沼ステークス",
+        "raceNumber": 11,
+        "fieldSize": 13,
+        "knownCount": 0,
+        "unknownCount": 13,
+        "knownRate": 0
+      }
+    ],
+    "excludedUnderPreview": [
+      {
+        "phase": 4,
+        "sourceRaceId": "202204040107",
+        "raceId": "JRA-20221015-NIIGATA-07",
+        "raceDate": "2022-10-15",
+        "raceName": "3歳以上1勝クラス",
+        "raceNumber": 7,
+        "fieldSize": 14,
+        "knownCount": 0,
+        "unknownCount": 14,
+        "knownRate": 0
+      },
+      {
+        "phase": 4,
+        "sourceRaceId": "202204040109",
+        "raceId": "JRA-20221015-NIIGATA-09",
+        "raceDate": "2022-10-15",
+        "raceName": "松浜特別",
+        "raceNumber": 9,
+        "fieldSize": 13,
+        "knownCount": 0,
+        "unknownCount": 13,
+        "knownRate": 0
+      },
+      {
+        "phase": 4,
+        "sourceRaceId": "202204010809",
+        "raceId": "JRA-20220529-NIIGATA-09",
+        "raceDate": "2022-05-29",
+        "raceName": "石打特別",
+        "raceNumber": 9,
+        "fieldSize": 13,
+        "knownCount": 0,
+        "unknownCount": 13,
+        "knownRate": 0
+      },
+      {
+        "phase": 4,
+        "sourceRaceId": "202204010309",
+        "raceId": "JRA-20220514-NIIGATA-09",
+        "raceDate": "2022-05-14",
+        "raceName": "尖閣湾特別",
+        "raceNumber": 9,
+        "fieldSize": 8,
+        "knownCount": 0,
+        "unknownCount": 8,
+        "knownRate": 0
+      }
+    ]
+  },
+  "candidatePoolSufficiency": {
+    "targetAdditionalRaceCount": 20,
+    "currentCandidateCount": 24,
+    "verdict": "POOL_SUFFICIENT",
+    "rationale": "既存Selection Contract（CHECKPOINT14D.1E以降）は『候補が20に満たない場合は無理に合わせず実収集数を報告する』というfloor条件のみを定めており、20を超える際の追加マージン要件は定義していない。24候補は20を上回っており、Selection Ruleを適用した結果、ちょうど4レース（全てknownCount=0）が機械的に除外される、意味のある選択が成立している（4節参照）。CHECKPOINT14D.1I 10節で述べた『10レース程度の追加が望ましい』は診断的な推奨であり、既存Contract上の強制要件ではない。checkpoint本文16節の『多い方が安心という理由だけで無限に追加Discoveryしない』という指示にも従い、新規thresholdを発明してPOOL_EXPANSION_RECOMMENDEDとする根拠はない。"
+  },
+  "phase5Necessity": {
+    "required": false,
+    "reason": "POOL_SUFFICIENTのため、2021年Phase5 Discoveryは実施しない。次はExact Additional 20 Selectionへ進む。"
+  },
+  "regressionAtManifestTime": {
+    "frozenBenchmark": 70.3,
+    "productionPredictionDrift": 0,
+    "baseAbilityV1": "不変",
+    "suitabilityV1": "不変",
+    "provisionalStageA": "不変",
+    "gate10RaceDataset": "不変"
+  }
+}

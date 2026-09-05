@@ -1,0 +1,34 @@
+racecourse,surface,distance,going,sampleYears,sampleCount,medianTimeSeconds,source
+札幌,turf,1900,良,5,60,115,V0テスト用仮データ（実データ未投入）
+札幌,turf,2100,重,5,40,127.1,V0テスト用仮データ（実データ未投入）
+小倉,turf,1800,良,5,50,108.9,V0テスト用仮データ（実データ未投入）
+小倉,turf,1900,良,5,60,115,V0テスト用仮データ（実データ未投入）
+小倉,turf,1900,稍重,5,60,115,V0テスト用仮データ（実データ未投入）
+小倉,turf,2100,良,5,40,127.1,V0テスト用仮データ（実データ未投入）
+中山,turf,1900,良,5,60,115,V0テスト用仮データ（実データ未投入）
+中山,turf,2100,稍重,5,40,127.1,V0テスト用仮データ（実データ未投入）
+中山,turf,2100,良,5,40,127.1,V0テスト用仮データ（実データ未投入）
+東京,turf,1900,良,5,60,115,V0テスト用仮データ（実データ未投入）
+東京,turf,2000,良,5,30,121,V0テスト用仮データ（実データ未投入）
+函館,turf,1900,良,5,60,115,V0テスト用仮データ（実データ未投入）
+函館,turf,2200,良,5,50,133.1,V0テスト用仮データ（実データ未投入）
+阪神,turf,1200,良,2,5,68.4,JRA確認済みサンプル(n=5;対象年:2021;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate
+阪神,turf,1200,稍重,2,2,68.6,JRA確認済みサンプル(n=2;対象年:2022;2023) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [2026-06-14当日データを誤って別年サンプルとして混入していたため除外]
+阪神,turf,1600,良,5,8,92.75,JRA確認済みサンプル(n=8;対象年:2021;2022;2023;2024;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [2026-06-14当日データを誤って別年サンプルとして混入していたため除外]
+阪神,turf,1600,稍重,1,1,93.1,JRA確認済みサンプル(n=1;対象年:2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate
+阪神,turf,1800,良,3,7,104.5,JRA確認済みサンプル(n=7;対象年:2021;2023;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate
+阪神,turf,1800,稍重,1,1,107.5,JRA確認済みサンプル(n=1;対象年:2022) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [2026-06-14当日データを誤って別年サンプルとして混入していたため除外]
+阪神,turf,1800,重,1,1,106,JRA確認済みサンプル(n=1;対象年:2024) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate
+阪神,turf,2000,良,4,6,118.3,JRA確認済みサンプル(n=6;対象年:2022;2023;2024;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate
+阪神,turf,2000,稍重,1,1,123.5,JRA確認済みサンプル(n=1;対象年:2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate
+阪神,turf,2000,重,1,1,121.6,JRA確認済みサンプル(n=1;対象年:2021) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate
+阪神,turf,2200,良,4,6,131.1,JRA確認済みサンプル(n=6;対象年:2021;2022;2023;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate
+阪神,turf,2200,稍重,2,2,133.4,JRA確認済みサンプル(n=2;対象年:2022;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [第9実装で「誤日付データ」として除外した2025-06-15宝塚記念(稍重,131.1)を再監査の上、誤除外と判断して再追加。中央値135.7→133.4]
+阪神,turf,2200,重,1,2,134.0,JRA確認済みサンプル(n=2;対象年:2022) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [wet_confirmed_samplesより3歳上2勝クラス135.0を追加。中央値133.0から134.0へ更新]
+中京,turf,2000,良,3,3,117.6,JRA確認済みサンプル(n=3;対象年:2022;2023;2024) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。金鯱賞2021-2025の5件から良のみ抽出]
+中京,turf,2000,重,2,2,121.55,JRA確認済みサンプル(n=2;対象年:2021;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。金鯱賞2021-2025の5件から重のみ抽出]
+京都,turf,2000,良,2,4,118.45,JRA確認済みサンプル(n=4;対象年:2024;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。秋華賞2023-2025+アンドロメダS2024-2025から良のみ抽出]
+京都,turf,2000,稍重,1,1,121.1,JRA確認済みサンプル(n=1;対象年:2023) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。秋華賞2023年分]
+京都,turf,2200,良,3,4,131.6,JRA確認済みサンプル(n=4;対象年:2023;2024;2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。エリザベス女王杯2023-2025+京都記念2024から良のみ抽出。2023京都記念は阪神開催のため対象外]
+京都,turf,2200,稍重,1,1,135.7,JRA確認済みサンプル(n=1;対象年:2025) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。京都記念2025年分]
+京都,turf,2200,重,1,1,132.0,JRA確認済みサンプル(n=1;対象年:2024) verified_sample_pool_only NOT_final_5y_baseline 暫定candidate [batch3。宝塚記念2024年分（京都開催年）]

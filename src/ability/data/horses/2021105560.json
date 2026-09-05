@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20251005-KYOTO-11",
+    "raceName": "京都大賞典",
+    "raceDate": "2025-10-05",
+    "racecourse": "京都",
+    "surface": "turf",
+    "distance": 2400,
+    "going": "稍重",
+    "raceNumber": 11,
+    "finishPosition": 2,
+    "timeGap": 0.1,
+    "raceTime": 144,
+    "final3F": 35,
+    "carriedWeight": 58,
+    "gate": 3,
+    "horseNumber": 5,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202508030211",
+    "sourceHorseId": "2021105560",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

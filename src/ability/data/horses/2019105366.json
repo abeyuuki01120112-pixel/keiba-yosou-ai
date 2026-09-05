@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20240922-NAKAYAMA-11",
+    "raceName": "オールカマー",
+    "raceDate": "2024-09-22",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 2200,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 15,
+    "timeGap": 3.3,
+    "raceTime": 135.1,
+    "final3F": 37.2,
+    "carriedWeight": 57,
+    "gate": 6,
+    "horseNumber": 10,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202406040711",
+    "sourceHorseId": "2019105366",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

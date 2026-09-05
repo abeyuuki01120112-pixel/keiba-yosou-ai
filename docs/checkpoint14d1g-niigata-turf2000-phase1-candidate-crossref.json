@@ -1,0 +1,730 @@
+{
+  "manifestId": "NIIGATA_TURF_2000_GATE_PHASE1_CANDIDATE_CROSSREF",
+  "checkpoint": "CHECKPOINT14D.1G",
+  "generatedAt": "2026-08-29",
+  "sourceManifest": "niigata_turf2000_candidate_rosters_phase1_2026.json",
+  "attachmentIntegrity": {
+    "candidateRaceCount": {
+      "expected": 6,
+      "actual": 6,
+      "match": true
+    },
+    "runnerRowCount": {
+      "expected": 78,
+      "actual": 78,
+      "match": true
+    },
+    "jsonCsvDiff": "none（78行完全一致）",
+    "perRaceFieldSizeCheck": [
+      {
+        "raceId": "JRA-20260516-NIIGATA-11",
+        "fieldSize": 15,
+        "runnerCount": 15,
+        "match": true
+      },
+      {
+        "raceId": "JRA-20260517-NIIGATA-07",
+        "fieldSize": 13,
+        "runnerCount": 13,
+        "match": true
+      },
+      {
+        "raceId": "JRA-20260517-NIIGATA-10",
+        "fieldSize": 16,
+        "runnerCount": 16,
+        "match": true
+      },
+      {
+        "raceId": "JRA-20260523-NIIGATA-10",
+        "fieldSize": 15,
+        "runnerCount": 15,
+        "match": true
+      },
+      {
+        "raceId": "JRA-20260809-NIIGATA-10",
+        "fieldSize": 7,
+        "runnerCount": 7,
+        "match": true
+      },
+      {
+        "raceId": "JRA-20260823-NIIGATA-10",
+        "fieldSize": 12,
+        "runnerCount": 12,
+        "match": true
+      }
+    ]
+  },
+  "crossReferenceSource": {
+    "file": "docs/checkpoint14d1e-known-sourcehorseid-crossref.json",
+    "entryCount": 405,
+    "matchKey": "sourceHorseId（Primary Key、horseName fuzzy matchは不使用）"
+  },
+  "candidateRaceBoard": [
+    {
+      "rank": 1,
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "sourceRaceId": "202604010511",
+      "raceDate": "2026-05-16",
+      "raceName": "新潟大賞典",
+      "fieldSize": 15,
+      "productionKnownHorseCount": 13,
+      "productionUnknownHorseCount": 2,
+      "productionKnownHorseRate": 0.867
+    },
+    {
+      "rank": 2,
+      "raceId": "JRA-20260823-NIIGATA-10",
+      "sourceRaceId": "202604030210",
+      "raceDate": "2026-08-23",
+      "raceName": "3歳以上1勝クラス",
+      "fieldSize": 12,
+      "productionKnownHorseCount": 0,
+      "productionUnknownHorseCount": 12,
+      "productionKnownHorseRate": 0
+    },
+    {
+      "rank": 3,
+      "raceId": "JRA-20260809-NIIGATA-10",
+      "sourceRaceId": "202604020610",
+      "raceDate": "2026-08-09",
+      "raceName": "3歳以上1勝クラス",
+      "fieldSize": 7,
+      "productionKnownHorseCount": 0,
+      "productionUnknownHorseCount": 7,
+      "productionKnownHorseRate": 0
+    },
+    {
+      "rank": 4,
+      "raceId": "JRA-20260523-NIIGATA-10",
+      "sourceRaceId": "202604010710",
+      "raceDate": "2026-05-23",
+      "raceName": "尖閣湾特別",
+      "fieldSize": 15,
+      "productionKnownHorseCount": 0,
+      "productionUnknownHorseCount": 15,
+      "productionKnownHorseRate": 0
+    },
+    {
+      "rank": 5,
+      "raceId": "JRA-20260517-NIIGATA-07",
+      "sourceRaceId": "202604010607",
+      "raceDate": "2026-05-17",
+      "raceName": "4歳以上1勝クラス",
+      "fieldSize": 13,
+      "productionKnownHorseCount": 0,
+      "productionUnknownHorseCount": 13,
+      "productionKnownHorseRate": 0
+    },
+    {
+      "rank": 6,
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "sourceRaceId": "202604010610",
+      "raceDate": "2026-05-17",
+      "raceName": "信濃川特別",
+      "fieldSize": 16,
+      "productionKnownHorseCount": 0,
+      "productionUnknownHorseCount": 16,
+      "productionKnownHorseRate": 0
+    }
+  ],
+  "runnerCrossReference": [
+    {
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "horseName": "グランディア",
+      "sourceHorseId": "2019105302",
+      "productionKnown": true,
+      "canonicalHorseId": "2019105302"
+    },
+    {
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "horseName": "バレエマスター",
+      "sourceHorseId": "2019104850",
+      "productionKnown": true,
+      "canonicalHorseId": "2019104850"
+    },
+    {
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "horseName": "フクノブルーレイク",
+      "sourceHorseId": "2022101329",
+      "productionKnown": true,
+      "canonicalHorseId": "2022101329"
+    },
+    {
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "horseName": "ドゥラドーレス",
+      "sourceHorseId": "2019105556",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "horseName": "ヤマニンブークリエ",
+      "sourceHorseId": "2022106611",
+      "productionKnown": true,
+      "canonicalHorseId": "2022106611"
+    },
+    {
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "horseName": "トーセンリョウ",
+      "sourceHorseId": "2019104711",
+      "productionKnown": true,
+      "canonicalHorseId": "2019104711"
+    },
+    {
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "horseName": "セキトバイースト",
+      "sourceHorseId": "2021103975",
+      "productionKnown": true,
+      "canonicalHorseId": "2021103975"
+    },
+    {
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "horseName": "ホールネス",
+      "sourceHorseId": "2020110060",
+      "productionKnown": true,
+      "canonicalHorseId": "2020110060"
+    },
+    {
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "horseName": "グランドカリナン",
+      "sourceHorseId": "2020106234",
+      "productionKnown": true,
+      "canonicalHorseId": "2020106234"
+    },
+    {
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "horseName": "アンゴラブラック",
+      "sourceHorseId": "2021105738",
+      "productionKnown": true,
+      "canonicalHorseId": "2021105738"
+    },
+    {
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "horseName": "シュトルーヴェ",
+      "sourceHorseId": "2019104447",
+      "productionKnown": true,
+      "canonicalHorseId": "2019104447"
+    },
+    {
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "horseName": "ラインベック",
+      "sourceHorseId": "2017105194",
+      "productionKnown": true,
+      "canonicalHorseId": "2017105194"
+    },
+    {
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "horseName": "サフィラ",
+      "sourceHorseId": "2021105541",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "horseName": "シンハナーダ",
+      "sourceHorseId": "2021105574",
+      "productionKnown": true,
+      "canonicalHorseId": "2021105574"
+    },
+    {
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "horseName": "シュガークン",
+      "sourceHorseId": "2021102224",
+      "productionKnown": true,
+      "canonicalHorseId": "2021102224"
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-07",
+      "horseName": "ベネスピラ",
+      "sourceHorseId": "2022102745",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-07",
+      "horseName": "コスモアチーブ",
+      "sourceHorseId": "2022106792",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-07",
+      "horseName": "ダノンアトラス",
+      "sourceHorseId": "2021105113",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-07",
+      "horseName": "マイネルアウルム",
+      "sourceHorseId": "2022106811",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-07",
+      "horseName": "ウインボレロ",
+      "sourceHorseId": "2021106203",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-07",
+      "horseName": "ロジウムエポック",
+      "sourceHorseId": "2020104986",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-07",
+      "horseName": "コンサートマスター",
+      "sourceHorseId": "2022104595",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-07",
+      "horseName": "ディーンズリスター",
+      "sourceHorseId": "2019105490",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-07",
+      "horseName": "トラストモアリズム",
+      "sourceHorseId": "2022101620",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-07",
+      "horseName": "コーラスライン",
+      "sourceHorseId": "2019104843",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-07",
+      "horseName": "デビューフライト",
+      "sourceHorseId": "2022105123",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-07",
+      "horseName": "アンドローゼス",
+      "sourceHorseId": "2021105911",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-07",
+      "horseName": "ソリッドベーシス",
+      "sourceHorseId": "2022105697",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "horseName": "マリアイリダータ",
+      "sourceHorseId": "2022105064",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "horseName": "ホウオウシンデレラ",
+      "sourceHorseId": "2021103533",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "horseName": "コンフォルツァ",
+      "sourceHorseId": "2022105421",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "horseName": "クロシェットノエル",
+      "sourceHorseId": "2021101068",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "horseName": "ズイウンゴサイ",
+      "sourceHorseId": "2021100597",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "horseName": "ジェットブレード",
+      "sourceHorseId": "2022103522",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "horseName": "ワザモノ",
+      "sourceHorseId": "2018103560",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "horseName": "ハイディージェン",
+      "sourceHorseId": "2021103821",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "horseName": "バンフィエルド",
+      "sourceHorseId": "2019104531",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "horseName": "ホウオウレイヴン",
+      "sourceHorseId": "2022105322",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "horseName": "コスモアバンサ",
+      "sourceHorseId": "2020101337",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "horseName": "パッションリッチ",
+      "sourceHorseId": "2022105390",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "horseName": "フルレゾン",
+      "sourceHorseId": "2021104840",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "horseName": "バードウォッチャー",
+      "sourceHorseId": "2021105375",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "horseName": "ジャンビ",
+      "sourceHorseId": "2021103878",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260517-NIIGATA-10",
+      "horseName": "タッチアンドムーブ",
+      "sourceHorseId": "2021105106",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260523-NIIGATA-10",
+      "horseName": "マイネルアズーロ",
+      "sourceHorseId": "2022100274",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260523-NIIGATA-10",
+      "horseName": "トゥルーサクセサー",
+      "sourceHorseId": "2021103537",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260523-NIIGATA-10",
+      "horseName": "ミッドセンチュリー",
+      "sourceHorseId": "2022103308",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260523-NIIGATA-10",
+      "horseName": "マイネルモメンタム",
+      "sourceHorseId": "2021106811",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260523-NIIGATA-10",
+      "horseName": "エテルニータ",
+      "sourceHorseId": "2022106344",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260523-NIIGATA-10",
+      "horseName": "シンドリームシン",
+      "sourceHorseId": "2021105382",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260523-NIIGATA-10",
+      "horseName": "オプレントジュエル",
+      "sourceHorseId": "2022105365",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260523-NIIGATA-10",
+      "horseName": "クラウディアイ",
+      "sourceHorseId": "2022100099",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260523-NIIGATA-10",
+      "horseName": "ドーギッド",
+      "sourceHorseId": "2022105766",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260523-NIIGATA-10",
+      "horseName": "サイレントグルーヴ",
+      "sourceHorseId": "2021105274",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260523-NIIGATA-10",
+      "horseName": "タマモランプ",
+      "sourceHorseId": "2021101557",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260523-NIIGATA-10",
+      "horseName": "フォーグッド",
+      "sourceHorseId": "2019105076",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260523-NIIGATA-10",
+      "horseName": "ローンウルフ",
+      "sourceHorseId": "2021104112",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260523-NIIGATA-10",
+      "horseName": "ライジングハース",
+      "sourceHorseId": "2022106495",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260523-NIIGATA-10",
+      "horseName": "エコログロス",
+      "sourceHorseId": "2022101430",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260809-NIIGATA-10",
+      "horseName": "モートンアイランド",
+      "sourceHorseId": "2023107277",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260809-NIIGATA-10",
+      "horseName": "ウップヘリーア",
+      "sourceHorseId": "2023107228",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260809-NIIGATA-10",
+      "horseName": "オプレントジュエル",
+      "sourceHorseId": "2022105365",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260809-NIIGATA-10",
+      "horseName": "トラストモアリズム",
+      "sourceHorseId": "2022101620",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260809-NIIGATA-10",
+      "horseName": "ミッドセンチュリー",
+      "sourceHorseId": "2022103308",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260809-NIIGATA-10",
+      "horseName": "テイキットイージー",
+      "sourceHorseId": "2021101088",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260809-NIIGATA-10",
+      "horseName": "イスキオス",
+      "sourceHorseId": "2022105223",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260823-NIIGATA-10",
+      "horseName": "リポサンテ",
+      "sourceHorseId": "2022105338",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260823-NIIGATA-10",
+      "horseName": "モウエエデショー",
+      "sourceHorseId": "2023105433",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260823-NIIGATA-10",
+      "horseName": "オルグジェシダ",
+      "sourceHorseId": "2022104875",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260823-NIIGATA-10",
+      "horseName": "イモータリス",
+      "sourceHorseId": "2023107032",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260823-NIIGATA-10",
+      "horseName": "ウィンスタンリー",
+      "sourceHorseId": "2022104684",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260823-NIIGATA-10",
+      "horseName": "キョウエイグッド",
+      "sourceHorseId": "2022104362",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260823-NIIGATA-10",
+      "horseName": "マイネルモメンタム",
+      "sourceHorseId": "2021106811",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260823-NIIGATA-10",
+      "horseName": "ラヴィニール",
+      "sourceHorseId": "2023107047",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260823-NIIGATA-10",
+      "horseName": "スペードギニー",
+      "sourceHorseId": "2022105191",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260823-NIIGATA-10",
+      "horseName": "ルーリングクラス",
+      "sourceHorseId": "2023103749",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260823-NIIGATA-10",
+      "horseName": "クラウドセイル",
+      "sourceHorseId": "2020102552",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    },
+    {
+      "raceId": "JRA-20260823-NIIGATA-10",
+      "horseName": "モルゲンゾンネ",
+      "sourceHorseId": "2022102141",
+      "productionKnown": false,
+      "canonicalHorseId": null
+    }
+  ],
+  "categoryBOverlap": {
+    "categoryBTotal": 44,
+    "overlapCount": 3,
+    "overlaps": [
+      {
+        "horseName": "バレエマスター",
+        "sourceHorseId": "2019104850",
+        "canonicalHorseId": "2019104850",
+        "candidateRaceId": "JRA-20260516-NIIGATA-11",
+        "candidateRaceDate": "2026-05-16",
+        "candidateRaceName": "新潟大賞典"
+      },
+      {
+        "horseName": "グランドカリナン",
+        "sourceHorseId": "2020106234",
+        "canonicalHorseId": "2020106234",
+        "candidateRaceId": "JRA-20260516-NIIGATA-11",
+        "candidateRaceDate": "2026-05-16",
+        "candidateRaceName": "新潟大賞典"
+      },
+      {
+        "horseName": "ラインベック",
+        "sourceHorseId": "2017105194",
+        "canonicalHorseId": "2017105194",
+        "candidateRaceId": "JRA-20260516-NIIGATA-11",
+        "candidateRaceDate": "2026-05-16",
+        "candidateRaceName": "新潟大賞典"
+      }
+    ]
+  },
+  "existingV1RaceOverlap": {
+    "raceIdOverlap": [],
+    "note": "既存10レースとのraceId重複なし（2026年候補と2021-2025年既存レースで年が異なるため自然な結果）。runner単位でのhorse重複（Category B overlap）は別集計（上記）。"
+  },
+  "selectionRuleVerification": {
+    "requestedTieBreak": "productionKnownHorseCount desc → productionKnownHorseRate desc → raceDate desc",
+    "officialCp14d1eRule": "productionKnownHorseCount desc → raceDate desc（rateの明示的な使用なし）",
+    "discrepancyNote": "CHECKPOINT14D.1E 3節の正式Selection Ruleにはrateタイブレーク段階が存在しないため、本ラウンドでは既存正式Ruleを優先して適用した。今回のPhase1候補6件では、count=0の5レース全てでrateも同様に0.000のため、rateタイブレークを追加しても結果は変わらない（実質的な相違なし）。また、2026-05-17に同日2レース（4歳以上1勝クラスraceNumber7・信濃川特別raceNumber10）が候補に含まれ、raceDateだけでは同着になったため、raceNumber昇順という新たな決定的・結果非依存のサブタイブレークを導入した（既存10レースは全raceDateが一意だったため、CP14D.1Eの時点ではこのケースが想定されていなかった）。"
+  },
+  "phase2Diagnostic": {
+    "observation": "6候補中、重賞級（新潟大賞典）のみproductionKnownHorseCount=13/15（86.7%）と高く、条件戦・特別戦（1勝クラス×2、信濃川特別、尖閣湾特別、4歳以上1勝クラス）は全てproductionKnownHorseCount=0。",
+    "interpretation": "現行production data/horses/の実データ収集は重賞・G1〜G3・Listed級のレース出走馬に集中しているため、同格の重賞レース（新潟記念・新潟大賞典自体の他年度）はKnown Coverageが高く、条件戦・特別戦はKnown Coverageが構造的に低い傾向がこの6件の実測結果から確認できる。",
+    "recommendation": "新規固定閾値は発明しないが、上記傾向を踏まえ、Phase2（2025・2024・2023以前）探索では新潟記念・新潟大賞典およびその他重賞・Listed・OP級の新潟芝2000m outerレースを優先的に候補化することを推奨する。条件戦・特別戦も収集対象から排除はしないが、Known Coverage改善への寄与は低い可能性が高いことをdiagnosticとして記録する。"
+  },
+  "regressionAtManifestTime": {
+    "frozenBenchmark": 70.3,
+    "productionPredictionDrift": 0,
+    "baseAbilityV1": "不変",
+    "suitabilityV1": "不変",
+    "provisionalStageA": "不変",
+    "gate10RaceDataset": "不変"
+  }
+}

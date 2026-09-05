@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20260307-NAKAYAMA-11",
+    "raceName": "中山牝馬ステークス",
+    "raceDate": "2026-03-07",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 1800,
+    "going": "稍重",
+    "raceNumber": 11,
+    "finishPosition": 14,
+    "timeGap": 1.4,
+    "raceTime": 108.5,
+    "final3F": 36.3,
+    "carriedWeight": 53,
+    "gate": 6,
+    "horseNumber": 11,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202606020311",
+    "sourceHorseId": "2019105768",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]
