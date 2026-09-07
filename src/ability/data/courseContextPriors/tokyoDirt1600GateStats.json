@@ -1,0 +1,15 @@
+{
+  "courseId": "TOKYO_DIRT_1600",
+  "unit": "gate_prior_coefficient is unitless, normalized to [-1, +1] by dividing each frame's place_rate_delta_pp by the maximum absolute delta across frames. NOT a suitability percent or effectiveAbility multiplier.",
+  "source": "suitability_core_support_v1.zip（CHECKPOINT 8添付）tokyo_d1600_gate_stats.csv。JRA-VAN/KeibaData/Enjoy競馬LIFE/競馬ラボ/ウマニティの複数ソースで外枠有利の方向が一致。",
+  "frames": [
+    { "frame": 1, "winRate": 5.5, "placeRate": 17.4, "sampleNote": "31-34-33-464", "placeRateDeltaPp": -2.61, "gatePriorCoefficient": -0.409 },
+    { "frame": 2, "winRate": 5.5, "placeRate": 18.2, "sampleNote": "33-43-32-487", "placeRateDeltaPp": -1.81, "gatePriorCoefficient": -0.2838 },
+    { "frame": 3, "winRate": 5.0, "placeRate": 17.0, "sampleNote": "31-35-39-513", "placeRateDeltaPp": -3.01, "gatePriorCoefficient": -0.4716 },
+    { "frame": 4, "winRate": 5.3, "placeRate": 17.6, "sampleNote": "34-39-40-528", "placeRateDeltaPp": -2.41, "gatePriorCoefficient": -0.3777 },
+    { "frame": 5, "winRate": 7.8, "placeRate": 21.3, "sampleNote": "51-45-44-518", "placeRateDeltaPp": 1.29, "gatePriorCoefficient": 0.2016 },
+    { "frame": 6, "winRate": 7.9, "placeRate": 23.0, "sampleNote": "53-42-59-517", "placeRateDeltaPp": 2.99, "gatePriorCoefficient": 0.4677 },
+    { "frame": 7, "winRate": 7.2, "placeRate": 19.2, "sampleNote": "49-41-40-548", "placeRateDeltaPp": -0.81, "gatePriorCoefficient": -0.1272 },
+    { "frame": 8, "winRate": 8.8, "placeRate": 26.4, "sampleNote": "60-63-56-499", "placeRateDeltaPp": 6.39, "gatePriorCoefficient": 1.0 }
+  ]
+}

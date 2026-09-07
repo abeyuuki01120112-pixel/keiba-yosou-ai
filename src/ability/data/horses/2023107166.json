@@ -1,0 +1,133 @@
+[
+  {
+    "raceId": "JRA-20251221-NAKAYAMA-05",
+    "raceName": "2歳新馬",
+    "raceDate": "2025-12-21",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "重",
+    "raceNumber": 5,
+    "finishPosition": 1,
+    "timeGap": 0,
+    "raceTime": 95.1,
+    "final3F": 35.4,
+    "carriedWeight": 56,
+    "gate": 8,
+    "horseNumber": 16,
+    "fieldSize": 16,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202506050605",
+    "sourceHorseId": "2023107166",
+    "dataKind": "real",
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        2,
+        3,
+        2
+      ],
+      "fieldSize": 16,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
+  },
+  {
+    "raceId": "JRA-20260301-NAKAYAMA-07",
+    "raceName": "3歳1勝クラス",
+    "raceDate": "2026-03-01",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "良",
+    "raceNumber": 7,
+    "finishPosition": 1,
+    "timeGap": 0,
+    "raceTime": 92.1,
+    "final3F": 33.5,
+    "carriedWeight": 57,
+    "gate": 7,
+    "horseNumber": 10,
+    "fieldSize": 12,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202606020207",
+    "sourceHorseId": "2023107166",
+    "dataKind": "real",
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        3,
+        5,
+        4
+      ],
+      "fieldSize": 12,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
+  },
+  {
+    "raceId": "JRA-20260411-NAKAYAMA-11",
+    "raceName": "ニュージーランドトロフィー",
+    "raceDate": "2026-04-11",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 2,
+    "timeGap": 0,
+    "raceTime": 93.3,
+    "final3F": 33.9,
+    "carriedWeight": 57,
+    "gate": 4,
+    "horseNumber": 7,
+    "fieldSize": 15,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202606030511",
+    "sourceHorseId": "2023107166",
+    "dataKind": "real",
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        3,
+        3,
+        3
+      ],
+      "fieldSize": 15,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
+  },
+  {
+    "raceId": "JRA-20260510-TOKYO-11",
+    "raceName": "NHKマイルカップ",
+    "raceDate": "2026-05-10",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 1,
+    "timeGap": 0,
+    "raceTime": 91.5,
+    "final3F": 33.3,
+    "carriedWeight": 57,
+    "gate": 8,
+    "horseNumber": 17,
+    "fieldSize": 18,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202605020611",
+    "sourceHorseId": "2023107166",
+    "dataKind": "real",
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        14,
+        14
+      ],
+      "fieldSize": 18,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
+  }
+]

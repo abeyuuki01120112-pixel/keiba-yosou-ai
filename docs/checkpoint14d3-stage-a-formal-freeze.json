@@ -1,0 +1,365 @@
+{
+  "recordType": "FORMAL_STAGE_A_FREEZE_INDEX",
+  "checkpoint": "CHECKPOINT14D.3",
+  "note": "これは既存のFormal Prediction Snapshot（formalPredictionSnapshot.ts/predictionSnapshotStore.ts、CHECKPOINT13.5B・変更なし）を書き換えるものではない。既に永続化済み・immutableなsnapshotへの参照(sourceSnapshotId/sourceSnapshotPath)と、CHECKPOINT14D.2で作成したExplainability Data Contractを1つのレコードとして結合しただけの、読み取り専用のインデックス層である。stage='A'はこのレコード内での人間向けラベルであり、既存のPredictionStage型（'gateConfirmed'|'t2h'）の'gateConfirmed'と等価（Stage Aのトリガー=正式な枠順確定後、predictionSnapshot.tsの既存docstring参照）。",
+  "sourceSnapshotId": "JRA-20260830-NIIGATA-08__gateConfirmed__2026-08-28T03-03-03.357Z",
+  "sourceSnapshotSchemaVersion": "formal-prediction-snapshot-v1",
+  "sourceSnapshotPath": "src/ability/data/predictionSnapshots/JRA-20260830-NIIGATA-08__gateConfirmed__2026-08-28T03-03-03.357Z.json",
+  "raceId": "JRA-20260830-NIIGATA-08",
+  "raceDate": "2026-08-30",
+  "racecourse": "新潟",
+  "stage": "A",
+  "stageInternalEquivalent": "gateConfirmed",
+  "predictionCutoffAt": "2026-08-28T03:03:03.357Z",
+  "createdAt": "2026-08-28T03:03:03.357Z",
+  "immutabilityVerification": {
+    "verifiedAt": "2026-08-29",
+    "method": "buildFormalPredictionSnapshotRecord()の実出力をpersistPredictionSnapshot()へ再投入し、実際のstore挙動を実行して確認した（推測・レビューのみではない）。",
+    "sameContentReSave": "duplicate（no-op、既存ファイルは書き換わらない）",
+    "differentContentSameIdReSave": "rejected（既存ファイルは書き換わらない、reason文字列も実際の返り値をそのまま記録）",
+    "updateApiExists": false,
+    "deleteApiExists": false,
+    "conclusion": "CHECKPOINT13.5B以来のimmutability contractが実際のコード実行で成立していることを本ラウンドで実証した。新しいstoreは作成していない。"
+  },
+  "runners": [
+    {
+      "horseId": "2022104645",
+      "horseName": "ダノンシーマ",
+      "frame": 7,
+      "horseNumber": 8,
+      "displayScore": 80,
+      "internalEffectiveAbility": 79.8,
+      "baseAbility": 78.3,
+      "suitability": {
+        "distanceSuitability": 101.9,
+        "courseSuitability": 100,
+        "goingSuitability": 100,
+        "gateSuitability": 100,
+        "overallSuitabilityPercent": 101.9,
+        "evaluatedComponentCount": 1
+      },
+      "rank": 1,
+      "confidence": "medium",
+      "positiveFactors": [
+        "距離適性: adjustedPercent=101.9%（sampleCount=4, confidence=medium）"
+      ],
+      "negativeFactors": [],
+      "notEvaluatedFactors": [
+        "コース(新潟)適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）"
+      ],
+      "evidenceSummary": "baseAbilityEvidenceCount=5走、historyConfidence=high、shortCareer=False、memberLevelEvidenceStatus=available、Suitability評価済みcomponent数=1/4（overallConfidence=medium）",
+      "explanation": "baseAbility=78.3は11頭中1位。直近5走で3勝（白富士S・比叡S・兵庫特別）を含む高い平均raceScoreに加え、距離2000mに近い4走の重み付き平均が全体平均を上回り（distance adjustedPercent=101.9%、confidence=medium）、Stage A Score=79.8（表示80）で1位となった。",
+      "createdAt": "2026-08-28T03:03:03.357Z"
+    },
+    {
+      "horseId": "2023107166",
+      "horseName": "ロデオドライブ",
+      "frame": 3,
+      "horseNumber": 3,
+      "displayScore": 77,
+      "internalEffectiveAbility": 76.7,
+      "baseAbility": 76.7,
+      "suitability": {
+        "distanceSuitability": 100,
+        "courseSuitability": 100,
+        "goingSuitability": 100,
+        "gateSuitability": 100,
+        "overallSuitabilityPercent": 100,
+        "evaluatedComponentCount": 1
+      },
+      "rank": 2,
+      "confidence": "medium",
+      "positiveFactors": [],
+      "negativeFactors": [],
+      "notEvaluatedFactors": [
+        "コース(新潟)適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）"
+      ],
+      "evidenceSummary": "baseAbilityEvidenceCount=4走、historyConfidence=medium、shortCareer=True、memberLevelEvidenceStatus=structural_no_prior_history、Suitability評価済みcomponent数=1/4（overallConfidence=medium）",
+      "explanation": "4戦4連対（1着3回・2着1回）というキャリア全体の実績がbaseAbility=76.7に直結。ただしキャリア4走のみ（shortCareer=true）で、全走が1600m戦のためdistance適性は中立（adjustedPercent=100%）。新潟実績が無くcourse/gateは共にNOT_EVALUATED。純粋にbaseAbilityの高さでStage A Score=76.7（表示77）の2位。",
+      "createdAt": "2026-08-28T03:03:03.357Z"
+    },
+    {
+      "horseId": "2023106850",
+      "horseName": "ゾロアストロ",
+      "frame": 5,
+      "horseNumber": 5,
+      "displayScore": 74,
+      "internalEffectiveAbility": 74.4,
+      "baseAbility": 74.8,
+      "suitability": {
+        "distanceSuitability": 99.2,
+        "courseSuitability": 99.6,
+        "goingSuitability": 100,
+        "gateSuitability": 100,
+        "overallSuitabilityPercent": 99.4,
+        "evaluatedComponentCount": 2
+      },
+      "rank": 3,
+      "confidence": "low",
+      "positiveFactors": [],
+      "negativeFactors": [
+        "距離適性: adjustedPercent=99.2%（sampleCount=5, confidence=high）",
+        "コース(新潟)適性: adjustedPercent=99.6%（sampleCount=1, confidence=low）"
+      ],
+      "notEvaluatedFactors": [
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）"
+      ],
+      "evidenceSummary": "baseAbilityEvidenceCount=5走、historyConfidence=high、shortCareer=False、memberLevelEvidenceStatus=available、Suitability評価済みcomponent数=2/4（overallConfidence=low）",
+      "explanation": "baseAbility=74.8は11頭中3位。distance適性は僅かに中立を下回る（99.2%、confidence=high）が、新潟での1走実績（2025-07-27新潟2歳未勝利）によりcourse適性がわずかにプラス（99.6%、confidence=low）。overallSuitability=99.4%とほぼ中立で、Stage A Score=74.4（表示74）の3位。",
+      "createdAt": "2026-08-28T03:03:03.357Z"
+    },
+    {
+      "horseId": "2019104850",
+      "horseName": "バレエマスター",
+      "frame": 8,
+      "horseNumber": 10,
+      "displayScore": 74,
+      "internalEffectiveAbility": 73.6,
+      "baseAbility": 72.4,
+      "suitability": {
+        "distanceSuitability": 101.8,
+        "courseSuitability": 102,
+        "goingSuitability": 100,
+        "gateSuitability": 101.4,
+        "overallSuitabilityPercent": 101.7,
+        "evaluatedComponentCount": 3
+      },
+      "rank": 4,
+      "confidence": "low",
+      "positiveFactors": [
+        "距離適性: adjustedPercent=101.8%（sampleCount=5, confidence=high）",
+        "コース(新潟)適性: adjustedPercent=102%（sampleCount=1, confidence=low）",
+        "枠適性: adjustedPercent=101.4%（sampleCount=1, confidence=low）"
+      ],
+      "negativeFactors": [],
+      "notEvaluatedFactors": [
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）"
+      ],
+      "evidenceSummary": "baseAbilityEvidenceCount=5走、historyConfidence=high、shortCareer=False、memberLevelEvidenceStatus=available、Suitability評価済みcomponent数=3/4（overallConfidence=low）",
+      "explanation": "baseAbility=72.4（11頭中6位）だが、Suitability評価componentが11頭中最多の3つ（distance/course/gate）に達している——2026新潟大賞典（新潟・turf・2000m）出走という完全一致の実績が、course適性（102%）とgate適性（101.4%）の両方を同時に押し上げた。overallSuitability=101.7%の押し上げでStage A Score=73.6（表示74）まで上昇し4位。",
+      "createdAt": "2026-08-28T03:03:03.357Z"
+    },
+    {
+      "horseId": "2019105118",
+      "horseName": "ジュンブロッサム",
+      "frame": 6,
+      "horseNumber": 7,
+      "displayScore": 73,
+      "internalEffectiveAbility": 73.1,
+      "baseAbility": 72.7,
+      "suitability": {
+        "distanceSuitability": 100.4,
+        "courseSuitability": 100.7,
+        "goingSuitability": 100,
+        "gateSuitability": 100,
+        "overallSuitabilityPercent": 100.6,
+        "evaluatedComponentCount": 2
+      },
+      "rank": 5,
+      "confidence": "low",
+      "positiveFactors": [
+        "距離適性: adjustedPercent=100.4%（sampleCount=5, confidence=high）",
+        "コース(新潟)適性: adjustedPercent=100.7%（sampleCount=1, confidence=low）"
+      ],
+      "negativeFactors": [],
+      "notEvaluatedFactors": [
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）"
+      ],
+      "evidenceSummary": "baseAbilityEvidenceCount=5走、historyConfidence=high、shortCareer=False、memberLevelEvidenceStatus=available、Suitability評価済みcomponent数=2/4（overallConfidence=low）",
+      "explanation": "baseAbility=72.7（11頭中5位）。2026-08-08関越ステークス（新潟・turf・1800m）の実績によりcourse適性のみプラス評価（100.7%、confidence=low、distanceは2000mと一致しないためgateは評価対象外）。overallSuitability=100.6%の押し上げで、baseAbilityで上回るボーンディスウェイ（73.1）をわずか0.1点差で逆転しStage A Score=73.1（表示73）の5位。",
+      "createdAt": "2026-08-28T03:03:03.357Z"
+    },
+    {
+      "horseId": "2019104658",
+      "horseName": "ボーンディスウェイ",
+      "frame": 1,
+      "horseNumber": 1,
+      "displayScore": 73,
+      "internalEffectiveAbility": 73,
+      "baseAbility": 73.1,
+      "suitability": {
+        "distanceSuitability": 99.9,
+        "courseSuitability": 100,
+        "goingSuitability": 100,
+        "gateSuitability": 100,
+        "overallSuitabilityPercent": 99.9,
+        "evaluatedComponentCount": 1
+      },
+      "rank": 6,
+      "confidence": "medium",
+      "positiveFactors": [],
+      "negativeFactors": [
+        "距離適性: adjustedPercent=99.9%（sampleCount=4, confidence=medium）"
+      ],
+      "notEvaluatedFactors": [
+        "コース(新潟)適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）"
+      ],
+      "evidenceSummary": "baseAbilityEvidenceCount=5走、historyConfidence=high、shortCareer=False、memberLevelEvidenceStatus=available、Suitability評価済みcomponent数=1/4（overallConfidence=medium）",
+      "explanation": "baseAbility=73.1（11頭中4位）。distance適性はほぼ中立（99.9%、confidence=medium）で新潟実績も無くcourse/gate/goingは全てNOT_EVALUATED。baseAbilityそのものの高さがそのままStage A Score=73.0（表示73）となり6位。",
+      "createdAt": "2026-08-28T03:03:03.357Z"
+    },
+    {
+      "horseId": "2021105436",
+      "horseName": "アーバンシック",
+      "frame": 7,
+      "horseNumber": 9,
+      "displayScore": 72,
+      "internalEffectiveAbility": 72.2,
+      "baseAbility": 72.1,
+      "suitability": {
+        "distanceSuitability": 100.1,
+        "courseSuitability": 100,
+        "goingSuitability": 100,
+        "gateSuitability": 100,
+        "overallSuitabilityPercent": 100.1,
+        "evaluatedComponentCount": 1
+      },
+      "rank": 7,
+      "confidence": "high",
+      "positiveFactors": [
+        "距離適性: adjustedPercent=100.1%（sampleCount=5, confidence=high）"
+      ],
+      "negativeFactors": [],
+      "notEvaluatedFactors": [
+        "コース(新潟)適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）"
+      ],
+      "evidenceSummary": "baseAbilityEvidenceCount=5走、historyConfidence=high、shortCareer=False、memberLevelEvidenceStatus=available、Suitability評価済みcomponent数=1/4（overallConfidence=high）",
+      "explanation": "baseAbility=72.1（11頭中7位）。distance適性はほぼ中立（100.1%、confidence=high）。新潟実績が無くcourse/gate/goingは全てNOT_EVALUATED。ほぼbaseAbilityそのままのStage A Score=72.2（表示72）で7位。",
+      "createdAt": "2026-08-28T03:03:03.357Z"
+    },
+    {
+      "horseId": "2020100734",
+      "horseName": "サヴォーナ",
+      "frame": 2,
+      "horseNumber": 2,
+      "displayScore": 70,
+      "internalEffectiveAbility": 69.9,
+      "baseAbility": 70.2,
+      "suitability": {
+        "distanceSuitability": 99.6,
+        "courseSuitability": 100,
+        "goingSuitability": 100,
+        "gateSuitability": 100,
+        "overallSuitabilityPercent": 99.6,
+        "evaluatedComponentCount": 1
+      },
+      "rank": 8,
+      "confidence": "high",
+      "positiveFactors": [],
+      "negativeFactors": [
+        "距離適性: adjustedPercent=99.6%（sampleCount=5, confidence=high）"
+      ],
+      "notEvaluatedFactors": [
+        "コース(新潟)適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）"
+      ],
+      "evidenceSummary": "baseAbilityEvidenceCount=5走、historyConfidence=high、shortCareer=False、memberLevelEvidenceStatus=available、Suitability評価済みcomponent数=1/4（overallConfidence=high）",
+      "explanation": "baseAbility=70.2（11頭中8位）。5走全てのdistance重み付き平均が全体平均をわずかに下回り（99.6%、confidence=high、5サンプルの高信頼度評価）、Stage A Score=69.9（表示70）。同じ69.9のドゥレッツァと表示上・rankByEffectiveAbility上は隣接するが、full precisionで完全同値のためTIED（正式tie-break無し、horseNumber昇順という配列の安定ソート由来の並び）。",
+      "createdAt": "2026-08-28T03:03:03.357Z"
+    },
+    {
+      "horseId": "2020103650",
+      "horseName": "ドゥレッツァ",
+      "frame": 4,
+      "horseNumber": 4,
+      "displayScore": 70,
+      "internalEffectiveAbility": 69.9,
+      "baseAbility": 67.4,
+      "suitability": {
+        "distanceSuitability": 103.7,
+        "courseSuitability": 100,
+        "goingSuitability": 100,
+        "gateSuitability": 100,
+        "overallSuitabilityPercent": 103.7,
+        "evaluatedComponentCount": 1
+      },
+      "rank": 9,
+      "confidence": "medium",
+      "positiveFactors": [
+        "距離適性: adjustedPercent=103.7%（sampleCount=4, confidence=medium）"
+      ],
+      "negativeFactors": [],
+      "notEvaluatedFactors": [
+        "コース(新潟)適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）"
+      ],
+      "evidenceSummary": "baseAbilityEvidenceCount=5走、historyConfidence=high、shortCareer=False、memberLevelEvidenceStatus=available、Suitability評価済みcomponent数=1/4（overallConfidence=medium）",
+      "explanation": "baseAbility=67.4は11頭中最下位（11位）。しかしdistance適性が11頭中最大のプラス補正（103.7%、confidence=medium、4サンプル）——2000m前後に近い4走の重み付き平均（71.6）が全体平均（67.4、3200mでの大敗15着を含む）を大きく上回ったため。この補正でbaseAbility最下位からStage A Score=69.9（表示70）まで押し上げられ、サヴォーナとfull precisionで同値（TIED）となった。",
+      "createdAt": "2026-08-28T03:03:03.357Z"
+    },
+    {
+      "horseId": "2021105643",
+      "horseName": "チェルヴィニア",
+      "frame": 6,
+      "horseNumber": 6,
+      "displayScore": 70,
+      "internalEffectiveAbility": 69.7,
+      "baseAbility": 69.1,
+      "suitability": {
+        "distanceSuitability": 100.9,
+        "courseSuitability": 100,
+        "goingSuitability": 100,
+        "gateSuitability": 100,
+        "overallSuitabilityPercent": 100.9,
+        "evaluatedComponentCount": 1
+      },
+      "rank": 10,
+      "confidence": "high",
+      "positiveFactors": [
+        "距離適性: adjustedPercent=100.9%（sampleCount=5, confidence=high）"
+      ],
+      "negativeFactors": [],
+      "notEvaluatedFactors": [
+        "コース(新潟)適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）"
+      ],
+      "evidenceSummary": "baseAbilityEvidenceCount=5走、historyConfidence=high、shortCareer=False、memberLevelEvidenceStatus=available、Suitability評価済みcomponent数=1/4（overallConfidence=high）",
+      "explanation": "baseAbility=69.1（11頭中10位）。distance適性はプラス（100.9%、confidence=high、5サンプル）だが、サヴォーナ・ドゥレッツァ（共に69.9）には届かずStage A Score=69.7（表示70）で10位。表示上は同じ「70」だが、full precisionでは他の2頭より0.2点低く、真のTIEDではない。",
+      "createdAt": "2026-08-28T03:03:03.357Z"
+    },
+    {
+      "horseId": "2021105743",
+      "horseName": "ステレンボッシュ",
+      "frame": 8,
+      "horseNumber": 11,
+      "displayScore": 68,
+      "internalEffectiveAbility": 68.2,
+      "baseAbility": 69.4,
+      "suitability": {
+        "distanceSuitability": 98.3,
+        "courseSuitability": 100,
+        "goingSuitability": 100,
+        "gateSuitability": 100,
+        "overallSuitabilityPercent": 98.3,
+        "evaluatedComponentCount": 1
+      },
+      "rank": 11,
+      "confidence": "high",
+      "positiveFactors": [],
+      "negativeFactors": [
+        "距離適性: adjustedPercent=98.3%（sampleCount=5, confidence=high）"
+      ],
+      "notEvaluatedFactors": [
+        "コース(新潟)適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "馬場状態適性（NOT_EVALUATED、evidence無しのため中立100%扱い）",
+        "枠適性（NOT_EVALUATED、evidence無しのため中立100%扱い）"
+      ],
+      "evidenceSummary": "baseAbilityEvidenceCount=5走、historyConfidence=high、shortCareer=False、memberLevelEvidenceStatus=available、Suitability評価済みcomponent数=1/4（overallConfidence=high）",
+      "explanation": "baseAbility=69.4（11頭中9位）で能力自体は中位。distance適性が11頭中最大のマイナス補正（98.3%、confidence=high、5サンプルの高信頼度評価）——2000mに最も近い実績（2025-08-17札幌記念15着、raceScore=59.2）が重み付き平均を大きく押し下げた。これはデータ不足やconfidence低下によるものではなく、evidence量も確信度も十分な状態での正当な評価結果であり、Stage A Score=68.2（表示68）で11位（最下位）。",
+      "createdAt": "2026-08-28T03:03:03.357Z"
+    }
+  ]
+}

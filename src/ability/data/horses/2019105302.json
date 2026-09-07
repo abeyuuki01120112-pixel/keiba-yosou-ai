@@ -1,0 +1,59 @@
+[
+  {
+    "raceId": "JRA-20240714-HAKODATE-11",
+    "raceName": "函館記念",
+    "raceDate": "2024-07-14",
+    "racecourse": "函館",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 2,
+    "timeGap": 0.6,
+    "raceTime": 119.8,
+    "final3F": 35.3,
+    "carriedWeight": 56,
+    "gate": 2,
+    "horseNumber": 4,
+    "fieldSize": 16,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202402011211",
+    "sourceHorseId": "2019105302",
+    "dataKind": "real",
+    "importedAt": "2026-08-27T05:33:40.754Z",
+    "passingPosition": {
+      "cornerPositions": [
+        7,
+        7,
+        6,
+        5
+      ],
+      "fieldSize": 16,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
+  },
+  {
+    "raceId": "JRA-20260516-NIIGATA-11",
+    "raceName": "新潟大賞典",
+    "raceDate": "2026-05-16",
+    "racecourse": "新潟",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 1,
+    "timeGap": 0,
+    "raceTime": 118.9,
+    "final3F": 33.7,
+    "carriedWeight": 57,
+    "gate": 2,
+    "horseNumber": 3,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202604010511",
+    "sourceHorseId": "2019105302",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:55:04.948Z"
+  }
+]

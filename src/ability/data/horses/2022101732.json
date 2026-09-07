@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20260607-TOKYO-11",
+    "raceName": "安田記念",
+    "raceDate": "2026-06-07",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 5,
+    "timeGap": 0.1,
+    "raceTime": 92.2,
+    "final3F": 33.4,
+    "carriedWeight": 58,
+    "gate": 8,
+    "horseNumber": 16,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202605030211",
+    "sourceHorseId": "2022101732",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

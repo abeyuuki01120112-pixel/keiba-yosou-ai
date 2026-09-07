@@ -1,0 +1,30 @@
+{
+  "raceLabel": "セントウルステークス 2026（第40回 産経賞セントウルステークス GII）",
+  "raceId": "JRA-20260906-HANSHIN-11",
+  "sourceRaceId": "202609040211",
+  "raceDate": "2026-09-06",
+  "racecourse": "阪神",
+  "surface": "turf",
+  "distance": 1200,
+  "going": null,
+  "source": "chatgpt_relayed_official_program_20260903",
+  "note": "枠番・馬番・馬場は未確定のためPROVISIONAL ENTRY LISTとして登録する。Formal Stage Aへは未移行（枠順確定後に再確認する）。raceNumber=11はsourceRaceId末尾2桁からの推定であり、公式番組表で個別に確認したものではない。sourceHorseIdはproduction data/horses/内で実際に該当ファイルが確認できた馬のみ設定し、それ以外はnull（推測で埋めない）。",
+  "runners": [
+    { "horseName": "カルプスペルシュ", "sex": "牝", "age": 4, "carriedWeightKg": 55.0, "sourceHorseId": null },
+    { "horseName": "クラスペディア", "sex": "牡", "age": 4, "carriedWeightKg": 57.0, "sourceHorseId": null },
+    { "horseName": "ダイヤモンドノット", "sex": "牡", "age": 3, "carriedWeightKg": 55.0, "sourceHorseId": null },
+    { "horseName": "タマモイカロス", "sex": "牡", "age": 3, "carriedWeightKg": 55.0, "sourceHorseId": null },
+    { "horseName": "タマモブラックタイ", "sex": "牡", "age": 6, "carriedWeightKg": 57.0, "sourceHorseId": null },
+    { "horseName": "ティニア", "sex": "牡", "age": 6, "carriedWeightKg": 57.0, "sourceHorseId": null },
+    { "horseName": "ビッグシーザー", "sex": "牡", "age": 6, "carriedWeightKg": 57.0, "sourceHorseId": null },
+    { "horseName": "ピューロマジック", "sex": "牝", "age": 5, "carriedWeightKg": 55.0, "sourceHorseId": null },
+    { "horseName": "ファストネットワーク", "sex": "せん", "age": 6, "carriedWeightKg": 57.0, "sourceHorseId": null, "note": "香港馬。JRA国内馬と同一形式のprior historyが存在しない可能性がある" },
+    { "horseName": "フリッカージャブ", "sex": "牡", "age": 4, "carriedWeightKg": 57.0, "sourceHorseId": null },
+    { "horseName": "プロトポロス", "sex": "牡", "age": 6, "carriedWeightKg": 57.0, "sourceHorseId": null },
+    { "horseName": "ママコチャ", "sex": "牝", "age": 7, "carriedWeightKg": 56.0, "sourceHorseId": null },
+    { "horseName": "メイショウヨゾラ", "sex": "牝", "age": 5, "carriedWeightKg": 55.0, "sourceHorseId": null },
+    { "horseName": "ヤブサメ", "sex": "牡", "age": 5, "carriedWeightKg": 57.0, "sourceHorseId": null },
+    { "horseName": "ヨシノイースター", "sex": "牡", "age": 8, "carriedWeightKg": 57.0, "sourceHorseId": null },
+    { "horseName": "レッドモンレーヴ", "sex": "牡", "age": 7, "carriedWeightKg": 57.0, "sourceHorseId": null }
+  ]
+}

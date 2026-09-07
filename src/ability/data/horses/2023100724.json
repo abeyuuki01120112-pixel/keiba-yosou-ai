@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20260419-NAKAYAMA-11",
+    "raceName": "皐月賞",
+    "raceDate": "2026-04-19",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 9,
+    "timeGap": 0.8,
+    "raceTime": 117.3,
+    "final3F": 33.9,
+    "carriedWeight": 57,
+    "gate": 2,
+    "horseNumber": 3,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202606030811",
+    "sourceHorseId": "2023100724",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

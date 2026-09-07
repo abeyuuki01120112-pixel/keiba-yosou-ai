@@ -1,0 +1,11 @@
+{
+  "note": "knownCareerRaceCount（Short Career Eligibility V1、CHECKPOINT13.4G）。data/horses内の記録走数から自動生成した値は絶対に登録しない。人間が外部で確認した『この馬は現時点で通算何走か』という事実だけを、根拠(careerCountSource)付きで明示的に登録する。JRA自動取得・netkeiba scraping・外部APIでの自動収集は行わない（CHECKPOINT13.4G 15節）。",
+  "records": [
+    {
+      "horseId": "2023107166",
+      "knownCareerRaceCount": 4,
+      "careerCountAsOf": "2026-08-24T00:00:00Z",
+      "careerCountSource": "ロデオドライブ。CHECKPOINT13.4Bで検証した実データZIP（niigata_kinen_2026_cp13_4_data_v1.zip、race_performances.csv）に含まれる同馬の全行が4走のみであり、CHECKPOINT13.4C/13.4D/13.4E/13.4Fの各監査ラウンドで繰り返し実データを再確認した結果、5走目の存在を示す証拠は一度も見つからなかった。外部API・スクレイピングによる新規収集ではなく、既に取り込み済みの実データ監査結果に基づく確認。ChatGPT/ユーザー側で追加のsource-backedな確認が取れた場合は本エントリを更新すること。"
+    }
+  ]
+}

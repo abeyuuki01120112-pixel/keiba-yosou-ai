@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20260210-KYOTO-11",
+    "raceName": "きさらぎ賞",
+    "raceDate": "2026-02-10",
+    "racecourse": "京都",
+    "surface": "turf",
+    "distance": 1800,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 5,
+    "timeGap": 0.2,
+    "raceTime": 108.2,
+    "final3F": 33.7,
+    "carriedWeight": 57,
+    "gate": 5,
+    "horseNumber": 5,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202608020411",
+    "sourceHorseId": "2023102224",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

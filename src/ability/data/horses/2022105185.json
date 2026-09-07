@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20260517-TOKYO-11",
+    "raceName": "ヴィクトリアマイル",
+    "raceDate": "2026-05-17",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 1,
+    "timeGap": 0,
+    "raceTime": 90.9,
+    "final3F": 33,
+    "carriedWeight": 56,
+    "gate": 6,
+    "horseNumber": 12,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202605020811",
+    "sourceHorseId": "2022105185",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

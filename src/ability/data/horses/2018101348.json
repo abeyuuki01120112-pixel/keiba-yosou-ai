@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20260221-TOKYO-11",
+    "raceName": "ダイヤモンドステークス",
+    "raceDate": "2026-02-21",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 3400,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 11,
+    "timeGap": 1.4,
+    "raceTime": 213.4,
+    "final3F": 35.2,
+    "carriedWeight": 56,
+    "gate": 5,
+    "horseNumber": 9,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202605010711",
+    "sourceHorseId": "2018101348",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

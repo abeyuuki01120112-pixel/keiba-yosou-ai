@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20251122-KYOTO-10",
+    "raceName": "比叡ステークス",
+    "raceDate": "2025-11-22",
+    "racecourse": "京都",
+    "surface": "turf",
+    "distance": 2400,
+    "going": "良",
+    "raceNumber": 10,
+    "finishPosition": 9,
+    "timeGap": 1,
+    "raceTime": 145.9,
+    "final3F": 35.1,
+    "carriedWeight": 58,
+    "gate": 4,
+    "horseNumber": 8,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202508040510",
+    "sourceHorseId": "2020105206",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

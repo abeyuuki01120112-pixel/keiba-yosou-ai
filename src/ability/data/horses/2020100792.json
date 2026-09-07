@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20260124-KYOTO-11",
+    "raceName": "睦月ステークス",
+    "raceDate": "2026-01-24",
+    "racecourse": "京都",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 14,
+    "timeGap": 1.4,
+    "raceTime": 95.5,
+    "final3F": 34,
+    "carriedWeight": 57,
+    "gate": 6,
+    "horseNumber": 9,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202608010811",
+    "sourceHorseId": "2020100792",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

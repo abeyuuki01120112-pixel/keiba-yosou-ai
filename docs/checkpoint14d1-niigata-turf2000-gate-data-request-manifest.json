@@ -1,0 +1,69 @@
+{
+  "manifestId": "NIIGATA_TURF_2000_GATE_DATA_REQUEST",
+  "checkpoint": "14D.1",
+  "generatedAt": "2026-08-28",
+  "purpose": "新潟芝2000m（外回り・Aコース）のGate Suitability V1を統計的に検証するための実データ収集要求。現状repository内には対象条件のレースが1件（JRA-20260516-NIIGATA-11、新潟大賞典）しか無く、frame/gate効果を能力(baseAbility)から分離して検証するには全く不十分。",
+  "currentRepositoryCoverage": {
+    "matchingRaces": 1,
+    "raceIds": ["JRA-20260516-NIIGATA-11"],
+    "uniqueRunners": 13,
+    "dateRange": { "min": "2026-05-16", "max": "2026-05-16" },
+    "goingObserved": ["良"],
+    "gateAvailableRate": "13/13",
+    "horseNumberAvailableRate": "13/13",
+    "passingPositionAvailableRateForThisRaceItself": "1/13",
+    "note": "この1件は現在の2026新潟記念(8/30予定)から見て過去のレースのため、data/horses/内に正当に存在する（future leakageではない）。ただし1レースでは統計的検証は不可能。"
+  },
+  "targetCondition": {
+    "racecourse": "新潟",
+    "surface": "turf",
+    "distance": 2000,
+    "courseLayout": "outer（外回り、raceLapData.jsonのJRA-20260516-NIIGATA-11エントリで確認済みの唯一の裏付け。data/horses/側にはcourseLayoutフィールド自体が存在しないため、他のレースについては未確認）",
+    "courseVariant": "A（checkpoint本文の指定。repository内で検証済みの情報ではない）"
+  },
+  "requiredRaceLevelColumns": [
+    "raceId",
+    "raceDate",
+    "racecourse",
+    "raceNumber",
+    "raceName",
+    "surface",
+    "distance",
+    "going",
+    "fieldSize",
+    "courseLayout",
+    "courseVariant"
+  ],
+  "requiredRunnerLevelColumns": [
+    "horseId",
+    "horseName",
+    "frame",
+    "horseNumber",
+    "finishPosition",
+    "carriedWeightKg",
+    "actualRaceTimeSeconds",
+    "final3FSeconds",
+    "timeGapSeconds",
+    "passingPosition",
+    "source",
+    "sourceRaceId",
+    "sourceHorseId"
+  ],
+  "columnNotes": {
+    "courseLayout": "既存race_performances.csv契約（21列）には無い新規列。raceLapData.json（CHECKPOINT14C.1）で使われているのと同じ語彙（例: \"outer\"）を想定。",
+    "courseVariant": "既存契約には無い新規列。A/B/C等のコース使用区分。分からない場合はnull可（推測しない）。",
+    "actualRaceTimeSeconds_final3FSeconds_timeGapSeconds": "raceScore/baseAbilityの再計算（Ability Control、9節参照）に必須。finishPositionだけでは能力を統制した分析ができない。",
+    "preRaceBaseAbilityIsNotRequested": "対象馬が既にdata/horses/へ実データとして存在する場合、baseAbilityはrepository側で再現可能なため、ZIPに含める必要はない。新規馬（未収録馬）の場合は、当該馬の直近走データ（別途通常の race_performances.csv 契約）が無いとbaseAbility自体を算出できない点に注意。"
+  },
+  "minimumRacesRequested": {
+    "statement": "固定年数・固定レース数を決め打ちしない（checkpoint本文の明示的な指示）。",
+    "guidance": "実測可能な新潟芝2000m外回りAコースの全レースをできる限り多く提供してほしい。frame別のwinRate差を能力補正込みで検出するには、少なくとも数十レース規模（既存プロジェクトの近接事例として、courseTimeBaselines/courseFinal3FBaselinesは『通常5年』分のデータを目安にしている、docs/data-input-guide.md）が有力な目安だが、これは『5年だから正しい』という結論ではなく、既存の近縁事例の参考値に過ぎない。実際の必要件数はsample size検証（13節）で決める。",
+    "openQuestion": "新潟競馬場のコース改修履歴（もしあれば）を確認したい。改修前後でコース構造が変わっている場合、時代を分けて集計する必要がある。repository内にはこの情報が無いため、ChatGPT側で分かれば教えてほしい（推測でrepository側が判断することはしない）。"
+  },
+  "excludedFromThisRequest": [
+    "オッズ・人気",
+    "天候・馬場含水率・クッション値",
+    "騎手ごとの補正係数",
+    "レース結果に基づくmagic weightの提案"
+  ]
+}

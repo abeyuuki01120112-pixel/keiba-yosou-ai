@@ -1,0 +1,11 @@
+﻿racecourse,surface,distance,going,sampleYears,sampleCount,medianTimeSeconds,source
+中京,turf,2000,ALL,2021-2025,5,119.8,"JRA公式 verified sample pool / provisional, not full 5y population"
+中京,turf,2000,良,2021-2025,3,117.6,"JRA公式 verified sample pool / provisional, not full 5y population"
+中京,turf,2000,重,2021-2025,2,121.55,"JRA公式 verified sample pool / provisional, not full 5y population"
+京都,turf,2000,ALL,2023-2025,5,118.6,"JRA公式 verified sample pool / provisional, not full 5y population"
+京都,turf,2000,稍重,2023-2025,1,121.1,"JRA公式 verified sample pool / provisional, not full 5y population"
+京都,turf,2000,良,2023-2025,4,118.44999999999999,"JRA公式 verified sample pool / provisional, not full 5y population"
+京都,turf,2200,ALL,2023-2025,6,132.05,"JRA公式 verified sample pool / provisional, not full 5y population"
+京都,turf,2200,稍重,2023-2025,1,135.7,"JRA公式 verified sample pool / provisional, not full 5y population"
+京都,turf,2200,良,2023-2025,4,131.6,"JRA公式 verified sample pool / provisional, not full 5y population"
+京都,turf,2200,重,2023-2025,1,132.0,"JRA公式 verified sample pool / provisional, not full 5y population"

@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20250329-NAKAYAMA-11",
+    "raceName": "日経賞",
+    "raceDate": "2025-03-29",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 2500,
+    "going": "稍重",
+    "raceNumber": 11,
+    "finishPosition": 13,
+    "timeGap": 0.7,
+    "raceTime": 156.8,
+    "final3F": 36.5,
+    "carriedWeight": 57,
+    "gate": 7,
+    "horseNumber": 12,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202506030111",
+    "sourceHorseId": "2019105775",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

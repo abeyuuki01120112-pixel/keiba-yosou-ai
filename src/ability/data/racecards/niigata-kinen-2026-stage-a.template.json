@@ -1,0 +1,128 @@
+{
+  "_templateNote": "CHECKPOINT13.5A Race Card Template。2026新潟記念の正式Stage A Snapshot生成に使うRaceCardInput（src/ability/import/raceCardTypes.ts）の入力テンプレート。枠順・馬場等が正式発表されるまでは、このファイルのままではnormalizeRaceCard()の検証を通らない（raceId/raceDate/raceNumber/scheduledStartTime/goingがnull、各runnerのframe/horseNumberがnullのため）。正式発表後、下記の該当フィールドへ実際の値を書き込んでから npm run racecard:check -- <このファイル> を実行すること。architecture上の位置づけはdata/horses/（過去走実績）とは別物であり、このファイル自体はdata/horses/を読み書きしない。",
+  "_unconfirmedFields": [
+    "raceId",
+    "raceDate",
+    "raceNumber",
+    "scheduledStartTime",
+    "going",
+    "runners[].frame",
+    "runners[].horseNumber",
+    "runners[].assignedWeight"
+  ],
+  "_confirmedFields": {
+    "racecourse": "新潟記念は新潟競馬場開催の重賞であり、既存のprovisional fixture（src/ability/data/provisional/niigata-kinen-2026-registered.json由来、CHECKPOINT13.3）と一致",
+    "surface": "同上",
+    "distance": "同上（2000m）",
+    "runners[].horseName / horseId(=canonicalHorseId) / sourceHorseId": "CHECKPOINT13.3〜13.4Jで既にresolved=11/11、predictionEligible=11/11まで確認済み"
+  },
+  "raceId": null,
+  "raceDate": null,
+  "raceNumber": null,
+  "racecourse": "新潟",
+  "surface": "turf",
+  "distance": 2000,
+  "scheduledStartTime": null,
+  "going": null,
+  "runners": [
+    {
+      "horseName": "アーバンシック",
+      "horseId": "2021105436",
+      "sourceHorseId": "2021105436",
+      "frame": null,
+      "horseNumber": null,
+      "assignedWeight": null,
+      "scratched": false
+    },
+    {
+      "horseName": "サヴォーナ",
+      "horseId": "2020100734",
+      "sourceHorseId": "2020100734",
+      "frame": null,
+      "horseNumber": null,
+      "assignedWeight": null,
+      "scratched": false
+    },
+    {
+      "horseName": "ジュンブロッサム",
+      "horseId": "2019105118",
+      "sourceHorseId": "2019105118",
+      "frame": null,
+      "horseNumber": null,
+      "assignedWeight": null,
+      "scratched": false
+    },
+    {
+      "horseName": "ステレンボッシュ",
+      "horseId": "2021105743",
+      "sourceHorseId": "2021105743",
+      "frame": null,
+      "horseNumber": null,
+      "assignedWeight": null,
+      "scratched": false
+    },
+    {
+      "horseName": "ゾロアストロ",
+      "horseId": "2023106850",
+      "sourceHorseId": "2023106850",
+      "frame": null,
+      "horseNumber": null,
+      "assignedWeight": null,
+      "scratched": false
+    },
+    {
+      "horseName": "ダノンシーマ",
+      "horseId": "2022104645",
+      "sourceHorseId": "2022104645",
+      "frame": null,
+      "horseNumber": null,
+      "assignedWeight": null,
+      "scratched": false
+    },
+    {
+      "horseName": "チェルヴィニア",
+      "horseId": "2021105643",
+      "sourceHorseId": "2021105643",
+      "frame": null,
+      "horseNumber": null,
+      "assignedWeight": null,
+      "scratched": false
+    },
+    {
+      "horseName": "ドゥレッツァ",
+      "horseId": "2020103650",
+      "sourceHorseId": "2020103650",
+      "frame": null,
+      "horseNumber": null,
+      "assignedWeight": null,
+      "scratched": false
+    },
+    {
+      "horseName": "バレエマスター",
+      "horseId": "2019104850",
+      "sourceHorseId": "2019104850",
+      "frame": null,
+      "horseNumber": null,
+      "assignedWeight": null,
+      "scratched": false
+    },
+    {
+      "horseName": "ボーンディスウェイ",
+      "horseId": "2019104658",
+      "sourceHorseId": "2019104658",
+      "frame": null,
+      "horseNumber": null,
+      "assignedWeight": null,
+      "scratched": false
+    },
+    {
+      "horseName": "ロデオドライブ",
+      "horseId": "2023107166",
+      "sourceHorseId": "2023107166",
+      "frame": null,
+      "horseNumber": null,
+      "assignedWeight": null,
+      "scratched": false
+    }
+  ]
+}

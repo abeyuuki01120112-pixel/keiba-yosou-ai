@@ -1,0 +1,59 @@
+[
+  {
+    "raceId": "JRA-20260307-NAKAYAMA-11",
+    "raceName": "中山牝馬ステークス",
+    "raceDate": "2026-03-07",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 1800,
+    "going": "稍重",
+    "raceNumber": 11,
+    "finishPosition": 13,
+    "timeGap": 1.3,
+    "raceTime": 108.4,
+    "final3F": 36.5,
+    "carriedWeight": 56,
+    "gate": 5,
+    "horseNumber": 10,
+    "fieldSize": 16,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202606020311",
+    "sourceHorseId": "2021105738",
+    "dataKind": "real",
+    "importedAt": "2026-08-27T05:33:40.754Z",
+    "passingPosition": {
+      "cornerPositions": [
+        5,
+        6,
+        6,
+        7
+      ],
+      "fieldSize": 16,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
+  },
+  {
+    "raceId": "JRA-20260516-NIIGATA-11",
+    "raceName": "新潟大賞典",
+    "raceDate": "2026-05-16",
+    "racecourse": "新潟",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 10,
+    "timeGap": 0.7,
+    "raceTime": 119.6,
+    "final3F": 34.4,
+    "carriedWeight": 56,
+    "gate": 3,
+    "horseNumber": 4,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202604010511",
+    "sourceHorseId": "2021105738",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

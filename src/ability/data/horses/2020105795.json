@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20251116-KYOTO-11",
+    "raceName": "エリザベス女王杯",
+    "raceDate": "2025-11-16",
+    "racecourse": "京都",
+    "surface": "turf",
+    "distance": 2200,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 9,
+    "timeGap": 1,
+    "raceTime": 132,
+    "final3F": 35.2,
+    "carriedWeight": 56,
+    "gate": 6,
+    "horseNumber": 11,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202508040411",
+    "sourceHorseId": "2020105795",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

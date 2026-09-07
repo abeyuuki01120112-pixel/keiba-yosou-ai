@@ -1,0 +1,50 @@
+{
+  "courseId": "TOKYO_DIRT_1600",
+  "venue": "東京",
+  "surface": "ダート",
+  "distanceM": 1600,
+  "turn": "左",
+  "representativeRace": [
+    "フェブラリーステークス"
+  ],
+  "layout": "2コーナー奥の芝ポケットからスタートしダートへ合流。",
+  "geometry": {
+    "turfStartApproxM": 150,
+    "outerExtraTurfApproxM": 30,
+    "firstCornerDistanceApproxM": 640,
+    "straightM": 501.6,
+    "finishSlope": "直線に高低差2.4mの上り坂"
+  },
+  "coreTraits": [
+    "JRAで唯一のダート1600m",
+    "外ほど芝区間が長く加速しやすいため構造的に外枠優位",
+    "3コーナーまで長く平均的に速い流れ",
+    "上級条件では差し追込も届く",
+    "出遅れは大きな不利"
+  ],
+  "gateBias": {
+    "level": "high",
+    "direction": "外枠プラス",
+    "reason": "外側の方が芝区間を約30m長く走れる構造的理由。",
+    "useAsPercent": true
+  },
+  "styleBias": {
+    "favored": [
+      "先行",
+      "上級条件の差し",
+      "芝スタートで加速できるタイプ"
+    ],
+    "disfavored": [
+      "出遅れ癖",
+      "短距離型で終いが甘いタイプ"
+    ]
+  },
+  "going": {
+    "良": "基本",
+    "稍重": "スピード比重やや増",
+    "重": "当日傾向を重視",
+    "不良": "高速ダート化の有無を当日判定"
+  },
+  "confidence": "high",
+  "_source": "course_karte_v1_5courses.zip（CHECKPOINT 6で監査済み、JRA公式・競馬ラボ複数ソース照合）。CHECKPOINT 8で東京ダート1600mのみrepoへ正式取り込み。他4コースは未取り込み（スコープ外）。"
+}

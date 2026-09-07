@@ -1,0 +1,88 @@
+{
+  "checkpoint": "14C.2F",
+  "targetRaceId": "JRA-20260516-NIIGATA-11",
+  "targetRaceDate": "2026-05-16",
+  "targetRaceName": "新潟大賞典",
+  "generatedAt": "2026-08-27",
+  "coverageDiscrepancyExplanation": {
+    "finding": "実際には差異は無い。READY=8/15とevidence無し=7/15は同じ15頭の相補分割（8+7=15）であり、'evidence coverage=7/15=47%'という表現はCHECKPOINT14C.2E報告の『evidence無し合計』行（=READYの補集合）を指しており、これはREADYの複製ではなく別の意味を持つ数値である。",
+    "verifiedFromCode": "generateHistoricalRacePacePrediction()の実行結果、prediction.horsesのうちpositionEvidenceCount>0は8頭・positionEvidenceCount===0は7頭で、prediction.warningsの『7頭がHistorical Position Profile未算出』はこの7頭（=PARTIAL2頭+NO_EVIDENCE5頭）を指す。READY(8)の定義とPrediction Eligible Evidence（positionEvidenceCount>0）の定義は完全に一致しており、Short Career等の別条件・runner exclusion・集計ミスのいずれにも該当しない。",
+    "conclusion": "report上の表記が『evidence無し合計』（=READYの補集合、47%）と『READY』（53%）を並記していたため誤読されやすかった。数値自体に誤りは無いためreport correctionは不要（今回のmanifestで明確化のみ行う）。Pace formulaの変更は行っていない。"
+  },
+  "remainingSevenRunners": [
+    { "horseName": "ドゥラドーレス", "horseId": "2019105556", "sourceHorseId": null, "historicalPositionStatus": "PARTIAL", "currentPositionEvidenceCount": 0, "currentPassingPositionCount": 0, "currentFieldSizeCount": 0, "knownCareerRaceCount": 6, "shortCareer": false },
+    { "horseName": "サフィラ", "horseId": "2021105541", "sourceHorseId": null, "historicalPositionStatus": "PARTIAL", "currentPositionEvidenceCount": 0, "currentPassingPositionCount": 0, "currentFieldSizeCount": 0, "knownCareerRaceCount": 6, "shortCareer": false },
+    { "horseName": "フクノブルーレイク", "horseId": "2022101329", "sourceHorseId": "2022101329", "historicalPositionStatus": "NO_EVIDENCE", "currentPositionEvidenceCount": 0, "currentPassingPositionCount": 0, "currentFieldSizeCount": 0, "knownCareerRaceCount": 0, "shortCareer": "unknown（repository上の唯一の記録がtargetRace自身のみで、真のデビュー戦か単なる未収録かを判別できない）" },
+    { "horseName": "ヤマニンブークリエ", "horseId": "2022106611", "sourceHorseId": null, "historicalPositionStatus": "NO_EVIDENCE", "currentPositionEvidenceCount": 0, "currentPassingPositionCount": 0, "currentFieldSizeCount": 0, "knownCareerRaceCount": 0, "shortCareer": "unknown（targetRace後の1走（2026-07-12七夕賞）はrepositoryにあるが、targetRace以前の記録は無い）" },
+    { "horseName": "トーセンリョウ", "horseId": "2019104711", "sourceHorseId": "2019104711", "historicalPositionStatus": "NO_EVIDENCE", "currentPositionEvidenceCount": 0, "currentPassingPositionCount": 0, "currentFieldSizeCount": 0, "knownCareerRaceCount": 0, "shortCareer": "unknown（targetRace後の1走（2026-06-13ジューンステークス）はrepositoryにあるが、targetRace以前の記録は無い）" },
+    { "horseName": "ホールネス", "horseId": "2020110060", "sourceHorseId": "2020110060", "historicalPositionStatus": "NO_EVIDENCE", "currentPositionEvidenceCount": 0, "currentPassingPositionCount": 0, "currentFieldSizeCount": 0, "knownCareerRaceCount": 0, "shortCareer": "unknown（repository上の唯一の記録がtargetRace自身のみ）" },
+    { "horseName": "シュガークン", "horseId": "2021102224", "sourceHorseId": "2021102224", "historicalPositionStatus": "NO_EVIDENCE", "currentPositionEvidenceCount": 0, "currentPassingPositionCount": 0, "currentFieldSizeCount": 0, "knownCareerRaceCount": 0, "shortCareer": "unknown（targetRace後の1走（2026-06-14宝塚記念）はrepositoryにあるが、targetRace以前の記録は無い）" }
+  ],
+  "partialRunners": [
+    {
+      "horseName": "ドゥラドーレス",
+      "horseId": "2019105556",
+      "sourceHorseId": null,
+      "requiredPriorRaces": [
+        { "raceId": "JRA-20260315-CHUKYO-11", "raceDate": "2026-03-15", "raceName": "金鯱賞", "racecourse": "中京", "surface": "turf", "distance": 2000, "going": "良", "existingFieldSize": false, "existingPassingPosition": false },
+        { "raceId": "JRA-20260125-NAKAYAMA-11", "raceDate": "2026-01-25", "raceName": "アメリカJCC", "racecourse": "中山", "surface": "turf", "distance": 2200, "going": "良", "existingFieldSize": false, "existingPassingPosition": false },
+        { "raceId": "JRA-20250921-NAKAYAMA-11", "raceDate": "2025-09-21", "raceName": "オールカマー", "racecourse": "中山", "surface": "turf", "distance": 2200, "going": "良", "existingFieldSize": false, "existingPassingPosition": false },
+        { "raceId": "JRA-20250713-FUKUSHIMA-11", "raceDate": "2025-07-13", "raceName": "七夕賞", "racecourse": "福島", "surface": "turf", "distance": 2000, "going": "良", "existingFieldSize": false, "existingPassingPosition": false },
+        { "raceId": "JRA-20250510-TOKYO-11", "raceDate": "2025-05-10", "raceName": "エプソムC", "racecourse": "東京", "surface": "turf", "distance": 1800, "going": "稍重", "existingFieldSize": false, "existingPassingPosition": false }
+      ],
+      "excludedFromRequest": [
+        { "raceId": "JRA-20250209-KOKURA-11", "raceDate": "2025-02-09", "raceName": "小倉日経賞", "reason": "RECENT_RACE_COUNT=5の範囲外（直近5走のうち6走目のため、Historical Position Profileへ影響しない）" }
+      ]
+    },
+    {
+      "horseName": "サフィラ",
+      "horseId": "2021105541",
+      "sourceHorseId": null,
+      "requiredPriorRaces": [
+        { "raceId": "JRA-20260315-CHUKYO-11", "raceDate": "2026-03-15", "raceName": "金鯱賞", "racecourse": "中京", "surface": "turf", "distance": 2000, "going": "良", "existingFieldSize": false, "existingPassingPosition": false },
+        { "raceId": "JRA-20260215-KYOTO-11", "raceDate": "2026-02-15", "raceName": "京都記念", "racecourse": "京都", "surface": "turf", "distance": 2200, "going": "良", "existingFieldSize": false, "existingPassingPosition": false },
+        { "raceId": "JRA-20251116-KYOTO-11", "raceDate": "2025-11-16", "raceName": "エリザベス女王杯", "racecourse": "京都", "surface": "turf", "distance": 2200, "going": "良", "existingFieldSize": false, "existingPassingPosition": false },
+        { "raceId": "JRA-20251012-TOKYO-11", "raceDate": "2025-10-12", "raceName": "アイルランドT", "racecourse": "東京", "surface": "turf", "distance": 1800, "going": "良", "existingFieldSize": false, "existingPassingPosition": false },
+        { "raceId": "JRA-20250518-TOKYO-11", "raceDate": "2025-05-18", "raceName": "ヴィクトリアマイル", "racecourse": "東京", "surface": "turf", "distance": 1600, "going": "良", "existingFieldSize": false, "existingPassingPosition": false }
+      ],
+      "excludedFromRequest": [
+        { "raceId": "JRA-20250412-HANSHIN-11", "raceDate": "2025-04-12", "raceName": "阪神牝馬S", "reason": "RECENT_RACE_COUNT=5の範囲外" }
+      ]
+    }
+  ],
+  "noEvidenceRunners": [
+    { "horseName": "フクノブルーレイク", "horseId": "2022101329", "sourceHorseId": "2022101329", "knownCareerRaceCount": 0, "priorRaceIdentity": "EXTERNAL_DISCOVERY_REQUIRED", "note": "repository上の唯一の記録がtargetRace自身のみ（2026-05-16）。それより前の記録は0件。" },
+    { "horseName": "ヤマニンブークリエ", "horseId": "2022106611", "sourceHorseId": null, "knownCareerRaceCount": 0, "priorRaceIdentity": "EXTERNAL_DISCOVERY_REQUIRED", "note": "targetRace後の2026-07-12七夕賞はrepositoryにあるが、targetRace以前の記録は0件。" },
+    { "horseName": "トーセンリョウ", "horseId": "2019104711", "sourceHorseId": "2019104711", "knownCareerRaceCount": 0, "priorRaceIdentity": "EXTERNAL_DISCOVERY_REQUIRED", "note": "targetRace後の2026-06-13ジューンステークスはrepositoryにあるが、targetRace以前の記録は0件。" },
+    { "horseName": "ホールネス", "horseId": "2020110060", "sourceHorseId": "2020110060", "knownCareerRaceCount": 0, "priorRaceIdentity": "EXTERNAL_DISCOVERY_REQUIRED", "note": "repository上の唯一の記録がtargetRace自身のみ（2026-05-16）。それより前の記録は0件。" },
+    { "horseName": "シュガークン", "horseId": "2021102224", "sourceHorseId": "2021102224", "knownCareerRaceCount": 0, "priorRaceIdentity": "EXTERNAL_DISCOVERY_REQUIRED", "note": "targetRace後の2026-06-14宝塚記念はrepositoryにあるが、targetRace以前の記録は0件。" }
+  ],
+  "requiredPositionDataContract": {
+    "note": "既存のCSV取り込み契約（normalize.tsがsource of truth）をそのまま再利用。新規フィールドは追加していない。",
+    "columns": [
+      "raceId", "raceDate", "racecourse", "raceNumber", "raceName", "surface", "distance", "going",
+      "horseId", "horseName", "horseNumber", "gate",
+      "finishPosition", "carriedWeightKg", "actualRaceTimeSeconds", "final3FSeconds", "timeGapSeconds",
+      "fieldSize", "passingPosition",
+      "source", "sourceRaceId", "sourceHorseId"
+    ],
+    "deprecatedAliasesNotToUse": ["timeGap", "raceTime", "final3F", "carriedWeight"],
+    "minimumRequiredForPositionEvidence": ["raceId", "raceDate", "racecourse", "surface", "distance", "going", "horseId", "horseName", "fieldSize", "passingPosition"]
+  },
+  "collectionRowLimits": {
+    "partialMax": 10,
+    "noEvidenceMax": 25,
+    "totalMax": 35,
+    "note": "Short Career等で実走数が5走に満たない場合、存在しない走を要求しない（今回のPARTIAL2頭はいずれも既に6走判明しているため各5走ちょうどを要求）。"
+  },
+  "futureLeakageCheck": {
+    "rule": "全requiredPriorRacesについて raceDate < 2026-05-16 を満たす",
+    "verified": true,
+    "targetRaceOrLaterExcluded": true
+  },
+  "explicitlyOutOfScopeThisRound": [
+    "外部Web検索", "データ取得", "Import", "Pace formula変更", "新規magic weight",
+    "残り7Pilot Raceへの拡張", "CHECKPOINT14D", "Track Bias", "Final Race Ability",
+    "Odds / EV", "UI実装"
+  ]
+}

@@ -1,0 +1,164 @@
+[
+  {
+    "raceId": "JRA-20251018-TOKYO-11",
+    "raceName": "富士ステークス",
+    "raceDate": "2025-10-18",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 4,
+    "timeGap": 0.4,
+    "raceTime": 92.1,
+    "final3F": 32.8,
+    "carriedWeight": 58,
+    "gate": 5,
+    "horseNumber": 8,
+    "fieldSize": 14,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202505040611",
+    "sourceHorseId": "2019105118",
+    "dataKind": "real",
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        12,
+        11
+      ],
+      "fieldSize": 14,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
+  },
+  {
+    "raceId": "JRA-20251129-TOKYO-11",
+    "raceName": "キャピタルステークス",
+    "raceDate": "2025-11-29",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 7,
+    "timeGap": 0.3,
+    "raceTime": 92.2,
+    "final3F": 33.5,
+    "carriedWeight": 58,
+    "gate": 5,
+    "horseNumber": 9,
+    "fieldSize": 18,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202505050711",
+    "sourceHorseId": "2019105118",
+    "dataKind": "real",
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        11,
+        13
+      ],
+      "fieldSize": 18,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
+  },
+  {
+    "raceId": "JRA-20260404-NAKAYAMA-11",
+    "raceName": "ダービー卿チャレンジトロフィー",
+    "raceDate": "2026-04-04",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "稍重",
+    "raceNumber": 11,
+    "finishPosition": 11,
+    "timeGap": 1.1,
+    "raceTime": 94.5,
+    "final3F": 35.3,
+    "carriedWeight": 58.5,
+    "gate": 7,
+    "horseNumber": 14,
+    "fieldSize": 15,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202606030311",
+    "sourceHorseId": "2019105118",
+    "dataKind": "real",
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        12,
+        12,
+        14
+      ],
+      "fieldSize": 15,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
+  },
+  {
+    "raceId": "JRA-20260509-TOKYO-11",
+    "raceName": "エプソムカップ",
+    "raceDate": "2026-05-09",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 1800,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 9,
+    "timeGap": 0.5,
+    "raceTime": 105.8,
+    "final3F": 33.2,
+    "carriedWeight": 58,
+    "gate": 3,
+    "horseNumber": 5,
+    "fieldSize": 17,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202605020511",
+    "sourceHorseId": "2019105118",
+    "dataKind": "real",
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        12,
+        13,
+        13
+      ],
+      "fieldSize": 17,
+      "source": "keibamar_public_dataset",
+      "isReliable": true
+    }
+  },
+  {
+    "raceId": "JRA-20260808-NIIGATA-07",
+    "raceName": "関越ステークス",
+    "raceDate": "2026-08-08",
+    "racecourse": "新潟",
+    "surface": "turf",
+    "distance": 1800,
+    "going": "良",
+    "raceNumber": 7,
+    "finishPosition": 9,
+    "timeGap": 0.4,
+    "raceTime": 105.4,
+    "final3F": 32,
+    "carriedWeight": 58,
+    "gate": 5,
+    "horseNumber": 9,
+    "fieldSize": 16,
+    "source": "JRA_official_results",
+    "sourceRaceId": "202604020507",
+    "sourceHorseId": null,
+    "dataKind": "real",
+    "importedAt": "2026-08-25T14:53:00.954Z",
+    "passingPosition": {
+      "cornerPositions": [
+        14,
+        14
+      ],
+      "fieldSize": 16,
+      "source": "JRA_official_results",
+      "isReliable": true
+    }
+  }
+]

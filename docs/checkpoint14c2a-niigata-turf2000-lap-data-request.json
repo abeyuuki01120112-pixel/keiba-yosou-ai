@@ -1,0 +1,119 @@
+{
+  "checkpoint": "14C.2A",
+  "purpose": "新潟芝2000m Pace V1 Pilot Validation用のLap Data収集対象レースとschemaを、actual pace/lap結果を見ずに機械的に確定する",
+  "generatedAt": "2026-08-26",
+  "status": "EXTERNAL_DISCOVERY_REQUIRED",
+  "selectionRule": {
+    "criteria": [
+      "racecourse == 新潟",
+      "surface == turf",
+      "distance == 2000",
+      "raceDate is before the (currently unofficial/unconfirmed) 2026 新潟記念 date",
+      "prefer same courseLayout when determinable (currently not determinable in this repository, see repositoryAudit)",
+      "sort by raceDate descending (most-recent-first)",
+      "maximum 8 races",
+      "minimum 5 races required, otherwise report EXTERNAL_DISCOVERY_REQUIRED"
+    ],
+    "selectionReasonTemplate": "same course/surface/distance, most-recent-first deterministic selection",
+    "explicitlyNotUsedAsFilters": [
+      "going（良/稍重/重/不良）",
+      "raceClass（G1/G3/OP/条件戦等）",
+      "A/Bコース替わり等のtrack configuration切り替え",
+      "actual pace / lap結果 / 着順 / 決着内容"
+    ]
+  },
+  "repositoryAudit": {
+    "courseLayoutFieldExists": false,
+    "courseLayoutAuditNote": "RacePerformance（src/ability/types.ts）にもcourseKarte/にも、内回り/外回り等の構造化されたcourse layout区別フィールドは存在しない。courseKarte/tokyoDirt1600.jsonのlayoutキーは自由記述の説明文であり、機械判定には使えない。",
+    "raceClassFieldExists": false,
+    "raceClassAuditNote": "RacePerformanceにレースクラス（G1/G3/OP等）を表す構造化フィールドは存在しない。raceName（自由記述の文字列）から人間が読み取ることは可能だが、本ラウンドでは機械的なraceClass値を捏造していない。",
+    "totalRaceEntriesScanned": 891,
+    "uniqueRaceIdsScanned": 127,
+    "niigataTurfAllDistances": 3,
+    "niigataTurf2000mMatches": 1
+  },
+  "targetPilotRaces": [
+    {
+      "selectionOrder": 1,
+      "raceId": "JRA-20260516-NIIGATA-11",
+      "raceDate": "2026-05-16",
+      "raceName": "新潟大賞典",
+      "raceNumber": 11,
+      "racecourse": "新潟",
+      "surface": "turf",
+      "distance": 2000,
+      "going": "良",
+      "fieldSize": null,
+      "courseLayout": "unknown",
+      "raceClass": "unknown（repository内に構造化フィールド無し。raceName以外の根拠で捏造していない）",
+      "lapDataAvailability": "0件（lap/lapSequence/first3F/first600/first1000のいずれの実データも現状repositoryに無い）",
+      "selectionReason": "same course/surface/distance, most-recent-first deterministic selection; 現時点でrepository内に存在する新潟・芝・2000mの唯一の候補"
+    }
+  ],
+  "minimumRequired": 5,
+  "maximumRequested": 8,
+  "foundInRepository": 1,
+  "additionalRacesNeededExternally": "4〜7件（最低5件到達に4件、理想8件到達に7件）",
+  "additionalRacesNote": "本repositoryのdata/horses/は『追跡対象馬の過去走履歴』の集合であり、JRAの全レース結果を網羅した独立データベースではない。したがって『新潟・芝・2000mが実際に何レース開催されたか』ではなく『追跡対象馬が新潟・芝・2000mを走ったことがある実績数』のみを反映している。追加候補の特定にはJRA公式レース結果等、repository外の情報が必要。",
+  "dataSchema": {
+    "typeName": "RaceLapSequenceRecord",
+    "sourceFile": "src/ability/racePaceValidationTypes.ts",
+    "note": "コードがsource of truth。以下はそのまま転記した正式フィールド名・型。",
+    "fields": [
+      { "name": "raceId", "type": "string", "required": true },
+      { "name": "raceDate", "type": "string (YYYY-MM-DD)", "required": true },
+      { "name": "raceName", "type": "string", "required": true },
+      { "name": "raceNumber", "type": "number | null", "required": true },
+      { "name": "racecourse", "type": "string", "required": true },
+      { "name": "surface", "type": "\"turf\" | \"dirt\"", "required": true },
+      { "name": "distance", "type": "number (meters)", "required": true },
+      { "name": "going", "type": "string", "required": true },
+      { "name": "fieldSize", "type": "number | null", "required": true },
+      { "name": "courseLayout", "type": "string | null", "required": true, "note": "判定不能ならnull（=unknown）。推測禁止。" },
+      { "name": "raceClass", "type": "string | null", "required": true, "note": "metadataのみ。baseline primary keyには使わない。" },
+      { "name": "segmentMeters", "type": "number", "required": true, "note": "lapSequence1区間あたりの距離。推測せず必ず明示。" },
+      { "name": "lapSequence", "type": "number[]", "required": true, "note": "スタートから順の区間タイム（秒）。不完全なら欠けている区間を捏造せず、実際に分かる区間だけを入れる。" },
+      { "name": "source", "type": "string", "required": true },
+      { "name": "sourceRaceId", "type": "string | null", "required": false },
+      { "name": "importedAt", "type": "string | null (ISO8601)", "required": false }
+    ]
+  },
+  "lapSequenceFormatExample": [12.7, 11.3, 11.8, 11.6, 11.9, 12.0, 11.8, 11.5, 11.4, 11.9],
+  "lapSequenceValidationContract": {
+    "segmentCountVsDistance": "lapSequence.length * segmentMeters が distance と大きく食い違う場合（segmentMeters超の差）はwarningを出す（src/ability/racePaceValidation.tsのcheckLapSequenceCoverage、blockはしない）",
+    "incompleteData": "不完全なラップ列を推測補完しない。分かる区間だけを入れ、欠損は配列を短くする（0埋め等はしない）"
+  },
+  "derivationContract": {
+    "first600mSeconds": "distance>=600m かつ 600 % segmentMeters == 0 かつ lapSequence.length >= 600/segmentMeters の場合のみ、先頭600/segmentMeters区間を合計。それ以外はnull",
+    "first1000mSeconds": "distance>=1000m かつ 1000 % segmentMeters == 0 かつ lapSequence.length >= 1000/segmentMeters の場合のみ算出。それ以外はnull（distance<1000mの短距離戦は特にnull、CHECKPOINT14C.1 5節）",
+    "implementation": "src/ability/racePaceValidation.ts の deriveFirst600mSeconds / deriveFirst1000mSeconds",
+    "chatgptSideInstruction": "first600m/first1000mを手計算して渡す必要は無い。lapSequenceだけを渡せば、Claude側の既存関数が機械的に導出する。"
+  },
+  "raceLevelArchitecture": {
+    "storage": "src/ability/data/raceLapData.json（{note, laps: RaceLapSequenceRecord[]}）。既存data/raceFieldAggregates.jsonと同じ、raceIdをキーにしたrace-level別ファイル方式。",
+    "horseLevelSeparation": "race_performances.csv・data/horses/*.jsonへは重複保存しない。Base Ability用horse historyとは完全に別ファイル。",
+    "currentWiringStatus": "raceHistoryPipeline.ts等の本番読み込み経路へは未接続（CHECKPOINT14C.2Aの時点でも変更していない）"
+  },
+  "leaveOneRaceOutBaselineProposal": {
+    "concept": "8レースを検証する場合、レースAのActual Pace baselineを計算する際はレースA自身をbaseline sample集合から除外する（自己参照防止）",
+    "status": "仕様提案のみ。Pace Engine自体は今回変更していない。実装はbaseline実データが揃った段階（V1.1）で検討する。"
+  },
+  "pilotValidationMetrics": [
+    "Pace Class Accuracy（expectedPaceClass vs actualPaceClassの一致率）",
+    "Confusion Matrix（slow/average/high の3x3）",
+    "continuousPacePressure vs continuousActualPace の相関（sample数が少ないため過大解釈しない）"
+  ],
+  "explicitlyOutOfScopeThisRound": [
+    "外部Web検索によるレース結果取得",
+    "Lap Dataの自動取得・投入",
+    "actual paceを見た上での対象race選択",
+    "Race Pace Prediction formula/expectedPaceClass/runningStyle判定ロジックの変更",
+    "新規magic weightの導入",
+    "Current Race Position Prediction",
+    "Post-Frame Pace",
+    "Track Bias",
+    "Final Race Ability",
+    "Probability / Odds / EV / Betting Strategy",
+    "UI実装"
+  ]
+}

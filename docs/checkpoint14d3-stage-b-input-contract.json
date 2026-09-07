@@ -1,0 +1,700 @@
+{
+  "contractType": "STAGE_B_INPUT_CONTRACT",
+  "checkpoint": "CHECKPOINT14D.3",
+  "stageBDefinition": "Stage Aで固定した馬の静的能力評価に、実際のレース当日の可変条件を加えて、その日のRace Performanceを予測する段階。Stage Aを書き換えるのではなく、Stage Aはinputとして扱う。",
+  "twoPhaseDesign": {
+    "PRELIMINARY_STAGE_B": "土曜日時点で取得可能な天気予報・風予報・想定馬場・現在確認可能なTrack情報を使用。最終判断ではない。",
+    "FINAL_STAGE_B": "原則発走約2時間前に、最新のWeather/Wind/Going/Track Bias/Horse Weight/Pace-Positionを取得して固定する。"
+  },
+  "inputCategories": [
+    {
+      "category": "A. Weather",
+      "fields": [
+        "weatherCondition",
+        "rainfall",
+        "precipitationProbability",
+        "temperature"
+      ],
+      "level": "race",
+      "availability": "AVAILABLE_RACE_DAY",
+      "preliminaryAvailability": "AVAILABLE_NOW（天気予報として、ただし本ラウンドでは実際に外部取得していない）",
+      "asOfRule": "observedAt <= predictionCutoffAt。レース後の実況天気は使用禁止。",
+      "notes": "本ラウンドはWeb取得を行っていないため、fetchedThisRound=false。Preliminary Stage Bで使う場合は、実際に取得した時点でsource/observedAtを記録する。"
+    },
+    {
+      "category": "B. Wind",
+      "fields": [
+        "windSpeed",
+        "windDirection",
+        "gust"
+      ],
+      "level": "race",
+      "availability": "AVAILABLE_RACE_DAY",
+      "preliminaryAvailability": "AVAILABLE_NOW（風予報として、ただし本ラウンドでは実際に外部取得していない）",
+      "asOfRule": "同上",
+      "notes": "同上"
+    },
+    {
+      "category": "C. Going / Track Condition",
+      "fields": [
+        "officialGoing",
+        "moistureContent",
+        "turfCondition"
+      ],
+      "level": "race",
+      "availability": "AVAILABLE_RACE_DAY",
+      "preliminaryAvailability": "NOT_AVAILABLE（正式馬場発表は発走当日、既存Stage A Snapshotのgoing.evaluated=falseと整合）",
+      "asOfRule": "JRA公式馬場発表時刻をobservedAtとする。含水率等は取得できる正式ソースがあれば記録、無ければnull（推測しない）。",
+      "notes": "現状repository内に含水率の正式データソース・パイプラインは存在しない（NOT_AVAILABLE、V1では未実装）。"
+    },
+    {
+      "category": "D. Track Bias",
+      "fields": [
+        "frontBackBias",
+        "insideOutsideBias",
+        "paceLevelObserved",
+        "timeLevelObserved"
+      ],
+      "level": "race",
+      "availability": "AVAILABLE_RACE_DAY",
+      "preliminaryAvailability": "NOT_AVAILABLE",
+      "asOfRule": "当日の先行レース結果を基にした観測。対象レースより後の情報は使用禁止（future leakage防止）。",
+      "notes": "`trackBias.ts`の`resolveTrackBias()`は manual入力 と auto入力 を受け付けるが、auto側はV1では未実装のため常にnull（`finalRaceAbility.ts`のコメント通り）。manual入力は人間が当日の先行レースを見て入力する前提であり、Claude単独では生成できない（推測禁止）。"
+    },
+    {
+      "category": "E. Pace / Position",
+      "fields": [
+        "continuousPacePressure",
+        "frontPressure",
+        "expectedPaceClass",
+        "paceConfidence",
+        "positionProfile(perHorse)"
+      ],
+      "level": "race + per-horse",
+      "availability": "AVAILABLE_NOW",
+      "preliminaryAvailability": "AVAILABLE_NOW",
+      "asOfRule": "各馬の対象レースより前の実データ過去走（passingPosition）のみを使用（既存baseAbility等と同じfuture leakage規約）。",
+      "notes": "Race Pace Prediction V1（racePacePrediction.ts）・Historical Position Profile V1（positionProfile.ts）はいずれもPre-Frame（枠順を使わない）で、実データのみから今すぐ計算可能。ただし本ラウンドでは実際に実行していない（Stage B Score自体は今回確定しないため）。"
+    },
+    {
+      "category": "F. Frame / Horse Number",
+      "fields": [
+        "frame",
+        "horseNumber"
+      ],
+      "level": "per-horse",
+      "availability": "AVAILABLE_NOW",
+      "preliminaryAvailability": "AVAILABLE_NOW",
+      "asOfRule": "既にFormal Stage A Snapshotへ保存済み（predictionCutoffAt=2026-08-28T03:03:03.357Z時点で確定）。",
+      "notes": "新潟芝2000mGate EffectはINSUFFICIENT（CHECKPOINT14D.1C）のため、新規magic gate weightは禁止。枠はDiagnostic表示、または既存HorseEvidence（Suitability V1のgate component、バレエマスターの例のように本人の新潟実績に基づく場合のみ）としてのみ使用可能。"
+    },
+    {
+      "category": "G. Assigned Weight",
+      "fields": [
+        "assignedWeight"
+      ],
+      "level": "per-horse",
+      "availability": "AVAILABLE_NOW",
+      "preliminaryAvailability": "AVAILABLE_NOW",
+      "asOfRule": "既にFormal Stage A Snapshotへ保存済み。",
+      "notes": "Base Abilityは変更しない。Stage B Adjustment Factorとして別途扱う場合も、既存の検証済みロジックが無い限り新規magic weightを発明しない。"
+    },
+    {
+      "category": "H. Horse Weight",
+      "fields": [
+        "horseWeight",
+        "horseWeightChange"
+      ],
+      "level": "per-horse",
+      "availability": "AVAILABLE_RACE_DAY",
+      "preliminaryAvailability": "NOT_AVAILABLE",
+      "asOfRule": "JRA公式発表（発走約1時間前）の時刻をobservedAtとする。",
+      "notes": "Base Abilityを変更しない。Stage B Adjustment Factorの一部として将来検討するが、既存の検証済み変換式が無いため、本ラウンドではNOT_RECOMMENDED_V1（新規計算式を発明しない）。"
+    }
+  ],
+  "excludedFromStageBRanking": [
+    "単勝オッズ",
+    "複勝オッズ",
+    "人気順位",
+    "市場支持率",
+    "Umapro印",
+    "SNS予想",
+    "専門家印"
+  ],
+  "boundary": "Stage B完成 → AI Probability → Market Odds → EV → BET/PASS。OddsはStage B Rankingには混ぜない。",
+  "asOfContractShape": {
+    "observedAt": "ISO8601",
+    "source": "string",
+    "asOf": "ISO8601（predictionCutoffAt相当）",
+    "confidence": "low|medium|high|unknown"
+  },
+  "missingInputBehavior": "推測で補完しない。null/NOT_EVALUATED/low confidenceで扱う。Stage Bを成立させるために架空値を入れない。",
+  "existingAssetReuseAudit": [
+    {
+      "file": "finalRaceAbility.ts",
+      "role": "effectiveAbility × raceContextFactor(paceScenarioFactor × trackBiasFactor) = finalRaceAbility を統合するSTEP5オーケストレーター",
+      "verdict": "REUSE_CANDIDATE",
+      "rationale": "effectiveAbility（Stage A）をimmutableな入力として受け取り、そこに乗算する形でraceContextFactorを適用する構造そのものが、今回定義する『Stage A Ability=immutable / Stage B Adjustment Factor=別軸』という思想と完全に一致する。既存コードを変更せず、Stage Bのオーケストレーターとして再利用候補にする。"
+    },
+    {
+      "file": "paceScenarioFactor.ts",
+      "role": "脚質×想定ペースの相性を100±5%で数値化",
+      "verdict": "REUSE_CANDIDATE（要留意）",
+      "rationale": "PACE_SCENARIO_AMPLITUDE=5は、コード自身のTODOコメントで『統計的近似であり、個別レースの具体的展開を直接評価するものではない』と明記されている。architecture上はconfidence縮小・clamp・neutral fallbackが整備されており『根拠のない固定点をその場で発明』したものではないため再利用候補とするが、E節（Pace/Position）の実データ（Race Pace Prediction V1）と組み合わせて使う設計になっている点を維持し、振幅の値自体を今回変更・再校正はしない。"
+    },
+    {
+      "file": "trackBiasFactor.ts",
+      "role": "脚質×前後バイアス観測の相性を100±5%で数値化",
+      "verdict": "REUSE_CANDIDATE（観測が無ければ中立100%固定）",
+      "rationale": "観測(observation)がnullの場合は無条件でneutral(100%,confidence=low)を返す設計（推測で埋めない）。ただしD節の通りauto観測は未実装、manual観測は人間入力が必要なため、Preliminary Stage Bでは事実上『常に中立』になる可能性が高いことを明記する。"
+    },
+    {
+      "file": "stabilityFactor.ts",
+      "role": "直近成績の下方半偏差に基づく安定性指標（STEP6）",
+      "verdict": "NOT_WIRED_TO_FINAL_RACE_ABILITY",
+      "rationale": "`finalRaceAbility.ts`のraceContextFactor計算には現在組み込まれていない（paceScenarioFactor・trackBiasFactorのみを使用）。docs/step6-decisions.mdでCENTER/AMPLITUDE/SCALE等がV1仮パラメータとして係数調整禁止と明記されている独立指標であり、Stage Bのcore adjustment factorとしてではなく、別途diagnostic指標として扱うかどうかは本ラウンドでは決定しない。"
+    },
+    {
+      "file": "racePacePrediction.ts",
+      "role": "Race Pace Prediction V1（Pre-Frame、continuousPacePressure/frontPressure/expectedPaceClass）",
+      "verdict": "REUSE_CANDIDATE",
+      "rationale": "枠順を使わないPre-Frame設計で、対象レースより前の実データ（Historical Position Profile）のみから計算される。コード自身が『Final Race Abilityへ一切接続しない（Pace Scenario Factorは別レイヤー、未実装）』と明記しており、Stage Bで初めてpaceScenarioFactor等と接続する対象として設計されている。"
+    },
+    {
+      "file": "positionProfile.ts",
+      "role": "Historical Position Profile V1（各馬の通過順位傾向、Contract A/B分離済み）",
+      "verdict": "REUSE_CANDIDATE",
+      "rationale": "passingPosition実データのみに基づく。racePacePrediction.tsの主要inputであり、E節の一部として利用可能。"
+    },
+    {
+      "file": "trackBias.ts",
+      "role": "manual/auto trackBias観測のresolve",
+      "verdict": "REUSE_CANDIDATE（auto側は現状常にneutral相当）",
+      "rationale": "`resolveTrackBias()`はmanual優先・autoフォールバックの構造を持つが、autoは`finalRaceAbility.ts`から常にnullで渡される想定（V1未実装）。"
+    }
+  ],
+  "stageBInputAvailabilityBoard": [
+    {
+      "horseId": "2019104658",
+      "horseName": "ボーンディスウェイ",
+      "frame": {
+        "value": 1,
+        "status": "AVAILABLE_NOW"
+      },
+      "horseNumber": {
+        "value": 1,
+        "status": "AVAILABLE_NOW"
+      },
+      "assignedWeight": {
+        "value": 57.0,
+        "status": "AVAILABLE_NOW"
+      },
+      "weather": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "予報としてはAVAILABLE_NOWだが本ラウンドで未取得"
+      },
+      "wind": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "同上"
+      },
+      "officialGoing": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      },
+      "trackBias": {
+        "value": null,
+        "status": "NOT_AVAILABLE",
+        "note": "auto未実装、manualは人間入力が必要"
+      },
+      "pacePosition": {
+        "value": null,
+        "status": "AVAILABLE_NOW",
+        "note": "計算可能だが本ラウンドでは未実行（Stage B Score未確定のため）"
+      },
+      "horseWeight": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      }
+    },
+    {
+      "horseId": "2020100734",
+      "horseName": "サヴォーナ",
+      "frame": {
+        "value": 2,
+        "status": "AVAILABLE_NOW"
+      },
+      "horseNumber": {
+        "value": 2,
+        "status": "AVAILABLE_NOW"
+      },
+      "assignedWeight": {
+        "value": 57.0,
+        "status": "AVAILABLE_NOW"
+      },
+      "weather": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "予報としてはAVAILABLE_NOWだが本ラウンドで未取得"
+      },
+      "wind": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "同上"
+      },
+      "officialGoing": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      },
+      "trackBias": {
+        "value": null,
+        "status": "NOT_AVAILABLE",
+        "note": "auto未実装、manualは人間入力が必要"
+      },
+      "pacePosition": {
+        "value": null,
+        "status": "AVAILABLE_NOW",
+        "note": "計算可能だが本ラウンドでは未実行（Stage B Score未確定のため）"
+      },
+      "horseWeight": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      }
+    },
+    {
+      "horseId": "2023107166",
+      "horseName": "ロデオドライブ",
+      "frame": {
+        "value": 3,
+        "status": "AVAILABLE_NOW"
+      },
+      "horseNumber": {
+        "value": 3,
+        "status": "AVAILABLE_NOW"
+      },
+      "assignedWeight": {
+        "value": 57.0,
+        "status": "AVAILABLE_NOW"
+      },
+      "weather": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "予報としてはAVAILABLE_NOWだが本ラウンドで未取得"
+      },
+      "wind": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "同上"
+      },
+      "officialGoing": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      },
+      "trackBias": {
+        "value": null,
+        "status": "NOT_AVAILABLE",
+        "note": "auto未実装、manualは人間入力が必要"
+      },
+      "pacePosition": {
+        "value": null,
+        "status": "AVAILABLE_NOW",
+        "note": "計算可能だが本ラウンドでは未実行（Stage B Score未確定のため）"
+      },
+      "horseWeight": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      }
+    },
+    {
+      "horseId": "2020103650",
+      "horseName": "ドゥレッツァ",
+      "frame": {
+        "value": 4,
+        "status": "AVAILABLE_NOW"
+      },
+      "horseNumber": {
+        "value": 4,
+        "status": "AVAILABLE_NOW"
+      },
+      "assignedWeight": {
+        "value": 59.0,
+        "status": "AVAILABLE_NOW"
+      },
+      "weather": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "予報としてはAVAILABLE_NOWだが本ラウンドで未取得"
+      },
+      "wind": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "同上"
+      },
+      "officialGoing": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      },
+      "trackBias": {
+        "value": null,
+        "status": "NOT_AVAILABLE",
+        "note": "auto未実装、manualは人間入力が必要"
+      },
+      "pacePosition": {
+        "value": null,
+        "status": "AVAILABLE_NOW",
+        "note": "計算可能だが本ラウンドでは未実行（Stage B Score未確定のため）"
+      },
+      "horseWeight": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      }
+    },
+    {
+      "horseId": "2023106850",
+      "horseName": "ゾロアストロ",
+      "frame": {
+        "value": 5,
+        "status": "AVAILABLE_NOW"
+      },
+      "horseNumber": {
+        "value": 5,
+        "status": "AVAILABLE_NOW"
+      },
+      "assignedWeight": {
+        "value": 55.0,
+        "status": "AVAILABLE_NOW"
+      },
+      "weather": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "予報としてはAVAILABLE_NOWだが本ラウンドで未取得"
+      },
+      "wind": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "同上"
+      },
+      "officialGoing": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      },
+      "trackBias": {
+        "value": null,
+        "status": "NOT_AVAILABLE",
+        "note": "auto未実装、manualは人間入力が必要"
+      },
+      "pacePosition": {
+        "value": null,
+        "status": "AVAILABLE_NOW",
+        "note": "計算可能だが本ラウンドでは未実行（Stage B Score未確定のため）"
+      },
+      "horseWeight": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      }
+    },
+    {
+      "horseId": "2021105643",
+      "horseName": "チェルヴィニア",
+      "frame": {
+        "value": 6,
+        "status": "AVAILABLE_NOW"
+      },
+      "horseNumber": {
+        "value": 6,
+        "status": "AVAILABLE_NOW"
+      },
+      "assignedWeight": {
+        "value": 56.0,
+        "status": "AVAILABLE_NOW"
+      },
+      "weather": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "予報としてはAVAILABLE_NOWだが本ラウンドで未取得"
+      },
+      "wind": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "同上"
+      },
+      "officialGoing": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      },
+      "trackBias": {
+        "value": null,
+        "status": "NOT_AVAILABLE",
+        "note": "auto未実装、manualは人間入力が必要"
+      },
+      "pacePosition": {
+        "value": null,
+        "status": "AVAILABLE_NOW",
+        "note": "計算可能だが本ラウンドでは未実行（Stage B Score未確定のため）"
+      },
+      "horseWeight": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      }
+    },
+    {
+      "horseId": "2019105118",
+      "horseName": "ジュンブロッサム",
+      "frame": {
+        "value": 6,
+        "status": "AVAILABLE_NOW"
+      },
+      "horseNumber": {
+        "value": 7,
+        "status": "AVAILABLE_NOW"
+      },
+      "assignedWeight": {
+        "value": 58.0,
+        "status": "AVAILABLE_NOW"
+      },
+      "weather": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "予報としてはAVAILABLE_NOWだが本ラウンドで未取得"
+      },
+      "wind": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "同上"
+      },
+      "officialGoing": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      },
+      "trackBias": {
+        "value": null,
+        "status": "NOT_AVAILABLE",
+        "note": "auto未実装、manualは人間入力が必要"
+      },
+      "pacePosition": {
+        "value": null,
+        "status": "AVAILABLE_NOW",
+        "note": "計算可能だが本ラウンドでは未実行（Stage B Score未確定のため）"
+      },
+      "horseWeight": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      }
+    },
+    {
+      "horseId": "2022104645",
+      "horseName": "ダノンシーマ",
+      "frame": {
+        "value": 7,
+        "status": "AVAILABLE_NOW"
+      },
+      "horseNumber": {
+        "value": 8,
+        "status": "AVAILABLE_NOW"
+      },
+      "assignedWeight": {
+        "value": 57.0,
+        "status": "AVAILABLE_NOW"
+      },
+      "weather": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "予報としてはAVAILABLE_NOWだが本ラウンドで未取得"
+      },
+      "wind": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "同上"
+      },
+      "officialGoing": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      },
+      "trackBias": {
+        "value": null,
+        "status": "NOT_AVAILABLE",
+        "note": "auto未実装、manualは人間入力が必要"
+      },
+      "pacePosition": {
+        "value": null,
+        "status": "AVAILABLE_NOW",
+        "note": "計算可能だが本ラウンドでは未実行（Stage B Score未確定のため）"
+      },
+      "horseWeight": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      }
+    },
+    {
+      "horseId": "2021105436",
+      "horseName": "アーバンシック",
+      "frame": {
+        "value": 7,
+        "status": "AVAILABLE_NOW"
+      },
+      "horseNumber": {
+        "value": 9,
+        "status": "AVAILABLE_NOW"
+      },
+      "assignedWeight": {
+        "value": 59.0,
+        "status": "AVAILABLE_NOW"
+      },
+      "weather": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "予報としてはAVAILABLE_NOWだが本ラウンドで未取得"
+      },
+      "wind": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "同上"
+      },
+      "officialGoing": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      },
+      "trackBias": {
+        "value": null,
+        "status": "NOT_AVAILABLE",
+        "note": "auto未実装、manualは人間入力が必要"
+      },
+      "pacePosition": {
+        "value": null,
+        "status": "AVAILABLE_NOW",
+        "note": "計算可能だが本ラウンドでは未実行（Stage B Score未確定のため）"
+      },
+      "horseWeight": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      }
+    },
+    {
+      "horseId": "2019104850",
+      "horseName": "バレエマスター",
+      "frame": {
+        "value": 8,
+        "status": "AVAILABLE_NOW"
+      },
+      "horseNumber": {
+        "value": 10,
+        "status": "AVAILABLE_NOW"
+      },
+      "assignedWeight": {
+        "value": 57.0,
+        "status": "AVAILABLE_NOW"
+      },
+      "weather": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "予報としてはAVAILABLE_NOWだが本ラウンドで未取得"
+      },
+      "wind": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "同上"
+      },
+      "officialGoing": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      },
+      "trackBias": {
+        "value": null,
+        "status": "NOT_AVAILABLE",
+        "note": "auto未実装、manualは人間入力が必要"
+      },
+      "pacePosition": {
+        "value": null,
+        "status": "AVAILABLE_NOW",
+        "note": "計算可能だが本ラウンドでは未実行（Stage B Score未確定のため）"
+      },
+      "horseWeight": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      }
+    },
+    {
+      "horseId": "2021105743",
+      "horseName": "ステレンボッシュ",
+      "frame": {
+        "value": 8,
+        "status": "AVAILABLE_NOW"
+      },
+      "horseNumber": {
+        "value": 11,
+        "status": "AVAILABLE_NOW"
+      },
+      "assignedWeight": {
+        "value": 56.0,
+        "status": "AVAILABLE_NOW"
+      },
+      "weather": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "予報としてはAVAILABLE_NOWだが本ラウンドで未取得"
+      },
+      "wind": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY",
+        "note": "同上"
+      },
+      "officialGoing": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      },
+      "trackBias": {
+        "value": null,
+        "status": "NOT_AVAILABLE",
+        "note": "auto未実装、manualは人間入力が必要"
+      },
+      "pacePosition": {
+        "value": null,
+        "status": "AVAILABLE_NOW",
+        "note": "計算可能だが本ラウンドでは未実行（Stage B Score未確定のため）"
+      },
+      "horseWeight": {
+        "value": null,
+        "status": "AVAILABLE_RACE_DAY"
+      }
+    }
+  ],
+  "stageBMinimumViableInput": {
+    "required": [
+      "Stage A Score（baseAbility × suitability、immutable input）",
+      "frame/assignedWeight（既にAVAILABLE_NOW）"
+    ],
+    "optional_but_high_value": [
+      "Pace/Position（Race Pace Prediction V1、実データのみでAVAILABLE_NOW、本ラウンドでは未実行）"
+    ],
+    "deferred_to_race_day": [
+      "公式馬場",
+      "含水率",
+      "当日Track Bias",
+      "馬体重"
+    ],
+    "note": "『全部揃うまで何もできない』設計にはしない。天気予報・風予報を実際に取得すればPRELIMINARY_STAGE_Bとして即座に機能する構成だが、本ラウンドでは外部データ取得を行っていないため、現時点で即実行可能なPreliminary Stage Bの実質的な追加input はPace/Positionのみである。"
+  },
+  "stageBToProbabilityOutputContract": {
+    "horseId": "string",
+    "horseName": "string",
+    "stageAScore": "number（displayScore、整数）",
+    "stageAScoreInternal": "number（internalEffectiveAbility）",
+    "stageBScore": "number | null（racePerformanceScore、未確定の場合null）",
+    "stageBRank": "number | null",
+    "confidence": "low|medium|high|unknown",
+    "adjustmentFactors": {
+      "paceScenario": "object | null",
+      "trackBias": "object | null",
+      "positionProjection": "object | null"
+    },
+    "note": "Stage A / Stage Bの両方を最終Prediction Recordに残す。『なぜStage A 5位からStage B 2位へ上がったのか』を後から説明可能にする。"
+  },
+  "prohibitedThisRound": [
+    "Stage B Score算出",
+    "Weather/Wind実データ取得",
+    "Probability/Monte Carlo",
+    "Odds/EV/BET-PASS",
+    "Gate 30-race拡張研究再開"
+  ]
+}

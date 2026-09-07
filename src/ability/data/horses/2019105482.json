@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20260329-HANSHIN-11",
+    "raceName": "六甲ステークス",
+    "raceDate": "2026-03-29",
+    "racecourse": "阪神",
+    "surface": "turf",
+    "distance": 1600,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 9,
+    "timeGap": 0.8,
+    "raceTime": 92.8,
+    "final3F": 34.2,
+    "carriedWeight": 57,
+    "gate": 7,
+    "horseNumber": 11,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202609020211",
+    "sourceHorseId": "2019105482",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

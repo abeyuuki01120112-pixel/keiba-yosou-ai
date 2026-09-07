@@ -1,0 +1,45 @@
+[
+  {
+    "raceId": "JRA-20260614-HANSHIN-11",
+    "raceName": "宝塚記念",
+    "raceDate": "2026-06-14",
+    "racecourse": "阪神",
+    "surface": "turf",
+    "distance": 2200,
+    "going": "重",
+    "finishPosition": 2,
+    "timeGap": 0.1,
+    "raceTime": 132.2,
+    "final3F": 35.2,
+    "carriedWeight": 58
+  },
+  {
+    "raceId": "JRA-20260405-HANSHIN-11",
+    "raceName": "大阪杯",
+    "raceDate": "2026-04-05",
+    "racecourse": "阪神",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "finishPosition": 1,
+    "timeGap": 0,
+    "raceTime": 117.6,
+    "final3F": 34.9,
+    "carriedWeight": 58
+  },
+  {
+    "raceId": "JRA-20251130-TOKYO-12",
+    "raceName": "ジャパンカップ",
+    "raceDate": "2025-11-30",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 2400,
+    "going": "良",
+    "raceNumber": 12,
+    "finishPosition": 4,
+    "timeGap": 0.6,
+    "raceTime": 140.9,
+    "final3F": 34.4,
+    "carriedWeight": 56
+  }
+]

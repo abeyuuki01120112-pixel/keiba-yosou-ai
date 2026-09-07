@@ -1,0 +1,156 @@
+[
+  {
+    "raceId": "JRA-20260315-CHUKYO-11",
+    "raceName": "金鯱賞",
+    "raceDate": "2026-03-15",
+    "racecourse": "中京",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 5,
+    "timeGap": 0.1,
+    "raceTime": 118.2,
+    "final3F": 33.9,
+    "carriedWeight": 57,
+    "importedAt": "2026-08-28T02:14:06.705Z",
+    "fieldSize": 14,
+    "passingPosition": {
+      "cornerPositions": [
+        9,
+        8,
+        8,
+        7
+      ],
+      "fieldSize": 14,
+      "source": "netkeiba public horse results",
+      "isReliable": true
+    }
+  },
+  {
+    "raceId": "JRA-20260125-NAKAYAMA-11",
+    "raceName": "アメリカJCC",
+    "raceDate": "2026-01-25",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 2200,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 2,
+    "timeGap": 0.3,
+    "raceTime": 131.1,
+    "final3F": 34.5,
+    "carriedWeight": 57,
+    "importedAt": "2026-08-28T02:14:06.705Z",
+    "fieldSize": 16,
+    "passingPosition": {
+      "cornerPositions": [
+        12,
+        12,
+        9,
+        8
+      ],
+      "fieldSize": 16,
+      "source": "netkeiba public horse results",
+      "isReliable": true
+    }
+  },
+  {
+    "raceId": "JRA-20250921-NAKAYAMA-11",
+    "raceName": "オールカマー",
+    "raceDate": "2025-09-21",
+    "racecourse": "中山",
+    "surface": "turf",
+    "distance": 2200,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 2,
+    "timeGap": 0.2,
+    "raceTime": 130.4,
+    "final3F": 34.4,
+    "carriedWeight": 57,
+    "importedAt": "2026-08-28T02:14:06.705Z",
+    "fieldSize": 11,
+    "passingPosition": {
+      "cornerPositions": [
+        9,
+        9,
+        3,
+        3
+      ],
+      "fieldSize": 11,
+      "source": "netkeiba public horse results",
+      "isReliable": true
+    }
+  },
+  {
+    "raceId": "JRA-20250713-FUKUSHIMA-11",
+    "raceName": "七夕賞",
+    "raceDate": "2025-07-13",
+    "racecourse": "福島",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 2,
+    "timeGap": 0,
+    "raceTime": 120.5,
+    "final3F": 35.4,
+    "carriedWeight": 57.5,
+    "importedAt": "2026-08-28T02:14:06.705Z",
+    "fieldSize": 15,
+    "passingPosition": {
+      "cornerPositions": [
+        7,
+        7,
+        5,
+        4
+      ],
+      "fieldSize": 15,
+      "source": "netkeiba public horse results",
+      "isReliable": true
+    }
+  },
+  {
+    "raceId": "JRA-20250510-TOKYO-11",
+    "raceName": "エプソムC",
+    "raceDate": "2025-05-10",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 1800,
+    "going": "稍重",
+    "raceNumber": 11,
+    "finishPosition": 2,
+    "timeGap": 0.3,
+    "raceTime": 104.2,
+    "final3F": 34.1,
+    "carriedWeight": 57,
+    "importedAt": "2026-08-28T02:14:06.705Z",
+    "fieldSize": 18,
+    "passingPosition": {
+      "cornerPositions": [
+        16,
+        15,
+        14
+      ],
+      "fieldSize": 18,
+      "source": "netkeiba public horse results",
+      "isReliable": true
+    }
+  },
+  {
+    "raceId": "JRA-20250209-KOKURA-11",
+    "raceName": "小倉日経賞",
+    "raceDate": "2025-02-09",
+    "racecourse": "小倉",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "稍重",
+    "raceNumber": 11,
+    "finishPosition": 1,
+    "timeGap": 0,
+    "raceTime": 121.5,
+    "final3F": 35.1,
+    "carriedWeight": 57
+  }
+]

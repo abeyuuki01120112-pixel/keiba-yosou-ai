@@ -1,0 +1,21 @@
+{
+  "raceLabel": "Niigata Kinen 2026",
+  "racecourse": "新潟",
+  "surface": "turf",
+  "distance": 2000,
+  "going": null,
+  "note": "2026新潟記念 登録段階の出走予定馬11頭。正式枠順・馬番・馬場・オッズは未確定（CHECKPOINT13.3）。sourceHorseIdはユーザー提供のnetkeiba horse ID（source=user_provided_netkeiba_reference）。canonicalHorseIdではない。",
+  "runners": [
+    { "horseName": "アーバンシック", "sourceHorseId": "2021105436" },
+    { "horseName": "サヴォーナ", "sourceHorseId": "2020100734" },
+    { "horseName": "ジュンブロッサム", "sourceHorseId": "2019105118" },
+    { "horseName": "ステレンボッシュ", "sourceHorseId": "2021105743" },
+    { "horseName": "ゾロアストロ", "sourceHorseId": "2023106850" },
+    { "horseName": "ダノンシーマ", "sourceHorseId": "2022104645" },
+    { "horseName": "チェルヴィニア", "sourceHorseId": "2021105643" },
+    { "horseName": "ドゥレッツァ", "sourceHorseId": "2020103650" },
+    { "horseName": "バレエマスター", "sourceHorseId": "2019104850" },
+    { "horseName": "ボーンディスウェイ", "sourceHorseId": "2019104658" },
+    { "horseName": "ロデオドライブ", "sourceHorseId": "2023107166" }
+  ]
+}

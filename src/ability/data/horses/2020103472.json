@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20240310-CHUKYO-11",
+    "raceName": "金鯱賞",
+    "raceDate": "2024-03-10",
+    "racecourse": "中京",
+    "surface": "turf",
+    "distance": 2000,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 12,
+    "timeGap": 2.7,
+    "raceTime": 120.3,
+    "final3F": 36.8,
+    "carriedWeight": 57,
+    "gate": 6,
+    "horseNumber": 9,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202407010211",
+    "sourceHorseId": "2020103472",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:06:37.712Z"
+  }
+]

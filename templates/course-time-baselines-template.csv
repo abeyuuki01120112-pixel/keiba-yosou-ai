@@ -1,0 +1,3 @@
+# baselineSource,isReliableは検索時に自動計算されるため、CSVに含めても読み捨てられます（記入は任意）
+racecourse,surface,distance,going,sampleYears,sampleCount,medianTimeSeconds,source,baselineSource,isReliable
+札幌,turf,2000,良,5,42,119.8,netkeiba 2021-2025集計,exact,true

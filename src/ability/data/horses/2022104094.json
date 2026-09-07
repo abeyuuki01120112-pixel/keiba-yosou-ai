@@ -1,0 +1,25 @@
+[
+  {
+    "raceId": "JRA-20260509-TOKYO-11",
+    "raceName": "エプソムカップ",
+    "raceDate": "2026-05-09",
+    "racecourse": "東京",
+    "surface": "turf",
+    "distance": 1800,
+    "going": "良",
+    "raceNumber": 11,
+    "finishPosition": 5,
+    "timeGap": 0.3,
+    "raceTime": 105.6,
+    "final3F": 33.9,
+    "carriedWeight": 57,
+    "gate": 7,
+    "horseNumber": 14,
+    "fieldSize": null,
+    "source": "keibamar_public_dataset",
+    "sourceRaceId": "202605020511",
+    "sourceHorseId": "2022104094",
+    "dataKind": "real",
+    "importedAt": "2026-08-24T06:55:04.948Z"
+  }
+]

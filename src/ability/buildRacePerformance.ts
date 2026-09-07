@@ -1,0 +1,83 @@
+/**
+ * 単発の RacePerformance を組み立てるヘルパー（主にテスト・単体動作確認用）。
+ * memberLevelScoreAtRace・raceTimeScore・final3FScore・weightScore は既知の値として受け取り、
+ * timeGapScore・raceScoreをここで一元的に計算する。
+ *
+ * 実際のデータロードでは、複数馬の履歴を横断して memberLevelScoreAtRace・
+ * raceTimeScore・final3FScore・weightScore 自体を算出する必要があるため
+ * raceHistoryPipeline.buildRaceHistory() を使う。
+ */
+
+import { calculateRaceScore } from "./raceScore";
+import { calculateTimeGapScore } from "./timeGapScore";
+import type { BaselineMeta, Final3FBreakdown, RacePerformance, WeightBreakdown } from "./types";
+
+const EMPTY_BASELINE_META: BaselineMeta = {
+  baselineSource: "defaultFallback",
+  sampleCount: null,
+  isReliable: false,
+  dataSource: null,
+};
+
+const EMPTY_FINAL3F_BREAKDOWN: Final3FBreakdown = {
+  horseFinal3FSeconds: 0,
+  raceFinal3FMedianSeconds: 0,
+  relativeDiffSeconds: 0,
+  courseBaselineSeconds: null,
+  trackAdjustment: null,
+  absoluteDiffSeconds: null,
+  baselineMeta: EMPTY_BASELINE_META,
+};
+
+const EMPTY_WEIGHT_BREAKDOWN: WeightBreakdown = {
+  horseCarriedWeightKg: 0,
+  raceMedianWeightKg: 0,
+  weightDiffKg: 0,
+  distance: 0,
+  secondsPerKg: 0,
+  weightAdjustmentSeconds: 0,
+  isReliable: false,
+};
+
+export type RacePerformanceInput = Omit<
+  RacePerformance,
+  | "timeGapScore"
+  | "raceScore"
+  | "retrospectiveMemberLevelScore"
+  | "memberLevelBreakdown"
+  | "raceTimeBreakdown"
+  | "final3FBreakdown"
+  | "weightBreakdown"
+> &
+  Partial<
+    Pick<
+      RacePerformance,
+      | "retrospectiveMemberLevelScore"
+      | "memberLevelBreakdown"
+      | "raceTimeBreakdown"
+      | "final3FBreakdown"
+      | "weightBreakdown"
+    >
+  >;
+
+export function buildRacePerformance(input: RacePerformanceInput): RacePerformance {
+  const timeGapScore = calculateTimeGapScore(input.timeGap, input.distance);
+  const raceScore = calculateRaceScore({
+    memberLevelScoreAtRace: input.memberLevelScoreAtRace,
+    timeGapScore,
+    raceTimeScore: input.raceTimeScore,
+    final3FScore: input.final3FScore,
+    weightScore: input.weightScore,
+  });
+
+  return {
+    ...input,
+    retrospectiveMemberLevelScore: input.retrospectiveMemberLevelScore ?? null,
+    memberLevelBreakdown: input.memberLevelBreakdown ?? null,
+    raceTimeBreakdown: input.raceTimeBreakdown ?? null,
+    final3FBreakdown: input.final3FBreakdown ?? EMPTY_FINAL3F_BREAKDOWN,
+    weightBreakdown: input.weightBreakdown ?? EMPTY_WEIGHT_BREAKDOWN,
+    timeGapScore,
+    raceScore,
+  };
+}
