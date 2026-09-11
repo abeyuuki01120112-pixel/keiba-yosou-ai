@@ -298,9 +298,23 @@ export function runPredictionPipeline(
       const requiredRaceCount = snapshotRunner?.abilityEvidence?.abilityEvidenceCount ?? 1;
       const connectedHistory = historyConnection.historiesByHorseId[runner.horseId] ?? [];
       const receivedCanonicalId = suppliedHistory?.status === "available";
-      const existingEligibilityReasons = snapshotRunner == null
+      const rawEligibilityReasons = snapshotRunner == null
         ? ["snapshotEntryMissing"]
         : reasonsFromSnapshotEntry(snapshotRunner, registryByHorseId.get(runner.horseId));
+      // Formal Gate正式方針（rescue正式化ラウンド）: JV-Link canonical historyがSelected-5・
+      // Scorable>=4（=collectorHorseHistory.tsのformalAbilityReady）を正式に確認済みの馬は、
+      // 「完全性が不明」という汎用Short Career Eligibility V1の判定（abilityEvidence.ts、
+      // JV-Link Selected-5/Scorable-N契約を認識しない）ではなく、JV-Link側の既知のEvidence
+      // （selectedHistoryCount/scorableHistoryCount/historyCompleteness/historyConfidence）を
+      // 正とする。career_history_completeness_unknownはこの場合のみblockしない
+      // （scorableHistoryCount<=3はhistoryErrors側のINSUFFICIENT_SCORABLE_HISTORYで
+      // 引き続きHard Stopされるため、ここでは弱めない）。abilityEvidence.ts自体・他の
+      // blockingReason（insufficient_evidence/incomplete_recent_history）は変更しない。
+      const jvLinkFormalAbilityReady =
+        historyConnection.abilityEvidenceByHorseId[runner.horseId]?.formalAbilityReady === true;
+      const existingEligibilityReasons = jvLinkFormalAbilityReady
+        ? rawEligibilityReasons.filter((reason) => reason !== "career_history_completeness_unknown")
+        : rawEligibilityReasons;
       return {
         horseId: runner.horseId || null,
         horseName: runner.horseName,

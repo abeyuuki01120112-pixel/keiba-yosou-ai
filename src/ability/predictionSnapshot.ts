@@ -117,13 +117,16 @@ export interface HorseSnapshotEntry {
    *   "insufficientRecentHistory": 過去走が1件はあるがRECENT_RACE_COUNT
    *     （Base Ability V1既存仕様の直近5走窓）未満で、baseAbilityが完全な
    *     5走平均ではない可能性がある。
-   *   "memberLevelUnavailable": baseAbility算出に使った走のいずれかで、
-   *     出走馬の候補が1頭も無くmemberLevelがFALLBACK値になっていた。
    *   "placeholderDataExcluded": この馬の過去走の一部/全部がdataKind=
    *     "placeholder"/"fixture"のため、baseAbility/Suitability算出から除外した。
    *   "insufficient_evidence" / "career_history_completeness_unknown" /
    *     "incomplete_recent_history": Short Career Eligibility V1（CHECKPOINT13.4G、
    *     abilityEvidence.ts）による判定。詳細はabilityEvidenceフィールド参照。
+   *
+   * memberLevel fallback（当時の対戦相手データ不足によりFALLBACK_MEMBER_LEVEL_SCOREを
+   * 使用したこと）は、Base Ability V1の正式fallback仕様でraceScore/baseAbility自体は
+   * 正式に生成可能なため、completenessFlagsには含めない（Formal Gate正式方針、
+   * rescue正式化ラウンド）。事実自体はwarningsへ残す。structural_no_prior_historyと同じ扱い。
    */
   completenessFlags: string[];
   /**
@@ -326,7 +329,11 @@ export function buildHorseSnapshotEntry(
       : "available";
 
   if (memberLevelEvidenceStatus === "missing_data") {
-    completenessFlags.push("memberLevelUnavailable");
+    // Formal Gate正式方針（rescue正式化ラウンド）: Base Ability V1にはmemberLevel取得不能時の
+    // 正式fallback（FALLBACK_MEMBER_LEVEL_SCORE）が既に存在し、raceScore/baseAbility自体は
+    // 正式に生成可能である。したがってmemberLevel fallbackの使用だけを理由に
+    // predictionEligibleをblockしない（completenessFlagsへは追加しない。structural_no_prior_history
+    // と同じ扱い）。fallback使用の事実自体はwarningsへ必ず残す。
     warnings.push(
       "baseAbility算出に使った走のうち少なくとも1走で、当時の対戦相手データ不足によりmemberLevelがフォールバック値（FALLBACK_MEMBER_LEVEL_SCORE）で計算されていました。",
     );

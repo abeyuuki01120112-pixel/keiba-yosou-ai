@@ -425,7 +425,7 @@ describe("CHECKPOINT13.2 Test9: Data Completeness Reportで新規warningが取�
     expect(result.memberLevelEvidenceStatus).toBe("structural_no_prior_history");
   });
 
-  it("memberLevelUnavailable: 真にデータ欠損由来のfallback（新馬戦ではない）ではcompletenessFlagsに含まれる（CHECKPOINT13.4J、missing_data判定）", () => {
+  it("memberLevelUnavailable: 真にデータ欠損由来のfallback（新馬戦ではない）でもcompletenessFlagsではblockしないが、warningsとmemberLevelEvidenceStatusでfallback使用の事実は保持する（Formal Gate正式方針、rescue正式化ラウンド）", () => {
     expect(getHorseRecentRaces(MISSING_DATA_HORSE_ID).some((r) => r.memberLevelBreakdown === null)).toBe(true);
     const result = buildHorseSnapshotEntry(
       entry({ horseId: MISSING_DATA_HORSE_ID, horseName: "テスト対象馬" }),
@@ -434,8 +434,12 @@ describe("CHECKPOINT13.2 Test9: Data Completeness Reportで新規warningが取�
       "2099-01-01T00:00:00Z",
       1,
     );
-    expect(result.completenessFlags).toContain("memberLevelUnavailable");
+    // Base Ability V1の正式fallbackでraceScore/baseAbility自体は生成可能なため、
+    // memberLevel fallback単独ではpredictionEligibleをblockしない。
+    expect(result.completenessFlags).not.toContain("memberLevelUnavailable");
+    // ただしfallback使用の事実自体は消さず、warningsとmemberLevelEvidenceStatusへ残す。
     expect(result.memberLevelEvidenceStatus).toBe("missing_data");
+    expect(result.warnings.some((w) => w.includes("FALLBACK_MEMBER_LEVEL_SCORE"))).toBe(true);
   });
 
   it("scratched馬・データ不足馬はcompletenessFlagsが空配列で初期化されている（未定義エラーにならない）", () => {

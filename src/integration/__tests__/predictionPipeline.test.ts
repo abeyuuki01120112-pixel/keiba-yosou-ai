@@ -10,7 +10,7 @@ import { buildDerivedFromCollector } from "../derivedFromCollector";
 import { runPredictionPipeline, type RunPredictionPipelineOptions } from "../predictionPipeline";
 import { connectCollectorHorseHistories } from "../collectorHorseHistory";
 import { buildRacePredictionArtifact } from "../racePredictionArtifact";
-import type { CollectedRaceIdentity, CollectedRunnerRow, PriorHistoryEntry, RawRaceBundle } from "../../collector/types";
+import type { CollectedRaceIdentity, CollectedRunnerRow, PriorHistoryEntry, RawRaceBundle, UnsupportedHistoryReasonCode } from "../../collector/types";
 
 const frozen = listPredictionSnapshots({ raceId: "JRA-20260830-NIIGATA-08" })[0];
 const options: RunPredictionPipelineOptions = {
@@ -505,4 +505,78 @@ it("Collector側の計算済みscoreを信用せず、生実績から既存raceS
   hs[0].races[0].memberLevelScoreAtRace = 0;
   hs[0].races[0].timeGapScore = 0;
   expect(run(runners(), hs)).toEqual(expected);
+});
+
+describe("Formal Gate P0修正: JV-Link Selected-5/Scorable-N契約とmemberLevel fallbackの正式方針（rescue正式化ラウンド）", () => {
+  function fakeUnsupportedHistory(horseId: string, raceKey: string) {
+    return {
+      status: "unscorable_for_ability" as const,
+      raceKey,
+      raceDate: "2026-04-26",
+      raceName: "テストStage B",
+      racecourseCode: "G0",
+      horseId,
+      horseName: "テスト対象馬",
+      raStage: "B",
+      seStage: "B",
+      raw: {
+        finishPosition: "05", raceTime: "2011", timeGap: "+005", carriedWeight: "570",
+        final3F: "000", gate: "0", passingPosition: ["00", "00", "00", "00"],
+      },
+      reasonCodes: ["FINAL3F_NOT_PROVIDED"] as UnsupportedHistoryReasonCode[],
+      provenance: [],
+    };
+  }
+
+  it("Selected-5・Scorable-4（JV-Link Stage B 1走除外）はcareer_history_completeness_unknownでblockされずGate PASSする", () => {
+    const hs = histories();
+    const targetHorseId = hs[0].horseId;
+    hs[0].races = hs[0].races.slice(0, 4);
+    hs[0].provenance = { ...hs[0].provenance, method: "jv_link" };
+    hs[0].selectedRaceKeys = ["k1", "k2", "k3", "k4", "20260426G0000009"];
+    hs[0].unsupportedHistories = [fakeUnsupportedHistory(targetHorseId, "20260426G0000009")];
+
+    const result = run(runners(), hs);
+    expect(result.formalPredictionReady).toBe(true);
+    expect(result.gate.formal).toBe(true);
+    const diagnostic = result.gate.horseDiagnostics.find((h) => h.horseId === targetHorseId);
+    expect(diagnostic?.predictionEligible).toBe(true);
+    expect(diagnostic?.errors.some((e) => e.code === "INSUFFICIENT_SCORABLE_HISTORY")).toBe(false);
+    expect(diagnostic?.errors.some((e) => e.code === "PREDICTION_INELIGIBLE")).toBe(false);
+    const connected = connectCollectorHorseHistories(runners(), hs, race, options.predictionCutoffAt);
+    const evidence = connected.abilityEvidenceByHorseId[targetHorseId];
+    expect(evidence).toMatchObject({
+      selectedHistoryCount: 5, scorableHistoryCount: 4, unscorableHistoryCount: 1,
+      historyCompleteness: 0.8, historyConfidence: "medium", formalAbilityReady: true,
+    });
+  });
+
+  it("Selected-5・Scorable-3（JV-Link Stage B 1走除外＋履歴不足）はINSUFFICIENT_SCORABLE_HISTORYでHard Stopのまま", () => {
+    const hs = histories();
+    const targetHorseId = hs[0].horseId;
+    hs[0].races = hs[0].races.slice(0, 3);
+    hs[0].provenance = { ...hs[0].provenance, method: "jv_link" };
+    hs[0].selectedRaceKeys = ["k1", "k2", "k3", "k4", "20260426G0000009"];
+    hs[0].unsupportedHistories = [fakeUnsupportedHistory(targetHorseId, "20260426G0000009")];
+
+    const result = run(runners(), hs);
+    expect(result.formalPredictionReady).toBe(false);
+    expect(result.gate.formal).toBe(false);
+    const diagnostic = result.gate.ineligibleHorses.find((h) => h.horseId === targetHorseId);
+    expect(diagnostic?.errors.some((e) => e.code === "INSUFFICIENT_SCORABLE_HISTORY")).toBe(true);
+  });
+
+  it("memberLevel fallback（missing_data）はBase Abilityが算出できていればGate PASSし、事実はwarningsに残る", () => {
+    const hs = histories();
+    const targetHorseId = hs[0].horseId;
+    hs[0].races[0] = { ...hs[0].races[0], memberLevelBreakdown: null };
+
+    const result = run(runners(), hs);
+    expect(result.formalPredictionReady).toBe(true);
+    expect(result.gate.formal).toBe(true);
+    const diagnostic = result.gate.horseDiagnostics.find((h) => h.horseId === targetHorseId);
+    expect(diagnostic?.predictionEligible).toBe(true);
+    expect(diagnostic?.errors.some((e) => e.code === "PREDICTION_INELIGIBLE")).toBe(false);
+    expect(result.horses.find((h) => h.horseId === targetHorseId)?.baseAbility).not.toBeNull();
+  });
 });
