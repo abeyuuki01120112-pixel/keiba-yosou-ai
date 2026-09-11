@@ -13,7 +13,7 @@ const FAR_FUTURE_START = "2099-01-01T15:45:00+09:00";
 function raceCard(overrides: Partial<RaceCardInput> = {}): RaceCardInput {
   return {
     raceId: "TEST-11R",
-    raceDate: "2026-09-06",
+    raceDate: "2099-01-01",
     raceNumber: 11,
     racecourse: "阪神",
     surface: "turf",
@@ -27,7 +27,7 @@ function raceCard(overrides: Partial<RaceCardInput> = {}): RaceCardInput {
 
 describe("CHECKPOINT13.2B Test4: canonical horseIdでresolve", () => {
   it("horseIdを指定した出走馬はPriority 1でresolvedになる", () => {
-    const result = runRaceCardBridge(raceCard());
+    const result = runAtCutoff(raceCard());
     expect(result.runners[0].resolverStatus).toBe("resolved");
     expect(result.runners[0].horseId).toBe("shakeyourheart");
   });
@@ -38,7 +38,7 @@ describe("CHECKPOINT13.2B Test5: horseName exact matchでresolve", () => {
     const card = raceCard({
       runners: [{ horseName: "シェイクユアハート", frame: 1, horseNumber: 1, scratched: false }],
     });
-    const result = runRaceCardBridge(card);
+    const result = runAtCutoff(card);
     expect(result.runners[0].resolverStatus).toBe("resolved");
     expect(result.runners[0].horseId).toBe("shakeyourheart");
   });
@@ -49,7 +49,7 @@ describe("CHECKPOINT13.2B Test6: 候補なし→unresolved", () => {
     const card = raceCard({
       runners: [{ horseName: "存在しない架空馬", frame: 1, horseNumber: 1, scratched: false }],
     });
-    const result = runRaceCardBridge(card);
+    const result = runAtCutoff(card);
     expect(result.runners[0].resolverStatus).toBe("unresolved");
     expect(result.runners[0].predictionEligible).toBe(false);
     expect(result.runners[0].reasons).toContain("canonical horse not found");
@@ -67,7 +67,7 @@ describe("CHECKPOINT13.2B Test7: 複数候補→ambiguous", () => {
     const card = raceCard({
       runners: [{ horseName: "重複馬名", frame: 1, horseNumber: 1, scratched: false }],
     });
-    const result = runRaceCardBridge(card, { registryOverride: dupRegistry });
+    const result = runAtCutoff(card, { registryOverride: dupRegistry });
     expect(result.runners[0].resolverStatus).toBe("ambiguous");
     expect(result.runners[0].horseId).toBeNull();
     expect(result.runners[0].candidates.sort()).toEqual(["dup-a", "dup-b"]);
@@ -81,7 +81,7 @@ describe("CHECKPOINT13.2B Test8: placeholderがresolveされてもpredictionElig
     const card = raceCard({
       runners: [{ horseId: "grandia", horseName: "グランディア", frame: 1, horseNumber: 1, scratched: false }],
     });
-    const result = runRaceCardBridge(card);
+    const result = runAtCutoff(card);
     expect(result.runners[0].resolverStatus).toBe("resolved");
     expect(result.runners[0].predictionEligible).toBe(false);
     expect(result.runners[0].reasons).toContain("placeholder_data");
@@ -97,7 +97,7 @@ describe("CHECKPOINT13.2B Test9: 不足馬があるRace Cardで正式Stage Aと�
         { horseName: "存在しない架空馬", frame: 2, horseNumber: 2, scratched: false },
       ],
     });
-    const result = runRaceCardBridge(card);
+    const result = runAtCutoff(card);
     expect(result.gate.formal).toBe(false);
     expect(result.gate.reasons.length).toBeGreaterThan(0);
     // diagnosticSnapshotは生成される（診断目的では許可）が、正式ではない
@@ -108,7 +108,7 @@ describe("CHECKPOINT13.2B Test9: 不足馬があるRace Cardで正式Stage Aと�
     const card = raceCard({
       runners: [{ horseId: "shakeyourheart", horseName: "シェイクユアハート", frame: 1, horseNumber: 1, scratched: false }],
     });
-    const result = runRaceCardBridge(card);
+    const result = runAtCutoff(card);
     expect(result.gate.formal).toBe(true);
     expect(result.gate.reasons).toEqual([]);
   });
@@ -119,7 +119,7 @@ describe("CHECKPOINT13.2B Test10: complete fixtureでRace Card→Resolver→Race
     const card = raceCard({
       runners: [{ horseId: "shakeyourheart", horseName: "シェイクユアハート", frame: 5, horseNumber: 9, scratched: false }],
     });
-    const result = runRaceCardBridge(card);
+    const result = runAtCutoff(card);
     const expected = calculateBaseAbility(getHorseRecentRaces("shakeyourheart"));
 
     expect(result.diagnosticSnapshot.stage).toBe("gateConfirmed");
@@ -133,7 +133,7 @@ describe("CHECKPOINT13.2B Test10: complete fixtureでRace Card→Resolver→Race
 
   it("going=nullのRace Cardでは、Suitability V1のgoingがevaluated=falseになる（推測補完なし）", () => {
     const card = raceCard({ going: null });
-    const result = runRaceCardBridge(card);
+    const result = runAtCutoff(card);
     expect(result.diagnosticSnapshot.runners[0].suitability?.going.evaluated).toBe(false);
   });
 });
@@ -150,8 +150,8 @@ describe("CHECKPOINT13.2B Test11: Race Card inputだけでは既存data/horses�
   it("data/horses/のスナップショット（ファイル一覧）がbridge実行前後で変化しない", () => {
     const horsesDir = path.resolve(__dirname, "../../data/horses");
     const before = fs.readdirSync(horsesDir).sort();
-    runRaceCardBridge(raceCard());
-    runRaceCardBridge(raceCard({ runners: [{ horseId: "grandia", horseName: "グランディア", frame: 1, horseNumber: 1, scratched: false }] }));
+    runAtCutoff(raceCard());
+    runAtCutoff(raceCard({ runners: [{ horseId: "grandia", horseName: "グランディア", frame: 1, horseNumber: 1, scratched: false }] }));
     const after = fs.readdirSync(horsesDir).sort();
     expect(after).toEqual(before);
   });
@@ -172,7 +172,7 @@ describe("出走取消（scratched）の扱い", () => {
     const card = raceCard({
       runners: [{ horseId: "shakeyourheart", horseName: "シェイクユアハート", frame: 1, horseNumber: 1, scratched: true }],
     });
-    const result = runRaceCardBridge(card);
+    const result = runAtCutoff(card);
     expect(result.runners[0].resolverStatus).toBe("resolved");
     expect(result.runners[0].predictionEligible).toBe(false);
     expect(result.runners[0].reasons).toContain("scratched");
@@ -187,7 +187,7 @@ describe("formatRaceCardBridgeReport", () => {
         { horseName: "存在しない架空馬", frame: 2, horseNumber: 2, scratched: false },
       ],
     });
-    const result = runRaceCardBridge(card);
+    const result = runAtCutoff(card);
     const text = formatRaceCardBridgeReport(result);
     expect(text).toContain("Race: TEST-11R");
     expect(text).toContain("Race Number: 11");
@@ -198,4 +198,13 @@ describe("formatRaceCardBridgeReport", () => {
     expect(text).toContain("resolverStatus: unresolved");
     expect(text).toContain("canonical horse not found");
   });
+});
+
+// 保存・resolverのテストも実行時計ではなく明示cutoffを使う。
+function runAtCutoff(card: Parameters<typeof runRaceCardBridge>[0], options: Parameters<typeof runRaceCardBridge>[1] = {}) {
+  return runRaceCardBridge(card, { generatedAt: "2026-08-28T03:03:03.357Z", ...options });
+}
+
+it("cutoffを指定しないRace Card経路は停止する", () => {
+  expect(() => runRaceCardBridge(raceCard())).toThrow(/predictionCutoffAt/);
 });

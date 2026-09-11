@@ -28,6 +28,17 @@ export function auditFutureLeakage(
         });
       }
     }
+    for (const evidence of entry.unsupportedHistories ?? []) {
+      checkedRowCount++;
+      if (Date.parse(evidence.raceDate) >= targetMs) {
+        violations.push({
+          horseId: entry.horseId,
+          raceId: evidence.raceKey,
+          raceDate: evidence.raceDate,
+          targetRaceDate: targetRaceDateIso,
+        });
+      }
+    }
   }
 
   return { ok: violations.length === 0, checkedRowCount, violations };

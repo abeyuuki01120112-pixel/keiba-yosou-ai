@@ -1,6 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { CollectedRunnerRow, PriorHistoryEntry } from "./types";
+import type {
+  CollectedRunnerRow,
+  JvLinkHistoryConflictDiagnostic,
+  PriorHistoryEntry,
+  SourceProvenance,
+} from "./types";
 import { keibaDataSubdir } from "../config/keibaDataDir";
 
 /**
@@ -14,6 +19,12 @@ export interface NormalizedCacheEntry {
   collectedAt: string;
   runners: CollectedRunnerRow[];
   priorHistories: PriorHistoryEntry[];
+  /** Collector run全体のsource証跡。旧cacheとの後方互換のため任意。 */
+  provenance?: SourceProvenance[];
+  diagnostics?: {
+    jvLinkHistoryConflicts: JvLinkHistoryConflictDiagnostic[];
+    unsupportedHistoryCount: number;
+  };
 }
 
 /**
@@ -34,11 +45,11 @@ function toComparableEntry(entry: NormalizedCacheEntry): unknown {
     raceId: entry.raceId,
     runners: entry.runners,
     priorHistories: entry.priorHistories.map((p) => ({
-      horseId: p.horseId,
-      status: p.status,
-      races: p.races,
+      ...p,
       provenance: { ...p.provenance, retrievedAt: undefined },
     })),
+    provenance: entry.provenance?.map((p) => ({ ...p, retrievedAt: undefined })),
+    diagnostics: entry.diagnostics,
   };
 }
 

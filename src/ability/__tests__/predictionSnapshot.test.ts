@@ -214,7 +214,15 @@ describe("CHECKPOINT13 STEP13 G: オッズを入力してもBase Ability/Suitabi
       entries: [entry()],
       going: { evaluated: true, going: "重" },
       generatedAt: "2026-08-30T13:45:00+09:00",
-      odds: [{ horseId: SHAKE_ID, odds: 3.4, popularity: 1, recordedAt: "2026-08-30T13:45:00+09:00" }],
+      odds: [{
+        raceId: HANSHIN_TARGET.raceId,
+        horseId: SHAKE_ID,
+        odds: 3.4,
+        popularity: 1,
+        observedAt: "2026-08-30T13:45:00+09:00",
+        market: "win",
+        source: "test",
+      }],
     });
 
     const a = withoutOdds.runners.find((r) => r.horseId === SHAKE_ID)!;
@@ -498,7 +506,7 @@ describe("CHECKPOINT13.2 STEP14: Missing Data Report", () => {
       raceTarget: HANSHIN_TARGET,
       entries: resolvedEntries,
       going: { evaluated: false },
-      generatedAt: "2099-01-01T00:00:00Z",
+      generatedAt: CUTOFF_AFTER_ALL_HER_RACES,
     });
 
     const report = buildMissingDataReport(HANSHIN_TARGET.raceId, HANSHIN_TARGET.raceName, resolverBatch.results, snapshot);

@@ -6,11 +6,9 @@
  *
  * 【最重要制約・絶対に守る】
  *   対象レース出走馬だけを抜き出してBase Abilityを再計算することは禁止。
- *   このファイルはbuildRaceHistory()を一切importせず、直接も間接にも呼び出さない。
- *   1頭分の過去走は必ず`getHorseRecentRaces()`（horseAbilityData.ts、CHECKPOINT13で追加）
- *   経由で取得する。これはdata/horses/全体を投入して起動時に一度だけ計算済みの
- *   historyByHorseIdを参照するだけであり、CHECKPOINT12.5/12.6で安全性を確認した
- *   正式経路そのものである。
+ *   このファイルはbuildRaceHistory()を直接importしない。P0-1以降は
+ *   getHorseRecentRacesAsOf()から、対象結果・cutoff後の情報を除いた全馬集合で
+ *   生成済みのRacePerformanceを取得する（対象出走馬だけの再計算はしない）。
  *
  *   effectiveAbility = baseAbility × overallSuitabilityPercent / 100
  *   （finalRaceAbility.tsと同じ式をこのファイル内で直接計算する。
@@ -22,9 +20,11 @@
  */
 
 import { roundToOneDecimal } from "./raceScore";
+import { assertPredictionCutoff, isPriorPerformance, predictionTimestamp } from "./predictionBoundary";
+import { selectOddsSnapshotsAsOf, type OddsSnapshotDiagnostic, type OddsSnapshotEntry } from "./oddsSnapshot";
 import { calculateBaseAbility, RECENT_RACE_COUNT } from "./baseAbility";
 import { computeSuitabilityV1 } from "./suitabilityV1";
-import { getCareerCountRecord, getHorseRecentRaces, getRaceFieldPriorRaceCounts } from "./horseAbilityData";
+import { getCareerCountRecord, getHorseRecentRacesAsOf, getRaceFieldPriorRaceCountsAsOf } from "./horseAbilityData";
 import { resolveAbilityEvidence, type AbilityEvidence } from "./abilityEvidence";
 import { resolveMemberLevelEvidence, type MemberLevelEvidenceStatus } from "./memberLevelEvidence";
 import type { RaceGateInput } from "./courseContextPrior";
@@ -149,12 +149,13 @@ export interface HorseSnapshotEntry {
   memberLevelEvidenceStatus: MemberLevelEvidenceStatus | null;
 }
 
-/** Stage B用：発走2時間前時点で保存してよいオッズ情報の置き場所。能力計算には一切使用しない */
-export interface OddsSnapshotEntry {
-  horseId: string;
-  odds: number | null;
-  popularity: number | null;
-  recordedAt: string;
+export type { OddsSnapshotEntry } from "./oddsSnapshot";
+
+export interface PredictionOddsStatus {
+  market: "win";
+  winOddsComplete: boolean;
+  missingHorseIds: string[];
+  diagnostics: OddsSnapshotDiagnostic[];
 }
 
 export interface SnapshotDataCompleteness {
@@ -176,8 +177,10 @@ export interface PredictionSnapshot {
   generatedAt: string;
   raceTarget: SnapshotRaceTarget;
   runners: HorseSnapshotEntry[];
-  /** Stage Bでのみ利用。能力計算には使用しない（CHECKPOINT13 STEP7） */
+  /** Stage A/Bで利用可能。能力・Suitability・Probability計算には使用しない。 */
   odds: OddsSnapshotEntry[] | null;
+  /** 後続EV計算へ進めるオッズ充足状況。Probabilityの可否には影響しない。 */
+  oddsStatus: PredictionOddsStatus;
   inputVersion: string;
   modelVersion: string;
   dataCompleteness: SnapshotDataCompleteness;
@@ -213,7 +216,7 @@ export function computeT2hCutoff(postTimeIso: string): string {
  * "placeholder"/"fixture"は正式なStage A/B Snapshotの計算対象から除外する
  * （CHECKPOINT13.1で発見されたV0プレースホルダーデータの混入防止、CHECKPOINT13.2 STEP10/11）。
  */
-function excludeNonRealData(races: RacePerformance[]): { real: RacePerformance[]; excludedCount: number } {
+function excludeNonRealData(races: readonly RacePerformance[]): { real: RacePerformance[]; excludedCount: number } {
   const real = races.filter((r) => r.dataKind == null || r.dataKind === "real");
   return { real, excludedCount: races.length - real.length };
 }
@@ -224,7 +227,9 @@ export function buildHorseSnapshotEntry(
   going: SnapshotGoingInput,
   predictionCutoffAt: string,
   fieldSize: number | null,
+  horseHistories?: Readonly<Record<string, readonly RacePerformance[]>>,
 ): HorseSnapshotEntry {
+  predictionTimestamp(predictionCutoffAt, "predictionCutoffAt");
   const warnings: string[] = [];
   const completenessFlags: string[] = [];
 
@@ -246,8 +251,11 @@ export function buildHorseSnapshotEntry(
     };
   }
 
-  const cutoffMs = Date.parse(predictionCutoffAt);
-  const beforeCutoff = getHorseRecentRaces(entry.horseId).filter((r) => Date.parse(r.raceDate) < cutoffMs);
+  const beforeCutoff = horseHistories == null
+    ? getHorseRecentRacesAsOf(entry.horseId, raceTarget, predictionCutoffAt)
+    : (horseHistories[entry.horseId] ?? []).filter((race) =>
+        isPriorPerformance(race, raceTarget, predictionCutoffAt),
+      );
   const { real: priorRaces, excludedCount: placeholderExcludedCount } = excludeNonRealData(beforeCutoff);
 
   if (placeholderExcludedCount > 0) {
@@ -300,7 +308,13 @@ export function buildHorseSnapshotEntry(
   const memberLevelEvidences = usedRaces.map((r) =>
     resolveMemberLevelEvidence(
       r,
-      r.memberLevelBreakdown === null ? getRaceFieldPriorRaceCounts(r.raceId, r.raceDate) : [],
+      r.memberLevelBreakdown === null
+        ? horseHistories == null
+          ? getRaceFieldPriorRaceCountsAsOf(r.raceId, r.raceDate, raceTarget, predictionCutoffAt)
+          : Object.values(horseHistories)
+              .filter((races) => races.some((race) => race.raceId === r.raceId))
+              .map((races) => races.filter((race) => race.raceDate < r.raceDate).length)
+        : [],
     ),
   );
   const memberLevelEvidenceStatus: MemberLevelEvidenceStatus = memberLevelEvidences.some(
@@ -393,14 +407,43 @@ function collectSnapshotWarnings(runners: HorseSnapshotEntry[]): string[] {
   return warnings;
 }
 
+function buildOddsState(
+  raceTarget: SnapshotRaceTarget,
+  entries: readonly RaceEntryInput[],
+  predictionCutoffAt: string,
+  odds: readonly OddsSnapshotEntry[] | null | undefined,
+  canonicalHorseIds?: ReadonlySet<string>,
+): { odds: OddsSnapshotEntry[] | null; oddsStatus: PredictionOddsStatus } {
+  const activeHorseIds = entries.filter((entry) => !entry.scratched).map((entry) => entry.horseId);
+  const selection = selectOddsSnapshotsAsOf({
+    raceId: raceTarget.raceId,
+    predictionCutoffAt,
+    canonicalHorseIds: canonicalHorseIds ?? new Set(entries.map((entry) => entry.horseId)),
+    requiredWinHorseIds: activeHorseIds,
+    snapshots: odds ?? [],
+  });
+  return {
+    odds: odds == null ? null : selection.selected,
+    oddsStatus: {
+      market: "win",
+      winOddsComplete: selection.winOddsComplete,
+      missingHorseIds: selection.missingWinOddsHorseIds,
+      diagnostics: selection.diagnostics,
+    },
+  };
+}
+
 function buildRunners(
   entries: RaceEntryInput[],
   raceTarget: SnapshotRaceTarget,
   going: SnapshotGoingInput,
   predictionCutoffAt: string,
+  horseHistories?: Readonly<Record<string, readonly RacePerformance[]>>,
 ): HorseSnapshotEntry[] {
   const fieldSize = entries.filter((e) => !e.scratched).length;
-  return entries.map((entry) => buildHorseSnapshotEntry(entry, raceTarget, going, predictionCutoffAt, fieldSize));
+  return entries.map((entry) =>
+    buildHorseSnapshotEntry(entry, raceTarget, going, predictionCutoffAt, fieldSize, horseHistories),
+  );
 }
 
 export interface BuildGateConfirmedSnapshotInput {
@@ -411,12 +454,32 @@ export interface BuildGateConfirmedSnapshotInput {
   going: SnapshotGoingInput;
   /** Snapshotを生成した時刻（ISO）。predictionCutoffAtとしても使う＝この時刻以降の情報は使わない */
   generatedAt: string;
+  /** Collector接続済みのcanonical Horse History。省略時はproduction履歴を使う。 */
+  horseHistories?: Readonly<Record<string, readonly RacePerformance[]>>;
+  /** cutoff時点までに観測済みのOdds Snapshot候補。能力計算には使用しない。 */
+  odds?: readonly OddsSnapshotEntry[] | null;
+  /** Collector等で解決済みと確認できたcanonical horseId集合。 */
+  oddsCanonicalHorseIds?: ReadonlySet<string>;
 }
 
 /** Stage A — Gate Confirmed Snapshot。トリガー：正式な枠順確定後 */
 export function buildGateConfirmedSnapshot(input: BuildGateConfirmedSnapshotInput): PredictionSnapshot {
   const predictionCutoffAt = input.generatedAt;
-  const runners = buildRunners(input.entries, input.raceTarget, input.going, predictionCutoffAt);
+  assertPredictionCutoff(predictionCutoffAt, input.raceTarget);
+  const runners = buildRunners(
+    input.entries,
+    input.raceTarget,
+    input.going,
+    predictionCutoffAt,
+    input.horseHistories,
+  );
+  const oddsState = buildOddsState(
+    input.raceTarget,
+    input.entries,
+    predictionCutoffAt,
+    input.odds,
+    input.oddsCanonicalHorseIds,
+  );
   return {
     raceId: input.raceTarget.raceId,
     raceStatus: "scheduled",
@@ -425,7 +488,8 @@ export function buildGateConfirmedSnapshot(input: BuildGateConfirmedSnapshotInpu
     generatedAt: input.generatedAt,
     raceTarget: input.raceTarget,
     runners,
-    odds: null,
+    odds: oddsState.odds,
+    oddsStatus: oddsState.oddsStatus,
     inputVersion: PREDICTION_SNAPSHOT_INPUT_VERSION,
     modelVersion: PREDICTION_SNAPSHOT_MODEL_VERSION,
     dataCompleteness: buildDataCompleteness(runners),
@@ -441,14 +505,32 @@ export interface BuildT2hSnapshotInput {
   going: SnapshotGoingInput;
   /** Snapshotを実際に生成した時刻（ISO）。predictionCutoffAtは発走2時間前で別途固定される */
   generatedAt: string;
-  /** Stage Bでのみ保存可能。能力計算には使用しない */
-  odds?: OddsSnapshotEntry[] | null;
+  /** cutoff時点までのOdds Snapshot。能力計算には使用しない。 */
+  odds?: readonly OddsSnapshotEntry[] | null;
+  /** Collector等で解決済みと確認できたcanonical horseId集合。 */
+  oddsCanonicalHorseIds?: ReadonlySet<string>;
+  /** Collector接続済みのcanonical Horse History。省略時はproduction履歴を使う。 */
+  horseHistories?: Readonly<Record<string, readonly RacePerformance[]>>;
 }
 
 /** Stage B — T-2h Snapshot。トリガー：各レース発走予定時刻の2時間前 */
 export function buildT2hSnapshot(input: BuildT2hSnapshotInput): PredictionSnapshot {
   const predictionCutoffAt = computeT2hCutoff(input.raceTarget.postTimeIso);
-  const runners = buildRunners(input.entries, input.raceTarget, input.going, predictionCutoffAt);
+  assertPredictionCutoff(predictionCutoffAt, input.raceTarget);
+  const runners = buildRunners(
+    input.entries,
+    input.raceTarget,
+    input.going,
+    predictionCutoffAt,
+    input.horseHistories,
+  );
+  const oddsState = buildOddsState(
+    input.raceTarget,
+    input.entries,
+    predictionCutoffAt,
+    input.odds,
+    input.oddsCanonicalHorseIds,
+  );
   return {
     raceId: input.raceTarget.raceId,
     raceStatus: "scheduled",
@@ -457,7 +539,8 @@ export function buildT2hSnapshot(input: BuildT2hSnapshotInput): PredictionSnapsh
     generatedAt: input.generatedAt,
     raceTarget: input.raceTarget,
     runners,
-    odds: input.odds ?? null,
+    odds: oddsState.odds,
+    oddsStatus: oddsState.oddsStatus,
     inputVersion: PREDICTION_SNAPSHOT_INPUT_VERSION,
     modelVersion: PREDICTION_SNAPSHOT_MODEL_VERSION,
     dataCompleteness: buildDataCompleteness(runners),

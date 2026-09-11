@@ -1,7 +1,7 @@
 /**
  * CHECKPOINT13.5A Stage A Readiness Preflight の単体テスト。
  * 新規ロジックは追加していない（既存のraceCardTypes.normalizeRaceCard()・
- * raceCardBridge.runRaceCardBridge()をそのまま使う）。ここで確認したいのは、
+ * raceCardBridge.runAtCutoff()をそのまま使う）。ここで確認したいのは、
  * 新規追加したRace Card Template（枠順・馬場未確定）が「誤って正式Stage Aとして
  * 生成されてしまわない」ことと、「going未確定は既存仕様どおりevaluated:falseに
  * なり、100%固定など不当な扱いをされない」ことの2点の回帰防止。
@@ -75,13 +75,13 @@ describe("CHECKPOINT13.5A: Stage A Formal Gateの現行仕様確認（going未�
   }
 
   it("frame/horseNumber等が揃っていれば、goingがnull（未確定）でもgate.formal=trueになる（現行仕様。going未確定はFormal Gateをblockしない）", () => {
-    const result = runRaceCardBridge(filledRaceCard(null));
+    const result = runAtCutoff(filledRaceCard(null));
     expect(result.gate.formal).toBe(true);
     expect(result.runners[0].predictionEligible).toBe(true);
   });
 
   it("going未確定時、goingSuitabilityはevaluated=falseに構造的に帰着し、100%固定など不当な扱いをされない（既存仕様、無変更の確認）", () => {
-    const result = runRaceCardBridge(filledRaceCard(null));
+    const result = runAtCutoff(filledRaceCard(null));
     const board = buildAbilityBoard(result.diagnosticSnapshot);
     const row = board[0];
     // going未評価分はevaluatedComponentCountから除外され、overallSuitabilityPercentは
@@ -91,3 +91,8 @@ describe("CHECKPOINT13.5A: Stage A Formal Gateの現行仕様確認（going未�
     expect(row.goingSuitability).not.toBeNull(); // adjustedPercentは常に返る（evaluated判定は別フィールド）
   });
 });
+
+// 保存・resolverのテストも実行時計ではなく明示cutoffを使う。
+function runAtCutoff(card: Parameters<typeof runRaceCardBridge>[0], options: Parameters<typeof runRaceCardBridge>[1] = {}) {
+  return runRaceCardBridge(card, { generatedAt: "2026-08-28T03:03:03.357Z", ...options });
+}

@@ -49,7 +49,7 @@ afterEach(() => {
 
 describe("Test A: Formal Stage A Snapshotを保存できる", () => {
   it("gate.formal=trueのRace Cardから正式recordを構築し、保存・再読込できる", () => {
-    const bridgeResult = runRaceCardBridge(raceCard());
+    const bridgeResult = runAtCutoff(raceCard());
     expect(bridgeResult.gate.formal).toBe(true);
 
     const record = buildFormalPredictionSnapshotRecord(bridgeResult);
@@ -67,11 +67,32 @@ describe("Test A: Formal Stage A Snapshotを保存できる", () => {
     expect(loaded?.snapshotId).toBe(record.snapshotId);
     expect(loaded?.runners[0].baseAbility).toBe(record.runners[0].baseAbility);
   });
+
+  it("cutoff選別済みOddsと不足診断をFormal Recordへ保存する", () => {
+    const card = raceCard();
+    const bridgeResult = runAtCutoff(card, {
+      odds: [{
+        raceId: card.raceId,
+        horseId: "shakeyourheart",
+        observedAt: "2026-08-28T03:00:00Z",
+        availableAt: "2026-08-28T03:00:30Z",
+        odds: 3.4,
+        market: "win",
+        source: "JRA-VAN test",
+      }],
+    });
+    const record = buildFormalPredictionSnapshotRecord(bridgeResult);
+
+    expect(record.odds?.[0]).toMatchObject({ horseId: "shakeyourheart", odds: 3.4, market: "win" });
+    expect(record.oddsStatus).toMatchObject({ winOddsComplete: true, missingHorseIds: [] });
+    persistPredictionSnapshot(record, { dir: tmpDir });
+    expect(loadPredictionSnapshot(record.snapshotId, { dir: tmpDir })?.odds).toEqual(record.odds);
+  });
 });
 
 describe("Test B: 保存済みSnapshotの値は、後から現在のdata/horsesを再計算して表示するものではない", () => {
   it("loadPredictionSnapshot()はファイルに書かれた値をそのまま返すだけで、生産データから再計算しない", () => {
-    const bridgeResult = runRaceCardBridge(raceCard());
+    const bridgeResult = runAtCutoff(raceCard());
     const record = buildFormalPredictionSnapshotRecord(bridgeResult);
     const persisted = persistPredictionSnapshot(record, { dir: tmpDir });
     expect(persisted.status).toBe("created");
@@ -97,7 +118,7 @@ describe("Test B: 保存済みSnapshotの値は、後から現在のdata/horses�
 
 describe("Test C: 同じsnapshotIdを別内容で上書きできない", () => {
   it("異なる内容の再保存はrejectされ、既存ファイルは変化しない", () => {
-    const bridgeResult = runRaceCardBridge(raceCard());
+    const bridgeResult = runAtCutoff(raceCard());
     const record = buildFormalPredictionSnapshotRecord(bridgeResult);
     const first = persistPredictionSnapshot(record, { dir: tmpDir });
     expect(first.status).toBe("created");
@@ -112,7 +133,7 @@ describe("Test C: 同じsnapshotIdを別内容で上書きできない", () => {
   });
 
   it("完全に同一内容の再保存はno-op（duplicate）として扱われ、エラーにも二重ファイルにもならない", () => {
-    const bridgeResult = runRaceCardBridge(raceCard());
+    const bridgeResult = runAtCutoff(raceCard());
     const record = buildFormalPredictionSnapshotRecord(bridgeResult);
     const first = persistPredictionSnapshot(record, { dir: tmpDir });
     expect(first.status).toBe("created");
@@ -126,7 +147,7 @@ describe("Test C: 同じsnapshotIdを別内容で上書きできない", () => {
 describe("Test D: Stage A保存後にStage Bを保存してもStage Aは変化しない", () => {
   it("同一raceIdでもstageが異なれば別snapshotIdとなり、互いに独立している", () => {
     const card = raceCard();
-    const bridgeResult = runRaceCardBridge(card);
+    const bridgeResult = runAtCutoff(card);
     const stageARecord = buildFormalPredictionSnapshotRecord(bridgeResult);
     const stageAPersist = persistPredictionSnapshot(stageARecord, { dir: tmpDir });
     expect(stageAPersist.status).toBe("created");
@@ -152,7 +173,7 @@ describe("Test D: Stage A保存後にStage Bを保存してもStage Aは変化�
     });
     // buildFormalPredictionSnapshotRecordはRaceCardBridgeResultの構造だけを読むため、
     // Stage AのbridgeResultからdiagnosticSnapshotだけをStage Bのものへ差し替えて渡せる
-    // （runRaceCardBridge()自体はStage A専用のまま無変更。新しいStage B用bridge関数は追加しない）。
+    // （runAtCutoff()自体はStage A専用のまま無変更。新しいStage B用bridge関数は追加しない）。
     const stageBBridgeResult = { ...bridgeResult, diagnosticSnapshot: stageBSnapshot };
     const stageBRecord = buildFormalPredictionSnapshotRecord(stageBBridgeResult);
 
@@ -180,13 +201,13 @@ describe("Test E: diagnostic（formal=false）は正式Prediction Historyへ保�
         { horseName: "存在しない架空馬", frame: 2, horseNumber: 2, scratched: false },
       ],
     });
-    const bridgeResult = runRaceCardBridge(card);
+    const bridgeResult = runAtCutoff(card);
     expect(bridgeResult.gate.formal).toBe(false);
     expect(() => buildFormalPredictionSnapshotRecord(bridgeResult)).toThrow();
   });
 
   it("persistPredictionSnapshot()自体もformal!==trueのオブジェクトを拒否する（型を迂回した直接呼び出しに対する防御）", () => {
-    const bridgeResult = runRaceCardBridge(raceCard());
+    const bridgeResult = runAtCutoff(raceCard());
     const record = buildFormalPredictionSnapshotRecord(bridgeResult);
     const forged = { ...record, formal: false as unknown as true };
     expect(() => persistPredictionSnapshot(forged, { dir: tmpDir })).toThrow();
@@ -195,7 +216,7 @@ describe("Test E: diagnostic（formal=false）は正式Prediction Historyへ保�
 
 describe("Test F: going evaluated=falseが保存後も維持される", () => {
   it("goingが未確定（null）のまま保存・再読込しても、evaluated=falseが保たれる（推測で埋めない）", () => {
-    const bridgeResult = runRaceCardBridge(raceCard({ going: null }));
+    const bridgeResult = runAtCutoff(raceCard({ going: null }));
     const record = buildFormalPredictionSnapshotRecord(bridgeResult);
     expect(record.going).toEqual({ evaluated: false, going: null });
 
@@ -205,7 +226,7 @@ describe("Test F: going evaluated=falseが保存後も維持される", () => {
   });
 
   it("goingが確定済みの場合はevaluated=trueとその値が保存される", () => {
-    const bridgeResult = runRaceCardBridge(raceCard({ going: "良" }));
+    const bridgeResult = runAtCutoff(raceCard({ going: "良" }));
     const record = buildFormalPredictionSnapshotRecord(bridgeResult);
     expect(record.going).toEqual({ evaluated: true, going: "良" });
   });
@@ -213,7 +234,7 @@ describe("Test F: going evaluated=falseが保存後も維持される", () => {
 
 describe("Test G: modelVersion / datasetFingerprintが保存される", () => {
   it("正式recordにmodelVersion・datasetVersion（datasetFingerprint含む）が含まれる", () => {
-    const bridgeResult = runRaceCardBridge(raceCard());
+    const bridgeResult = runAtCutoff(raceCard());
     const record = buildFormalPredictionSnapshotRecord(bridgeResult);
     expect(record.modelVersion).toBe(PREDICTION_SNAPSHOT_MODEL_VERSION);
     expect(typeof record.datasetVersion.datasetFingerprint).toBe("string");
@@ -231,7 +252,7 @@ describe("Test H: Race Card input値が追跡可能", () => {
     const card = raceCard({
       runners: [{ horseId: "shakeyourheart", horseName: "シェイクユアハート", frame: 3, horseNumber: 5, assignedWeight: 55.5, scratched: false }],
     });
-    const bridgeResult = runRaceCardBridge(card);
+    const bridgeResult = runAtCutoff(card);
     const record = buildFormalPredictionSnapshotRecord(bridgeResult);
 
     expect(record.raceCardInput.runners[0].frame).toBe(3);
@@ -244,12 +265,12 @@ describe("Test H: Race Card input値が追跡可能", () => {
 
   it("raceCardFingerprintは同一入力から常に同じ値になる決定的なハッシュである", () => {
     const card = raceCard();
-    const r1 = buildFormalPredictionSnapshotRecord(runRaceCardBridge(card));
-    const r2 = buildFormalPredictionSnapshotRecord(runRaceCardBridge(raceCard()));
+    const r1 = buildFormalPredictionSnapshotRecord(runAtCutoff(card));
+    const r2 = buildFormalPredictionSnapshotRecord(runAtCutoff(raceCard()));
     expect(r1.raceCardFingerprint).toBe(r2.raceCardFingerprint);
 
-    const differentCard = raceCard({ raceDate: "2099-01-02" });
-    const r3 = buildFormalPredictionSnapshotRecord(runRaceCardBridge(differentCard));
+    const differentCard = raceCard({ raceDate: "2099-01-02", scheduledStartTime: "2099-01-02T15:45:00+09:00" });
+    const r3 = buildFormalPredictionSnapshotRecord(runAtCutoff(differentCard));
     expect(r3.raceCardFingerprint).not.toBe(r1.raceCardFingerprint);
   });
 });
@@ -265,3 +286,8 @@ describe("buildFormalSnapshotId: snapshotId設計", () => {
     expect(id1).not.toBe(id4);
   });
 });
+
+// 保存・resolverのテストも実行時計ではなく明示cutoffを使う。
+function runAtCutoff(card: Parameters<typeof runRaceCardBridge>[0], options: Parameters<typeof runRaceCardBridge>[1] = {}) {
+  return runRaceCardBridge(card, { generatedAt: "2026-08-28T03:03:03.357Z", ...options });
+}

@@ -13,6 +13,8 @@ export function normalizeRaceBundle(raw: RawRaceBundle): CollectedRunnerRow[] {
     going: raw.going,
     courseLayout: raw.courseLayout,
     courseVariant: raw.courseVariant,
+    ...(r.entryStatus !== undefined ? { entryStatus: r.entryStatus } : {}),
+    ...(r.availableAt !== undefined ? { availableAt: r.availableAt } : {}),
     horseId: r.horseId,
     horseName: r.horseName,
     horseNumber: r.horseNumber,

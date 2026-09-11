@@ -76,6 +76,8 @@ export interface BaselineMeta {
  * V0では仮データを保持するのみ。実データ確定後は差し替え可能な構造にしている。
  */
 export interface CourseTimeBaseline {
+  /** この版の情報が利用可能になった時刻（legacy同梱値では省略）。 */
+  availableAt?: string | null;
   racecourse: string;
   surface: Surface;
   /** メートル */
@@ -122,6 +124,8 @@ export interface RaceTimeBreakdown {
  * 平均ではなく中央値を使う。V0では仮データを保持するのみ。
  */
 export interface CourseFinal3FBaseline {
+  /** この版の情報が利用可能になった時刻（legacy同梱値では省略）。 */
+  availableAt?: string | null;
   racecourse: string;
   surface: Surface;
   /** メートル */
@@ -245,6 +249,8 @@ export interface WeightBreakdown {
  * （動作が変わるのは上書きを明示的に与えたレースだけ）。
  */
 export interface RaceFieldAggregate {
+  /** この版の情報が利用可能になった時刻（legacy同梱値では省略）。 */
+  availableAt?: string | null;
   raceId: string;
   /** 出走頭数（参考値。中央値の算出には使わない） */
   fieldCount: number;
@@ -322,6 +328,8 @@ export interface RacePerformance {
   sourceRaceId?: string | null;
   sourceHorseId?: string | null;
   importedAt?: string | null;
+  /** この版の情報が利用可能になった時刻。取込時刻とは区別する。 */
+  availableAt?: string | null;
 
   /**
    * データ種別（CHECKPOINT13.2で追加、Placeholder隔離）。

@@ -21,8 +21,10 @@
  *     完成させない、STEP11）。
  */
 
+import { assertPredictionCutoff } from "../predictionBoundary";
 import { buildGateConfirmedSnapshot, GOING_UNKNOWN_SENTINEL } from "../predictionSnapshot";
 import type { HorseSnapshotEntry, PredictionSnapshot, RaceEntryInput, SnapshotRaceTarget } from "../predictionSnapshot";
+import type { OddsSnapshotEntry } from "../oddsSnapshot";
 import { buildCanonicalHorseRegistry, toCanonicalHorseNameEntries, type CanonicalHorseRegistryEntry } from "./canonicalHorseRegistry";
 import { resolveRunners, type ResolverStatus, type RunnerResolverContext } from "./runnerResolver";
 import type { RaceCardInput } from "./raceCardTypes";
@@ -82,8 +84,10 @@ export interface RunRaceCardBridgeOptions {
    * 正式Sourceが未決定の現状では通常{}のまま（架空のmappingを作らない、STEP8）。
    */
   sourceHorseIdRegistry?: Record<string, string>;
-  /** Snapshot生成時刻（省略時は現在時刻）。テストで固定したい場合に指定する */
+  /** Stage Aの明示cutoff。欠落時は停止する（現在時刻で代用しない）。 */
   generatedAt?: string;
+  /** cutoff時点までに利用可能なOdds Snapshot候補。能力・Probabilityには使用しない。 */
+  odds?: readonly OddsSnapshotEntry[] | null;
   /**
    * テスト専用: canonical horse registryを差し替える。
    * 省略時は常にbuildCanonicalHorseRegistry()でdata/horses/から自動生成する
@@ -127,7 +131,8 @@ export function reasonsFromSnapshotEntry(entry: HorseSnapshotEntry, registryEntr
  * 橋渡しする。data/horses/への書き込みは一切行わない（読み取り専用）。
  */
 export function runRaceCardBridge(raceCard: RaceCardInput, options: RunRaceCardBridgeOptions = {}): RaceCardBridgeResult {
-  const generatedAt = options.generatedAt ?? new Date().toISOString();
+  const generatedAt = options.generatedAt;
+  assertPredictionCutoff(generatedAt, { ...raceCard, postTimeIso: raceCard.scheduledStartTime });
 
   // STEP6: 24頭分の手作業ハードコードではなく、data/horses/から自動生成する
   const registry = options.registryOverride ?? buildCanonicalHorseRegistry();
@@ -184,6 +189,8 @@ export function runRaceCardBridge(raceCard: RaceCardInput, options: RunRaceCardB
     entries: resolvedEntries,
     going,
     generatedAt,
+    odds: options.odds,
+    oddsCanonicalHorseIds: new Set(registry.map((entry) => entry.horseId)),
   });
   const snapshotByHorseId = new Map(diagnosticSnapshot.runners.map((r) => [r.horseId, r]));
 

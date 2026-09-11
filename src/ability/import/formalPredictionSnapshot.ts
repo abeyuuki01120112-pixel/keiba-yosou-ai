@@ -18,7 +18,8 @@
  */
 
 import { buildAbilityBoard } from "../predictionSnapshot";
-import type { AbilityBoardRow, PredictionStage } from "../predictionSnapshot";
+import type { AbilityBoardRow, PredictionOddsStatus, PredictionStage } from "../predictionSnapshot";
+import type { OddsSnapshotEntry } from "../oddsSnapshot";
 import type { RaceCardBridgeResult } from "./raceCardBridge";
 import type { RaceCardInput } from "./raceCardTypes";
 import { getProductionDatasetVersionInfo } from "../horseAbilityData";
@@ -108,6 +109,11 @@ export interface FormalPredictionSnapshotRecord {
   predictionEligibleCount: number;
 
   warnings: string[];
+
+  /** 旧保存recordでは未記録。新規recordはcutoff選別済みのSnapshotを保持する。 */
+  odds?: OddsSnapshotEntry[] | null;
+  /** 旧保存recordでは未記録。単勝Oddsの不足理由を馬単位で保持する。 */
+  oddsStatus?: PredictionOddsStatus;
 
   schemaVersion: string;
 }
@@ -252,6 +258,11 @@ export function buildFormalPredictionSnapshotRecord(bridgeResult: RaceCardBridge
     predictionEligibleCount: bridgeResult.summary.predictionEligible,
 
     warnings: [...diagnosticSnapshot.warnings],
+
+    odds: diagnosticSnapshot.odds == null
+      ? null
+      : JSON.parse(JSON.stringify(diagnosticSnapshot.odds)),
+    oddsStatus: JSON.parse(JSON.stringify(diagnosticSnapshot.oddsStatus)),
 
     schemaVersion: FORMAL_SNAPSHOT_SCHEMA_VERSION,
   };

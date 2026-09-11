@@ -17,6 +17,7 @@
  * `npm run validate:data` で構造チェックできる。
  */
 
+import { predictionTimestamp, isRaceDate, isPriorPerformance, isKnownByCutoff, type PredictionTarget } from "./predictionBoundary";
 import rawCourseTimeBaselines from "./data/courseTimeBaselines.json";
 import rawCourseFinal3FBaselines from "./data/courseFinal3FBaselines.json";
 import rawRaceFieldAggregates from "./data/raceFieldAggregates.json";
@@ -34,7 +35,7 @@ import type {
   RacePerformance,
 } from "./types";
 
-type RawData = Record<string, RaceHistoryRawInput[]>;
+export type HorseHistoryRawData = Record<string, RaceHistoryRawInput[]>;
 
 // data/horses/*.json を1頭1ファイルとしてまとめて読み込む。
 // ファイルを追加/削除するだけで対象馬が増減する（コード変更不要）。
@@ -43,7 +44,7 @@ const horseFileModules = import.meta.glob<RaceHistoryRawInput[]>("./data/horses/
   import: "default",
 });
 
-const typedRawData: RawData = {};
+const typedRawData: HorseHistoryRawData = {};
 for (const [filePath, races] of Object.entries(horseFileModules)) {
   const horseId = filePath.replace(/^.*\//, "").replace(/\.json$/, "");
   typedRawData[horseId] = races;
@@ -80,6 +81,57 @@ export function loadAllHorseAbilityProfiles(): HorseAbilityProfile[] {
 }
 
 /**
+ * 予測専用の時点境界。対象馬だけで再計算せず、全馬の入力を先にcutoffで制限する。
+ * 既存V1の数式・窓・比較母集団の組立て自体は変更しない。
+ * 時刻メタデータのないlegacy基準値は同梱データ版として扱う。
+ */
+let predictionHistoryCache: { key: string; histories: Record<string, RacePerformance[]> } | undefined;
+
+/**
+ * Collector履歴との非破壊merge用に、production Horse Historyの生実績を返す。
+ * 呼び出し側による配列の追加・削除がmodule内の正本へ波及しないよう配列を複製する。
+ */
+export function getProductionRawHorseHistories(): HorseHistoryRawData {
+  return Object.fromEntries(Object.entries(typedRawData).map(([horseId, races]) => [horseId, [...races]]));
+}
+
+/**
+ * 任意のcanonical horseId別生履歴を、既存V1の全馬横断pipelineで再計算する。
+ * 保存件数は制限せず、対象レース自身・cutoff後・cutoff後に利用可能になった版だけを
+ * 入力境界で除外する。直近5走の選択は後段のcalculateBaseAbility()だけが行う。
+ */
+export function buildHorseHistoriesAsOf(
+  rawByHorseId: HorseHistoryRawData,
+  target: PredictionTarget,
+  cutoff: string,
+): Record<string, RacePerformance[]> {
+  predictionTimestamp(cutoff, "predictionCutoffAt");
+  if (!isRaceDate(target.raceDate)) throw new Error("INVALID_RACE_DATE");
+  const raw = Object.fromEntries(Object.entries(rawByHorseId).map(([id, races]) => [
+    id, races.filter((r) => isPriorPerformance(r, target, cutoff)),
+  ]));
+  const aggregates = Object.fromEntries(Object.entries(raceFieldAggregatesByRaceId).filter(
+    ([raceId, aggregate]) => raceId !== target.raceId && isKnownByCutoff(aggregate, cutoff),
+  ));
+  return buildRaceHistory(
+    raw,
+    typedTimeBaselines.filter((b) => isKnownByCutoff(b, cutoff)),
+    typedFinal3FBaselines.filter((b) => isKnownByCutoff(b, cutoff)),
+    aggregates,
+  );
+}
+
+export function getHorseRecentRacesAsOf(horseId: string, target: PredictionTarget, cutoff: string): RacePerformance[] {
+  predictionTimestamp(cutoff, "predictionCutoffAt");
+  if (!isRaceDate(target.raceDate)) throw new Error("INVALID_RACE_DATE");
+  const key = JSON.stringify([target.raceId, target.raceDate, cutoff]);
+  if (predictionHistoryCache?.key !== key) {
+    predictionHistoryCache = { key, histories: buildHorseHistoriesAsOf(typedRawData, target, cutoff) };
+  }
+  return predictionHistoryCache.histories[horseId] ?? [];
+}
+
+/**
  * horseId単体の確定済みRacePerformance[]（新しい順）を返す（CHECKPOINT13で追加）。
  *
  * loadHorseAbilityProfile()と異なり、loadDefaultHorses()（simulation/data/sapporoKinen.json）
@@ -89,8 +141,17 @@ export function loadAllHorseAbilityProfiles(): HorseAbilityProfile[] {
  * から参照するだけであり、この関数自体がbuildRaceHistory()を部分データで
  * 再実行することは無い。
  */
+
 export function getHorseRecentRaces(horseId: string): RacePerformance[] {
   return historyByHorseId[horseId] ?? [];
+}
+
+/** Structural No-Prior判定にも同一cutoffの全馬集合を使う。 */
+export function getRaceFieldPriorRaceCountsAsOf(raceId: string, raceDate: string, target: PredictionTarget, cutoff: string): number[] {
+  getHorseRecentRacesAsOf("", target, cutoff); // 同じ全馬集合を準備する（空IDは結果を利用しない）
+  return Object.values(predictionHistoryCache!.histories)
+    .filter((races) => races.some((r) => r.raceId === raceId))
+    .map((races) => races.filter((r) => r.raceDate < raceDate).length);
 }
 
 /**

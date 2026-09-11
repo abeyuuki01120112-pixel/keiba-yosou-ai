@@ -8,6 +8,7 @@
  * 【重要】このCLIは data/horses/ を一切書き込まない（読み取り専用）。
  * 過去走データのimport/merge（npm run import:csv）とは完全に別の経路である。
  *
+ * PREDICTION_CUTOFF_ATに発走前cutoffを明示する（未指定・不正なら停止）。
  * 使い方:
  *   npm run racecard:check -- path/to/racecard.json
  *   npm run racecard:check -- path/to/racecard.csv
@@ -57,7 +58,7 @@ if (!normalizeResult.ok) {
   process.exit(1);
 }
 
-const bridgeResult = runRaceCardBridge(normalizeResult.data);
+const bridgeResult = runRaceCardBridge(normalizeResult.data, { generatedAt: process.env.PREDICTION_CUTOFF_AT });
 
 console.log("");
 console.log(formatRaceCardBridgeReport(bridgeResult));

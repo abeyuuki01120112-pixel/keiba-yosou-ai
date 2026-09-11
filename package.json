@@ -17,6 +17,8 @@
     "racecard:check": "vite-node scripts/raceCardCheck.ts --",
     "provisional:check": "vite-node scripts/provisionalRunnerCheck.ts --",
     "collect:race": "vite-node scripts/collectRace.ts --",
+    "import:jvlink-run": "vite-node scripts/importJvLinkRun.ts --",
+    "predict:race": "vite-node scripts/predictRace.ts --",
     "generate:derived": "vite-node scripts/generateDerivedPredictions.ts --"
   },
   "dependencies": {

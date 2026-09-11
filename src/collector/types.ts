@@ -21,6 +21,17 @@ import type { RacePerformance } from "../ability/types";
 
 export type CollectorFieldStatus = "available" | "missing" | "unavailable" | "not_supported";
 
+/** JV-Link固定長record 1件の取得・公開時点を追跡する監査証跡。 */
+export interface JvLinkSourceEvidence {
+  recordType: "RA" | "SE";
+  raceKey: string;
+  horseId: string | null;
+  stage: string;
+  sourceFile: string;
+  providedAt: string;
+  retrievedAt: string;
+}
+
 export interface SourceProvenance {
   source: string;
   sourceIdentifier: string | null;
@@ -29,11 +40,72 @@ export interface SourceProvenance {
   retrievedAt: string;
   /** ISO8601。対象時点（predictionCutoffAt相当）。無ければnull */
   targetAsOf: string | null;
-  method: "manual_raw_file" | "production_history_reference";
+  method: "manual_raw_file" | "production_history_reference" | "jv_link";
   collectorVersion: string;
+  /** method=jv_link時の元record証跡。既存sourceでは省略する。 */
+  evidence?: JvLinkSourceEvidence[];
 }
 
+export type UnsupportedHistoryReasonCode =
+  | "UNSUPPORTED_STAGE_B_HISTORY"
+  | "UNSCORABLE_STAGE_B_MISSING_REQUIRED_MEASUREMENT"
+  | "UNSUPPORTED_OVERSEAS_RACECOURSE"
+  | "UNMAPPED_OVERSEAS_RACE_ID"
+  | "FINAL3F_MISSING_OVERSEAS"
+  | "FINAL3F_NOT_PROVIDED"
+  | "GATE_MISSING_OVERSEAS"
+  | "GATE_NOT_PROVIDED"
+  | "PASSING_POSITION_MISSING_OVERSEAS"
+  | "PASSING_POSITION_NOT_PROVIDED";
+
+/**
+ * raw取得には成功したが、現行Ability V1へ入力できない過去走の証拠。
+ * 欠損値を数値へ変換せず、RacePerformance[]とは分離して保持する。
+ */
+export interface UnsupportedPriorHistoryEvidence {
+  status: "unsupported_for_ability" | "unscorable_for_ability";
+  raceKey: string;
+  raceDate: string;
+  raceName: string;
+  racecourseCode: string;
+  horseId: string;
+  horseName: string;
+  raStage: string;
+  seStage: string;
+  raw: {
+    finishPosition: string;
+    raceTime: string;
+    timeGap: string;
+    carriedWeight: string;
+    final3F: string;
+    gate: string;
+    passingPosition: string[];
+  };
+  reasonCodes: UnsupportedHistoryReasonCode[];
+  provenance: JvLinkSourceEvidence[];
+}
+
+export type JvLinkConflictClassification = "NON_MATERIAL" | "MATERIAL";
+
+/** RepositoryとJV-Linkのruntime採用差分。Repositoryファイル自体は変更しない。 */
+export interface JvLinkHistoryConflictDiagnostic {
+  horseId: string;
+  raceId: string;
+  raceKey: string | null;
+  field: string;
+  repositoryValue: unknown;
+  jvLinkValue: unknown;
+  classification: JvLinkConflictClassification;
+  selectedSource: "jv_link";
+}
+
+/** 結果の有無とは独立した出走状態。省略は従来の出走表行（declared）。 */
+export type RunnerEntryStatus = "declared" | "scratched" | "excluded";
+
 export interface RawRunnerRow {
+  entryStatus?: RunnerEntryStatus;
+  /** 出走表情報が利用可能になった時刻（結果の確定時刻ではない） */
+  availableAt?: string;
   horseId: string;
   horseName: string;
   horseNumber: number;
@@ -43,6 +115,7 @@ export interface RawRunnerRow {
   actualRaceTimeSeconds: number | null;
   final3FSeconds: number | null;
   timeGapSeconds: number | null;
+  /** 発走前Predictionでは取消・除外行を含む出走表の全行数を要求する。 */
   fieldSize: number;
   passingPosition: string | null;
   source: string | null;
@@ -67,6 +140,8 @@ export interface RawRaceBundle {
 
 /** normalizedレイヤー。既存Gate Race CSV契約（24列、docs/checkpoint14d1e...）と同一の項目名を再利用する。 */
 export interface CollectedRunnerRow {
+  entryStatus?: RunnerEntryStatus;
+  availableAt?: string;
   raceId: string;
   raceDate: string;
   racecourse: string;
@@ -86,6 +161,7 @@ export interface CollectedRunnerRow {
   actualRaceTimeSeconds: number | null;
   final3FSeconds: number | null;
   timeGapSeconds: number | null;
+  /** 発走前Predictionでは取消・除外行を含む出走表の全行数を要求する。 */
   fieldSize: number;
   passingPosition: string | null;
   source: string | null;
@@ -104,6 +180,10 @@ export interface PriorHistoryEntry {
   horseId: string;
   status: CollectorFieldStatus;
   races: RacePerformance[];
+  /** source側が予測時点で選択した順序。Mac側で別の走へ置換しないための監査値。 */
+  selectedRaceKeys?: string[];
+  /** Abilityへ渡さない実在履歴。raw欠損を捏造せず監査可能に残す。 */
+  unsupportedHistories?: UnsupportedPriorHistoryEvidence[];
   provenance: SourceProvenance;
 }
 

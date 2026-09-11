@@ -82,12 +82,21 @@ async function main() {
 
   // 2. Collector V0既存5レース
   for (const raceId of COLLECTOR_RACE_IDS) {
+    const predictionCutoffAt = process.env.PREDICTION_CUTOFF_AT;
+    const raceCardAvailableAt = process.env.RACE_CARD_AVAILABLE_AT;
+    if (!predictionCutoffAt || !raceCardAvailableAt) {
+      console.warn(`${raceId}: PREDICTION_CUTOFF_AT / RACE_CARD_AVAILABLE_AT未指定のため再予測をスキップします。`);
+      continue;
+    }
     const collected = await collectRace(raceId);
     if (collected.status !== "OK" || collected.race === null) {
       console.warn(`${raceId}: collectRace failed (${collected.failureReason}), skip`);
       continue;
     }
-    const derived = buildDerivedFromCollector(collected.race, collected.runners, collected.priorHistories);
+    const derived = buildDerivedFromCollector(collected.race, collected.runners, collected.priorHistories, {
+      predictionCutoffAt,
+      raceCardAvailableAt,
+    });
     write(derived);
   }
 }
