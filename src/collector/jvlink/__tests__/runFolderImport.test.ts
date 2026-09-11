@@ -1,8 +1,9 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { calculateBaseAbility } from "../../../ability/baseAbility";
+import * as raceHistoryPipeline from "../../../ability/raceHistoryPipeline";
 import type { RaceHistoryRawInput } from "../../../ability/raceHistoryPipeline";
 import { connectCollectorHorseHistories, toRaceHistoryRawInput } from "../../../integration/collectorHorseHistory";
 import { importJvLinkRunFolder } from "../../../integration/jvLinkRunImport";
@@ -326,21 +327,124 @@ describe("JV-Link run-folder Mac import", () => {
     ]));
   });
 
-  it("does not change the 5/5 horses when a 4/5 evidence horse is added", () => {
+  it("computes all 16 Abilities from a single canonical buildRaceHistory population (no per-horse second pass)", () => {
     const imported = importJvLinkRunFolder(createRunFolder(), { expectedRaceId: targetRaceId, skipCache: true });
     const target = {
       raceId: imported.race.raceId,
       raceDate: imported.race.raceDate,
       postTimeIso: imported.adapted.scheduledStartTime,
     };
-    const withoutPartial = connectCollectorHorseHistories(
-      imported.normalized.runners.filter((runner) => runner.horseId !== stageBHorseId),
-      imported.normalized.priorHistories.filter((history) => history.horseId !== stageBHorseId),
+    const buildRaceHistorySpy = vi.spyOn(raceHistoryPipeline, "buildRaceHistory");
+    const connected = connectCollectorHorseHistories(
+      imported.normalized.runners,
+      imported.normalized.priorHistories,
       target,
       imported.adapted.predictionCutoffAt,
     );
-    for (const row of imported.ability.filter((item) => item.horseId !== stageBHorseId)) {
-      expect(row.baseAbility).toBe(calculateBaseAbility(withoutPartial.historiesByHorseId[row.horseId]));
+    // 正式母集合の全馬横断計算はbuildHorseHistoriesAsOf()経由でbuildRaceHistory()を
+    // 一度だけ呼ぶ。ジョバンニ本人専用の2回目呼び出しが存在しないことを直接検証する。
+    expect(buildRaceHistorySpy).toHaveBeenCalledTimes(1);
+    buildRaceHistorySpy.mockRestore();
+    // canonical母集合はdata/horses全体+対象16頭のJV-Link canonical historiesであり、
+    // 単一のbuildRaceHistory()結果には対象16頭以外の本番Repository馬も含まれる。
+    // ここでは対象16頭全員が同一の単一結果に含まれていることだけを確認する。
+    for (const runner of imported.normalized.runners) {
+      expect(connected.historiesByHorseId[runner.horseId]).toBeDefined();
+    }
+    expect(imported.normalized.runners).toHaveLength(16);
+  });
+
+  it("reproduces identical Ability for all 16 horses on repeated runs of the same canonical population", () => {
+    const imported = importJvLinkRunFolder(createRunFolder(), { expectedRaceId: targetRaceId, skipCache: true });
+    const target = {
+      raceId: imported.race.raceId,
+      raceDate: imported.race.raceDate,
+      postTimeIso: imported.adapted.scheduledStartTime,
+    };
+    const run = () => connectCollectorHorseHistories(
+      imported.normalized.runners,
+      imported.normalized.priorHistories,
+      target,
+      imported.adapted.predictionCutoffAt,
+    );
+    const first = run();
+    const second = run();
+    expect(second.historiesByHorseId).toEqual(first.historiesByHorseId);
+  });
+
+  it("is independent of the input array order (reversed runners/priorHistories)", () => {
+    const imported = importJvLinkRunFolder(createRunFolder(), { expectedRaceId: targetRaceId, skipCache: true });
+    const target = {
+      raceId: imported.race.raceId,
+      raceDate: imported.race.raceDate,
+      postTimeIso: imported.adapted.scheduledStartTime,
+    };
+    const forward = connectCollectorHorseHistories(
+      imported.normalized.runners,
+      imported.normalized.priorHistories,
+      target,
+      imported.adapted.predictionCutoffAt,
+    );
+    const reversed = connectCollectorHorseHistories(
+      [...imported.normalized.runners].reverse(),
+      [...imported.normalized.priorHistories].reverse(),
+      target,
+      imported.adapted.predictionCutoffAt,
+    );
+    expect(reversed.historiesByHorseId).toEqual(forward.historiesByHorseId);
+  });
+
+  it("is independent of Giovanni's (Stage B horse's) position in the input array (first or last)", () => {
+    const imported = importJvLinkRunFolder(createRunFolder(), { expectedRaceId: targetRaceId, skipCache: true });
+    const target = {
+      raceId: imported.race.raceId,
+      raceDate: imported.race.raceDate,
+      postTimeIso: imported.adapted.scheduledStartTime,
+    };
+    const stageBRunner = imported.normalized.runners.find((runner) => runner.horseId === stageBHorseId)!;
+    const stageBHistory = imported.normalized.priorHistories.find((history) => history.horseId === stageBHorseId)!;
+    const otherRunners = imported.normalized.runners.filter((runner) => runner.horseId !== stageBHorseId);
+    const otherHistories = imported.normalized.priorHistories.filter((history) => history.horseId !== stageBHorseId);
+
+    const giovanniFirst = connectCollectorHorseHistories(
+      [stageBRunner, ...otherRunners],
+      [stageBHistory, ...otherHistories],
+      target,
+      imported.adapted.predictionCutoffAt,
+    );
+    const giovanniLast = connectCollectorHorseHistories(
+      [...otherRunners, stageBRunner],
+      [...otherHistories, stageBHistory],
+      target,
+      imported.adapted.predictionCutoffAt,
+    );
+    expect(giovanniLast.historiesByHorseId).toEqual(giovanniFirst.historiesByHorseId);
+    for (const horseId of [...otherRunners.map((r) => r.horseId), stageBHorseId]) {
+      expect(giovanniLast.historiesByHorseId[horseId]).toEqual(giovanniFirst.historiesByHorseId[horseId]);
+    }
+  });
+
+  it("keeps Stage B evidence intact but never lets its sentinel raw values (final3F=000/gate=0/passingPosition=00) enter the scorable aggregate population", () => {
+    const imported = importJvLinkRunFolder(createRunFolder(), { expectedRaceId: targetRaceId, skipCache: true });
+    const target = {
+      raceId: imported.race.raceId,
+      raceDate: imported.race.raceDate,
+      postTimeIso: imported.adapted.scheduledStartTime,
+    };
+    const connected = connectCollectorHorseHistories(
+      imported.normalized.runners,
+      imported.normalized.priorHistories,
+      target,
+      imported.adapted.predictionCutoffAt,
+    );
+    // Stage B evidence自体はUnscorableSelectedHistoryEvidenceとして保持される。
+    expect(connected.abilityEvidenceByHorseId[stageBHorseId].unscorableHistories).toHaveLength(1);
+    expect(connected.abilityEvidenceByHorseId[stageBHorseId].unscorableHistories[0].source.raw.final3F).toBe("000");
+    // しかし正式canonical母集合(rawHistoriesByHorseId)へは、Stage B走のraceIdが一切含まれない。
+    const stageBRaceKey = connected.abilityEvidenceByHorseId[stageBHorseId].unscorableHistories[0].raceKey;
+    for (const races of Object.values(connected.rawHistoriesByHorseId)) {
+      expect(races.some((race) => race.sourceRaceId === stageBRaceKey)).toBe(false);
+      expect(races.every((race) => race.final3F > 0 && race.carriedWeight > 0)).toBe(true);
     }
   });
 });

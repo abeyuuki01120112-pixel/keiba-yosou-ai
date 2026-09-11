@@ -229,30 +229,15 @@ export function connectCollectorHorseHistories(
     if (!seenHistoryIds.has(horseId)) addIssue("INCOMPLETE_PRIOR_HISTORY", horseId);
   }
 
-  const partiallyScorableHorseIds = new Set(priorHistories
-    .filter((history) => history.provenance.method === "jv_link" &&
-      (history.unsupportedHistories?.length ?? 0) > 0)
-    .map((history) => history.horseId));
-  // 前ラウンドで確定した5/5馬の全馬横断raceScoreを変えないため、unscorable evidenceを
-  // 持つ馬は従来母集団から外して15頭を先に計算する。その後、当該馬を含む同じ既存
-  // pipelineを再実行し、本人のscorable走だけを採用する。数式・weight・benchmarkは同一。
-  const baselineRawHistories: HorseHistoryRawData = Object.fromEntries(
-    Object.entries(rawHistoriesByHorseId).map(([horseId, races]) => [
-      horseId,
-      partiallyScorableHorseIds.has(horseId) ? [] : races,
-    ]),
-  );
-  const historiesByHorseId = buildHorseHistoriesAsOf(baselineRawHistories, target, cutoff);
-  for (const horseId of partiallyScorableHorseIds) {
-    const singlePartialRaw: HorseHistoryRawData = Object.fromEntries(
-      Object.entries(rawHistoriesByHorseId).map(([candidateId, races]) => [
-        candidateId,
-        partiallyScorableHorseIds.has(candidateId) && candidateId !== horseId ? [] : races,
-      ]),
-    );
-    const withPartialHorse = buildHorseHistoriesAsOf(singlePartialRaw, target, cutoff);
-    historiesByHorseId[horseId] = withPartialHorse[horseId] ?? [];
-  }
+  // 正式仕様（rescue正式化ラウンド）: canonical母集合は1つだけ。
+  // Repository production histories + 対象馬のJV-Link canonical histories
+  // （unscorable Stage B走は上のmerge時点で既に除外済み。UnscorableSelectedHistoryEvidence
+  // として別途保持し、RaceHistoryRawInputへは混入させない）を統合したrawHistoriesByHorseIdを、
+  // buildHorseHistoriesAsOf()（= buildRaceHistory()の全馬横断呼び出し）へ一度だけ投入する。
+  // ある馬の追加によりraceFinal3FMedianSeconds・raceMedianWeightKg・memberLevelScoreAtRace等の
+  // race-level shared contextを共有する他馬のAbilityが変動することは、Base Ability V1の
+  // 母集合依存の仕様上正常な挙動であり、これを打ち消すための特別な二段計算は行わない。
+  const historiesByHorseId = buildHorseHistoriesAsOf(rawHistoriesByHorseId, target, cutoff);
   const priorByHorseId = new Map(priorHistories.map((history) => [history.horseId, history]));
   const abilityEvidenceByHorseId: Record<string, SelectedHistoryAbilityEvidence> = {};
   for (const runner of runners) {
