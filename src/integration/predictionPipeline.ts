@@ -315,7 +315,13 @@ export function runPredictionPipeline(
       // blockingReason（insufficient_evidence/incomplete_recent_history）は変更しない。
       const jvLinkFormalAbilityReady =
         historyConnection.abilityEvidenceByHorseId[runner.horseId]?.formalAbilityReady === true;
-      const existingEligibilityReasons = jvLinkFormalAbilityReady
+      // Career Completeness Contract（P0）: 5走未満でも、JRA-VAN/JV-Link出典で
+      // 「通算出走数===取得済み過去走数」を証明できた馬（careerCompletenessStatus=COMPLETE）は、
+      // 同様にcareer_history_completeness_unknownだけをblockしない。insufficient_evidence等の
+      // 既存Hard Stop（例: 2走はabilityEvidence.tsのCase Dで一律block）はここでは一切変更しない。
+      const careerCompletenessProven =
+        historyConnection.careerCompletenessByHorseId[runner.horseId]?.careerCompletenessStatus === "COMPLETE";
+      const existingEligibilityReasons = jvLinkFormalAbilityReady || careerCompletenessProven
         ? rawEligibilityReasons.filter((reason) => reason !== "career_history_completeness_unknown")
         : rawEligibilityReasons;
       return {

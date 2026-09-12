@@ -21,6 +21,7 @@ import {
   selectJvLinkCanonicalRuntimeHistory,
   type JvLinkHistoryConflictDiagnostic,
 } from "./jvLinkHistoryConflict";
+import { resolveCareerCompleteness, type CareerCompletenessContract } from "./careerCompleteness";
 
 export interface CollectorHorseHistoryConnection {
   ok: boolean;
@@ -33,6 +34,8 @@ export interface CollectorHorseHistoryConnection {
   jvLinkConflictDiagnostics: JvLinkHistoryConflictDiagnostic[];
   /** Selected-5と実際にRaceScoreへ渡せる履歴を分離した監査情報。 */
   abilityEvidenceByHorseId: Record<string, SelectedHistoryAbilityEvidence>;
+  /** Career Completeness Contract（P0）。JRA-VAN/JV-Link出典で通算出走数の完全性を判定した監査情報。 */
+  careerCompletenessByHorseId: Record<string, CareerCompletenessContract>;
 }
 
 export interface UnscorableSelectedHistoryEvidence {
@@ -240,8 +243,10 @@ export function connectCollectorHorseHistories(
   const historiesByHorseId = buildHorseHistoriesAsOf(rawHistoriesByHorseId, target, cutoff);
   const priorByHorseId = new Map(priorHistories.map((history) => [history.horseId, history]));
   const abilityEvidenceByHorseId: Record<string, SelectedHistoryAbilityEvidence> = {};
+  const careerCompletenessByHorseId: Record<string, CareerCompletenessContract> = {};
   for (const runner of runners) {
     const history = priorByHorseId.get(runner.horseId);
+    careerCompletenessByHorseId[runner.horseId] = resolveCareerCompleteness(runner.horseId, cutoff, history);
     const availableScorableCount = historiesByHorseId[runner.horseId]?.length ?? 0;
     const unscorableHistories = (history?.unsupportedHistories ?? []).map((race) => ({
       raceKey: race.raceKey,
@@ -283,5 +288,6 @@ export function connectCollectorHorseHistories(
     mergeByHorseId,
     jvLinkConflictDiagnostics,
     abilityEvidenceByHorseId,
+    careerCompletenessByHorseId,
   };
 }

@@ -580,3 +580,108 @@ describe("Formal Gate P0修正: JV-Link Selected-5/Scorable-N契約とmemberLeve
     expect(result.horses.find((h) => h.horseId === targetHorseId)?.baseAbility).not.toBeNull();
   });
 });
+
+describe("Career Completeness Contract V1（P0）: JRA-VAN/JV-Link出典の通算出走数によるcareer_history_completeness_unknown解除", () => {
+  it("3走・careerStartCountAsOf=3（COMPLETE）はcareer_history_completeness_unknownでblockされずGate PASSする（エンネ相当）", () => {
+    const hs = histories();
+    const targetHorseId = hs[0].horseId;
+    hs[0].races = hs[0].races.slice(0, 3);
+    hs[0].provenance = { ...hs[0].provenance, method: "jv_link" };
+    hs[0].selectedRaceKeys = ["k1", "k2", "k3"];
+    hs[0].careerStartCountAsOf = 3;
+
+    const result = run(runners(), hs);
+    expect(result.formalPredictionReady).toBe(true);
+    expect(result.gate.formal).toBe(true);
+    const diagnostic = result.gate.horseDiagnostics.find((h) => h.horseId === targetHorseId);
+    expect(diagnostic?.predictionEligible).toBe(true);
+
+    const connected = connectCollectorHorseHistories(runners(), hs, race, options.predictionCutoffAt);
+    expect(connected.careerCompletenessByHorseId[targetHorseId]).toMatchObject({
+      careerStartCount: 3, availableHistoryCount: 3, allPriorStartsCaptured: true,
+      careerCompletenessStatus: "COMPLETE",
+    });
+  });
+
+  it("4走・careerStartCountAsOf=4（COMPLETE）はcareer_history_completeness_unknownでblockされずGate PASSする（リッツパーティー相当）", () => {
+    const hs = histories();
+    const targetHorseId = hs[0].horseId;
+    hs[0].races = hs[0].races.slice(0, 4);
+    hs[0].provenance = { ...hs[0].provenance, method: "jv_link" };
+    hs[0].selectedRaceKeys = ["k1", "k2", "k3", "k4"];
+    hs[0].careerStartCountAsOf = 4;
+
+    const result = run(runners(), hs);
+    expect(result.formalPredictionReady).toBe(true);
+    expect(result.gate.formal).toBe(true);
+    const connected = connectCollectorHorseHistories(runners(), hs, race, options.predictionCutoffAt);
+    expect(connected.careerCompletenessByHorseId[targetHorseId].careerCompletenessStatus).toBe("COMPLETE");
+  });
+
+  it("通算5走・取得3走（careerStartCountAsOf=5）はINCOMPLETEのままcareer_history_completeness_unknownでHard Stop維持", () => {
+    const hs = histories();
+    const targetHorseId = hs[0].horseId;
+    hs[0].races = hs[0].races.slice(0, 3);
+    hs[0].provenance = { ...hs[0].provenance, method: "jv_link" };
+    hs[0].selectedRaceKeys = ["k1", "k2", "k3"];
+    hs[0].careerStartCountAsOf = 5;
+
+    const result = run(runners(), hs);
+    expect(result.formalPredictionReady).toBe(false);
+    expect(result.gate.formal).toBe(false);
+    const diagnostic = result.gate.ineligibleHorses.find((h) => h.horseId === targetHorseId);
+    expect(diagnostic?.errors.some((e) => e.code === "PREDICTION_INELIGIBLE")).toBe(true);
+    const connected = connectCollectorHorseHistories(runners(), hs, race, options.predictionCutoffAt);
+    expect(connected.careerCompletenessByHorseId[targetHorseId]).toMatchObject({
+      careerStartCount: 5, availableHistoryCount: 3, careerCompletenessStatus: "INCOMPLETE",
+    });
+  });
+
+  it("careerStartCountAsOfが無い（未確認）3走はUNKNOWNのままcareer_history_completeness_unknownでHard Stop維持（現状のバグ報告どおり）", () => {
+    const hs = histories();
+    const targetHorseId = hs[0].horseId;
+    hs[0].races = hs[0].races.slice(0, 3);
+    hs[0].provenance = { ...hs[0].provenance, method: "jv_link" };
+    hs[0].selectedRaceKeys = ["k1", "k2", "k3"];
+
+    const result = run(runners(), hs);
+    expect(result.formalPredictionReady).toBe(false);
+    expect(result.gate.formal).toBe(false);
+    const connected = connectCollectorHorseHistories(runners(), hs, race, options.predictionCutoffAt);
+    expect(connected.careerCompletenessByHorseId[targetHorseId].careerCompletenessStatus).toBe("UNKNOWN");
+  });
+
+  it("2走・careerStartCountAsOf=2（COMPLETE）でもinsufficient_evidenceでHard Stopは維持される（ミリタリータトゥー相当。2走馬ルールは変更しない）", () => {
+    const hs = histories();
+    const targetHorseId = hs[0].horseId;
+    hs[0].races = hs[0].races.slice(0, 2);
+    hs[0].provenance = { ...hs[0].provenance, method: "jv_link" };
+    hs[0].selectedRaceKeys = ["k1", "k2"];
+    hs[0].careerStartCountAsOf = 2;
+
+    const connected = connectCollectorHorseHistories(runners(), hs, race, options.predictionCutoffAt);
+    expect(connected.careerCompletenessByHorseId[targetHorseId]).toMatchObject({
+      careerStartCount: 2, availableHistoryCount: 2, allPriorStartsCaptured: true,
+      careerCompletenessStatus: "COMPLETE",
+    });
+
+    const result = run(runners(), hs);
+    expect(result.formalPredictionReady).toBe(false);
+    expect(result.gate.formal).toBe(false);
+    const diagnostic = result.gate.ineligibleHorses.find((h) => h.horseId === targetHorseId);
+    expect(diagnostic?.predictionEligible).toBe(false);
+  });
+
+  it("既存のfuture leakage・identity conflict・Base Ability unavailable・Selected-5/Scorable系Hard Stopは壊れていない", () => {
+    // 既存のSelected-5・Scorable-4/Scorable-3テスト（本ファイル上部）がこの回帰の主な保証。
+    // ここでは、Career Completeness Contractが無関係な馬のGate結果へ副作用を与えないことのみ確認する。
+    const baseline = run();
+    const hs = histories();
+    hs[1].provenance = { ...hs[1].provenance, method: "jv_link" };
+    hs[1].selectedRaceKeys = hs[1].races.map((_, i) => `k${i}`);
+    hs[1].careerStartCountAsOf = hs[1].races.length;
+    const withCareerCompleteness = run(runners(), hs);
+    expect(withCareerCompleteness.formalPredictionReady).toBe(baseline.formalPredictionReady);
+    expect(withCareerCompleteness.horses).toEqual(baseline.horses);
+  });
+});

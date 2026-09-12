@@ -277,6 +277,9 @@ export function adaptJvLinkRunFolder(loaded: LoadedJvLinkRunFolder): AdaptedJvLi
       selectedRaceKeys: [...selection.selectedRaceKeys],
       ...(unsupportedHistories.length > 0 ? { unsupportedHistories } : {}),
       provenance: provenance(manifest.targetRaceId, manifest.targetAsOf, sourceRecords),
+      ...(selection.careerStartCountAsOf !== undefined
+        ? { careerStartCountAsOf: selection.careerStartCountAsOf }
+        : {}),
     };
   });
 

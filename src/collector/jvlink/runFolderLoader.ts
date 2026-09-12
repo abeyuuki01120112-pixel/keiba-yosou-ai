@@ -8,6 +8,15 @@ export interface JvLinkManifestHistorySelection {
   status: string;
   availableHistoryCount: number;
   selectedRaceKeys: string[];
+  /**
+   * Career Completeness Contract（P0）用。JV-Link SDKのJVOpen照会が対象馬のSE履歴に対して
+   * 返す総件数（ReadCount相当、targetAsOf時点・Selected-N windowingで切り捨てる前の値）。
+   * RA/SE固定長recordのbyte fieldには「通算出走数」に相当するfieldが無いため、
+   * RA/SEの内容から推測してはならない。Mac側Collectorが実際のJV-Link照会結果から
+   * 明示的に設定した場合のみ存在する（存在しない＝未確認→Career Completenessはunknownとして扱う）。
+   * 省略可能（既存v1 manifestとの後方互換のため必須にしない）。
+   */
+  careerStartCountAsOf?: number;
 }
 
 export interface JvLinkRunManifest {
@@ -78,12 +87,20 @@ function parseManifest(value: unknown): JvLinkRunManifest {
     if (!Array.isArray(row.selectedRaceKeys) || row.selectedRaceKeys.some((key) => typeof key !== "string")) {
       throw new Error(`INVALID_JVLINK_SELECTED_RACE_KEYS: ${index}`);
     }
+    let careerStartCountAsOf: number | undefined;
+    if (row.careerStartCountAsOf !== undefined) {
+      careerStartCountAsOf = requiredInteger(row.careerStartCountAsOf, `historySelections[${index}].careerStartCountAsOf`);
+      if (careerStartCountAsOf < row.selectedRaceKeys.length) {
+        throw new Error(`INVALID_JVLINK_CAREER_START_COUNT: ${index}`);
+      }
+    }
     return {
       horseId: requiredString(row.horseId, `historySelections[${index}].horseId`),
       horseName: requiredString(row.horseName, `historySelections[${index}].horseName`),
       status: requiredString(row.status, `historySelections[${index}].status`),
       availableHistoryCount: requiredInteger(row.availableHistoryCount, `historySelections[${index}].availableHistoryCount`),
       selectedRaceKeys: [...row.selectedRaceKeys] as string[],
+      ...(careerStartCountAsOf !== undefined ? { careerStartCountAsOf } : {}),
     };
   });
   const targetAsOf = requiredString(manifest.targetAsOf, "targetAsOf");

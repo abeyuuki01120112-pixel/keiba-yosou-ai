@@ -185,6 +185,12 @@ export interface PriorHistoryEntry {
   /** Abilityへ渡さない実在履歴。raw欠損を捏造せず監査可能に残す。 */
   unsupportedHistories?: UnsupportedPriorHistoryEvidence[];
   provenance: SourceProvenance;
+  /**
+   * Career Completeness Contract（P0）用。JV-Link JVOpen照会が返した対象馬SE履歴の
+   * 総件数（targetAsOf時点、Selected-N windowing前）。method=jv_link かつMac側Collectorが
+   * 明示的に提供した場合のみ存在する。RA/SEのbyte fieldからの推測値ではない。
+   */
+  careerStartCountAsOf?: number | null;
 }
 
 export interface FutureLeakageViolation {
