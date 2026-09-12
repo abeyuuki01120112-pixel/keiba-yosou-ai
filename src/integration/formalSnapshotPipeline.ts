@@ -185,6 +185,8 @@ export function runPredictionPipelineFromFormalSnapshot(
       winProbability: prob ? roundToOneDecimal(prob.winProbability) : null,
       top2Probability: prob ? roundToOneDecimal(prob.top2Probability) : null,
       top3Probability: prob ? roundToOneDecimal(prob.top3Probability) : null,
+      top2ProbabilityRaw: prob?.top2Probability ?? null,
+      top3ProbabilityRaw: prob?.top3Probability ?? null,
       winOdds: winOddsSnapshot?.odds ?? null,
       winOddsSnapshot,
       ...ev,

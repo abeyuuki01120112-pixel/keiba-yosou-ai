@@ -9,11 +9,17 @@ import {
   buildRacePredictionArtifact,
   deserializeRacePredictionArtifact,
   serializeRacePredictionArtifact,
+  buildRacePredictionArtifactV2,
+  deserializeRacePredictionArtifactV2,
+  serializeRacePredictionArtifactV2,
 } from "../racePredictionArtifact";
 import {
   persistRacePredictionArtifact,
   readRacePredictionArtifact,
+  persistRacePredictionArtifactV2,
+  readRacePredictionArtifactV2,
 } from "../racePredictionArtifactStore";
+import { PLACKETT_LUCE_TEMPERATURE } from "../../ability/outcomeProbability";
 
 const frozen = listPredictionSnapshots({ raceId: "JRA-20260830-NIIGATA-08" })[0];
 
@@ -190,5 +196,132 @@ describe("P0-7 Race Prediction Artifact", () => {
       expect(horse.place2Probability).toBe(sourcePrediction.top2Probability);
       expect(horse.place3Probability).toBe(sourcePrediction.top3Probability);
     }
+  });
+});
+
+describe("Race Prediction Artifact v2（Probability Calibration V1・P0基盤）", () => {
+  const artifactCreatedAt = "2026-09-08T00:00:00Z";
+
+  it("model metadata・T=10・calibrationStatus・raw Win/Top2/Top3を保存する", () => {
+    const prediction = formalPrediction();
+    const artifact = buildRacePredictionArtifactV2(prediction, {
+      generationMode: "HISTORICAL_REPLAY",
+      artifactCreatedAt,
+    });
+
+    expect(artifact.schemaVersion).toBe("race-prediction-artifact-v2");
+    expect(artifact.modelMetadata).toMatchObject({
+      abilityModelVersion: "BA-V1",
+      suitabilityModelVersion: "suitability-v1",
+      raceContextModelVersion: "race-context-stage-a-v1",
+      probabilityModelName: "PLACKETT_LUCE",
+      probabilityImplementation: "ANALYTIC",
+      temperature: 10,
+      calibrationStatus: "UNCALIBRATED",
+      probabilityScale: "PERCENT_0_100",
+    });
+    expect(artifact.modelMetadata.temperature).toBe(PLACKETT_LUCE_TEMPERATURE);
+    expect(artifact.modelConfigFingerprint.length).toBeGreaterThan(0);
+    expect(artifact.horses).toHaveLength(11);
+    for (const horse of artifact.horses) {
+      const source = prediction.horses.find((h) => h.horseId === horse.canonicalHorseId)!;
+      expect(horse.winProbabilityRaw).toBe(source.winProbabilityRaw);
+      expect(horse.top2ProbabilityRaw).toBe(source.top2ProbabilityRaw);
+      expect(horse.top3ProbabilityRaw).toBe(source.top3ProbabilityRaw);
+      expect(horse.top2ProbabilityRaw).not.toBeNull();
+      expect(horse.top3ProbabilityRaw).not.toBeNull();
+    }
+  });
+
+  it("artifactCreatedAtとpredictionCutoffAtを完全に分離して保持する（HISTORICAL_REPLAYで乖離しうる）", () => {
+    const prediction = formalPrediction();
+    const farFutureCreation = "2030-05-01T00:00:00Z";
+    const artifact = buildRacePredictionArtifactV2(prediction, {
+      generationMode: "HISTORICAL_REPLAY",
+      artifactCreatedAt: farFutureCreation,
+    });
+
+    expect(artifact.artifactCreatedAt).toBe(farFutureCreation);
+    expect(artifact.predictionCutoffAt).toBe(prediction.predictionCutoffAt);
+    expect(artifact.artifactCreatedAt).not.toBe(artifact.predictionCutoffAt);
+    expect(artifact.generationMode).toBe("HISTORICAL_REPLAY");
+  });
+
+  it("LIVE_PRE_RACEのgenerationModeも保持できる", () => {
+    const prediction = formalPrediction();
+    const artifact = buildRacePredictionArtifactV2(prediction, {
+      generationMode: "LIVE_PRE_RACE",
+      artifactCreatedAt,
+    });
+    expect(artifact.generationMode).toBe("LIVE_PRE_RACE");
+  });
+
+  it("同一入力ならartifactCreatedAtが異なっても予測内容fingerprintは変わらない", () => {
+    const prediction = formalPrediction();
+    const first = buildRacePredictionArtifactV2(prediction, { generationMode: "LIVE_PRE_RACE", artifactCreatedAt });
+    const later = buildRacePredictionArtifactV2(prediction, {
+      generationMode: "LIVE_PRE_RACE",
+      artifactCreatedAt: "2030-01-01T00:00:00Z",
+    });
+    expect(later.artifactId).toBe(first.artifactId);
+    expect(later.predictionContentFingerprint).toBe(first.predictionContentFingerprint);
+  });
+
+  it("Formal Gate失敗（DIAGNOSTIC_ONLY）はv2でも正式Probability/raw値を持たない", () => {
+    const incomplete = structuredClone(frozen);
+    incomplete.runners.pop();
+    const prediction = runPredictionPipelineFromFormalSnapshot(incomplete, { odds: winOdds() });
+    const artifact = buildRacePredictionArtifactV2(prediction, {
+      generationMode: "LIVE_PRE_RACE",
+      artifactCreatedAt,
+    });
+    expect(artifact.formalPredictionReady).toBe(false);
+    expect(artifact.artifactStatus).toBe("DIAGNOSTIC_ONLY");
+    expect(artifact.horses.every((horse) =>
+      horse.winProbabilityRaw === null && horse.top2ProbabilityRaw === null && horse.top3ProbabilityRaw === null,
+    )).toBe(true);
+  });
+
+  it("JSON serialize/deserializeで内容が一致し、改変・temperature改変は拒否する", () => {
+    const prediction = formalPrediction();
+    const artifact = buildRacePredictionArtifactV2(prediction, {
+      generationMode: "LIVE_PRE_RACE",
+      artifactCreatedAt,
+    });
+    const serialized = serializeRacePredictionArtifactV2(artifact);
+    expect(deserializeRacePredictionArtifactV2(serialized)).toEqual(artifact);
+
+    const tamperedTemperature = { ...artifact, modelMetadata: { ...artifact.modelMetadata, temperature: 5 } };
+    expect(() => deserializeRacePredictionArtifactV2(JSON.stringify(tamperedTemperature)))
+      .toThrow(/temperature|Fingerprint/);
+  });
+
+  it("結果情報（actualFinishPosition/hasResult/result）の混入をv2でも拒否する", () => {
+    const prediction = formalPrediction();
+    const artifact = buildRacePredictionArtifactV2(prediction, {
+      generationMode: "LIVE_PRE_RACE",
+      artifactCreatedAt,
+    });
+    const contaminated = {
+      ...artifact,
+      horses: [{ ...artifact.horses[0], actualFinishPosition: 1 }, ...artifact.horses.slice(1)],
+    };
+    expect(() => deserializeRacePredictionArtifactV2(JSON.stringify(contaminated)))
+      .toThrow(/Race Result/);
+  });
+
+  it("v2 Storeへ保存・再読込でき、同一artifactIdの異なる内容は拒否する（v1と衝突しない）", () => {
+    const prediction = formalPrediction();
+    const v1 = buildRacePredictionArtifact(prediction);
+    const v2 = buildRacePredictionArtifactV2(prediction, { generationMode: "LIVE_PRE_RACE", artifactCreatedAt });
+    expect(v2.artifactId).not.toBe(v1.artifactId);
+
+    expect(persistRacePredictionArtifactV2(v2, { dir: tempDir }).status).toBe("created");
+    expect(readRacePredictionArtifactV2(v2.artifactId, { dir: tempDir })).toEqual(v2);
+    expect(persistRacePredictionArtifactV2(v2, { dir: tempDir }).status).toBe("duplicate");
+
+    // v1も同じディレクトリへ問題なく共存できる。
+    expect(persistRacePredictionArtifact(v1, { dir: tempDir }).status).toBe("created");
+    expect(fs.readdirSync(tempDir).filter((f) => f.endsWith(".json"))).toHaveLength(2);
   });
 });

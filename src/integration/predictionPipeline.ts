@@ -71,6 +71,9 @@ export interface PredictionPipelineHorseResult {
   winOddsSnapshot: OddsSnapshotEntry | null;
   /** Plackett-Luceの表示丸め前勝率（percent）。EV計算監査用。 */
   winProbabilityRaw: number | null;
+  /** 表示丸め前の連対率・複勝率（percent）。Calibration Datasetはraw値を使う（P0基盤）。 */
+  top2ProbabilityRaw: number | null;
+  top3ProbabilityRaw: number | null;
   /** 期待回収倍率。1.00が理論上の損益分岐。 */
   expectedValue: number | null;
   oddsObservedAt: string | null;
@@ -430,6 +433,8 @@ export function runPredictionPipeline(
       winProbability: prob ? roundToOneDecimal(prob.winProbability) : null,
       top2Probability: prob ? roundToOneDecimal(prob.top2Probability) : null,
       top3Probability: prob ? roundToOneDecimal(prob.top3Probability) : null,
+      top2ProbabilityRaw: prob?.top2Probability ?? null,
+      top3ProbabilityRaw: prob?.top3Probability ?? null,
       winOdds: winOddsSnapshot?.odds ?? null,
       winOddsSnapshot,
       ...ev,
