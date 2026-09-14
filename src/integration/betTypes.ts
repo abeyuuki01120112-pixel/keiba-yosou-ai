@@ -84,6 +84,10 @@ export function validateBetEntry(bet: BetEntry, label: string): void {
   if (!Number.isInteger(bet.stake) || bet.stake <= 0) {
     throw new Error(`${label}: stakeは正の整数（円）である必要があります（実際: ${bet.stake}）`);
   }
+  // JRA馬券は100円単位でのみ購入できる（Phase 2.1、正式validation）。
+  if (bet.stake % 100 !== 0) {
+    throw new Error(`${label}: stakeは100円単位である必要があります（実際: ${bet.stake}）`);
+  }
 }
 
 export function sumStake(bets: readonly BetEntry[]): number {

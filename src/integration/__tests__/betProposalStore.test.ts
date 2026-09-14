@@ -49,7 +49,7 @@ describe("BetProposalArtifactStore（Post-Race Pipeline V1・Phase 2）", () => 
     const artifact = buildBetProposalArtifact(baseInput());
     expect(persistBetProposalArtifact(artifact, { dir: tempDir }).status).toBe("created");
     const differentContentSameId = buildBetProposalArtifact(baseInput({
-      proposals: [{ ...baseInput().proposals[0], stake: 999 }],
+      proposals: [{ ...baseInput().proposals[0], stake: 900 }],
     }));
     expect(differentContentSameId.artifactId).toBe(artifact.artifactId);
     const result = persistBetProposalArtifact(differentContentSameId, { dir: tempDir });

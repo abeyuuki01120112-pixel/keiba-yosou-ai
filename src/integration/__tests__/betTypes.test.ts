@@ -120,4 +120,16 @@ describe("betTypes: validateBetEntry", () => {
     ];
     expect(sumStake(bets)).toBe(1700);
   });
+
+  it("A. 100円単位のstakeは正常（100円/300円/1,200円）", () => {
+    for (const stake of [100, 300, 1200]) {
+      expect(() => validateBetEntry({ betType: "WIN", selection: [entry()], stake }, "test")).not.toThrow();
+    }
+  });
+
+  it("B. 100円単位でないstakeは拒否する（150円/1円）", () => {
+    for (const stake of [150, 1]) {
+      expect(() => validateBetEntry({ betType: "WIN", selection: [entry()], stake }, "test")).toThrow(/100円単位/);
+    }
+  });
 });

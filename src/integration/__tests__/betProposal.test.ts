@@ -75,7 +75,7 @@ describe("BetProposalArtifact（Post-Race Pipeline V1・Phase 2）", () => {
 
   it("改変されたJSON（fingerprint不一致）はdeserializeで拒否する", () => {
     const artifact = buildBetProposalArtifact(baseInput());
-    const tampered = { ...artifact, proposals: [{ ...artifact.proposals[0], stake: 9999 }, artifact.proposals[1]] };
+    const tampered = { ...artifact, proposals: [{ ...artifact.proposals[0], stake: 600 }, artifact.proposals[1]] };
     expect(() => deserializeBetProposalArtifact(JSON.stringify(tampered))).toThrow(/fingerprint/);
   });
 
