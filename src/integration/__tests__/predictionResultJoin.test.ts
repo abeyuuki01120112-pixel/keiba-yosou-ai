@@ -3,7 +3,11 @@ import type { OddsSnapshotEntry } from "../../ability/oddsSnapshot";
 import { listPredictionSnapshots } from "../../ability/import/predictionSnapshotStore";
 import { runPredictionPipelineFromFormalSnapshot } from "../formalSnapshotPipeline";
 import { buildRacePredictionArtifactV2 } from "../racePredictionArtifact";
-import { buildRaceResultArtifact, type RaceResultArtifactRunner } from "../raceResultArtifact";
+import {
+  buildRaceResultArtifact,
+  buildRaceResultArtifactV2,
+  type RaceResultArtifactRunner,
+} from "../raceResultArtifact";
 import { joinPredictionAndResult } from "../predictionResultJoin";
 
 const frozen = listPredictionSnapshots({ raceId: "JRA-20260830-NIIGATA-08" })[0];
@@ -170,5 +174,29 @@ describe("Prediction/Result Join", () => {
 
     expect(joined.ok).toBe(false);
     expect(joined.issues.some((i) => i.code === "RESULT_NOT_FINAL")).toBe(true);
+  });
+
+  it("K. Result Artifact v2（Post-Race Pipeline V1・Phase 1）も既存joinPredictionAndResult()をそのまま再利用できる", () => {
+    const prediction = predictionArtifact();
+    const base = matchingResultArtifact();
+    const v2Result = buildRaceResultArtifactV2({
+      resultStatus: "FINAL",
+      resultVersion: 1,
+      resultAvailableAt: base.resultAvailableAt,
+      retrievedAt: base.retrievedAt,
+      source: base.source,
+      sourceIdentifier: base.sourceIdentifier,
+      race: { ...base.race, going: "良" },
+      runners: base.runners.map((r) => ({
+        ...r,
+        actualRaceTime: null, timeGap: null, final3F: null, final3FRank: null,
+        passingPosition: null, carriedWeight: null,
+      })),
+    });
+
+    const joined = joinPredictionAndResult(prediction, v2Result);
+    expect(joined.ok).toBe(true);
+    expect(joined.runners).toHaveLength(11);
+    expect(joined.runners.filter((r) => r.isWinner)).toHaveLength(1);
   });
 });

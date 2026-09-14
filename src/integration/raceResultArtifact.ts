@@ -17,6 +17,7 @@
  */
 
 import { fnv1a } from "../ability/datasetVersion";
+import type { PassingPositionData } from "../ability/types";
 
 export const RACE_RESULT_ARTIFACT_SCHEMA_VERSION = "race-result-artifact-v1";
 
@@ -267,4 +268,190 @@ function canonicalJson(value: unknown): string {
 
 function sanitizeId(value: string): string {
   return value.replace(/[^A-Za-z0-9_.-]/g, "-");
+}
+
+/* ============================================================================
+ * Race Result Artifact schema v2（Post-Race Pipeline V1・Phase 1）。
+ *
+ * v1（RACE_RESULT_ARTIFACT_SCHEMA_VERSION）は無変更のまま既存reader/既存保存分の
+ * 互換性を維持する。v2はv1のbuildRaceResultArtifact()／validateRaceResultArtifact()を
+ * そのまま呼び出して既存の矛盾検知・fingerprint計算を再利用し、Race Review用の
+ * 詳細実測値（actualRaceTime/timeGap/final3F/final3FRank/passingPosition/carriedWeight・
+ * race-level going）を追加した上位互換schemaとして提供する
+ * （racePredictionArtifact.tsのv1→v2と同一パターン）。
+ *
+ * 詳細項目はすべてnullable（正式ソースに存在しない場合を考慮）。単位はフィールド直下の
+ * コメントに明示する。cornerPositions等のpassingPositionはability/types.tsの
+ * PassingPositionDataをそのまま再利用し、同じ意味の型を重複定義しない。
+ * ============================================================================ */
+
+export const RACE_RESULT_ARTIFACT_SCHEMA_VERSION_V2 = "race-result-artifact-v2";
+
+export interface RaceResultArtifactRunnerV2 extends RaceResultArtifactRunner {
+  /** 走破タイム。秒。 */
+  actualRaceTime: number | null;
+  /** 勝ち馬とのタイム差。秒。 */
+  timeGap: number | null;
+  /** 上がり3F。秒。 */
+  final3F: number | null;
+  /** 上がり3F順位（1位が最速）。 */
+  final3FRank: number | null;
+  /** 通過順位。ability/types.tsのPassingPositionDataを再利用（新規定義しない）。 */
+  passingPosition: PassingPositionData | null;
+  /** 斤量。kg。 */
+  carriedWeight: number | null;
+}
+
+export interface RaceResultArtifactRaceV2 extends RaceResultArtifactRace {
+  /** 当日馬場状態（良・稍重・重・不良等）。不明ならnull（推測で埋めない）。 */
+  going: string | null;
+}
+
+export interface RaceResultArtifactV2 extends Omit<RaceResultArtifact, "schemaVersion" | "race" | "runners"> {
+  schemaVersion: typeof RACE_RESULT_ARTIFACT_SCHEMA_VERSION_V2;
+  race: RaceResultArtifactRaceV2;
+  runners: RaceResultArtifactRunnerV2[];
+}
+
+export interface BuildRaceResultArtifactV2Input extends Omit<BuildRaceResultArtifactInput, "race" | "runners"> {
+  race: RaceResultArtifactRaceV2;
+  runners: RaceResultArtifactRunnerV2[];
+}
+
+export function buildRaceResultArtifactV2Id(input: {
+  raceId: string;
+  resultStatus: RaceResultStatus;
+  resultVersion: number;
+  retrievedAt: string;
+}): string {
+  return [input.raceId, "RESULT", input.resultStatus, `v${input.resultVersion}`, input.retrievedAt, "v2"]
+    .map(sanitizeId).join("__");
+}
+
+/**
+ * v2追加項目（詳細実測値）だけの検証。v1のvalidateRaceResultArtifact()が担当する
+ * 構造・状態整合性チェックとは独立に、v2固有の物理的整合性のみを見る。
+ * 呼び出し側（build時・deserialize時）の両方から使えるよう、必要最小限の形で受け取る。
+ */
+export function validateRaceResultArtifactV2Extras(input: {
+  race: Pick<RaceResultArtifactRaceV2, "going">;
+  runners: ReadonlyArray<Pick<RaceResultArtifactRunnerV2,
+    "canonicalHorseId" | "started" | "scratched" | "excluded" |
+    "actualRaceTime" | "timeGap" | "final3F" | "final3FRank" | "passingPosition" | "carriedWeight">>;
+}): void {
+  if (input.race.going !== null && (typeof input.race.going !== "string" || input.race.going.length === 0)) {
+    throw new Error("RaceResultArtifactV2: race.goingはnull、または非空文字列である必要があります");
+  }
+  for (const runner of input.runners) {
+    const label = runner.canonicalHorseId;
+    if (runner.actualRaceTime !== null &&
+        (!Number.isFinite(runner.actualRaceTime) || runner.actualRaceTime <= 0)) {
+      throw new Error(`RaceResultArtifactV2: runner(${label})のactualRaceTimeは正の有限数である必要があります`);
+    }
+    if (runner.timeGap !== null && (!Number.isFinite(runner.timeGap) || runner.timeGap < 0)) {
+      throw new Error(`RaceResultArtifactV2: runner(${label})のtimeGapは0以上の有限数である必要があります`);
+    }
+    if (runner.final3F !== null && (!Number.isFinite(runner.final3F) || runner.final3F <= 0)) {
+      throw new Error(`RaceResultArtifactV2: runner(${label})のfinal3Fは正の有限数である必要があります`);
+    }
+    if (runner.final3FRank !== null &&
+        (!Number.isInteger(runner.final3FRank) || runner.final3FRank <= 0)) {
+      throw new Error(`RaceResultArtifactV2: runner(${label})のfinal3FRankは正の整数である必要があります`);
+    }
+    if (runner.carriedWeight !== null &&
+        (!Number.isFinite(runner.carriedWeight) || runner.carriedWeight <= 0)) {
+      throw new Error(`RaceResultArtifactV2: runner(${label})のcarriedWeightは正の有限数である必要があります`);
+    }
+    if (runner.passingPosition !== null) {
+      const p = runner.passingPosition;
+      if (!Array.isArray(p.cornerPositions) || p.cornerPositions.some((c) => !Number.isInteger(c) || c <= 0) ||
+          !Number.isInteger(p.fieldSize) || p.fieldSize <= 0 ||
+          typeof p.source !== "string" || p.source.length === 0 || typeof p.isReliable !== "boolean") {
+        throw new Error(`RaceResultArtifactV2: runner(${label})のpassingPositionが不正です`);
+      }
+    }
+    // 出走していない馬（scratched/excluded）は、レース中の実測値を一切持てない
+    // （物理的に不可能なため。carriedWeightは事前計量のため出走有無と無関係に許容する）。
+    if ((runner.scratched || runner.excluded) &&
+        (runner.actualRaceTime !== null || runner.timeGap !== null || runner.final3F !== null ||
+         runner.final3FRank !== null || runner.passingPosition !== null)) {
+      throw new Error(
+        `RaceResultArtifactV2: runner(${label})はscratched/excludedのため、レース中の実測値を持てません`,
+      );
+    }
+  }
+}
+
+/**
+ * v1のbuildRaceResultArtifact()をそのまま呼び出し（既存の矛盾検知・fingerprint計算を
+ * 再利用・重複させない）、Race Review用の詳細実測値を追加したv2 Artifactを構築する。
+ */
+export function buildRaceResultArtifactV2(input: BuildRaceResultArtifactV2Input): RaceResultArtifactV2 {
+  validateRaceResultArtifactV2Extras(input);
+  const v1 = buildRaceResultArtifact(input);
+  const detailByHorseId = new Map(input.runners.map((r) => [r.canonicalHorseId, r]));
+  const runners: RaceResultArtifactRunnerV2[] = v1.runners.map((runner): RaceResultArtifactRunnerV2 => {
+    const detail = detailByHorseId.get(runner.canonicalHorseId)!;
+    return {
+      ...runner,
+      actualRaceTime: detail.actualRaceTime,
+      timeGap: detail.timeGap,
+      final3F: detail.final3F,
+      final3FRank: detail.final3FRank,
+      passingPosition: detail.passingPosition,
+      carriedWeight: detail.carriedWeight,
+    };
+  });
+  const artifactId = buildRaceResultArtifactV2Id({
+    raceId: v1.race.raceId,
+    resultStatus: v1.resultStatus,
+    resultVersion: v1.resultVersion,
+    retrievedAt: v1.retrievedAt,
+  });
+  // v1.resultContentFingerprint（v1自身の内容だけのhash）をそのまま持ち越すと、
+  // v2のfingerprint計算対象に紛れ込み、deserialize時の再計算（resultContentFingerprintを
+  // 完全に除外して計算）と食い違う。v1のfingerprintは明示的に捨てる。
+  const { resultContentFingerprint: _v1Fingerprint, ...v1WithoutFingerprint } = v1;
+  const withoutFingerprint: Omit<RaceResultArtifactV2, "resultContentFingerprint"> = {
+    ...v1WithoutFingerprint,
+    artifactId,
+    schemaVersion: RACE_RESULT_ARTIFACT_SCHEMA_VERSION_V2,
+    race: { ...v1.race, going: input.race.going },
+    runners,
+  };
+  const contentForFingerprint = { ...withoutFingerprint, retrievedAt: undefined };
+  return {
+    ...withoutFingerprint,
+    resultContentFingerprint: fnv1a(canonicalJson(contentForFingerprint)),
+  };
+}
+
+export function serializeRaceResultArtifactV2(artifact: RaceResultArtifactV2): string {
+  return JSON.stringify(artifact, null, 2) + "\n";
+}
+
+export function deserializeRaceResultArtifactV2(serialized: string): RaceResultArtifactV2 {
+  const parsed = JSON.parse(serialized) as RaceResultArtifactV2;
+  if (parsed.schemaVersion !== RACE_RESULT_ARTIFACT_SCHEMA_VERSION_V2 ||
+      parsed.artifactType !== "RACE_RESULT" || !parsed.artifactId) {
+    throw new Error("Race Result Artifact v2の形式が不正です");
+  }
+  validateRaceResultArtifact(parsed);
+  validateRaceResultArtifactV2Extras(parsed);
+  const expectedArtifactId = buildRaceResultArtifactV2Id({
+    raceId: parsed.race.raceId,
+    resultStatus: parsed.resultStatus,
+    resultVersion: parsed.resultVersion,
+    retrievedAt: parsed.retrievedAt,
+  });
+  if (parsed.artifactId !== expectedArtifactId) {
+    throw new Error("Race Result Artifact v2の識別子が内容と一致しません");
+  }
+  const expectedFingerprint = fnv1a(
+    canonicalJson({ ...parsed, retrievedAt: undefined, resultContentFingerprint: undefined }),
+  );
+  if (parsed.resultContentFingerprint !== expectedFingerprint) {
+    throw new Error("Race Result Artifact v2の内容fingerprintが一致しません");
+  }
+  return parsed;
 }

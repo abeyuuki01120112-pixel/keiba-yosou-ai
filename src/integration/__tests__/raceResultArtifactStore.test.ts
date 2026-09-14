@@ -2,12 +2,21 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { buildRaceResultArtifact, type BuildRaceResultArtifactInput } from "../raceResultArtifact";
+import {
+  buildRaceResultArtifact,
+  buildRaceResultArtifactV2,
+  type BuildRaceResultArtifactInput,
+  type BuildRaceResultArtifactV2Input,
+} from "../raceResultArtifact";
 import {
   findLatestCalibrationResult,
+  findLatestCalibrationResultV2,
   listRaceResultArtifactsForRace,
+  listRaceResultArtifactsForRaceV2,
   persistRaceResultArtifact,
+  persistRaceResultArtifactV2,
   readRaceResultArtifact,
+  readRaceResultArtifactV2,
 } from "../raceResultArtifactStore";
 
 function baseInput(overrides: Partial<BuildRaceResultArtifactInput> = {}): BuildRaceResultArtifactInput {
@@ -128,5 +137,92 @@ describe("RaceResultArtifactStore", () => {
 
   it("存在しないartifactIdの読み込みはnullを返す", () => {
     expect(readRaceResultArtifact("nonexistent-id", { dir: tempDir })).toBeNull();
+  });
+});
+
+function baseInputV2(overrides: Partial<BuildRaceResultArtifactV2Input> = {}): BuildRaceResultArtifactV2Input {
+  const base = baseInput();
+  return {
+    ...base,
+    race: { ...base.race, going: "良" },
+    runners: base.runners.map((r) => ({
+      ...r,
+      actualRaceTime: 118.7, timeGap: 0, final3F: 34.5, final3FRank: 1,
+      passingPosition: null, carriedWeight: 57,
+    })),
+    ...overrides,
+  };
+}
+
+describe("RaceResultArtifactStore v2（Post-Race Pipeline V1・Phase 1）", () => {
+  it("G. v2をappend-only保存し、JSON round-tripで内容が一致する", () => {
+    const artifact = buildRaceResultArtifactV2(baseInputV2());
+    const result = persistRaceResultArtifactV2(artifact, { dir: tempDir });
+    expect(result.status).toBe("created");
+    expect(readRaceResultArtifactV2(artifact.artifactId, { dir: tempDir })).toEqual(artifact);
+  });
+
+  it("H. append-only: 同一artifactId・同一内容ならidempotentにduplicate扱いする", () => {
+    const artifact = buildRaceResultArtifactV2(baseInputV2());
+    expect(persistRaceResultArtifactV2(artifact, { dir: tempDir }).status).toBe("created");
+    expect(persistRaceResultArtifactV2(artifact, { dir: tempDir }).status).toBe("duplicate");
+    expect(fs.readdirSync(tempDir).filter((f) => f.endsWith(".json"))).toHaveLength(1);
+  });
+
+  it("I. append-only: 同一artifactId・異なる内容は拒否する（上書きしない）", () => {
+    const artifact = buildRaceResultArtifactV2(baseInputV2());
+    expect(persistRaceResultArtifactV2(artifact, { dir: tempDir }).status).toBe("created");
+    const differentContentSameId = buildRaceResultArtifactV2(baseInputV2({
+      runners: baseInputV2().runners.map((r, i) => ({ ...r, finishPosition: i === 0 ? 2 : 1 })),
+    }));
+    expect(differentContentSameId.artifactId).toBe(artifact.artifactId);
+    expect(differentContentSameId.resultContentFingerprint).not.toBe(artifact.resultContentFingerprint);
+    const result = persistRaceResultArtifactV2(differentContentSameId, { dir: tempDir });
+    expect(result.status).toBe("rejected");
+    expect(readRaceResultArtifactV2(artifact.artifactId, { dir: tempDir })?.runners[0].finishPosition).toBe(1);
+  });
+
+  it("J. CORRECTEDは旧v2 Artifactを上書きせず、別ファイルとして追加される", () => {
+    const original = buildRaceResultArtifactV2(baseInputV2());
+    expect(persistRaceResultArtifactV2(original, { dir: tempDir }).status).toBe("created");
+
+    const corrected = buildRaceResultArtifactV2(baseInputV2({
+      resultStatus: "CORRECTED",
+      resultVersion: 2,
+      retrievedAt: "2026-08-31T09:00:00+09:00",
+      supersedesArtifactId: original.artifactId,
+      runners: baseInputV2().runners.map((r, i) => ({
+        ...r, resultStatus: "CORRECTED" as const, finishPosition: i === 0 ? 2 : 1,
+      })),
+    }));
+    expect(persistRaceResultArtifactV2(corrected, { dir: tempDir }).status).toBe("created");
+
+    const originalReloaded = readRaceResultArtifactV2(original.artifactId, { dir: tempDir });
+    expect(originalReloaded?.runners[0].finishPosition).toBe(1);
+    expect(fs.readdirSync(tempDir).filter((f) => f.endsWith(".json"))).toHaveLength(2);
+
+    const all = listRaceResultArtifactsForRaceV2(baseInputV2().race.raceId, { dir: tempDir });
+    expect(all).toHaveLength(2);
+
+    const latest = findLatestCalibrationResultV2(baseInputV2().race.raceId, { dir: tempDir });
+    expect(latest?.artifactId).toBe(corrected.artifactId);
+    expect(latest?.runners[0].finishPosition).toBe(2);
+  });
+
+  it("v1とv2は同じresults/配下でも互いに干渉しない（v2はv2専用サブディレクトリに保存される）", () => {
+    const v1Artifact = buildRaceResultArtifact(baseInput());
+    const v2Artifact = buildRaceResultArtifactV2(baseInputV2());
+    expect(persistRaceResultArtifact(v1Artifact, { dir: tempDir }).status).toBe("created");
+    const v2Dir = path.join(tempDir, "v2");
+    expect(persistRaceResultArtifactV2(v2Artifact, { dir: v2Dir }).status).toBe("created");
+
+    // v1側の一覧・最新FINAL取得は、v2ファイルの存在に一切影響されない
+    // （v2はv1のdir直下に平置きされないため、v1のlistRaceResultArtifactsForRaceが
+    // v2ファイルをv1形式としてdeserializeしようとして壊れることはない）。
+    expect(listRaceResultArtifactsForRace(baseInput().race.raceId, { dir: tempDir })).toHaveLength(1);
+    expect(findLatestCalibrationResult(baseInput().race.raceId, { dir: tempDir })?.artifactId)
+      .toBe(v1Artifact.artifactId);
+
+    expect(listRaceResultArtifactsForRaceV2(baseInputV2().race.raceId, { dir: v2Dir })).toHaveLength(1);
   });
 });
