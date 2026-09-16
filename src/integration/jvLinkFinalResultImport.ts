@@ -173,7 +173,8 @@ export function importJvLinkFinalResult(
       raceDate: adapted.race.raceDate,
       raceName: adapted.race.raceName,
       scheduledStartTime: null, // Final Result Adapterは確定成績専用recordのみを読み、発走予定時刻（Stage2専用）は扱わない
-      officialStarterCount: runners.length,
+      // 取消・除外もResult entryとして保持するが、正式出走頭数には数えない。
+      officialStarterCount: runners.filter((runner) => runner.started).length,
       resultEntryCount: runners.length,
       going: adapted.race.going,
     },

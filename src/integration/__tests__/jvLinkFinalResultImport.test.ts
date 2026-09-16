@@ -138,6 +138,10 @@ describe("importJvLinkFinalResult（Post-Race Pipeline V1・JV-Link Final Result
       scratched: true, started: false, finishPosition: null,
       actualRaceTime: null, timeGap: null, final3F: null, final3FRank: null, passingPosition: null,
     });
+    expect(classified.artifact.race).toMatchObject({
+      officialStarterCount: 3,
+      resultEntryCount: 4,
+    });
   });
 
   it("手動分類でscratched等を一つもtrueにしないと拒否する", () => {
