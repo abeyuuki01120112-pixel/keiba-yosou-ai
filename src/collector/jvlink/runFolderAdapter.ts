@@ -12,7 +12,7 @@ import type { LoadedJvLinkRunFolder } from "./runFolderLoader";
 
 export const JVLINK_MAC_ADAPTER_VERSION = "1.0.0";
 
-interface RaceMeta {
+export interface RaceMeta {
   raceId: string;
   raceDate: string;
   racecourse: string;
@@ -67,7 +67,7 @@ function provenance(targetRaceId: string, targetAsOf: string, records: readonly 
   };
 }
 
-function raceMeta(ra: JvRecord): RaceMeta {
+export function raceMeta(ra: JvRecord): RaceMeta {
   if (ra.type !== "RA" || !ra.course) throw new Error(`UNSUPPORTED_HISTORY_RACECOURSE: ${ra.key}`);
   const trackCode = positiveJvNumber(ra.field(706, 2), "TRACK_CODE");
   if (!((trackCode >= 10 && trackCode <= 22) || (trackCode >= 23 && trackCode <= 29))) {
@@ -127,36 +127,66 @@ function targetRunner(se: JvRecord, fieldSize: number, availableAt: string): Raw
   };
 }
 
+/**
+ * SE recordの実測値byte領域を生文字列のまま抽出する（変換・validationはしない）。
+ * historyRace()（Ability用、欠損はthrowして使用不可とする）と、
+ * runFolderFinalResultAdapter.ts（Result Artifact v2用、欠損はnullとして保持する）の
+ * 両方から呼ばれる、byte offsetの単一の真実源（二重管理を避ける）。
+ */
+export function readSeMeasurementFields(se: JvRecord): {
+  nonStartFlag: string;
+  finishPositionRaw: string;
+  raceTimeRaw: string;
+  final3FRaw: string;
+  timeGapRaw: string;
+  carriedWeightRaw: string;
+  passingRaw: string[];
+  gateRaw: string;
+  horseNumberRaw: string;
+} {
+  return {
+    nonStartFlag: se.field(332, 1),
+    finishPositionRaw: se.field(335, 2),
+    raceTimeRaw: se.field(339, 4),
+    final3FRaw: se.field(391, 3),
+    timeGapRaw: se.field(532, 4),
+    carriedWeightRaw: se.field(289, 3),
+    passingRaw: [352, 354, 356, 358].map((position) => se.field(position, 2)),
+    gateRaw: se.field(28, 1),
+    horseNumberRaw: se.field(29, 2),
+  };
+}
+
 function historyRace(ra: JvRecord, se: JvRecord): RaceHistoryRawInput {
   if (!(["6", "7"].includes(ra.stage) && ["6", "7"].includes(se.stage))) {
     throw new Error(`UNSUPPORTED_HISTORY_STAGE: ${se.key}/${ra.stage}/${se.stage}`);
   }
-  if (se.field(332, 1) !== "0") throw new Error(`NON_START_HISTORY: ${se.key}/${se.horseId}`);
+  const fields = readSeMeasurementFields(se);
+  if (fields.nonStartFlag !== "0") throw new Error(`NON_START_HISTORY: ${se.key}/${se.horseId}`);
   const meta = raceMeta(ra);
   if (meta.going === "未発表") throw new Error(`MISSING_HISTORY_GOING: ${se.key}`);
-  const time = se.field(339, 4);
-  const final3F = se.field(391, 3);
-  const timeGap = se.field(532, 4);
+  const time = fields.raceTimeRaw;
+  const final3F = fields.final3FRaw;
+  const timeGap = fields.timeGapRaw;
   if (!/^[0-9][0-5][0-9][0-9]$/.test(time) || time === "0000" ||
       !/^\d{3}$/.test(final3F) || final3F === "000" || final3F === "999" ||
       !/^[+-]\d{3}$/.test(timeGap)) {
     throw new Error(`MISSING_HISTORY_MEASUREMENTS: ${se.key}/${se.horseId}`);
   }
   const fieldSize = positiveJvNumber(ra.field(884, 2), "PAST_FIELD_SIZE");
-  const passing = [352, 354, 356, 358]
-    .map((position) => se.field(position, 2))
+  const passing = fields.passingRaw
     .filter((value) => /^\d{2}$/.test(value) && Number(value) > 0)
     .map(Number);
   return {
     ...meta,
-    gate: positiveJvNumber(se.field(28, 1), "GATE"),
-    horseNumber: positiveJvNumber(se.field(29, 2), "HORSE_NUMBER"),
+    gate: positiveJvNumber(fields.gateRaw, "GATE"),
+    horseNumber: positiveJvNumber(fields.horseNumberRaw, "HORSE_NUMBER"),
     fieldSize,
-    finishPosition: positiveJvNumber(se.field(335, 2), "FINISH_POSITION"),
+    finishPosition: positiveJvNumber(fields.finishPositionRaw, "FINISH_POSITION"),
     timeGap: Number(timeGap) / 10,
     raceTime: Number(time[0]) * 60 + Number(time.slice(1)) / 10,
     final3F: Number(final3F) / 10,
-    carriedWeight: positiveJvNumber(se.field(289, 3), "WEIGHT") / 10,
+    carriedWeight: positiveJvNumber(fields.carriedWeightRaw, "WEIGHT") / 10,
     passingPosition: passing.length === 0
       ? null
       : { cornerPositions: passing, fieldSize, source: "JRA-VAN/JV-Link", isReliable: true },
