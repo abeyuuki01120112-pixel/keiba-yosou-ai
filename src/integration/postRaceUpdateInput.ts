@@ -16,8 +16,10 @@ import type { DayFinal3FRecord } from "../ability/final3FTrackAdjustment";
 import type { DayRaceRecord } from "../ability/trackAdjustment";
 import { APPROVED_FINAL_RESULT_SOURCES } from "./officialResultInput";
 import type { RaceResultArtifactRunnerV2, RaceResultArtifactV2 } from "./raceResultArtifact";
-import { isCalibrationFinalResult } from "./raceResultArtifact";
+import { deserializeRaceResultArtifactV2, validateRaceResultArtifact, validateRaceResultArtifactV2Extras, isCalibrationFinalResult } from "./raceResultArtifact";
 import { calculatePostRaceUpdateInputFingerprint } from "./postRaceUpdateInputFingerprint";
+
+import { validatePostRaceInputRuntime, validatePostRaceResultRuntime, validatePostRaceObjectiveRuntime } from "./postRaceUpdateInputValidation";
 
 export const POST_RACE_UPDATE_INPUT_SCHEMA_VERSION = "post-race-update-input-v1";
 export const POST_RACE_UPDATE_INPUT_TRANSFORM_VERSION = "1.0.0";
@@ -156,6 +158,9 @@ export interface PostRaceUpdateInputV1 {
 }
 
 export type PostRaceUpdateInputIssueCode =
+  | "INVALID_RUNTIME_SCHEMA"
+  | "INVALID_RESULT_ARTIFACT"
+  | "ELIGIBILITY_MISMATCH"
   | "RESULT_NOT_FINAL"
   | "INVALID_SOURCE"
   | "RACE_ID_MISMATCH"
@@ -304,7 +309,7 @@ function validateOptionalValue<T>(
   return issues;
 }
 
-function resultEligibility(runner: RaceResultArtifactRunnerV2): AbilityUpdateEligibility {
+function resultEligibility(runner: Pick<RaceResultArtifactRunnerV2, "started" | "scratched" | "excluded" | "didNotFinish" | "disqualified" | "finishPosition">): AbilityUpdateEligibility {
   if (runner.scratched || runner.excluded || !runner.started) return "INELIGIBLE_NON_START";
   if (runner.didNotFinish || runner.disqualified || runner.finishPosition === null) {
     return "INELIGIBLE_UNSETTLED_RESULT";
@@ -313,8 +318,24 @@ function resultEligibility(runner: RaceResultArtifactRunnerV2): AbilityUpdateEli
 }
 
 /** 構築済みContractを、Ability更新前に必ず通すGate。 */
-export function gatePostRaceUpdateInputV1(input: PostRaceUpdateInputV1): PostRaceUpdateInputIssue[] {
-  const issues: PostRaceUpdateInputIssue[] = [];
+export function gatePostRaceUpdateInputV1(value: unknown): PostRaceUpdateInputIssue[] {
+  const issues = validatePostRaceInputRuntime(value);
+  if (issues.length > 0) return issues;
+  const input = value as PostRaceUpdateInputV1;
+  // Contract stores only final-result facts. Reuse the official state and measurement
+  // rules on that projection, without inventing a Result identity or fingerprint.
+  try {
+    const projection = {
+      resultStatus: "FINAL" as const, resultVersion: 1, resultAvailableAt: input.builtAt,
+      retrievedAt: input.builtAt, source: input.source, sourceIdentifier: input.resultArtifactId,
+      race: { ...input.race, scheduledStartTime: null, officialStarterCount: input.runners.filter(r => r.started).length, resultEntryCount: input.runners.length },
+      runners: input.runners.map(r => ({ ...r, resultStatus: "FINAL" as const })),
+    };
+    validateRaceResultArtifact(projection);
+    validateRaceResultArtifactV2Extras(projection);
+  } catch (error) {
+    issues.push({ code: "INVALID_RESULT_ARTIFACT", field: "runners", message: error instanceof Error ? error.message : "Result状態が不正です。" });
+  }
   if (input.schemaVersion !== POST_RACE_UPDATE_INPUT_SCHEMA_VERSION ||
       input.inputType !== "POST_RACE_UPDATE_INPUT" ||
       input.source !== "OFFICIAL_RESULT_PLUS_OBJECTIVE_DATA") {
@@ -370,7 +391,10 @@ export function gatePostRaceUpdateInputV1(input: PostRaceUpdateInputV1): PostRac
         canonicalHorseId: runner.canonicalHorseId,
       });
     }
-    if (runner.abilityUpdateEligibility === "ELIGIBLE") {
+    if (runner.abilityUpdateEligibility !== resultEligibility(runner)) {
+      issues.push({ code: "ELIGIBILITY_MISMATCH", field: "abilityUpdateEligibility", canonicalHorseId: runner.canonicalHorseId, message: "公式runner状態とeligibilityが一致しません。" });
+    }
+    if (resultEligibility(runner) === "ELIGIBLE") {
       const required: Array<[string, unknown]> = [
         ["finishPosition", runner.finishPosition],
         ["actualRaceTime", runner.actualRaceTime],
@@ -419,10 +443,10 @@ export function gatePostRaceUpdateInputV1(input: PostRaceUpdateInputV1): PostRac
         message: `runner(${runner.canonicalHorseId})の事前能力履歴が取得不能です。NO_PRIORとは区別して拒否します。`,
         canonicalHorseId: runner.canonicalHorseId,
       });
-    } else if (runner.started) {
+    } else if (runner.started || prior.priorRacesNewestFirst.length !== 0 || !prior.reasonCode) {
       issues.push({
         code: "INVALID_OBJECTIVE_VALUE",
-        message: `出走馬(${runner.canonicalHorseId})のpriorAbilityをNOT_APPLICABLEにはできません。`,
+        message: `出走馬(${runner.canonicalHorseId})のpriorAbility=NOT_APPLICABLEの状態が不正です。`,
         canonicalHorseId: runner.canonicalHorseId,
       });
     }
@@ -493,6 +517,15 @@ export function buildPostRaceUpdateInputV1(
   objective: PostRaceObjectiveDataV1,
   builtAt: string,
 ): BuildPostRaceUpdateInputOutcome {
+  const runtimeIssues = [...validatePostRaceResultRuntime(result), ...validatePostRaceObjectiveRuntime(objective)];
+  if (runtimeIssues.length > 0) return { status: "rejected", issues: runtimeIssues };
+  try {
+    // Shape/finite-number checks must happen before JSON serialization (NaN -> null).
+    deserializeRaceResultArtifactV2(JSON.stringify(result));
+  } catch (error) {
+    return { status: "rejected", issues: [{ code: "INVALID_RESULT_ARTIFACT", field: "result",
+      message: error instanceof Error ? error.message : "Result v2の再検証に失敗しました。" }] };
+  }
   const preflightIssues: PostRaceUpdateInputIssue[] = [];
   if (!isCalibrationFinalResult(result)) {
     preflightIssues.push({ code: "RESULT_NOT_FINAL", message: `resultStatus=${result.resultStatus}は正式確定結果ではありません。` });

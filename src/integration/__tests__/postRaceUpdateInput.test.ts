@@ -1,10 +1,15 @@
 import { describe, expect, it } from "vitest";
 import {
   buildPostRaceUpdateInputV1,
+  gatePostRaceUpdateInputV1,
+  type PostRaceUpdateInputV1,
   type PostRaceEvidenceV1,
   type PostRaceObjectiveDataV1,
 } from "../postRaceUpdateInput";
 import { buildRaceResultArtifactV2, type BuildRaceResultArtifactV2Input } from "../raceResultArtifact";
+
+import { calculatePostRaceUpdateInputFingerprint } from "../postRaceUpdateInputFingerprint";
+import { deserializePostRaceUpdateInputV1, serializePostRaceUpdateInputV1, PostRaceUpdateInputSerializationError } from "../postRaceUpdateInputSerialization";
 
 const raceId = "JRA-20260913-NAKAYAMA-11";
 const builtAt = "2026-09-13T17:00:00+09:00";
@@ -243,5 +248,129 @@ describe("Post-Race Update Input Contract V1", () => {
     expect(outcome.status).toBe("rejected");
     if (outcome.status !== "rejected") throw new Error("unreachable");
     expect(outcome.issues.some((issue) => issue.code === "PRIOR_CONTEXT_UNAVAILABLE")).toBe(true);
+  });
+});
+
+
+describe("C1 untrusted runtime input boundary", () => {
+  function valid(): PostRaceUpdateInputV1 {
+    const outcome = build();
+    if (outcome.status !== "accepted") throw new Error(JSON.stringify(outcome.issues));
+    return outcome.input;
+  }
+
+  it.each([
+    ["stale fingerprint", (r: ReturnType<typeof buildRaceResultArtifactV2>) => { r.runners[0].actualRaceTime = 140; }],
+    ["artifactId mismatch", (r: ReturnType<typeof buildRaceResultArtifactV2>) => { r.artifactId += "changed"; }],
+    ["empty artifactId", (r: ReturnType<typeof buildRaceResultArtifactV2>) => { r.artifactId = ""; }],
+    ["empty fingerprint", (r: ReturnType<typeof buildRaceResultArtifactV2>) => { r.resultContentFingerprint = ""; }],
+    ["unknown Result status", (r: ReturnType<typeof buildRaceResultArtifactV2>) => { Object.assign(r, { resultStatus: "BOGUS" }); }],
+    ["unknown Result schema", (r: ReturnType<typeof buildRaceResultArtifactV2>) => { Object.assign(r, { schemaVersion: "BOGUS" }); }],
+    ["nonboolean Result flag", (r: ReturnType<typeof buildRaceResultArtifactV2>) => { Object.assign(r.runners[0], { started: "true" }); }],
+    ["negative actualRaceTime", (r: ReturnType<typeof buildRaceResultArtifactV2>) => { r.runners[0].actualRaceTime = -100; }],
+    ["NaN", (r: ReturnType<typeof buildRaceResultArtifactV2>) => { r.runners[0].timeGap = NaN; }],
+    ["Infinity", (r: ReturnType<typeof buildRaceResultArtifactV2>) => { r.runners[0].final3F = Infinity; }],
+  ] as const)("builder rejects %s before issuing a new Contract", (_name, mutate) => {
+    const result = buildRaceResultArtifactV2(resultInput());
+    mutate(result);
+    const outcome = buildPostRaceUpdateInputV1(result, objective(), builtAt);
+    expect(outcome.status).toBe("rejected");
+    if (outcome.status === "rejected") expect(outcome.issues[0]).toMatchObject({ code: expect.any(String), field: expect.any(String) });
+  });
+
+  const corruptions: Array<[string, (input: PostRaceUpdateInputV1) => void]> = [
+    ["empty resultArtifactId", i => { i.resultArtifactId = ""; }],
+    ["empty resultContentFingerprint", i => { i.resultContentFingerprint = ""; }],
+    ["negative actualRaceTime", i => { i.runners[0].actualRaceTime = -100; }],
+    ["negative timeGap under Result v2 semantics", i => { i.runners[0].timeGap = -0.1; }],
+    ["zero final3F", i => { i.runners[0].final3F = 0; }],
+    ["zero carriedWeight", i => { i.runners[0].carriedWeight = 0; }],
+    ["fractional finishPosition", i => { i.runners[0].finishPosition = 1.5; }],
+    ["unknown optional status", i => { Object.assign(i.runners[0].bodyWeight, { status: "BOGUS" }); }],
+    ["unknown eligibility", i => { Object.assign(i.runners[0], { abilityUpdateEligibility: "BOGUS", actualRaceTime: null }); }],
+    ["eligibility bypass", i => { i.runners[0].abilityUpdateEligibility = "INELIGIBLE_NON_START"; i.runners[0].actualRaceTime = null; }],
+    ["boolean string", i => { Object.assign(i.runners[0], { started: "true" }); }],
+    ["contradictory result flags", i => { i.runners[0].scratched = true; i.runners[0].abilityUpdateEligibility = "INELIGIBLE_NON_START"; }],
+    ["malformed passing position", i => { Object.assign(i.runners[0], { passingPosition: { cornerPositions: null } }); }],
+    ["unknown prior status", i => { Object.assign(i.runners[0].priorAbility, { status: "BOGUS" }); }],
+    ["AVAILABLE without value", i => { i.runners[0].bodyWeight.status = "AVAILABLE"; i.runners[0].bodyWeight.reasonCode = null; }],
+    ["non-null unavailable value", i => { i.runners[0].bodyWeight.value = 480; }],
+    ["malformed benchmark value", i => { Object.assign(i.benchmarks.courseTimeBaseline, { status: "AVAILABLE", value: {}, reasonCode: null }); }],
+    ["null same-day row", i => { Object.assign(i.benchmarks.sameDayRaceTimes, { status: "AVAILABLE", value: [null], reasonCode: null }); }],
+    ["unknown transform version", i => { Object.assign(i, { transformVersion: "999" }); }],
+  ];
+  it.each(corruptions)("matching checksum does not authorize %s", (_name, mutate) => {
+    const input = valid();
+    mutate(input);
+    // Adversarial producer recomputes a matching checksum for invalid content.
+    input.inputContentFingerprint = calculatePostRaceUpdateInputFingerprint(input);
+    expect(gatePostRaceUpdateInputV1(input).length).toBeGreaterThan(0);
+    expect(() => serializePostRaceUpdateInputV1(input)).toThrow(PostRaceUpdateInputSerializationError);
+    try {
+      deserializePostRaceUpdateInputV1(JSON.stringify(input));
+      expect.unreachable("invalid content accepted");
+    } catch (error) {
+      expect(error).toBeInstanceOf(PostRaceUpdateInputSerializationError);
+      expect((error as PostRaceUpdateInputSerializationError).issues.length).toBeGreaterThan(0);
+    }
+  });
+
+  it.each([NaN, Infinity, -Infinity])("rejects non-finite numbers before JSON normalization: %s", value => {
+    const input = valid();
+    input.runners[0].actualRaceTime = value;
+    expect(gatePostRaceUpdateInputV1(input).some(i => i.field?.endsWith("actualRaceTime"))).toBe(true);
+    expect(() => serializePostRaceUpdateInputV1(input)).toThrow(PostRaceUpdateInputSerializationError);
+  });
+
+  it.each([null, {}, { runners: [null] }])("rejects malformed runtime roots without TypeError: %j", value => {
+    expect(gatePostRaceUpdateInputV1(value).length).toBeGreaterThan(0);
+    expect(() => deserializePostRaceUpdateInputV1(JSON.stringify(value))).toThrow(PostRaceUpdateInputSerializationError);
+  });
+
+  it("rejects malformed nested runner / Evidence / objective before hashing", () => {
+    for (const field of ["runners", "evidence"] as const) {
+      const input = valid();
+      Object.assign(input, { [field]: [null] });
+      expect(gatePostRaceUpdateInputV1(input).length).toBeGreaterThan(0);
+      expect(() => deserializePostRaceUpdateInputV1(JSON.stringify(input))).toThrow(PostRaceUpdateInputSerializationError);
+    }
+    const data = objective();
+    Object.assign(data.runners[0], { priorAbility: null });
+    expect(buildPostRaceUpdateInputV1(buildRaceResultArtifactV2(resultInput()), data, builtAt).status).toBe("rejected");
+    const result = buildRaceResultArtifactV2(resultInput());
+    Object.assign(result, { runners: [null] });
+    expect(buildPostRaceUpdateInputV1(result, objective(), builtAt).status).toBe("rejected");
+  });
+
+  it("rejects sparse runtime arrays before hashing", () => {
+    const input = valid();
+    input.runners = new Array(2);
+    expect(gatePostRaceUpdateInputV1(input).length).toBeGreaterThan(0);
+  });
+
+  it("uses the same final-runner rules for CORRECTED without resolving its chain", () => {
+    const raw = resultInput();
+    raw.resultStatus = "CORRECTED";
+    raw.resultVersion = 2;
+    raw.supersedesArtifactId = "previous-result";
+    raw.runners.forEach(r => { r.resultStatus = "CORRECTED"; });
+    const outcome = buildPostRaceUpdateInputV1(buildRaceResultArtifactV2(raw), objective(), builtAt);
+    expect(outcome.status).toBe("accepted");
+  });
+
+  it("rejects a contradictory non-start at the official Result boundary", () => {
+    const result = buildRaceResultArtifactV2(resultInput());
+    result.runners[0].started = false;
+    // Rebuild cannot legalize invalid official states either.
+    expect(() => buildRaceResultArtifactV2(result)).toThrow();
+    expect(buildPostRaceUpdateInputV1(result, objective(), builtAt).status).toBe("rejected");
+  });
+
+  it("accepts valid fixture and round-trip without mutation", () => {
+    const input = valid();
+    const before = structuredClone(input);
+    expect(gatePostRaceUpdateInputV1(input)).toEqual([]);
+    expect(deserializePostRaceUpdateInputV1(serializePostRaceUpdateInputV1(input))).toEqual(input);
+    expect(input).toEqual(before);
   });
 });
