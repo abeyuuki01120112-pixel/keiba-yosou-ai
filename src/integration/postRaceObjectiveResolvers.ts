@@ -1,3 +1,5 @@
+import { validPriorProofEnvelope, verifyPriorScoreAsOf, verifyNoPriorAsOf, predictionAsOfReference, type PriorScoreProof, type PriorVerificationContext } from "./priorScoreProvenance";
+import { isPriorPerformance } from "../ability/predictionBoundary";
 /**
  * Final Result / 既存履歴 / baseline repositoryをPost-Race Contract用の
  * 客観データへ写す純粋resolver。Ability計算・履歴更新・永続化は行わない。
@@ -115,7 +117,14 @@ export function resolveObjectiveRunnersV1(
   result: RaceResultArtifactV2,
   priorHistories: readonly PriorHistoryEntry[],
   readProvenance: ResolverReadProvenance,
+  verification?: { context: PriorVerificationContext; proofs: PriorScoreProof[] },
 ): ObjectiveRunnerResolutionOutcome {
+  if (verification && (!Array.isArray(verification.proofs) || !verification.proofs.every(validPriorProofEnvelope))) {
+    return { status: "rejected", issues: [{ code: "PROVENANCE_INCOMPLETE", message: "prior証拠のruntime構造が不正です。" }] };
+  }
+  if (verification && new Set(verification.proofs.map(p => `${p.evidence.canonicalHorseId}/${p.evidence.priorRaceId}`)).size !== verification.proofs.length) {
+    return { status: "rejected", issues: [{ code: "PROVENANCE_INCOMPLETE", message: "prior score証拠が重複しています。" }] };
+  }
   const duplicateIds = priorHistories.map((entry) => entry.horseId)
     .filter((id, index, all) => all.indexOf(id) !== index);
   if (duplicateIds.length > 0) {
@@ -174,8 +183,8 @@ export function resolveObjectiveRunnersV1(
         };
       }
       if (entry.races.length === 0) {
-        priorAbility = entry.careerStartCountAsOf === 0
-          ? { status: "NO_PRIOR", priorRacesNewestFirst: [], reasonCode: "NO_PRIOR_CONFIRMED", evidenceIds: [queryId] }
+        priorAbility = verification && verifyNoPriorAsOf({ history: entry, context: verification.context }, { targetRaceId: result.race.raceId, targetRaceDate: result.race.raceDate, canonicalHorseId: horseId })
+          ? { status: "NO_PRIOR", priorRacesNewestFirst: [], reasonCode: "NO_PRIOR_CONFIRMED", evidenceIds: [queryId], noPriorProof: { history: structuredClone(entry), context: structuredClone(verification!.context) } }
           : unavailablePrior("EMPTY_HISTORY_WITHOUT_ZERO_CAREER_COUNT", queryId);
       } else if (entry.races.some((race) => !validPriorEvidenceFields(race))) {
         priorAbility = unavailablePrior("PRIOR_RACE_PROVENANCE_INCOMPLETE", queryId);
@@ -183,32 +192,47 @@ export function resolveObjectiveRunnersV1(
         const races = [...entry.races].sort(
           (left, right) => right.raceDate.localeCompare(left.raceDate) || left.raceId.localeCompare(right.raceId),
         );
-        const priorEvidence = races.map((race) => {
-          const evidenceId = `prior:${evidenceIdPart(horseId)}:${evidenceIdPart(race.raceId)}`;
-          evidence.push({
-            evidenceId,
-            kind: "PRIOR_RACE_PERFORMANCE",
-            source: race.source as string,
-            sourceIdentifier: race.sourceRaceId as string,
-            targetRaceId: result.race.raceId,
-            referenceRaceId: race.raceId,
-            availableAt: race.availableAt as string,
-            retrievedAt: race.importedAt && Number.isFinite(Date.parse(race.importedAt))
-              ? race.importedAt
-              : entry.provenance.retrievedAt,
+        const proofs = races.map(race => verification?.proofs.find(p => p.evidence.canonicalHorseId === horseId && p.evidence.priorRaceId === race.raceId));
+        let valid = false;
+        try {
+          const p = predictionAsOfReference(verification!.context.predictionArtifact);
+          valid = entry.provenance.targetRaceId === result.race.raceId && entry.provenance.targetAsOf === p.predictionCutoffAt &&
+            races.every((race, index) => isPriorPerformance(race, { raceId: result.race.raceId, raceDate: result.race.raceDate }, p.predictionCutoffAt) &&
+              proofs[index] && proofs[index]!.evidence.priorRaceDate === race.raceDate && proofs[index]!.context.predictionArtifact === verification!.context.predictionArtifact &&
+              verifyPriorScoreAsOf(proofs[index]!.evidence, proofs[index]!.context,
+                { targetRaceId: result.race.raceId, targetRaceDate: result.race.raceDate, canonicalHorseId: horseId }).available);
+        } catch { valid = false; }
+        if (!valid) {
+          priorAbility = unavailablePrior("PRIOR_AS_OF_UNVERIFIED", queryId);
+        } else {
+          const priorEvidence = races.map((race) => {
+            const evidenceId = `prior:${evidenceIdPart(horseId)}:${evidenceIdPart(race.raceId)}`;
+            evidence.push({
+              evidenceId,
+              kind: "PRIOR_RACE_PERFORMANCE",
+              source: race.source as string,
+              sourceIdentifier: race.sourceRaceId as string,
+              targetRaceId: result.race.raceId,
+              referenceRaceId: race.raceId,
+              availableAt: race.availableAt as string,
+              retrievedAt: race.importedAt && Number.isFinite(Date.parse(race.importedAt))
+                ? race.importedAt
+                : entry.provenance.retrievedAt,
+            });
+            return evidenceId;
           });
-          return evidenceId;
-        });
-        priorAbility = {
-          status: "AVAILABLE",
-          priorRacesNewestFirst: races.map((race) => ({
-            raceId: race.raceId,
-            raceDate: race.raceDate,
-            raceScore: race.raceScore,
-          })),
-          reasonCode: null,
-          evidenceIds: priorEvidence,
-        };
+          priorAbility = {
+            status: "AVAILABLE",
+            priorRacesNewestFirst: races.map((race, index) => ({
+              raceId: race.raceId,
+              raceDate: race.raceDate,
+              raceScore: proofs[index]!.evidence.score!,
+            })),
+            reasonCode: null,
+            scoreProofs: structuredClone(proofs as PriorScoreProof[]),
+            evidenceIds: priorEvidence,
+          };
+        }
       }
     }
 

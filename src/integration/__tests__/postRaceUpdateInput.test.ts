@@ -1,3 +1,4 @@
+import { attachFixtureProof } from "./priorScoreFixture";
 import { describe, expect, it } from "vitest";
 import {
   buildPostRaceUpdateInputV1,
@@ -76,7 +77,7 @@ function unavailable(reasonCode: string, evidenceId: string) {
 }
 
 function objective(): PostRaceObjectiveDataV1 {
-  return {
+  const data: PostRaceObjectiveDataV1 = {
     race: {
       raceId,
       raceDate: "2026-09-13",
@@ -128,6 +129,8 @@ function objective(): PostRaceObjectiveDataV1 {
       evidence("same-day-query", "SAME_DAY_RESULT"),
     ],
   };
+  data.runners.forEach(r => attachFixtureProof(r.priorAbility, r.canonicalHorseId));
+  return data;
 }
 
 function build(resultOverrides?: (input: BuildRaceResultArtifactV2Input) => void,
@@ -373,4 +376,34 @@ describe("C1 untrusted runtime input boundary", () => {
     expect(deserializePostRaceUpdateInputV1(serializePostRaceUpdateInputV1(input))).toEqual(input);
     expect(input).toEqual(before);
   });
+});
+
+
+describe("C2 Contract Gate bypass prevention", () => {
+  it("rejects manually supplied AVAILABLE without proof after checksum renewal", () => {
+    const outcome = build();
+    if (outcome.status !== "accepted") throw new Error("fixture rejected");
+    delete outcome.input.runners[0].priorAbility.scoreProofs;
+    outcome.input.inputContentFingerprint = calculatePostRaceUpdateInputFingerprint(outcome.input);
+    expect(gatePostRaceUpdateInputV1(outcome.input).some(i => i.code === "PRIOR_CONTEXT_UNAVAILABLE")).toBe(true);
+    expect(() => deserializePostRaceUpdateInputV1(JSON.stringify(outcome.input))).toThrow(PostRaceUpdateInputSerializationError);
+  });
+  it("rejects manually supplied NO_PRIOR without proof", () => {
+    const outcome = build();
+    if (outcome.status !== "accepted") throw new Error("fixture rejected");
+    delete outcome.input.runners[1].priorAbility.noPriorProof;
+    outcome.input.inputContentFingerprint = calculatePostRaceUpdateInputFingerprint(outcome.input);
+    expect(gatePostRaceUpdateInputV1(outcome.input).some(i => i.code === "PRIOR_CONTEXT_UNAVAILABLE")).toBe(true);
+  });
+});
+
+
+it("C2 rejects cyclic/malformed proof envelopes before Contract hashing", () => {
+  const outcome = build();
+  if (outcome.status !== "accepted") throw new Error("fixture rejected");
+  const prior = outcome.input.runners[0].priorAbility;
+  const context = prior.scoreProofs![0].context;
+  Object.assign(context, { cycle: context });
+  expect(() => gatePostRaceUpdateInputV1(outcome.input)).not.toThrow();
+  expect(gatePostRaceUpdateInputV1(outcome.input).some(i => i.code === "INVALID_RUNTIME_SCHEMA")).toBe(true);
 });

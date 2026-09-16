@@ -1,3 +1,4 @@
+import { scoreProofFixture, predictionFixture } from "./priorScoreFixture";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -24,6 +25,7 @@ import { buildRaceResultArtifactV2, type BuildRaceResultArtifactV2Input, type Ra
 
 const raceId = "JRA-20260913-NAKAYAMA-11";
 const horseIds = ["2022000001", "2022000002", "2022000003"];
+const verification = { context: { predictionArtifact: predictionFixture(), dependencies: [] }, proofs: [scoreProofFixture()] };
 const resolvedAt = "2026-09-13T16:30:00+09:00";
 const resolverProvenance: ResolverReadProvenance = {
   source: "MAC_OBJECTIVE_REPOSITORY",
@@ -129,6 +131,7 @@ function priorEntry(horseId: string, races: RacePerformance[], careerStartCountA
     status: "available",
     races,
     careerStartCountAsOf,
+    selectedRaceKeys: races.map(r => r.raceId),
     provenance: sourceProvenance(horseId),
   };
 }
@@ -148,7 +151,7 @@ function buildAcceptedInput(builtAt = "2026-09-13T17:00:00+09:00") {
   const resolved = resolveObjectiveRunnersV1(resultArtifact(), [
     priorEntry(horseIds[0], [priorRace()], 1),
     priorEntry(horseIds[2], [], 0),
-  ], resolverProvenance);
+  ], resolverProvenance, verification);
   if (resolved.status !== "accepted") throw new Error("fixture prior rejected");
   const baseline = resolveBenchmarkContextV1(mapped.race, [timeBaseline], [final3FBaseline], resolverProvenance);
   const objective: PostRaceObjectiveDataV1 = {
@@ -176,7 +179,7 @@ describe("Post-Race Objective resolver / serialization", () => {
   });
 
   it("3. 取消馬を削除せずNOT_APPLICABLEとして保持する", () => {
-    const outcome = resolveObjectiveRunnersV1(resultArtifact(), [], resolverProvenance);
+    const outcome = resolveObjectiveRunnersV1(resultArtifact(), [], resolverProvenance, verification);
     expect(outcome.status).toBe("accepted");
     if (outcome.status !== "accepted") return;
     expect(outcome.runners).toHaveLength(3);
@@ -185,31 +188,31 @@ describe("Post-Race Objective resolver / serialization", () => {
     });
   });
 
-  it("4. provenanceが揃ったstrictly-prior履歴をAVAILABLEにする", () => {
-    const outcome = resolveObjectiveRunnersV1(resultArtifact(), [priorEntry(horseIds[0], [priorRace()], 1)], resolverProvenance);
+  it("4. VERIFIED_AS_OF証拠を照合した履歴をAVAILABLEにする", () => {
+    const outcome = resolveObjectiveRunnersV1(resultArtifact(), [priorEntry(horseIds[0], [priorRace()], 1)], resolverProvenance, verification);
     if (outcome.status !== "accepted") throw new Error("unexpected rejection");
     expect(outcome.runners[0].priorAbility).toMatchObject({ status: "AVAILABLE", priorRacesNewestFirst: [{ raceScore: 72.4 }] });
   });
 
-  it("5. careerStartCountAsOf=0で空履歴だけをNO_PRIORにする", () => {
-    const outcome = resolveObjectiveRunnersV1(resultArtifact(), [priorEntry(horseIds[0], [], 0)], resolverProvenance);
+  it("5. 正式cutoffの0走証拠をNO_PRIORにする", () => {
+    const outcome = resolveObjectiveRunnersV1(resultArtifact(), [priorEntry(horseIds[0], [], 0)], resolverProvenance, verification);
     if (outcome.status !== "accepted") throw new Error("unexpected rejection");
     expect(outcome.runners[0].priorAbility.status).toBe("NO_PRIOR");
   });
 
   it("6. 空履歴でもゼロ件確認がなければUNAVAILABLEにする", () => {
-    const outcome = resolveObjectiveRunnersV1(resultArtifact(), [priorEntry(horseIds[0], [])], resolverProvenance);
+    const outcome = resolveObjectiveRunnersV1(resultArtifact(), [priorEntry(horseIds[0], [])], resolverProvenance, verification);
     if (outcome.status !== "accepted") throw new Error("unexpected rejection");
     expect(outcome.runners[0].priorAbility).toMatchObject({ status: "UNAVAILABLE", reasonCode: "EMPTY_HISTORY_WITHOUT_ZERO_CAREER_COUNT" });
   });
 
   it("7. 未来のpriorをresolverで拒否する", () => {
-    const outcome = resolveObjectiveRunnersV1(resultArtifact(), [priorEntry(horseIds[0], [priorRace("2026-09-14")])], resolverProvenance);
+    const outcome = resolveObjectiveRunnersV1(resultArtifact(), [priorEntry(horseIds[0], [priorRace("2026-09-14")])], resolverProvenance, verification);
     expect(outcome).toMatchObject({ status: "rejected", issues: [{ code: "FUTURE_PRIOR" }] });
   });
 
   it("8. 同日priorをresolverで拒否する", () => {
-    const outcome = resolveObjectiveRunnersV1(resultArtifact(), [priorEntry(horseIds[0], [priorRace("2026-09-13")])], resolverProvenance);
+    const outcome = resolveObjectiveRunnersV1(resultArtifact(), [priorEntry(horseIds[0], [priorRace("2026-09-13")])], resolverProvenance, verification);
     expect(outcome).toMatchObject({ status: "rejected", issues: [{ code: "FUTURE_PRIOR" }] });
   });
 
@@ -333,7 +336,7 @@ describe("fixture全頭E2E", () => {
       if (imported.status !== "built") throw new Error(`result import failed: ${imported.status}`);
       const prior = resolveObjectiveRunnersV1(imported.artifact, [
         priorEntry(horseIds[0], [priorRace()], 1), priorEntry(horseIds[2], [], 0),
-      ], resolverProvenance);
+      ], resolverProvenance, verification);
       if (prior.status !== "accepted") throw new Error("prior rejected");
       const baselines = resolveBenchmarkContextV1(mapped.race, [timeBaseline], [final3FBaseline], resolverProvenance);
       const built = buildPostRaceUpdateInputV1(imported.artifact, {

@@ -1,3 +1,4 @@
+import { validPriorProofEnvelope, validNoPriorProofEnvelope } from "./priorScoreProvenance";
 /** Runtime shape checks precede hashing/access. No coercion, defaults or scoring. */
 import type { PostRaceUpdateInputIssue } from "./postRaceUpdateInput";
 
@@ -47,7 +48,7 @@ const observed = (value: Check): Check => {
     }
   };
 };
-const prior = object({ status: enumeration("AVAILABLE", "NO_PRIOR", "UNAVAILABLE", "NOT_APPLICABLE"),
+const prior = object({ scoreProofs: optional(array(rule(validPriorProofEnvelope))), noPriorProof: optional(rule(validNoPriorProofEnvelope)), status: enumeration("AVAILABLE", "NO_PRIOR", "UNAVAILABLE", "NOT_APPLICABLE"),
   priorRacesNewestFirst: array(object({ raceId: string, raceDate: date, raceScore: number })),
   reasonCode: nullable(string), evidenceIds: ids });
 const objectiveRunnerFields = { canonicalHorseId: string, priorAbility: prior, bodyWeight: observed(positive), bodyWeightChange: observed(number) };

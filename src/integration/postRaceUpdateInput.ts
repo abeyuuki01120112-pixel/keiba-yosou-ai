@@ -1,3 +1,4 @@
+import { verifyPriorScoreAsOf, verifyNoPriorAsOf, type PriorScoreProof, type NoPriorProof } from "./priorScoreProvenance";
 /**
  * Post-Race Update Input Contract V1.
  *
@@ -65,6 +66,8 @@ export interface PriorRaceScoreV1 {
 export type PriorAbilityStatus = "AVAILABLE" | "NO_PRIOR" | "UNAVAILABLE" | "NOT_APPLICABLE";
 
 export interface PriorAbilityContextV1 {
+  scoreProofs?: PriorScoreProof[];
+  noPriorProof?: NoPriorProof;
   status: PriorAbilityStatus;
   /** 新しい順。対象レースより厳密に前の確定済みraceScoreだけを保持する。 */
   priorRacesNewestFirst: PriorRaceScoreV1[];
@@ -371,6 +374,7 @@ export function gatePostRaceUpdateInputV1(value: unknown): PostRaceUpdateInputIs
     });
   }
 
+  const priorPredictionReferences = new Set<string>();
   for (const runner of input.runners) {
     if (runner.raceId !== input.race.raceId) {
       issues.push({
@@ -415,6 +419,24 @@ export function gatePostRaceUpdateInputV1(value: unknown): PostRaceUpdateInputIs
     }
 
     const prior = runner.priorAbility;
+    const expectedPrior = { targetRaceId: input.race.raceId, targetRaceDate: input.race.raceDate, canonicalHorseId: runner.canonicalHorseId };
+    if (prior.status === "AVAILABLE") {
+      const proofs = prior.scoreProofs;
+      if (!Array.isArray(proofs) || proofs.length !== prior.priorRacesNewestFirst.length ||
+          prior.priorRacesNewestFirst.some((race, index) => {
+            const proof = proofs?.[index];
+            return !proof || !verifyPriorScoreAsOf(proof.evidence, proof.context, expectedPrior).available ||
+              proof.evidence.priorRaceId !== race.raceId || proof.evidence.priorRaceDate !== race.raceDate || proof.evidence.score !== race.raceScore;
+          })) issues.push({ code: "PRIOR_CONTEXT_UNAVAILABLE", field: "priorAbility", message: "検証済みas-of score証拠がありません。", canonicalHorseId: runner.canonicalHorseId });
+    }
+    if (prior.status === "NO_PRIOR" && !verifyNoPriorAsOf(prior.noPriorProof, expectedPrior)) {
+      issues.push({ code: "PRIOR_CONTEXT_UNAVAILABLE", field: "priorAbility", message: "対象cutoffでの正式0走を証明できません。", canonicalHorseId: runner.canonicalHorseId });
+    }
+    if (prior.status === "AVAILABLE" && Array.isArray(prior.scoreProofs)) {
+      for (const proof of prior.scoreProofs) if (proof?.context) priorPredictionReferences.add(proof.context.predictionArtifact);
+    }
+    if (prior.status === "NO_PRIOR" && prior.noPriorProof?.context) priorPredictionReferences.add(prior.noPriorProof.context.predictionArtifact);
+
     const priorRefsMayBeEmpty = prior.status === "NOT_APPLICABLE";
     issues.push(...validateEvidenceRefs("priorAbility", prior.evidenceIds, evidenceIds, priorRefsMayBeEmpty, runner.canonicalHorseId));
     if (prior.status === "AVAILABLE") {
@@ -472,6 +494,7 @@ export function gatePostRaceUpdateInputV1(value: unknown): PostRaceUpdateInputIs
     issues.push(...validateOptionalValue("bodyWeightChange", runner.bodyWeightChange, evidenceIds, runner.canonicalHorseId));
   }
 
+  if (priorPredictionReferences.size > 1) issues.push({ code: "PRIOR_CONTEXT_UNAVAILABLE", message: "prior証拠のPrediction参照が統一されていません。" });
   const benchmarks = input.benchmarks;
   issues.push(...validateOptionalValue("courseTimeBaseline", benchmarks.courseTimeBaseline, evidenceIds));
   issues.push(...validateOptionalValue("courseFinal3FBaseline", benchmarks.courseFinal3FBaseline, evidenceIds));
@@ -584,7 +607,7 @@ export function buildPostRaceUpdateInputV1(
       bodyWeight: { ...supplemental.bodyWeight, evidenceIds: [...supplemental.bodyWeight.evidenceIds] },
       bodyWeightChange: { ...supplemental.bodyWeightChange, evidenceIds: [...supplemental.bodyWeightChange.evidenceIds] },
       priorAbility: {
-        ...supplemental.priorAbility,
+        ...structuredClone(supplemental.priorAbility),
         priorRacesNewestFirst: supplemental.priorAbility.priorRacesNewestFirst.map((race) => ({ ...race })),
         evidenceIds: [...supplemental.priorAbility.evidenceIds],
       },
