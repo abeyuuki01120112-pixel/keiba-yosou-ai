@@ -1,3 +1,4 @@
+import { decodeJvTimeGap, readJvTimeGapRaw } from "./timeGap";
 import { buildRaceHistory, type RaceHistoryRawInput } from "../../ability/raceHistoryPipeline";
 import type {
   JvLinkSourceEvidence,
@@ -149,7 +150,7 @@ export function readSeMeasurementFields(se: JvRecord): {
     finishPositionRaw: se.field(335, 2),
     raceTimeRaw: se.field(339, 4),
     final3FRaw: se.field(391, 3),
-    timeGapRaw: se.field(532, 4),
+    timeGapRaw: readJvTimeGapRaw(se),
     carriedWeightRaw: se.field(289, 3),
     passingRaw: [352, 354, 356, 358].map((position) => se.field(position, 2)),
     gateRaw: se.field(28, 1),
@@ -167,10 +168,10 @@ function historyRace(ra: JvRecord, se: JvRecord): RaceHistoryRawInput {
   if (meta.going === "未発表") throw new Error(`MISSING_HISTORY_GOING: ${se.key}`);
   const time = fields.raceTimeRaw;
   const final3F = fields.final3FRaw;
-  const timeGap = fields.timeGapRaw;
+  const timeGap = decodeJvTimeGap(fields.timeGapRaw);
   if (!/^[0-9][0-5][0-9][0-9]$/.test(time) || time === "0000" ||
       !/^\d{3}$/.test(final3F) || final3F === "000" || final3F === "999" ||
-      !/^[+-]\d{3}$/.test(timeGap)) {
+      timeGap.status !== "AVAILABLE") {
     throw new Error(`MISSING_HISTORY_MEASUREMENTS: ${se.key}/${se.horseId}`);
   }
   const fieldSize = positiveJvNumber(ra.field(884, 2), "PAST_FIELD_SIZE");
@@ -183,7 +184,7 @@ function historyRace(ra: JvRecord, se: JvRecord): RaceHistoryRawInput {
     horseNumber: positiveJvNumber(fields.horseNumberRaw, "HORSE_NUMBER"),
     fieldSize,
     finishPosition: positiveJvNumber(fields.finishPositionRaw, "FINISH_POSITION"),
-    timeGap: Number(timeGap) / 10,
+    timeGap: timeGap.officialRawTimeGapSeconds,
     raceTime: Number(time[0]) * 60 + Number(time.slice(1)) / 10,
     final3F: Number(final3F) / 10,
     carriedWeight: positiveJvNumber(fields.carriedWeightRaw, "WEIGHT") / 10,

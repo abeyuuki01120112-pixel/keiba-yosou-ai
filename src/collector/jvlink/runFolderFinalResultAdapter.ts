@@ -34,12 +34,13 @@
  * 明示的に与えない限り、これらの走者を含むResult Artifactは構築しない。
  */
 
+import { decodeJvTimeGap, resultTimeBehindWinnerSeconds, type JvTimeGap } from "./timeGap";
 import type { PassingPositionData } from "../../ability/types";
 import { JvRecord, jvTimestampToIso, positiveJvNumber } from "./records";
 import { raceMeta, readSeMeasurementFields } from "./runFolderAdapter";
 import type { LoadedJvLinkRunFolder } from "./runFolderLoader";
 
-export const JVLINK_FINAL_RESULT_ADAPTER_VERSION = "1.0.0";
+export const JVLINK_FINAL_RESULT_ADAPTER_VERSION = "1.1.0";
 
 /** 確定成績として信頼できるstage値。既存historyRace()と同一の判定基準（過去走でも同じ2値を確定済み実績として扱っている）。 */
 const FINAL_RESULT_STAGES = ["6", "7"];
@@ -62,7 +63,9 @@ export interface AdaptedJvLinkFinalResultRunner {
   frameNumber: number;
   finishPosition: number;
   actualRaceTime: number | null;
-  timeGap: number | null;
+  /** Official signed SE value, distinct from Result v2 and retained without loss. */
+  officialJvTimeGap: JvTimeGap;
+  resultTimeBehindWinnerSeconds: number | null;
   final3F: number | null;
   final3FRank: number | null;
   passingPosition: PassingPositionData | null;
@@ -116,8 +119,7 @@ function extractRunner(se: JvRecord, fieldSize: number): AdaptedJvLinkFinalResul
   const final3FRaw = parseMeasurement(fields.final3FRaw, /^\d{3}$/, ["000", "999"]);
   const final3F = final3FRaw === null ? null : Number(final3FRaw) / 10;
 
-  const timeGapRaw = parseMeasurement(fields.timeGapRaw, /^[+-]\d{3}$/, []);
-  const timeGap = timeGapRaw === null ? null : Number(timeGapRaw) / 10;
+  const officialJvTimeGap = decodeJvTimeGap(fields.timeGapRaw);
 
   const carriedWeightRaw = parseMeasurement(fields.carriedWeightRaw, /^\d{3}$/, ["000"]);
   const carriedWeight = carriedWeightRaw === null ? null : Number(carriedWeightRaw) / 10;
@@ -133,7 +135,8 @@ function extractRunner(se: JvRecord, fieldSize: number): AdaptedJvLinkFinalResul
     frameNumber: positiveJvNumber(fields.gateRaw, "GATE"),
     finishPosition,
     actualRaceTime,
-    timeGap,
+    officialJvTimeGap,
+    resultTimeBehindWinnerSeconds: resultTimeBehindWinnerSeconds(officialJvTimeGap, finishPosition),
     final3F,
     final3FRank: null, // 全走者判明後にrankFinal3F()で確定する。
     passingPosition: passing.length === 0

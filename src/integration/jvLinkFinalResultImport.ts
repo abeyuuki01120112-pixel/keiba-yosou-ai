@@ -22,6 +22,7 @@ import {
   type AdaptedJvLinkFinalResultRunFolder,
   type UnclassifiedAbnormalRunner,
 } from "../collector/jvlink/runFolderFinalResultAdapter";
+import { buildJvLinkTimeGapEvidence, type JvLinkTimeGapEvidence } from "./postRaceTimeGap";
 import { loadJvLinkRunFolder } from "../collector/jvlink/runFolderLoader";
 import {
   submitOfficialResultInput,
@@ -67,11 +68,12 @@ export interface ImportJvLinkFinalResultOptions {
 export type ImportJvLinkFinalResultOutcome =
   | { status: "needs_manual_classification"; unclassified: UnclassifiedAbnormalRunner[] }
   | { status: "rejected"; rejections: OfficialResultInputRejection[] }
-  | { status: "built"; input: BuildRaceResultArtifactV2Input; artifact: RaceResultArtifactV2 }
+  | { status: "built"; input: BuildRaceResultArtifactV2Input; artifact: RaceResultArtifactV2; timeGapEvidence: JvLinkTimeGapEvidence }
   | {
       status: "persisted";
       input: BuildRaceResultArtifactV2Input;
       artifact: RaceResultArtifactV2;
+      timeGapEvidence: JvLinkTimeGapEvidence;
       persistence: PersistRaceResultArtifactResult;
     };
 
@@ -124,7 +126,7 @@ function normalToRunner(runner: AdaptedJvLinkFinalResultRunFolder["runners"][num
     didNotFinish: false,
     disqualified: false,
     actualRaceTime: runner.actualRaceTime,
-    timeGap: runner.timeGap,
+    timeGap: runner.resultTimeBehindWinnerSeconds,
     final3F: runner.final3F,
     final3FRank: runner.final3FRank,
     passingPosition: runner.passingPosition,
@@ -188,9 +190,10 @@ export function importJvLinkFinalResult(
     return { status: "rejected", rejections: outcome.rejections };
   }
 
+  const timeGapEvidence = buildJvLinkTimeGapEvidence(outcome.artifact, loaded.targetEntries.map(r => r.envelope));
   if (!options.persist) {
-    return { status: "built", input, artifact: outcome.artifact };
+    return { status: "built", input, artifact: outcome.artifact, timeGapEvidence };
   }
   const persistence = persistRaceResultArtifactV2(outcome.artifact, { dir: options.persistDir });
-  return { status: "persisted", input, artifact: outcome.artifact, persistence };
+  return { status: "persisted", input, artifact: outcome.artifact, persistence, timeGapEvidence };
 }

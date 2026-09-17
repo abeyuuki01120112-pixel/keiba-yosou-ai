@@ -181,7 +181,7 @@ describe("adaptJvLinkFinalResultRunFolder（Post-Race Pipeline V1・JV-Link Fina
     const winner = adapted.runners.find((r) => r.horseNumber === 1)!;
     expect(winner.finishPosition).toBe(1);
     expect(winner.actualRaceTime).toBeCloseTo(2 * 60 + 21.3, 5);
-    expect(winner.timeGap).toBe(0);
+    expect(winner.resultTimeBehindWinnerSeconds).toBe(0);
     expect(winner.final3F).toBeCloseTo(34.5, 5);
     expect(winner.carriedWeight).toBeCloseTo(56, 5);
   });
@@ -233,7 +233,7 @@ describe("adaptJvLinkFinalResultRunFolder（Post-Race Pipeline V1・JV-Link Fina
     expect(runner.carriedWeight).toBeNull();
     expect(runner.passingPosition).toBeNull();
     // timeGap="+000"は正規表現上有効な値（0秒差）であり欠損ではない。
-    expect(runner.timeGap).toBe(0);
+    expect(runner.resultTimeBehindWinnerSeconds).toBe(0);
   });
 
   it("異常区分: field(332,1)!==\"0\"の走者はunclassifiedAbnormalRunnersへ分離され、finishPosition等を推測しない", () => {
