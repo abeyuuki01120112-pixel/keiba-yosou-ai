@@ -20,6 +20,7 @@
     "import:jvlink-run": "vite-node scripts/importJvLinkRun.ts --",
     "import:jvlink-result": "vite-node scripts/importJvLinkFinalResult.ts --",
     "predict:race": "vite-node scripts/predictRace.ts --",
+    "readiness:pre-race": "tsx scripts/checkPreRaceReadiness.ts",
     "generate:derived": "vite-node scripts/generateDerivedPredictions.ts --"
   },
   "dependencies": {
